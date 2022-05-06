@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ktg.system.mapper.SysAutoCodePartMapper">
+
+    <resultMap type="SysAutoCodePart" id="SysAutoCodePartResult">
+        <id     property="partId"     column="part_id"     />
+        <result property="ruleId"     column="rule_id"   />
+        <result property="partIndex"    column="part_index"   />
+        <result property="partType"   column="part_type"   />
+        <result property="partCode" column="part_code"   />
+        <result property="partName"     column="part_name"  />
+        <result property="partLength"    column="part_length" />
+        <result property="dateFormat"    column="date_formart" />
+        <result property="inputCharacter"    column="input_character" />
+        <result property="fixCharacter"    column="fix_character" />
+        <result property="seriaStartNo"    column="seria_start_no" />
+        <result property="seriaStep"    column="seria_step" />
+        <result property="seriaNowNo"    column="seria_now_no" />
+        <result property="cycleFlag"    column="cycle_flag" />
+        <result property="cycleMethod"    column="cycle_method" />
+        <result property="remark"   column="remark"   />
+        <result property="createBy"   column="create_by"   />
+        <result property="createTime" column="create_time" />
+        <result property="updateBy"   column="update_by"   />
+        <result property="updateTime" column="update_time" />
+    </resultMap>
+
+    <sql id="selectSysAutoCodePartVo">
+        select d.part_id,d.rule_id,d.part_index,d.part_type,d.part_code, d.part_name,
+         d.part_length, d.date_formart,d.input_character,d.fix_character,d.seria_start_no,
+         d.seria_step,d.seria_now_no,d.cycle_flag,d.cycle_method,d.remark,d.create_by,
+         d.create_time,d.update_by,d.update_time
+        from sys_auto_code_part d
+    </sql>
+
+    <select id="selectSysAutoCodePartList" parameterType="SysAutoCodePart" resultMap="SysAutoCodePartResult">
+        <include refid="selectSysAutoCodePartVo"/>
+        where 1=1
+        <if test="partId != null and partId != 0">
+            AND part_id = #{partId}
+        </if>
+        <if test="ruleId != null and ruleId != 0">
+            AND rule_id = #{ruleId}
+        </if>
+        <if test="partIndex != null and partIndex != 0">
+            AND part_index = #{partIndex}
+        </if>
+        <if test="partType != null and partType != ''">
+            AND part_type = #{partType}
+        </if>
+        <if test="partCode != null and partCode != ''">
+            AND part_code = #{partCode}
+        </if>
+        <if test="partName != null and partName != ''">
+            AND part_name like concat('%', #{partName}, '%')
+        </if>
+        order by part_index asc
+    </select>
+
+    <select id="findById" parameterType="Long" resultMap="SysAutoCodePartResult">
+        <include refid="selectSysAutoCodePartVo">
+        </include>
+        where part_id = #{partId}
+    </select>
+
+    <select id="checkPartUnique" parameterType="SysAutoCodePart" resultMap="SysAutoCodePartResult">
+        <include refid="selectSysAutoCodePartVo"/>
+        where rule_id = #{ruleId}
+        and (part_code = #{partCode} or part_name = #{partName} or part_index = #{partIndex})
+    </select>
+
+    <insert id="add" parameterType="SysAutoCodePart">
+        insert into sys_auto_code_part(
+        rule_id,
+        part_index,
+        part_type,
+        part_code,
+        part_name,
+        <if test="partLength !=null and partLength !=0">
+            part_length,
+        </if>
+        <if test="dateFormart !=null and dateFormart !=''">
+            date_formart,
+        </if>
+        <if test="inputCharacter !=null and inputCharacter !=''">
+            input_character,
+        </if>
+        <if test="fixCharacter !=null and fixCharacter !=''">
+            fix_character,
+        </if>
+        <if test="seriaStartNo !=null and seriaStartNo !=0">
+            seria_start_no,
+        </if>
+        <if test="seriaStep !=null and seriaStep !=0">
+            seria_step,
+        </if>
+        <if test="seriaNowNo !=null and seriaNowNo !=0">
+            seria_now_no,
+        </if>
+        <if test="cycleFlag !=null and cycleFlag !=''">
+            cycle_flag,
+        </if>
+        <if test="cycleMethod !=null and cycleMethod !=''">
+            cycle_method,
+        </if>
+        remark,
+        create_by,
+        create_time
+        )values(
+        #{ruleId},
+        #{partIndex},
+        #{partType},
+        #{partCode},
+        #{partName},
+        <if test="partLength !=null and partLength !=0">
+            #{partLength},
+        </if>
+        <if test="dateFormart !=null and dateFormart !=''">
+            #{dateFormart},
+        </if>
+        <if test="inputCharacter !=null and inputCharacter !=''">
+            #{inputCharacter},
+        </if>
+        <if test="fixCharacter !=null and fixCharacter !=''">
+            #{fixCharacter},
+        </if>
+        <if test="seriaStartNo !=null and seriaStartNo !=0">
+            #{seriaStartNo},
+        </if>
+        <if test="seriaStep !=null and seriaStep !=0">
+            #{seriaStep},
+        </if>
+        <if test="seriaNowNo !=null and seriaNowNo !=0">
+            #{seriaNowNo},
+        </if>
+        <if test="cycleFlag !=null and cycleFlag !=''">
+            #{cycleFlag},
+        </if>
+        <if test="cycleMethod !=null and cycleMethod !=''">
+            #{cycleMethod},
+        </if>
+        #{remark},
+        #{createBy},
+        sysdate()
+        )
+    </insert>
+
+    <update id="updateSysAutoCodePart" parameterType="SysAutoCodePart">
+        update sys_auto_code_part
+        <set>
+            <if test="partIndex !=null and partIndex !=0">
+                part_index = #{partIndex},
+            </if>
+            <if test="partCode !=null and partCode !=''">
+                part_code = #{partCode},
+            </if>
+            <if test="partName !=null and partName !=''">
+                part_name = #{partName},
+            </if>
+            <if test="partLength !=null and partLength !=0">
+                part_length = #{partLength},
+            </if>
+            <if test="dateFormart !=null and dateFormart !=''">
+                date_formart = #{dateFormart},
+            </if>
+            <if test="inputCharacter !=null and inputCharacter !=''">
+                input_character = #{inputCharacter},
+            </if>
+            <if test="fixCharacter !=null and fixCharacter !=''">
+                fix_character = #{fixCharacter},
+            </if>
+            <if test="seriaStartNo !=null and seriaStartNo !=0">
+                seria_start_no = #{seriaStartNo},
+            </if>
+            <if test="seriaStep !=null and seriaStep !=0">
+                seria_step = #{seriaStep},
+            </if>
+            <if test="seriaNowNo !=null and seriaNowNo !=0">
+                seria_now_no = #{seriaNowNo},
+            </if>
+            <if test="cycleFlag !=null and cycleFlag !=''">
+                cycle_flag = #{cycleFlag},
+            </if>
+            <if test="cycleMethod !=null and cycleMethod !=''">
+                cycle_method = #{cycleMethod},
+            </if>
+            <if test="remark !=null and remark !=''">
+                remark = #{remark},
+            </if>
+            update_by = #{updateBy},
+            update_time = sysdate()
+        </set>
+        where part_id = #{partId}
+    </update>
+
+    <delete id="deleteById" parameterType="Long">
+        delete from sys_auto_code_part where part_id = #{partId}
+    </delete>
+
+</mapper>

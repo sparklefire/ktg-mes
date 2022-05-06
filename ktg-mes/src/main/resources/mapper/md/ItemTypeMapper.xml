@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ktg.mes.md.mapper.ItemTypeMapper">
+
+    <resultMap type="ItemType" id="ItemTypeResult">
+        <id     property="itemTypeId"     column="item_type_id"     />
+        <result property="itemTypeCode"     column="item_type_code"     />
+        <result property="itemTypeName"     column="item_type_name"     />
+        <result property="parentTypeId"   column="parent_type_id"   />
+        <result property="ancestors"   column="ancestors"   />
+        <result property="itemOrProduct"  column="item_or_product"   />
+        <result property="orderNum"   column="order_num"   />
+        <result property="enableFlag"     column="enable_flag"      />
+        <result property="remark"      column="remark"       />
+        <result property="attr1"      column="attr1"       />
+        <result property="attr2"      column="attr2"       />
+        <result property="attr3"      column="attr3"       />
+        <result property="attr4"      column="attr4"       />
+        <result property="createBy"   column="create_by"   />
+        <result property="createTime" column="create_time" />
+        <result property="updateBy"   column="update_by"   />
+        <result property="updateTime" column="update_time" />
+    </resultMap>
+
+    <sql id="selectItemTypeVo">
+        select d.item_type_id,d.item_type_code,d.item_type_name,d.parent_type_id,d.ancestors, d.item_or_product, d.order_num, d.enable_flag, d.remark,d.attr1,d.attr2,d.attr3,d.attr4, d.create_by, d.create_time
+        from md_item_type d
+    </sql>
+
+    <select id="selectItemTypeList" parameterType="ItemType" resultMap="ItemTypeResult">
+        <include refid="selectItemTypeVo"/>
+        where 1 = 1
+        <if test="itemTypeId != null and itemTypeId != 0">
+            AND item_type_id = #{itemTypeId}
+        </if>
+        <if test="parentTypeId != null and parentTypeId != 0">
+            AND parent_type_id = #{parentTypeId}
+        </if>
+        <if test="itemTypeCode != null and itemTypeCode != ''">
+            AND item_type_code like concat('%', #{itemTypeCode}, '%')
+        </if>
+        <if test="itemTypeName != null and itemTypeName != ''">
+            AND item_type_name like concat('%', #{itemTypeName}, '%')
+        </if>
+        <if test="enableFlag != null and enableFlag != ''">
+            AND enable_flag = #{enableFlag}
+        </if>
+        <if test="itemOrProduct != null and itemOrProduct != ''">
+            AND item_or_product = #{itemOrProduct}
+        </if>
+        <!-- 数据范围过滤 -->
+        ${params.dataScope}
+        order by d.parent_type_id, d.order_num
+    </select>
+
+    <select id="selectItemTypeById" parameterType="Long" resultMap="ItemTypeResult">
+        <include refid="selectItemTypeVo"/>
+        where item_type_id = #{itemTypeId}
+    </select>
+
+
+    <select id="hasChildByItemTypeId" parameterType="Long" resultType="int">
+		select count(1) from md_item_type
+		where  parent_type_id = #{parentTypeId} limit 1
+	</select>
+
+    <select id="hasItemByItemTypeId" parameterType="Long" resultType="int">
+        select count(1) from md_item
+        where item_type_id = #{itemTypeId} limit 1
+    </select>
+
+    <select id="selectChildrenItemTypeById" parameterType="Long" resultMap="ItemTypeResult">
+		select * from md_item_type where parent_type_id = #{parentTypeId} order by orderNum asc
+	</select>
+
+    <select id="selectNormalChildrenItemTypeById" parameterType="Long" resultType="int">
+		select count(*) from md_item_type where enable_flag = 'Y'  and parent_type_id = #{parentTypeId}
+	</select>
+
+    <select id="checkItemTypeNameUnique" resultMap="ItemTypeResult">
+        <include refid="selectItemTypeVo"/>
+        where item_type_name=#{itemTypeName} and parent_type_id = #{parentTypeId} limit 1
+    </select>
+    <select id="checkItemTypeCodeUnique" resultMap="ItemTypeResult">
+        <include refid="selectItemTypeVo"/>
+        where item_type_code=#{itemTypeCode} and parent_type_id = #{parentTypeId} limit 1
+    </select>
+
+    <insert id="insertItemType" parameterType="ItemType">
+        insert into md_item_type(
+        <if test="itemTypeId != null and itemTypeId != 0">item_type_id,</if>
+        <if test="parentTypeId != null and parentTypeId != 0">parent_type_id,</if>
+        <if test="ancestors != null and ancestors != ''">ancestors,</if>
+        <if test="itemTypeCode != null and itemTypeCode != ''">item_type_code,</if>
+        <if test="itemTypeName != null and itemTypeName != ''">item_type_name,</if>
+        <if test="orderNum != null and orderNum != ''">order_num,</if>
+        <if test="itemOrProduct != null and itemOrProduct != ''">item_or_product,</if>
+        <if test="enableFlag != null and enableFlag != ''">enable_flag,</if>
+        <if test="attr1 != null and attr1 != ''">attr1,</if>
+        <if test="attr2 != null and attr2 != ''">attr2,</if>
+        <if test="attr3 != null and attr3 != 0">attr3,</if>
+        <if test="attr4 != null and attr4 != 0">attr4,</if>
+        <if test="createBy != null and createBy != ''">create_by,</if>
+        create_time
+        )values(
+        <if test="itemTypeId != null and itemTypeId != 0">#{itemTypeId},</if>
+        <if test="parentTypeId != null and parentTypeId != 0">#{parentTypeId},</if>
+        <if test="ancestors != null and ancestors != ''">#{ancestors},</if>
+        <if test="itemTypeCode != null and itemTypeCode != ''">#{itemTypeCode},</if>
+        <if test="itemTypeName != null and itemTypeName != ''">#{itemTypeName},</if>
+        <if test="orderNum != null and orderNum != 0">#{orderNum},</if>
+        <if test="itemOrProduct != null and itemOrProduct != ''">#{itemOrProduct},</if>
+        <if test="enableFlag != null and enableFlag != ''">#{enableFlag},</if>
+        <if test="remark != null and remark != ''">#{remark},</if>
+        <if test="attr1 != null and attr1 != ''">#{attr1},</if>
+        <if test="attr2 != null and attr2 != ''">#{attr2},</if>
+        <if test="attr3 != null and attr3 != 0">#{attr3},</if>
+        <if test="attr4 != null and attr4 != 0">#{attr4},</if>
+        <if test="createBy != null and createBy != ''">#{createBy},</if>
+        sysdate()
+        )
+    </insert>
+
+    <update id="updateItemType" parameterType="ItemType">
+        update md_item_type
+        <set>
+            <if test="parentTypeId != null and parentTypeId != 0">parent_type_id = #{parentTypeId},</if>
+            <if test="itemTypeName != null and itemTypeName != ''">item_type_name = #{itemTypeName},</if>
+            <if test="itemTypeCode != null and itemTypeCode != ''">item_type_code = #{itemTypeCode},</if>
+            <if test="itemOrProduct != null and itemOrProduct != ''">item_or_product = #{itemOrProduct},</if>
+            <if test="orderNum != null and orderNum != ''">order_num = #{orderNum},</if>
+            <if test="remark != null and remark !=''">remark = #{remark},</if>
+            <if test="enableFlag != null and enableFlag != ''">enable_flag = #{enableFlag},</if>
+            <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+            update_time = sysdate()
+        </set>
+        where item_type_id = #{itemTypeId}
+    </update>
+
+
+    <update id="updateItemTypeStatusNormal" parameterType="Long">
+        update md_item_type set enable_flag = 'N' where item_type_id in
+        <foreach collection="array" item="itemTypeId" open="(" separator="," close=")">
+            #{itemTypeId}
+        </foreach>
+    </update>
+
+    <delete id="deleteItemTypeById" parameterType="Long">
+		delete from  md_item_type  where item_type_id = #{itemTypeId}
+	</delete>
+
+    <delete id="deleteItemTypeByIds" parameterType="Long">
+        delete from md_item_type where item_type_id in
+        <foreach collection="array" item="itemTypeId" open="(" separator="," close=")">
+            #{itemTypeId}
+        </foreach>
+    </delete>
+
+</mapper>

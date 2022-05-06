@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ktg.mes.md.mapper.MdItemMapper">
+
+	<resultMap type="MdItem" id="MdItemResult">
+		<id     property="itemId"        column="item_id"       />
+		<result property="itemCode"      column="item_code"     />
+		<result property="itemName"      column="item_name"     />
+		<result property="specification"      column="specification"     />
+		<result property="unitOfMeasure"        column="unit_of_measure"        />
+		<result property="itemOrProduct"        column="item_or_product"        />
+		<result property="itemTypeId"        column="item_type_id"        />
+		<result property="itemTypeCode"        column="item_type_code"        />
+		<result property="itemTypeName"        column="item_type_name"        />
+		<result property="enableFlag"        column="enable_flag"        />
+		<result property="safeStockFlag"        column="safe_stock_flag"        />
+		<result property="minStock"        column="min_stock"        />
+		<result property="maxStock"        column="max_stock"        />
+		<result property="attr1"        column="attr1"        />
+		<result property="attr2"        column="attr2"        />
+		<result property="attr3"        column="attr3"        />
+		<result property="attr4"        column="attr4"        />
+		<result property="createBy"      column="create_by"     />
+		<result property="createTime"    column="create_time"   />
+		<result property="updateBy"      column="update_by"     />
+		<result property="updateTime"    column="update_time"   />
+		<result property="remark"        column="remark"        />
+	</resultMap>
+	
+	<sql id="selectMdItemVo">
+        select item_id, item_code, item_name, specification, unit_of_measure, item_or_product,
+        item_type_id,item_type_code,item_type_name,enable_flag,safe_stock_flag,min_stock,max_stock, create_by, create_time, remark
+		from md_item
+    </sql>
+	
+	<select id="selectMdItemList" parameterType="MdItem" resultMap="MdItemResult">
+	    <include refid="selectMdItemVo"/>
+		<where>
+			<if test="itemCode != null and itemCode != ''">
+				AND item_code like concat('%', #{itemCode}, '%')
+			</if>
+			<if test="itemTypeId != null and itemTypeId != 0 ">
+				AND (item_type_id = #{itemTypeId} OR item_type_id in (select item_type_id from md_item_type where find_in_set(#{itemTypeId},ancestors)))
+			</if>
+			<if test="itemName != null and itemName != ''">
+				AND item_name like concat('%', #{itemName}, '%')
+			</if>
+			<if test="enableFlag != null and enableFlag != ''">
+				AND enable_flag = #{enableFlag}
+			</if>
+		</where>
+	</select>
+
+	<select id="selectMdItemAll" resultMap="MdItemResult">
+		<include refid="selectMdItemVo"></include>
+	</select>
+
+	<select id="selectMdItemById" parameterType="Long" resultMap="MdItemResult">
+		<include refid="selectMdItemVo"></include>
+		where item_id = #{itemId}
+	</select>
+
+	<select id="checkItemCodeUnique" parameterType="MdItem" resultMap="MdItemResult">
+		<include refid="selectMdItemVo"/>
+		where item_code = #{itemCode} limit 1
+	</select>
+
+	<select id="checkItemNameUnique" parameterType="MdItem" resultMap="MdItemResult">
+		<include refid="selectMdItemVo"/>
+		where item_code = #{itemName} limit 1
+	</select>
+
+	<insert id="insertMdItem" parameterType="MdItem" useGeneratedKeys="true" keyProperty="itemId">
+		insert into md_item(
+			item_code,
+			item_name,
+			<if test="specification !=null and specification !=''">specification,</if>
+			unit_of_measure,
+			item_or_product,
+			item_type_id,
+			<if test="itemTypeCode !=null and itemTypeCode !=''">item_type_code,</if>
+			<if test="itemTypeName !=null and itemTypeName !=''">item_type_name,</if>
+			<if test="enableFlag !=null and enableFlag !=''">enable_flag,</if>
+			safe_stock_flag,
+			<if test="safeStockFlag =='Y'.toString()">min_stock,</if>
+			<if test="safeStockFlag =='Y'.toString()">max_stock,</if>
+			<if test="remark !=null and remark !=''">remark,</if>
+			<if test="attr1 !=null and attr1 !=''">attr1,</if>
+			<if test="attr2 !=null and attr2 !=''">attr2,</if>
+			<if test="attr3 !=null and attr3 !=0">attr3,</if>
+			<if test="attr4 !=null and attr4 !=0">attr4,</if>
+			<if test="createBy !=null and createBy !=''">create_by,</if>
+			create_time
+		)
+		values (
+			#{itemCode},
+			#{itemName},
+			<if test="specification !=null and specification !=''">#{specification},</if>
+			#{unitOfMeasure},
+			#{itemOrProduct},
+			#{itemTypeId},
+			<if test="itemTypeCode !=null and itemTypeCode !=''">#{itemTypeCode},</if>
+			<if test="itemTypeName !=null and itemTypeName !=''">#{itemTypeName},</if>
+			<if test="enableFlag !=null and enableFlag !=''">#{enableFlag},</if>
+			#{safeStockFlag},
+			<if test="safeStockFlag =='Y'.toString() and minStock !=null ">#{minStock},</if>
+			<if test="safeStockFlag =='Y'.toString() and safeStockFlag !=null ">#{maxStock},</if>
+			<if test="remark !=null and remark !=''">#{remark},</if>
+			<if test="attr1 !=null and attr1 !=''">#{attr1},</if>
+			<if test="attr2 !=null and attr2 !=''">#{attr2},</if>
+			<if test="attr3 !=null and attr3 !=0">#{attr3},</if>
+			<if test="attr4 !=null and attr4 !=0">#{attr4},</if>
+			<if test="createBy !=null and createBy !=''">#{createBy},</if>
+			sysdate()
+		)
+	</insert>
+
+	<update id="updateMdItem" parameterType="MdItem">
+		update md_item
+		<set>
+			<if test="itemName !=null and itemName !=''">item_name = #{itemName},</if>
+			<if test="specification !=null and specification !=''">specification = #{specification},</if>
+			<if test="unitOfMeasure !=null and unitOfMeasure !=''">unit_of_measure = #{unitOfMeasure},</if>
+			<if test="itemOrProduct !=null and itemOrProduct !=''">item_or_product = #{itemOrProduct},</if>
+			<if test="enableFlag !=null and enableFlag !=''">enable_flag = #{enableFlag},</if>
+			<if test="safeStockFlag !=null and safeStockFlag !=''">safe_stock_flag = #{safeStockFlag},</if>
+			<if test="minStock !=null and minStock !=''">min_stock = #{minStock},</if>
+			<if test="maxStock !=null and maxStock !=''">max_stock = #{maxStock},</if>
+			<if test="remark !=null and remark !=''">remark = #{remark},</if>
+			<if test="attr1 !=null and attr1 !=''">attr1=#{attr1},</if>
+			<if test="attr2 !=null and attr2 !=''">attr2=#{attr2},</if>
+			<if test="attr3 !=null and attr3 !=0">attr3=#{attr3},</if>
+			<if test="attr4 !=null and attr4 !=0">attr4=#{attr4},</if>
+			<if test="updateBy !=null and updateBy !=''">update_by=#{updateBy},</if>
+			update_time = sysdate()
+		</set>
+		where item_id = #{itemId}
+	</update>
+
+	<delete id="deleteMdItemById" parameterType="Long">
+		delete from md_item where item_id =#{itemId}
+	</delete>
+
+	<delete id="deleteMdItemByIds" parameterType="Long">
+		delete from md_item where item_id in
+		<foreach collection="array" item="itemId" open="(" separator="," close=")"	>
+			#{itemId}
+		</foreach>
+	</delete>
+
+</mapper> 

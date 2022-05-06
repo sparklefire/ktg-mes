@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ktg.system.mapper.SysAutoCodeRuleMapper">
+
+    <resultMap type="SysAutoCodeRule" id="SysAutoCodeRuleResult">
+        <id     property="ruleId"     column="rule_id"     />
+        <result property="ruleCode"     column="rule_code"   />
+        <result property="ruleName"    column="rule_name"   />
+        <result property="ruleDesc"   column="rule_desc"   />
+        <result property="maxLength" column="max_length"   />
+        <result property="isPadded"     column="is_padded"  />
+        <result property="paddedChar"    column="padded_char" />
+        <result property="paddedMethod"    column="padded_method" />
+        <result property="enableFlag"    column="enable_flag" />
+        <result property="remark"   column="remark"   />
+        <result property="createBy"   column="create_by"   />
+        <result property="createTime" column="create_time" />
+        <result property="updateBy"   column="update_by"   />
+        <result property="updateTime" column="update_time" />
+    </resultMap>
+
+    <sql id="selectSysAutoCodeRuleVo">
+        select d.rule_id, d.rule_code, d.rule_name, d.rule_desc, d.max_length,
+        is_padded,padded_char,padded_method,enable_flag,remark,create_by,create_time
+        from sys_auto_code_rule d
+    </sql>
+
+    <select id="selectSysAutoCodeResultList" parameterType="SysAutoCodeRule" resultMap="SysAutoCodeRuleResult">
+        <include refid="selectSysAutoCodeRuleVo"/>
+        where 1=1
+        <if test="ruleId != null and ruleId != 0">
+            AND rule_id = #{ruleId}
+        </if>
+        <if test="ruleCode != null and ruleCode != ''">
+            AND rule_code = #{ruleCode}
+        </if>
+
+        <if test="ruleName != null and ruleName != ''">
+            AND rule_name like concat('%', #{ruleName}, '%')
+        </if>
+    </select>
+
+    <select id="findById" parameterType="Long" resultMap="SysAutoCodeRuleResult">
+        <include refid="selectSysAutoCodeRuleVo">
+        </include>
+        where rule_id = #{ruleId}
+    </select>
+
+    <select id="checkRuleCodeUnique" parameterType="String" resultMap="SysAutoCodeRuleResult">
+        <include refid="selectSysAutoCodeRuleVo">
+        </include>
+        where rule_code = #{ruleCode}
+    </select>
+
+    <select id="checkRuleNameUnique" parameterType="String" resultMap="SysAutoCodeRuleResult">
+        <include refid="selectSysAutoCodeRuleVo">
+        </include>
+        where rule_name = #{ruleName}
+    </select>
+
+    <insert id="add" parameterType="SysAutoCodeRule">
+      insert into sys_auto_code_rule(
+        rule_code,
+        rule_name,
+        <if test="ruleDesc !=null and ruleDesc !=''">
+            rule_desc,
+        </if>
+        max_length,
+        is_padded,
+        <if test="paddedChar != null and paddedChar != ''">
+            padded_char,
+        </if>
+        <if test="paddedMethod != null and paddedMethod != ''">
+            padded_method,
+        </if>
+        enable_flag,
+        remark,
+        create_by,
+        create_time
+      )values(
+        #{ruleCode},
+        #{ruleName},
+        <if test="ruleDesc !=null and ruleDesc !=''">
+            #{ruleDesc},
+        </if>
+        #{maxLength},
+        #{isPadded},
+        <if test="paddedChar != null and paddedChar != ''">
+            #{paddedChar},
+        </if>
+        <if test="paddedMethod != null and paddedMethod != ''">
+            #{paddedMethod},
+        </if>
+        #{enableFlag},
+        #{remark},
+        #{createBy},
+        sysdate()
+        )
+    </insert>
+
+    <update id="updateSysAutoCodeRule" parameterType="SysAutoCodeRule">
+        update sys_auto_code_rule
+        <set>
+            rule_name = #{ruleName},
+            <if test="ruleDesc !=null and ruleDesc !=''">rule_desc = #{ruleDesc},</if>
+            max_length = #{maxLength},
+            is_padded = #{isPadded},
+            <if test="paddedChar != null and paddedChar != ''">
+                padded_char = #{paddedChar},
+            </if>
+            <if test="paddedMethod != null and paddedMethod != ''">
+                padded_method = #{paddedMethod},
+            </if>
+            enable_flag = #{enableFlag},
+            remark = #{remark},
+            update_by = #{updateBy},
+            update_time = sysdate()
+        </set>
+        where rule_id = #{ruleId}
+    </update>
+
+    <delete id="deleteById" parameterType="Long">
+        delete from sys_auto_code_rule where rule_id = #{ruleId}
+    </delete>
+
+</mapper>

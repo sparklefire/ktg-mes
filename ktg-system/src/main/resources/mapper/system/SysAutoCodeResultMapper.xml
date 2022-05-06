@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ktg.system.mapper.SysAutoCodeResultMapper">
+
+    <resultMap type="SysAutoCodeResult" id="SysAutoCodeResultResult">
+        <id     property="codeId"     column="code_id"     />
+        <result property="ruleId"     column="rule_id"   />
+        <result property="genDate"    column="gen_date"   />
+        <result property="genIndex"   column="gen_index"   />
+        <result property="lastResult" column="last_result"   />
+        <result property="lastSerialNo"     column="last_serial_no"  />
+        <result property="lastInputChar"    column="last_input_char" />
+        <result property="remark"   column="remark"   />
+        <result property="createBy"   column="create_by"   />
+        <result property="createTime" column="create_time" />
+        <result property="updateBy"   column="update_by"   />
+        <result property="updateTime" column="update_time" />
+    </resultMap>
+
+    <sql id="selectSysAutoCodeResultVo">
+        select d.code_id, d.rule_id, d.gen_date, d.gen_index, d.last_result, d.last_serial_no, d.last_input_char
+        from sys_auto_code_result d
+    </sql>
+
+    <select id="selectSysAutoCodeResultList" parameterType="SysAutoCodeResult" resultMap="SysAutoCodeResultResult">
+        <include refid="selectSysAutoCodeResultVo"/>
+        where 1=1
+        <if test="ruleId != null and ruleId != 0">
+            AND rule_id = #{ruleId}
+        </if>
+        <if test="lastInputChar != null and lastInputChar != ''">
+            AND last_input_char = #{lastInputChar}
+        </if>
+
+        <if test="genDate != null and genDate != ''">
+            AND gen_date like concat(#{genDate},'%')
+        </if>
+        order by gen_index asc
+    </select>
+
+    <insert id="add" parameterType="SysAutoCodeResult" >
+        insert into sys_auto_code_result(
+          rule_id,
+          gen_date,
+          gen_index,
+          last_result,
+          last_serial_no,
+          last_input_char,
+          create_time
+        )values(
+          #{ruleId},
+          #{genDate},
+          #{genIndex},
+          #{lastResult},
+          #{lastSerialNo},
+          #{lastInputChar},
+          sysdate()
+        )
+    </insert>
+
+    <update id="updateAutoCodeResult" parameterType="SysAutoCodeResult">
+        update sys_auto_code_result
+        <set>
+            gen_date = #{genDate},
+            gen_index = #{genIndex},
+            last_result = #{lastResult},
+            last_serial_no = #{lastSerialNo},
+            last_input_char = #{lastInputChar}
+        </set>
+        where code_id = #{codeId}
+    </update>
+
+    <delete id="deleteById" parameterType="Long">
+        delete from sys_auto_code_result where code_id = #{codeId}
+    </delete>
+
+</mapper>
