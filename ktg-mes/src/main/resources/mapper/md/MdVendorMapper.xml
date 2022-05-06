@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ktg.mes.md.mapper.MdVendorMapper">
+    
+    <resultMap type="MdVendor" id="MdVendorResult">
+        <result property="vendorId"    column="vendor_id"    />
+        <result property="vendorCode"    column="vendor_code"    />
+        <result property="vendorName"    column="vendor_name"    />
+        <result property="vendorNick"    column="vendor_nick"    />
+        <result property="vendorEn"    column="vendor_en"    />
+        <result property="vendorDes"    column="vendor_des"    />
+        <result property="vendorLogo"    column="vendor_logo"    />
+        <result property="vendorLevel"    column="vendor_level"    />
+        <result property="vendorScore"    column="vendor_score"    />
+        <result property="address"    column="address"    />
+        <result property="website"    column="website"    />
+        <result property="email"    column="email"    />
+        <result property="tel"    column="tel"    />
+        <result property="contact1"    column="contact1"    />
+        <result property="contact1Tel"    column="contact1_tel"    />
+        <result property="contact1Email"    column="contact1_email"    />
+        <result property="contact2"    column="contact2"    />
+        <result property="contact2Tel"    column="contact2_tel"    />
+        <result property="contact2Email"    column="contact2_email"    />
+        <result property="creditCode"    column="credit_code"    />
+        <result property="enableFlag"    column="enable_flag"    />
+        <result property="remark"    column="remark"    />
+        <result property="attr1"    column="attr1"    />
+        <result property="attr2"    column="attr2"    />
+        <result property="attr3"    column="attr3"    />
+        <result property="attr4"    column="attr4"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectMdVendorVo">
+        select vendor_id, vendor_code, vendor_name, vendor_nick, vendor_en, vendor_des, vendor_logo, vendor_level, vendor_score, address, website, email, tel, contact1, contact1_tel, contact1_email, contact2, contact2_tel, contact2_email, credit_code, enable_flag, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from md_vendor
+    </sql>
+
+    <select id="selectMdVendorList" parameterType="MdVendor" resultMap="MdVendorResult">
+        <include refid="selectMdVendorVo"/>
+        <where>  
+            <if test="vendorCode != null  and vendorCode != ''"> and vendor_code = #{vendorCode}</if>
+            <if test="vendorName != null  and vendorName != ''"> and vendor_name like concat('%', #{vendorName}, '%')</if>
+            <if test="vendorNick != null  and vendorNick != ''"> and vendor_nick = #{vendorNick}</if>
+            <if test="vendorEn != null  and vendorEn != ''"> and vendor_en = #{vendorEn}</if>
+            <if test="vendorDes != null  and vendorDes != ''"> and vendor_des = #{vendorDes}</if>
+            <if test="vendorLogo != null  and vendorLogo != ''"> and vendor_logo = #{vendorLogo}</if>
+            <if test="vendorLevel != null  and vendorLevel != ''"> and vendor_level = #{vendorLevel}</if>
+            <if test="vendorScore != null "> and vendor_score = #{vendorScore}</if>
+            <if test="address != null  and address != ''"> and address = #{address}</if>
+            <if test="website != null  and website != ''"> and website = #{website}</if>
+            <if test="email != null  and email != ''"> and email = #{email}</if>
+            <if test="tel != null  and tel != ''"> and tel = #{tel}</if>
+            <if test="contact1 != null  and contact1 != ''"> and contact1 = #{contact1}</if>
+            <if test="contact1Tel != null  and contact1Tel != ''"> and contact1_tel = #{contact1Tel}</if>
+            <if test="contact1Email != null  and contact1Email != ''"> and contact1_email = #{contact1Email}</if>
+            <if test="contact2 != null  and contact2 != ''"> and contact2 = #{contact2}</if>
+            <if test="contact2Tel != null  and contact2Tel != ''"> and contact2_tel = #{contact2Tel}</if>
+            <if test="contact2Email != null  and contact2Email != ''"> and contact2_email = #{contact2Email}</if>
+            <if test="creditCode != null  and creditCode != ''"> and credit_code = #{creditCode}</if>
+            <if test="enableFlag != null  and enableFlag != ''"> and enable_flag = #{enableFlag}</if>
+        </where>
+    </select>
+    
+    <select id="selectMdVendorByVendorId" parameterType="Long" resultMap="MdVendorResult">
+        <include refid="selectMdVendorVo"/>
+        where vendor_id = #{vendorId}
+    </select>
+
+    <select id="checkVendorCodeUnique" parameterType="MdVendor" resultMap="MdVendorResult">
+        <include refid="selectMdVendorVo"/>
+        where vendor_code = #{vendorCode} limit 1
+    </select>
+
+    <select id="checkVendorNameUnique" parameterType="MdVendor" resultMap="MdVendorResult">
+        <include refid="selectMdVendorVo"/>
+        where vendor_name = #{vendorName} limit 1
+    </select>
+
+    <select id="checkVendorNickUnique" parameterType="MdVendor" resultMap="MdVendorResult">
+        <include refid="selectMdVendorVo"/>
+        where vendor_nick = #{vendorNick} limit 1
+    </select>
+
+    <insert id="insertMdVendor" parameterType="MdVendor" useGeneratedKeys="true" keyProperty="vendorId">
+        insert into md_vendor
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="vendorCode != null and vendorCode != ''">vendor_code,</if>
+            <if test="vendorName != null and vendorName != ''">vendor_name,</if>
+            <if test="vendorNick != null">vendor_nick,</if>
+            <if test="vendorEn != null">vendor_en,</if>
+            <if test="vendorDes != null">vendor_des,</if>
+            <if test="vendorLogo != null">vendor_logo,</if>
+            <if test="vendorLevel != null">vendor_level,</if>
+            <if test="vendorScore != null">vendor_score,</if>
+            <if test="address != null">address,</if>
+            <if test="website != null">website,</if>
+            <if test="email != null">email,</if>
+            <if test="tel != null">tel,</if>
+            <if test="contact1 != null">contact1,</if>
+            <if test="contact1Tel != null">contact1_tel,</if>
+            <if test="contact1Email != null">contact1_email,</if>
+            <if test="contact2 != null">contact2,</if>
+            <if test="contact2Tel != null">contact2_tel,</if>
+            <if test="contact2Email != null">contact2_email,</if>
+            <if test="creditCode != null">credit_code,</if>
+            <if test="enableFlag != null and enableFlag != ''">enable_flag,</if>
+            <if test="remark != null">remark,</if>
+            <if test="attr1 != null">attr1,</if>
+            <if test="attr2 != null">attr2,</if>
+            <if test="attr3 != null">attr3,</if>
+            <if test="attr4 != null">attr4,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="vendorCode != null and vendorCode != ''">#{vendorCode},</if>
+            <if test="vendorName != null and vendorName != ''">#{vendorName},</if>
+            <if test="vendorNick != null">#{vendorNick},</if>
+            <if test="vendorEn != null">#{vendorEn},</if>
+            <if test="vendorDes != null">#{vendorDes},</if>
+            <if test="vendorLogo != null">#{vendorLogo},</if>
+            <if test="vendorLevel != null">#{vendorLevel},</if>
+            <if test="vendorScore != null">#{vendorScore},</if>
+            <if test="address != null">#{address},</if>
+            <if test="website != null">#{website},</if>
+            <if test="email != null">#{email},</if>
+            <if test="tel != null">#{tel},</if>
+            <if test="contact1 != null">#{contact1},</if>
+            <if test="contact1Tel != null">#{contact1Tel},</if>
+            <if test="contact1Email != null">#{contact1Email},</if>
+            <if test="contact2 != null">#{contact2},</if>
+            <if test="contact2Tel != null">#{contact2Tel},</if>
+            <if test="contact2Email != null">#{contact2Email},</if>
+            <if test="creditCode != null">#{creditCode},</if>
+            <if test="enableFlag != null and enableFlag != ''">#{enableFlag},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="attr1 != null">#{attr1},</if>
+            <if test="attr2 != null">#{attr2},</if>
+            <if test="attr3 != null">#{attr3},</if>
+            <if test="attr4 != null">#{attr4},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateMdVendor" parameterType="MdVendor">
+        update md_vendor
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="vendorCode != null and vendorCode != ''">vendor_code = #{vendorCode},</if>
+            <if test="vendorName != null and vendorName != ''">vendor_name = #{vendorName},</if>
+            <if test="vendorNick != null">vendor_nick = #{vendorNick},</if>
+            <if test="vendorEn != null">vendor_en = #{vendorEn},</if>
+            <if test="vendorDes != null">vendor_des = #{vendorDes},</if>
+            <if test="vendorLogo != null">vendor_logo = #{vendorLogo},</if>
+            <if test="vendorLevel != null">vendor_level = #{vendorLevel},</if>
+            <if test="vendorScore != null">vendor_score = #{vendorScore},</if>
+            <if test="address != null">address = #{address},</if>
+            <if test="website != null">website = #{website},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="tel != null">tel = #{tel},</if>
+            <if test="contact1 != null">contact1 = #{contact1},</if>
+            <if test="contact1Tel != null">contact1_tel = #{contact1Tel},</if>
+            <if test="contact1Email != null">contact1_email = #{contact1Email},</if>
+            <if test="contact2 != null">contact2 = #{contact2},</if>
+            <if test="contact2Tel != null">contact2_tel = #{contact2Tel},</if>
+            <if test="contact2Email != null">contact2_email = #{contact2Email},</if>
+            <if test="creditCode != null">credit_code = #{creditCode},</if>
+            <if test="enableFlag != null and enableFlag != ''">enable_flag = #{enableFlag},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="attr1 != null">attr1 = #{attr1},</if>
+            <if test="attr2 != null">attr2 = #{attr2},</if>
+            <if test="attr3 != null">attr3 = #{attr3},</if>
+            <if test="attr4 != null">attr4 = #{attr4},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where vendor_id = #{vendorId}
+    </update>
+
+    <delete id="deleteMdVendorByVendorId" parameterType="Long">
+        delete from md_vendor where vendor_id = #{vendorId}
+    </delete>
+
+    <delete id="deleteMdVendorByVendorIds" parameterType="String">
+        delete from md_vendor where vendor_id in 
+        <foreach item="vendorId" collection="array" open="(" separator="," close=")">
+            #{vendorId}
+        </foreach>
+    </delete>
+</mapper>
