@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ktg.mes.md.mapper.MdClientMapper">
+    
+    <resultMap type="MdClient" id="MdClientResult">
+        <result property="clientId"    column="client_id"    />
+        <result property="clientCode"    column="client_code"    />
+        <result property="clientName"    column="client_name"    />
+        <result property="clientNick"    column="client_nick"    />
+        <result property="clientEn"    column="client_en"    />
+        <result property="clientDes"    column="client_des"    />
+        <result property="clientLogo"    column="client_logo"    />
+        <result property="clientType"    column="client_type"    />
+        <result property="address"    column="address"    />
+        <result property="website"    column="website"    />
+        <result property="email"    column="email"    />
+        <result property="tel"    column="tel"    />
+        <result property="contact1"    column="contact1"    />
+        <result property="contact1Tel"    column="contact1_tel"    />
+        <result property="contact1Email"    column="contact1_email"    />
+        <result property="contact2"    column="contact2"    />
+        <result property="contact2Tel"    column="contact2_tel"    />
+        <result property="contact2Email"    column="contact2_email"    />
+        <result property="creditCode"    column="credit_code"    />
+        <result property="enableFlag"    column="enable_flag"    />
+        <result property="remark"    column="remark"    />
+        <result property="attr1"    column="attr1"    />
+        <result property="attr2"    column="attr2"    />
+        <result property="attr3"    column="attr3"    />
+        <result property="attr4"    column="attr4"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectMdClientVo">
+        select client_id, client_code, client_name, client_nick, client_en, client_des, client_logo, client_type, address, website, email, tel, contact1, contact1_tel, contact1_email, contact2, contact2_tel, contact2_email, credit_code, enable_flag, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from md_client
+    </sql>
+
+    <select id="selectMdClientList" parameterType="MdClient" resultMap="MdClientResult">
+        <include refid="selectMdClientVo"/>
+        <where>  
+            <if test="clientCode != null  and clientCode != ''"> and client_code = #{clientCode}</if>
+            <if test="clientName != null  and clientName != ''"> and client_name like concat('%', #{clientName}, '%')</if>
+            <if test="clientNick != null  and clientNick != ''"> and client_nick = #{clientNick}</if>
+            <if test="clientEn != null  and clientEn != ''"> and client_en = #{clientEn}</if>
+            <if test="clientDes != null  and clientDes != ''"> and client_des = #{clientDes}</if>
+            <if test="clientLogo != null  and clientLogo != ''"> and client_logo = #{clientLogo}</if>
+            <if test="clientType != null  and clientType != ''"> and client_type = #{clientType}</if>
+            <if test="address != null  and address != ''"> and address = #{address}</if>
+            <if test="website != null  and website != ''"> and website = #{website}</if>
+            <if test="email != null  and email != ''"> and email = #{email}</if>
+            <if test="tel != null  and tel != ''"> and tel = #{tel}</if>
+            <if test="contact1 != null  and contact1 != ''"> and contact1 = #{contact1}</if>
+            <if test="contact1Tel != null  and contact1Tel != ''"> and contact1_tel = #{contact1Tel}</if>
+            <if test="contact1Email != null  and contact1Email != ''"> and contact1_email = #{contact1Email}</if>
+            <if test="contact2 != null  and contact2 != ''"> and contact2 = #{contact2}</if>
+            <if test="contact2Tel != null  and contact2Tel != ''"> and contact2_tel = #{contact2Tel}</if>
+            <if test="contact2Email != null  and contact2Email != ''"> and contact2_email = #{contact2Email}</if>
+            <if test="creditCode != null  and creditCode != ''"> and credit_code = #{creditCode}</if>
+            <if test="enableFlag != null  and enableFlag != ''"> and enable_flag = #{enableFlag}</if>
+        </where>
+    </select>
+    
+    <select id="selectMdClientByClientId" parameterType="Long" resultMap="MdClientResult">
+        <include refid="selectMdClientVo"/>
+        where client_id = #{clientId}
+    </select>
+
+    <select id="checkClientCodeUnique" parameterType="MdClient" resultMap="MdClientResult">
+        <include refid="selectMdClientVo"/>
+        where client_code = #{clientCode} limit 1
+    </select>
+
+    <select id="checkClientNameUnique" parameterType="MdClient" resultMap="MdClientResult">
+        <include refid="selectMdClientVo"/>
+        where client_name = #{clientName} limit 1
+    </select>
+
+    <select id="checkClientNickUnique" parameterType="MdClient" resultMap="MdClientResult">
+        <include refid="selectMdClientVo"/>
+        where client_nick = #{clientNick} limit 1
+    </select>
+
+    <insert id="insertMdClient" parameterType="MdClient" useGeneratedKeys="true" keyProperty="clientId">
+        insert into md_client
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="clientCode != null and clientCode != ''">client_code,</if>
+            <if test="clientName != null and clientName != ''">client_name,</if>
+            <if test="clientNick != null">client_nick,</if>
+            <if test="clientEn != null">client_en,</if>
+            <if test="clientDes != null">client_des,</if>
+            <if test="clientLogo != null">client_logo,</if>
+            <if test="clientType != null">client_type,</if>
+            <if test="address != null">address,</if>
+            <if test="website != null">website,</if>
+            <if test="email != null">email,</if>
+            <if test="tel != null">tel,</if>
+            <if test="contact1 != null">contact1,</if>
+            <if test="contact1Tel != null">contact1_tel,</if>
+            <if test="contact1Email != null">contact1_email,</if>
+            <if test="contact2 != null">contact2,</if>
+            <if test="contact2Tel != null">contact2_tel,</if>
+            <if test="contact2Email != null">contact2_email,</if>
+            <if test="creditCode != null">credit_code,</if>
+            <if test="enableFlag != null and enableFlag != ''">enable_flag,</if>
+            <if test="remark != null">remark,</if>
+            <if test="attr1 != null">attr1,</if>
+            <if test="attr2 != null">attr2,</if>
+            <if test="attr3 != null">attr3,</if>
+            <if test="attr4 != null">attr4,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="clientCode != null and clientCode != ''">#{clientCode},</if>
+            <if test="clientName != null and clientName != ''">#{clientName},</if>
+            <if test="clientNick != null">#{clientNick},</if>
+            <if test="clientEn != null">#{clientEn},</if>
+            <if test="clientDes != null">#{clientDes},</if>
+            <if test="clientLogo != null">#{clientLogo},</if>
+            <if test="clientType != null">#{clientType},</if>
+            <if test="address != null">#{address},</if>
+            <if test="website != null">#{website},</if>
+            <if test="email != null">#{email},</if>
+            <if test="tel != null">#{tel},</if>
+            <if test="contact1 != null">#{contact1},</if>
+            <if test="contact1Tel != null">#{contact1Tel},</if>
+            <if test="contact1Email != null">#{contact1Email},</if>
+            <if test="contact2 != null">#{contact2},</if>
+            <if test="contact2Tel != null">#{contact2Tel},</if>
+            <if test="contact2Email != null">#{contact2Email},</if>
+            <if test="creditCode != null">#{creditCode},</if>
+            <if test="enableFlag != null and enableFlag != ''">#{enableFlag},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="attr1 != null">#{attr1},</if>
+            <if test="attr2 != null">#{attr2},</if>
+            <if test="attr3 != null">#{attr3},</if>
+            <if test="attr4 != null">#{attr4},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateMdClient" parameterType="MdClient">
+        update md_client
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="clientCode != null and clientCode != ''">client_code = #{clientCode},</if>
+            <if test="clientName != null and clientName != ''">client_name = #{clientName},</if>
+            <if test="clientNick != null">client_nick = #{clientNick},</if>
+            <if test="clientEn != null">client_en = #{clientEn},</if>
+            <if test="clientDes != null">client_des = #{clientDes},</if>
+            <if test="clientLogo != null">client_logo = #{clientLogo},</if>
+            <if test="clientType != null">client_type = #{clientType},</if>
+            <if test="address != null">address = #{address},</if>
+            <if test="website != null">website = #{website},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="tel != null">tel = #{tel},</if>
+            <if test="contact1 != null">contact1 = #{contact1},</if>
+            <if test="contact1Tel != null">contact1_tel = #{contact1Tel},</if>
+            <if test="contact1Email != null">contact1_email = #{contact1Email},</if>
+            <if test="contact2 != null">contact2 = #{contact2},</if>
+            <if test="contact2Tel != null">contact2_tel = #{contact2Tel},</if>
+            <if test="contact2Email != null">contact2_email = #{contact2Email},</if>
+            <if test="creditCode != null">credit_code = #{creditCode},</if>
+            <if test="enableFlag != null and enableFlag != ''">enable_flag = #{enableFlag},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="attr1 != null">attr1 = #{attr1},</if>
+            <if test="attr2 != null">attr2 = #{attr2},</if>
+            <if test="attr3 != null">attr3 = #{attr3},</if>
+            <if test="attr4 != null">attr4 = #{attr4},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where client_id = #{clientId}
+    </update>
+
+    <delete id="deleteMdClientByClientId" parameterType="Long">
+        delete from md_client where client_id = #{clientId}
+    </delete>
+
+    <delete id="deleteMdClientByClientIds" parameterType="String">
+        delete from md_client where client_id in 
+        <foreach item="clientId" collection="array" open="(" separator="," close=")">
+            #{clientId}
+        </foreach>
+    </delete>
+</mapper>
