@@ -2,15 +2,15 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ktg.mes.md.mapper.MdWorkshopMapper">
+<mapper namespace="com.ktg.mes.wm.mapper.WmWarehouseMapper">
     
-    <resultMap type="MdWorkshop" id="MdWorkshopResult">
-        <result property="workshopId"    column="workshop_id"    />
-        <result property="workshopCode"    column="workshop_code"    />
-        <result property="workshopName"    column="workshop_name"    />
+    <resultMap type="WmWarehouse" id="WmWarehouseResult">
+        <result property="warehouseId"    column="warehouse_id"    />
+        <result property="warehouseCode"    column="warehouse_code"    />
+        <result property="warehouseName"    column="warehouse_name"    />
+        <result property="location"    column="location"    />
         <result property="area"    column="area"    />
         <result property="charge"    column="charge"    />
-        <result property="enableFlag"    column="enable_flag"    />
         <result property="remark"    column="remark"    />
         <result property="attr1"    column="attr1"    />
         <result property="attr2"    column="attr2"    />
@@ -22,44 +22,44 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="updateTime"    column="update_time"    />
     </resultMap>
 
-    <sql id="selectMdWorkshopVo">
-        select workshop_id, workshop_code, workshop_name, area, charge, enable_flag, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from md_workshop
+    <sql id="selectWmWarehouseVo">
+        select warehouse_id, warehouse_code, warehouse_name, location, area, charge, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from wm_warehouse
     </sql>
 
-    <select id="selectMdWorkshopList" parameterType="MdWorkshop" resultMap="MdWorkshopResult">
-        <include refid="selectMdWorkshopVo"/>
+    <select id="selectWmWarehouseList" parameterType="WmWarehouse" resultMap="WmWarehouseResult">
+        <include refid="selectWmWarehouseVo"/>
         <where>  
-            <if test="workshopCode != null  and workshopCode != ''"> and workshop_code = #{workshopCode}</if>
-            <if test="workshopName != null  and workshopName != ''"> and workshop_name like concat('%', #{workshopName}, '%')</if>
+            <if test="warehouseCode != null  and warehouseCode != ''"> and warehouse_code = #{warehouseCode}</if>
+            <if test="warehouseName != null  and warehouseName != ''"> and warehouse_name like concat('%', #{warehouseName}, '%')</if>
+            <if test="location != null  and location != ''"> and location = #{location}</if>
             <if test="area != null "> and area = #{area}</if>
             <if test="charge != null  and charge != ''"> and charge = #{charge}</if>
-            <if test="enableFlag != null  and enableFlag != ''"> and enable_flag = #{enableFlag}</if>
         </where>
     </select>
     
-    <select id="selectMdWorkshopByWorkshopId" parameterType="Long" resultMap="MdWorkshopResult">
-        <include refid="selectMdWorkshopVo"/>
-        where workshop_id = #{workshopId}
+    <select id="selectWmWarehouseByWarehouseId" parameterType="Long" resultMap="WmWarehouseResult">
+        <include refid="selectWmWarehouseVo"/>
+        where warehouse_id = #{warehouseId}
     </select>
 
-    <select id="checkWorkshopCodeUnique" parameterType="MdWorkshop" resultMap="MdWorkshopResult">
-        <include refid="selectMdWorkshopVo"/>
-        where workshop_code = #{workshopCode} limit 1
+    <select id="checkWarehouseCodeUnique" parameterType="WmWarehouse" resultMap="WmWarehouseResult">
+        <include refid="selectWmWarehouseVo"/>
+        where warehouse_code = #{warehouseCode} limit 1
     </select>
 
-    <select id="checkWorkshopNameUnique" parameterType="MdWorkshop" resultMap="MdWorkshopResult">
-        <include refid="selectMdWorkshopVo"/>
-        where workshop_name = #{workshopName} limit 1
+    <select id="checkWarehouseNameUnique" parameterType="WmWarehouse" resultMap="WmWarehouseResult">
+        <include refid="selectWmWarehouseVo"/>
+        where warehouse_name = #{warehouseName} limit 1
     </select>
 
-    <insert id="insertMdWorkshop" parameterType="MdWorkshop" useGeneratedKeys="true" keyProperty="workshopId">
-        insert into md_workshop
+    <insert id="insertWmWarehouse" parameterType="WmWarehouse" useGeneratedKeys="true" keyProperty="warehouseId">
+        insert into wm_warehouse
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="workshopCode != null and workshopCode != ''">workshop_code,</if>
-            <if test="workshopName != null and workshopName != ''">workshop_name,</if>
+            <if test="warehouseCode != null and warehouseCode != ''">warehouse_code,</if>
+            <if test="warehouseName != null and warehouseName != ''">warehouse_name,</if>
+            <if test="location != null">location,</if>
             <if test="area != null">area,</if>
             <if test="charge != null">charge,</if>
-            <if test="enableFlag != null and enableFlag != ''">enable_flag,</if>
             <if test="remark != null">remark,</if>
             <if test="attr1 != null">attr1,</if>
             <if test="attr2 != null">attr2,</if>
@@ -71,11 +71,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="updateTime != null">update_time,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="workshopCode != null and workshopCode != ''">#{workshopCode},</if>
-            <if test="workshopName != null and workshopName != ''">#{workshopName},</if>
+            <if test="warehouseCode != null and warehouseCode != ''">#{warehouseCode},</if>
+            <if test="warehouseName != null and warehouseName != ''">#{warehouseName},</if>
+            <if test="location != null">#{location},</if>
             <if test="area != null">#{area},</if>
             <if test="charge != null">#{charge},</if>
-            <if test="enableFlag != null and enableFlag != ''">#{enableFlag},</if>
             <if test="remark != null">#{remark},</if>
             <if test="attr1 != null">#{attr1},</if>
             <if test="attr2 != null">#{attr2},</if>
@@ -88,14 +88,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          </trim>
     </insert>
 
-    <update id="updateMdWorkshop" parameterType="MdWorkshop">
-        update md_workshop
+    <update id="updateWmWarehouse" parameterType="WmWarehouse">
+        update wm_warehouse
         <trim prefix="SET" suffixOverrides=",">
-            <if test="workshopCode != null and workshopCode != ''">workshop_code = #{workshopCode},</if>
-            <if test="workshopName != null and workshopName != ''">workshop_name = #{workshopName},</if>
+            <if test="warehouseCode != null and warehouseCode != ''">warehouse_code = #{warehouseCode},</if>
+            <if test="warehouseName != null and warehouseName != ''">warehouse_name = #{warehouseName},</if>
+            <if test="location != null">location = #{location},</if>
             <if test="area != null">area = #{area},</if>
             <if test="charge != null">charge = #{charge},</if>
-            <if test="enableFlag != null and enableFlag != ''">enable_flag = #{enableFlag},</if>
             <if test="remark != null">remark = #{remark},</if>
             <if test="attr1 != null">attr1 = #{attr1},</if>
             <if test="attr2 != null">attr2 = #{attr2},</if>
@@ -106,17 +106,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="updateBy != null">update_by = #{updateBy},</if>
             <if test="updateTime != null">update_time = #{updateTime},</if>
         </trim>
-        where workshop_id = #{workshopId}
+        where warehouse_id = #{warehouseId}
     </update>
 
-    <delete id="deleteMdWorkshopByWorkshopId" parameterType="Long">
-        delete from md_workshop where workshop_id = #{workshopId}
+    <delete id="deleteWmWarehouseByWarehouseId" parameterType="Long">
+        delete from wm_warehouse where warehouse_id = #{warehouseId}
     </delete>
 
-    <delete id="deleteMdWorkshopByWorkshopIds" parameterType="String">
-        delete from md_workshop where workshop_id in 
-        <foreach item="workshopId" collection="array" open="(" separator="," close=")">
-            #{workshopId}
+    <delete id="deleteWmWarehouseByWarehouseIds" parameterType="String">
+        delete from wm_warehouse where warehouse_id in 
+        <foreach item="warehouseId" collection="array" open="(" separator="," close=")">
+            #{warehouseId}
         </foreach>
     </delete>
 </mapper>
