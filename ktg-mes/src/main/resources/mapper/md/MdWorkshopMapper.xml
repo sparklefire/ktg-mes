@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ktg.mes.md.mapper.MdWorkshopMapper">
+    
+    <resultMap type="MdWorkshop" id="MdWorkshopResult">
+        <result property="workshopId"    column="workshop_id"    />
+        <result property="workshopCode"    column="workshop_code"    />
+        <result property="workshopName"    column="workshop_name"    />
+        <result property="area"    column="area"    />
+        <result property="charge"    column="charge"    />
+        <result property="enableFlag"    column="enable_flag"    />
+        <result property="remark"    column="remark"    />
+        <result property="attr1"    column="attr1"    />
+        <result property="attr2"    column="attr2"    />
+        <result property="attr3"    column="attr3"    />
+        <result property="attr4"    column="attr4"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectMdWorkshopVo">
+        select workshop_id, workshop_code, workshop_name, area, charge, enable_flag, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from md_workshop
+    </sql>
+
+    <select id="selectMdWorkshopList" parameterType="MdWorkshop" resultMap="MdWorkshopResult">
+        <include refid="selectMdWorkshopVo"/>
+        <where>  
+            <if test="workshopCode != null  and workshopCode != ''"> and workshop_code = #{workshopCode}</if>
+            <if test="workshopName != null  and workshopName != ''"> and workshop_name like concat('%', #{workshopName}, '%')</if>
+            <if test="area != null "> and area = #{area}</if>
+            <if test="charge != null  and charge != ''"> and charge = #{charge}</if>
+            <if test="enableFlag != null  and enableFlag != ''"> and enable_flag = #{enableFlag}</if>
+        </where>
+    </select>
+    
+    <select id="selectMdWorkshopByWorkshopId" parameterType="Long" resultMap="MdWorkshopResult">
+        <include refid="selectMdWorkshopVo"/>
+        where workshop_id = #{workshopId}
+    </select>
+
+    <select id="checkWorkshopCodeUnique" parameterType="MdWorkshop" resultMap="MdWorkshopResult">
+        <include refid="selectMdWorkshopVo"/>
+        where workshop_code = #{workshopCode}
+    </select>
+
+    <select id="checkWorkshopNameUnique" parameterType="MdWorkshop" resultMap="MdWorkshopResult">
+        <include refid="selectMdWorkshopVo"/>
+        where workshop_name = #{workshopName}
+    </select>
+
+    <insert id="insertMdWorkshop" parameterType="MdWorkshop" useGeneratedKeys="true" keyProperty="workshopId">
+        insert into md_workshop
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="workshopCode != null and workshopCode != ''">workshop_code,</if>
+            <if test="workshopName != null and workshopName != ''">workshop_name,</if>
+            <if test="area != null">area,</if>
+            <if test="charge != null">charge,</if>
+            <if test="enableFlag != null and enableFlag != ''">enable_flag,</if>
+            <if test="remark != null">remark,</if>
+            <if test="attr1 != null">attr1,</if>
+            <if test="attr2 != null">attr2,</if>
+            <if test="attr3 != null">attr3,</if>
+            <if test="attr4 != null">attr4,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="workshopCode != null and workshopCode != ''">#{workshopCode},</if>
+            <if test="workshopName != null and workshopName != ''">#{workshopName},</if>
+            <if test="area != null">#{area},</if>
+            <if test="charge != null">#{charge},</if>
+            <if test="enableFlag != null and enableFlag != ''">#{enableFlag},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="attr1 != null">#{attr1},</if>
+            <if test="attr2 != null">#{attr2},</if>
+            <if test="attr3 != null">#{attr3},</if>
+            <if test="attr4 != null">#{attr4},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateMdWorkshop" parameterType="MdWorkshop">
+        update md_workshop
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="workshopCode != null and workshopCode != ''">workshop_code = #{workshopCode},</if>
+            <if test="workshopName != null and workshopName != ''">workshop_name = #{workshopName},</if>
+            <if test="area != null">area = #{area},</if>
+            <if test="charge != null">charge = #{charge},</if>
+            <if test="enableFlag != null and enableFlag != ''">enable_flag = #{enableFlag},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="attr1 != null">attr1 = #{attr1},</if>
+            <if test="attr2 != null">attr2 = #{attr2},</if>
+            <if test="attr3 != null">attr3 = #{attr3},</if>
+            <if test="attr4 != null">attr4 = #{attr4},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where workshop_id = #{workshopId}
+    </update>
+
+    <delete id="deleteMdWorkshopByWorkshopId" parameterType="Long">
+        delete from md_workshop where workshop_id = #{workshopId}
+    </delete>
+
+    <delete id="deleteMdWorkshopByWorkshopIds" parameterType="String">
+        delete from md_workshop where workshop_id in 
+        <foreach item="workshopId" collection="array" open="(" separator="," close=")">
+            #{workshopId}
+        </foreach>
+    </delete>
+</mapper>
