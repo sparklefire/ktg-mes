@@ -157,7 +157,7 @@ create table md_client (
 ) engine=innodb auto_increment=200 comment = '客户表';
 
 -- ----------------------------
--- 4、单位表
+-- 6、单位表
 -- ----------------------------
 drop table if exists md_unit_measure;
 create table md_unit_measure (
@@ -179,3 +179,36 @@ create table md_unit_measure (
   update_time       datetime                                   comment '更新时间',
   primary key (measure_id)
 ) engine=innodb auto_increment=200 comment = '单位表';
+
+
+-- ----------------------------
+-- 7、车间表
+-- ----------------------------
+drop table if exists md_workshop;
+create table md_workshop (
+  workshop_id         bigint(20)      not null auto_increment      comment '车间ID',
+  workshop_code       varchar(64)     not null                     comment '车间编码',
+  workshop_name       varchar(255)    not null                     comment '车间名称',
+  area                double(12,2)    default 'Y' not null         comment '面积',
+  charge              varchar(64)                                  comment '负责人',
+  enable_flag         char(1)         default 'Y' not null         comment '是否启用',
+  remark              varchar(500)    default ''                   comment '备注',
+  attr1               varchar(64)     default null                 comment '预留字段1',
+  attr2               varchar(255)     default null                comment '预留字段2',
+  attr3               int(11)         default 0                    comment '预留字段3',
+  attr4               int(11)         default 0                    comment '预留字段4',
+  create_by           varchar(64)     default ''                   comment '创建者',
+  create_time 	      datetime                                     comment '创建时间',
+  update_by           varchar(64)     default ''                   comment '更新者',
+  update_time         datetime                                     comment '更新时间',
+  primary key (workshop_id)
+) engine=innodb auto_increment=200 comment = '车间表';
+
+
+
+
+
+
+
+
+
