@@ -30,7 +30,7 @@ import com.ktg.common.core.page.TableDataInfo;
  * @date 2022-05-07
  */
 @RestController
-@RequestMapping("/md/workshop")
+@RequestMapping("/mes/md/workshop")
 public class MdWorkshopController extends BaseController
 {
     @Autowired
