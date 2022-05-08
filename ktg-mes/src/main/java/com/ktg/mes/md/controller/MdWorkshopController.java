@@ -39,7 +39,7 @@ public class MdWorkshopController extends BaseController
     /**
      * 查询车间列表
      */
-    @PreAuthorize("@ss.hasPermi('md:workshop:list')")
+    @PreAuthorize("@ss.hasPermi('mes:md:workshop:list')")
     @GetMapping("/list")
     public TableDataInfo list(MdWorkshop mdWorkshop)
     {
@@ -49,9 +49,22 @@ public class MdWorkshopController extends BaseController
     }
 
     /**
+     * 获取所有可用车间
+     * @return
+     */
+    @PreAuthorize("@ss.hasPermi('mes:md:workshop:list')")
+    @GetMapping("/listAll")
+    public AjaxResult listAll(){
+        MdWorkshop mdWorkshop = new MdWorkshop();
+        mdWorkshop.setEnableFlag("Y");
+        List<MdWorkshop> list = mdWorkshopService.selectMdWorkshopList(mdWorkshop);
+        return AjaxResult.success(list);
+    }
+
+    /**
      * 导出车间列表
      */
-    @PreAuthorize("@ss.hasPermi('md:workshop:export')")
+    @PreAuthorize("@ss.hasPermi('mes:md:workshop:export')")
     @Log(title = "车间", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, MdWorkshop mdWorkshop)
@@ -64,7 +77,7 @@ public class MdWorkshopController extends BaseController
     /**
      * 获取车间详细信息
      */
-    @PreAuthorize("@ss.hasPermi('md:workshop:query')")
+    @PreAuthorize("@ss.hasPermi('mes:md:workshop:query')")
     @GetMapping(value = "/{workshopId}")
     public AjaxResult getInfo(@PathVariable("workshopId") Long workshopId)
     {
@@ -74,7 +87,7 @@ public class MdWorkshopController extends BaseController
     /**
      * 新增车间
      */
-    @PreAuthorize("@ss.hasPermi('md:workshop:add')")
+    @PreAuthorize("@ss.hasPermi('mes:md:workshop:add')")
     @Log(title = "车间", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody MdWorkshop mdWorkshop)
@@ -91,7 +104,7 @@ public class MdWorkshopController extends BaseController
     /**
      * 修改车间
      */
-    @PreAuthorize("@ss.hasPermi('md:workshop:edit')")
+    @PreAuthorize("@ss.hasPermi('mes:md:workshop:edit')")
     @Log(title = "车间", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody MdWorkshop mdWorkshop)
@@ -108,7 +121,7 @@ public class MdWorkshopController extends BaseController
     /**
      * 删除车间
      */
-    @PreAuthorize("@ss.hasPermi('md:workshop:remove')")
+    @PreAuthorize("@ss.hasPermi('mes:md:workshop:remove')")
     @Log(title = "车间", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{workshopIds}")
     public AjaxResult remove(@PathVariable Long[] workshopIds)

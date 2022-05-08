@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ktg.mes.dv.mapper.DvMachineryMapper">
+    
+    <resultMap type="DvMachinery" id="DvMachineryResult">
+        <result property="machineryId"    column="machinery_id"    />
+        <result property="machineryCode"    column="machinery_code"    />
+        <result property="machineryName"    column="machinery_name"    />
+        <result property="machineryBrand"    column="machinery_brand"    />
+        <result property="machinerySpec"    column="machinery_spec"    />
+        <result property="machineryTypeId"    column="machinery_type_id"    />
+        <result property="machineryTypeCode"    column="machinery_type_code"    />
+        <result property="machineryTypeName"    column="machinery_type_name"    />
+        <result property="workshopId"    column="workshop_id"    />
+        <result property="workshopCode"    column="workshop_code"    />
+        <result property="workshopName"    column="workshop_name"    />
+        <result property="status"    column="status"    />
+        <result property="remark"    column="remark"    />
+        <result property="attr1"    column="attr1"    />
+        <result property="attr2"    column="attr2"    />
+        <result property="attr3"    column="attr3"    />
+        <result property="attr4"    column="attr4"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectDvMachineryVo">
+        select machinery_id, machinery_code, machinery_name, machinery_brand, machinery_spec, machinery_type_id, machinery_type_code, machinery_type_name, workshop_id, workshop_code, workshop_name, status, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from dv_machinery
+    </sql>
+
+    <select id="selectDvMachineryList" parameterType="DvMachinery" resultMap="DvMachineryResult">
+        <include refid="selectDvMachineryVo"/>
+        <where>  
+            <if test="machineryCode != null  and machineryCode != ''"> and machinery_code = #{machineryCode}</if>
+            <if test="machineryName != null  and machineryName != ''"> and machinery_name like concat('%', #{machineryName}, '%')</if>
+            <if test="machineryBrand != null  and machineryBrand != ''"> and machinery_brand = #{machineryBrand}</if>
+            <if test="machinerySpec != null  and machinerySpec != ''"> and machinery_spec = #{machinerySpec}</if>
+            <if test="machineryTypeId != null ">
+                AND (machinery_type_id = #{machineryTypeId} OR machinery_type_id in (select machinery_type_id from dv_machinery_type where find_in_set(#{machineryTypeId},ancestors)))
+            </if>
+            <if test="machineryTypeCode != null  and machineryTypeCode != ''"> and machinery_type_code = #{machineryTypeCode}</if>
+            <if test="machineryTypeName != null  and machineryTypeName != ''"> and machinery_type_name like concat('%', #{machineryTypeName}, '%')</if>
+            <if test="workshopId != null "> and workshop_id = #{workshopId}</if>
+            <if test="workshopCode != null  and workshopCode != ''"> and workshop_code = #{workshopCode}</if>
+            <if test="workshopName != null  and workshopName != ''"> and workshop_name like concat('%', #{workshopName}, '%')</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+        </where>
+    </select>
+    
+    <select id="selectDvMachineryByMachineryId" parameterType="Long" resultMap="DvMachineryResult">
+        <include refid="selectDvMachineryVo"/>
+        where machinery_id = #{machineryId}
+    </select>
+        
+    <insert id="insertDvMachinery" parameterType="DvMachinery" useGeneratedKeys="true" keyProperty="machineryId">
+        insert into dv_machinery
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="machineryCode != null and machineryCode != ''">machinery_code,</if>
+            <if test="machineryName != null and machineryName != ''">machinery_name,</if>
+            <if test="machineryBrand != null">machinery_brand,</if>
+            <if test="machinerySpec != null">machinery_spec,</if>
+            <if test="machineryTypeId != null">machinery_type_id,</if>
+            <if test="machineryTypeCode != null">machinery_type_code,</if>
+            <if test="machineryTypeName != null">machinery_type_name,</if>
+            <if test="workshopId != null">workshop_id,</if>
+            <if test="workshopCode != null">workshop_code,</if>
+            <if test="workshopName != null">workshop_name,</if>
+            <if test="status != null and status != ''">status,</if>
+            <if test="remark != null">remark,</if>
+            <if test="attr1 != null">attr1,</if>
+            <if test="attr2 != null">attr2,</if>
+            <if test="attr3 != null">attr3,</if>
+            <if test="attr4 != null">attr4,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="machineryCode != null and machineryCode != ''">#{machineryCode},</if>
+            <if test="machineryName != null and machineryName != ''">#{machineryName},</if>
+            <if test="machineryBrand != null">#{machineryBrand},</if>
+            <if test="machinerySpec != null">#{machinerySpec},</if>
+            <if test="machineryTypeId != null">#{machineryTypeId},</if>
+            <if test="machineryTypeCode != null">#{machineryTypeCode},</if>
+            <if test="machineryTypeName != null">#{machineryTypeName},</if>
+            <if test="workshopId != null">#{workshopId},</if>
+            <if test="workshopCode != null">#{workshopCode},</if>
+            <if test="workshopName != null">#{workshopName},</if>
+            <if test="status != null and status != ''">#{status},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="attr1 != null">#{attr1},</if>
+            <if test="attr2 != null">#{attr2},</if>
+            <if test="attr3 != null">#{attr3},</if>
+            <if test="attr4 != null">#{attr4},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateDvMachinery" parameterType="DvMachinery">
+        update dv_machinery
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="machineryCode != null and machineryCode != ''">machinery_code = #{machineryCode},</if>
+            <if test="machineryName != null and machineryName != ''">machinery_name = #{machineryName},</if>
+            <if test="machineryBrand != null">machinery_brand = #{machineryBrand},</if>
+            <if test="machinerySpec != null">machinery_spec = #{machinerySpec},</if>
+            <if test="machineryTypeId != null">machinery_type_id = #{machineryTypeId},</if>
+            <if test="machineryTypeCode != null">machinery_type_code = #{machineryTypeCode},</if>
+            <if test="machineryTypeName != null">machinery_type_name = #{machineryTypeName},</if>
+            <if test="workshopId != null">workshop_id = #{workshopId},</if>
+            <if test="workshopCode != null">workshop_code = #{workshopCode},</if>
+            <if test="workshopName != null">workshop_name = #{workshopName},</if>
+            <if test="status != null and status != ''">status = #{status},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="attr1 != null">attr1 = #{attr1},</if>
+            <if test="attr2 != null">attr2 = #{attr2},</if>
+            <if test="attr3 != null">attr3 = #{attr3},</if>
+            <if test="attr4 != null">attr4 = #{attr4},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where machinery_id = #{machineryId}
+    </update>
+
+    <delete id="deleteDvMachineryByMachineryId" parameterType="Long">
+        delete from dv_machinery where machinery_id = #{machineryId}
+    </delete>
+
+    <delete id="deleteDvMachineryByMachineryIds" parameterType="String">
+        delete from dv_machinery where machinery_id in 
+        <foreach item="machineryId" collection="array" open="(" separator="," close=")">
+            #{machineryId}
+        </foreach>
+    </delete>
+</mapper>
