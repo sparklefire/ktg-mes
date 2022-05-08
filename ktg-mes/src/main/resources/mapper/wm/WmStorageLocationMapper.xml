@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ktg.mes.wm.mapper.WmStorageLocationMapper">
+    
+    <resultMap type="WmStorageLocation" id="WmStorageLocationResult">
+        <result property="locationId"    column="location_id"    />
+        <result property="locationCode"    column="location_code"    />
+        <result property="locationName"    column="location_name"    />
+        <result property="warehouseId"    column="warehouse_id"    />
+        <result property="area"    column="area"    />
+        <result property="areaFlag"    column="area_flag"    />
+        <result property="remark"    column="remark"    />
+        <result property="attr1"    column="attr1"    />
+        <result property="attr2"    column="attr2"    />
+        <result property="attr3"    column="attr3"    />
+        <result property="attr4"    column="attr4"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectWmStorageLocationVo">
+        select location_id, location_code, location_name, warehouse_id, area, area_flag, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from wm_storage_location
+    </sql>
+
+    <select id="selectWmStorageLocationList" parameterType="WmStorageLocation" resultMap="WmStorageLocationResult">
+        <include refid="selectWmStorageLocationVo"/>
+        <where>  
+            <if test="locationCode != null  and locationCode != ''"> and location_code = #{locationCode}</if>
+            <if test="locationName != null  and locationName != ''"> and location_name like concat('%', #{locationName}, '%')</if>
+            <if test="warehouseId != null "> and warehouse_id = #{warehouseId}</if>
+            <if test="area != null "> and area = #{area}</if>
+            <if test="areaFlag != null  and areaFlag != ''"> and area_flag = #{areaFlag}</if>
+        </where>
+    </select>
+    
+    <select id="selectWmStorageLocationByLocationId" parameterType="Long" resultMap="WmStorageLocationResult">
+        <include refid="selectWmStorageLocationVo"/>
+        where location_id = #{locationId}
+    </select>
+
+    <select id="checkLocationCodeUnique" parameterType="WmStorageLocation" resultMap="WmStorageLocationResult">
+        <include refid="selectWmStorageLocationVo"/>
+        where location_code = #{locationCode} and warehouse_id = #{warehouseId} limit 1
+    </select>
+
+    <select id="checkLocationNameUnique" parameterType="WmStorageLocation" resultMap="WmStorageLocationResult">
+        <include refid="selectWmStorageLocationVo"/>
+        where location_name = #{locationName} and warehouse_id = #{warehouseId} limit 1
+    </select>
+
+    <insert id="insertWmStorageLocation" parameterType="WmStorageLocation" useGeneratedKeys="true" keyProperty="locationId">
+        insert into wm_storage_location
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="locationCode != null and locationCode != ''">location_code,</if>
+            <if test="locationName != null and locationName != ''">location_name,</if>
+            <if test="warehouseId != null">warehouse_id,</if>
+            <if test="area != null">area,</if>
+            <if test="areaFlag != null">area_flag,</if>
+            <if test="remark != null">remark,</if>
+            <if test="attr1 != null">attr1,</if>
+            <if test="attr2 != null">attr2,</if>
+            <if test="attr3 != null">attr3,</if>
+            <if test="attr4 != null">attr4,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="locationCode != null and locationCode != ''">#{locationCode},</if>
+            <if test="locationName != null and locationName != ''">#{locationName},</if>
+            <if test="warehouseId != null">#{warehouseId},</if>
+            <if test="area != null">#{area},</if>
+            <if test="areaFlag != null">#{areaFlag},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="attr1 != null">#{attr1},</if>
+            <if test="attr2 != null">#{attr2},</if>
+            <if test="attr3 != null">#{attr3},</if>
+            <if test="attr4 != null">#{attr4},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateWmStorageLocation" parameterType="WmStorageLocation">
+        update wm_storage_location
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="locationCode != null and locationCode != ''">location_code = #{locationCode},</if>
+            <if test="locationName != null and locationName != ''">location_name = #{locationName},</if>
+            <if test="warehouseId != null">warehouse_id = #{warehouseId},</if>
+            <if test="area != null">area = #{area},</if>
+            <if test="areaFlag != null">area_flag = #{areaFlag},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="attr1 != null">attr1 = #{attr1},</if>
+            <if test="attr2 != null">attr2 = #{attr2},</if>
+            <if test="attr3 != null">attr3 = #{attr3},</if>
+            <if test="attr4 != null">attr4 = #{attr4},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where location_id = #{locationId}
+    </update>
+
+    <delete id="deleteWmStorageLocationByLocationId" parameterType="Long">
+        delete from wm_storage_location where location_id = #{locationId}
+    </delete>
+
+    <delete id="deleteWmStorageLocationByLocationIds" parameterType="String">
+        delete from wm_storage_location where location_id in 
+        <foreach item="locationId" collection="array" open="(" separator="," close=")">
+            #{locationId}
+        </foreach>
+    </delete>
+</mapper>
