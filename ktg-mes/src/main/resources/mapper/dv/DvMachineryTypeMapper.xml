@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ktg.mes.dv.mapper.DvMachineryTypeMapper">
+    
+    <resultMap type="DvMachineryType" id="DvMachineryTypeResult">
+        <result property="machineryTypeId"    column="machinery_type_id"    />
+        <result property="machineryTypeCode"    column="machinery_type_code"    />
+        <result property="machineryTypeName"    column="machinery_type_name"    />
+        <result property="parentTypeId"    column="parent_type_id"    />
+        <result property="ancestors"    column="ancestors"    />
+        <result property="enableFlag"    column="enable_flag"    />
+        <result property="remark"    column="remark"    />
+        <result property="attr1"    column="attr1"    />
+        <result property="attr2"    column="attr2"    />
+        <result property="attr3"    column="attr3"    />
+        <result property="attr4"    column="attr4"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectDvMachineryTypeVo">
+        select machinery_type_id, machinery_type_code, machinery_type_name, parent_type_id, ancestors, enable_flag, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from dv_machinery_type
+    </sql>
+
+    <select id="selectDvMachineryTypeList" parameterType="DvMachineryType" resultMap="DvMachineryTypeResult">
+        <include refid="selectDvMachineryTypeVo"/>
+        <where>  
+            <if test="machineryTypeCode != null  and machineryTypeCode != ''"> and machinery_type_code = #{machineryTypeCode}</if>
+            <if test="machineryTypeName != null  and machineryTypeName != ''"> and machinery_type_name like concat('%', #{machineryTypeName}, '%')</if>
+            <if test="parentTypeId != null "> and parent_type_id = #{parentTypeId}</if>
+            <if test="ancestors != null  and ancestors != ''"> and ancestors = #{ancestors}</if>
+            <if test="enableFlag != null  and enableFlag != ''"> and enable_flag = #{enableFlag}</if>
+        </where>
+    </select>
+    
+    <select id="selectDvMachineryTypeByMachineryTypeId" parameterType="Long" resultMap="DvMachineryTypeResult">
+        <include refid="selectDvMachineryTypeVo"/>
+        where machinery_type_id = #{machineryTypeId}
+    </select>
+        
+    <insert id="insertDvMachineryType" parameterType="DvMachineryType" useGeneratedKeys="true" keyProperty="machineryTypeId">
+        insert into dv_machinery_type
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="machineryTypeCode != null and machineryTypeCode != ''">machinery_type_code,</if>
+            <if test="machineryTypeName != null and machineryTypeName != ''">machinery_type_name,</if>
+            <if test="parentTypeId != null">parent_type_id,</if>
+            <if test="ancestors != null and ancestors != ''">ancestors,</if>
+            <if test="enableFlag != null and enableFlag != ''">enable_flag,</if>
+            <if test="remark != null">remark,</if>
+            <if test="attr1 != null">attr1,</if>
+            <if test="attr2 != null">attr2,</if>
+            <if test="attr3 != null">attr3,</if>
+            <if test="attr4 != null">attr4,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="machineryTypeCode != null and machineryTypeCode != ''">#{machineryTypeCode},</if>
+            <if test="machineryTypeName != null and machineryTypeName != ''">#{machineryTypeName},</if>
+            <if test="parentTypeId != null">#{parentTypeId},</if>
+            <if test="ancestors != null and ancestors != ''">#{ancestors},</if>
+            <if test="enableFlag != null and enableFlag != ''">#{enableFlag},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="attr1 != null">#{attr1},</if>
+            <if test="attr2 != null">#{attr2},</if>
+            <if test="attr3 != null">#{attr3},</if>
+            <if test="attr4 != null">#{attr4},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateDvMachineryType" parameterType="DvMachineryType">
+        update dv_machinery_type
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="machineryTypeCode != null and machineryTypeCode != ''">machinery_type_code = #{machineryTypeCode},</if>
+            <if test="machineryTypeName != null and machineryTypeName != ''">machinery_type_name = #{machineryTypeName},</if>
+            <if test="parentTypeId != null">parent_type_id = #{parentTypeId},</if>
+            <if test="ancestors != null and ancestors != ''">ancestors = #{ancestors},</if>
+            <if test="enableFlag != null and enableFlag != ''">enable_flag = #{enableFlag},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="attr1 != null">attr1 = #{attr1},</if>
+            <if test="attr2 != null">attr2 = #{attr2},</if>
+            <if test="attr3 != null">attr3 = #{attr3},</if>
+            <if test="attr4 != null">attr4 = #{attr4},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where machinery_type_id = #{machineryTypeId}
+    </update>
+
+    <delete id="deleteDvMachineryTypeByMachineryTypeId" parameterType="Long">
+        delete from dv_machinery_type where machinery_type_id = #{machineryTypeId}
+    </delete>
+
+    <delete id="deleteDvMachineryTypeByMachineryTypeIds" parameterType="String">
+        delete from dv_machinery_type where machinery_type_id in 
+        <foreach item="machineryTypeId" collection="array" open="(" separator="," close=")">
+            #{machineryTypeId}
+        </foreach>
+    </delete>
+</mapper>
