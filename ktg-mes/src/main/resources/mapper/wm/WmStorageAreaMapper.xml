@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ktg.mes.wm.mapper.WmStorageAreaMapper">
+    
+    <resultMap type="WmStorageArea" id="WmStorageAreaResult">
+        <result property="areaId"    column="area_id"    />
+        <result property="areaCode"    column="area_code"    />
+        <result property="areaName"    column="area_name"    />
+        <result property="locationId"    column="location_id"    />
+        <result property="area"    column="area"    />
+        <result property="maxLoa"    column="max_loa"    />
+        <result property="positionX"    column="position_x"    />
+        <result property="positionY"    column="position_y"    />
+        <result property="positionZ"    column="position_z"    />
+        <result property="enableFlag"    column="enable_flag"    />
+        <result property="remark"    column="remark"    />
+        <result property="attr1"    column="attr1"    />
+        <result property="attr2"    column="attr2"    />
+        <result property="attr3"    column="attr3"    />
+        <result property="attr4"    column="attr4"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectWmStorageAreaVo">
+        select area_id, area_code, area_name, location_id, area, max_loa, position_x, position_y, position_z, enable_flag, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from wm_storage_area
+    </sql>
+
+    <select id="selectWmStorageAreaList" parameterType="WmStorageArea" resultMap="WmStorageAreaResult">
+        <include refid="selectWmStorageAreaVo"/>
+        <where>  
+            <if test="areaCode != null  and areaCode != ''"> and area_code = #{areaCode}</if>
+            <if test="areaName != null  and areaName != ''"> and area_name like concat('%', #{areaName}, '%')</if>
+            <if test="locationId != null "> and location_id = #{locationId}</if>
+            <if test="area != null "> and area = #{area}</if>
+            <if test="maxLoa != null "> and max_loa = #{maxLoa}</if>
+            <if test="positionX != null and  positionX !=0 "> and position_x = #{positionX}</if>
+            <if test="positionY != null and  positionY !=0"> and position_y = #{positionY}</if>
+            <if test="positionZ != null and  positionZ !=0"> and position_z = #{positionZ}</if>
+            <if test="enableFlag != null  and enableFlag != ''"> and enable_flag = #{enableFlag}</if>
+        </where>
+    </select>
+    
+    <select id="selectWmStorageAreaByAreaId" parameterType="Long" resultMap="WmStorageAreaResult">
+        <include refid="selectWmStorageAreaVo"/>
+        where area_id = #{areaId}
+    </select>
+        
+    <insert id="insertWmStorageArea" parameterType="WmStorageArea" useGeneratedKeys="true" keyProperty="areaId">
+        insert into wm_storage_area
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="areaCode != null and areaCode != ''">area_code,</if>
+            <if test="areaName != null and areaName != ''">area_name,</if>
+            <if test="locationId != null">location_id,</if>
+            <if test="area != null">area,</if>
+            <if test="maxLoa != null">max_loa,</if>
+            <if test="positionX != null">position_x,</if>
+            <if test="positionY != null">position_y,</if>
+            <if test="positionZ != null">position_z,</if>
+            <if test="enableFlag != null">enable_flag,</if>
+            <if test="remark != null">remark,</if>
+            <if test="attr1 != null">attr1,</if>
+            <if test="attr2 != null">attr2,</if>
+            <if test="attr3 != null">attr3,</if>
+            <if test="attr4 != null">attr4,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="areaCode != null and areaCode != ''">#{areaCode},</if>
+            <if test="areaName != null and areaName != ''">#{areaName},</if>
+            <if test="locationId != null">#{locationId},</if>
+            <if test="area != null">#{area},</if>
+            <if test="maxLoa != null">#{maxLoa},</if>
+            <if test="positionX != null">#{positionX},</if>
+            <if test="positionY != null">#{positionY},</if>
+            <if test="positionZ != null">#{positionZ},</if>
+            <if test="enableFlag != null">#{enableFlag},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="attr1 != null">#{attr1},</if>
+            <if test="attr2 != null">#{attr2},</if>
+            <if test="attr3 != null">#{attr3},</if>
+            <if test="attr4 != null">#{attr4},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateWmStorageArea" parameterType="WmStorageArea">
+        update wm_storage_area
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="areaCode != null and areaCode != ''">area_code = #{areaCode},</if>
+            <if test="areaName != null and areaName != ''">area_name = #{areaName},</if>
+            <if test="locationId != null">location_id = #{locationId},</if>
+            <if test="area != null">area = #{area},</if>
+            <if test="maxLoa != null">max_loa = #{maxLoa},</if>
+            <if test="positionX != null">position_x = #{positionX},</if>
+            <if test="positionY != null">position_y = #{positionY},</if>
+            <if test="positionZ != null">position_z = #{positionZ},</if>
+            <if test="enableFlag != null">enable_flag = #{enableFlag},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="attr1 != null">attr1 = #{attr1},</if>
+            <if test="attr2 != null">attr2 = #{attr2},</if>
+            <if test="attr3 != null">attr3 = #{attr3},</if>
+            <if test="attr4 != null">attr4 = #{attr4},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where area_id = #{areaId}
+    </update>
+
+    <delete id="deleteWmStorageAreaByAreaId" parameterType="Long">
+        delete from wm_storage_area where area_id = #{areaId}
+    </delete>
+
+    <delete id="deleteWmStorageAreaByAreaIds" parameterType="String">
+        delete from wm_storage_area where area_id in 
+        <foreach item="areaId" collection="array" open="(" separator="," close=")">
+            #{areaId}
+        </foreach>
+    </delete>
+</mapper>
