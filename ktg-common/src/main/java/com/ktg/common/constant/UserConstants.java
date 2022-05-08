@@ -81,5 +81,6 @@ public class UserConstants
      */
     public static final String ITEM_TYPE_CODE ="ITEM_TYPE_CODE";
     public static final String ITEM_CODE ="ITEM_CODE";
+    public static final String MACHINERY_TYPE_CODE="MACHINERY_TYPE_CODE";
 
 }

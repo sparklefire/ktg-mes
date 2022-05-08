@@ -189,7 +189,7 @@ create table md_workshop (
   workshop_id         bigint(20)      not null auto_increment      comment '车间ID',
   workshop_code       varchar(64)     not null                     comment '车间编码',
   workshop_name       varchar(255)    not null                     comment '车间名称',
-  area                double(12,2)    default 'Y' not null         comment '面积',
+  area                double(12,2)                                 comment '面积',
   charge              varchar(64)                                  comment '负责人',
   enable_flag         char(1)         default 'Y' not null         comment '是否启用',
   remark              varchar(500)    default ''                   comment '备注',

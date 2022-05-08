@@ -46,4 +46,32 @@ create table wm_storage_location (
 ) engine=innodb auto_increment=200 comment = '库区表';
 
 
+-- ----------------------------
+-- 3、库位表
+-- ----------------------------
+drop table if exists wm_storage_area;
+create table wm_storage_area (
+  area_id               bigint(20)      not null auto_increment     comment '库位ID',
+  area_code             varchar(64)     not null                    comment '库位编码',
+  area_name             varchar(255)    not null                    comment '库位名称',
+  location_id           bigint(20)      not null                    comment '库区ID',
+  area                  double(8,2)                                 comment '面积',
+  max_loa               double(8,2)                                 comment '最大载重量',
+  position_x            int(11)                                     comment '库位位置X',
+  position_y            int(11)                                     comment '库位位置y',
+  position_z            int(11)                                     comment '库位位置z',
+  enable_flag           char(1)                                     comment '是否启用',
+  remark                varchar(500)    default ''                  comment '备注',
+  attr1                 varchar(64)     default null                comment '预留字段1',
+  attr2                 varchar(255)    default null                comment '预留字段2',
+  attr3                 int(11)         default 0                   comment '预留字段3',
+  attr4                 int(11)         default 0                   comment '预留字段4',
+  create_by             varchar(64)     default ''                  comment '创建者',
+  create_time 	        datetime                                    comment '创建时间',
+  update_by             varchar(64)     default ''                  comment '更新者',
+  update_time           datetime                                    comment '更新时间',
+  primary key (area_id)
+) engine=innodb auto_increment=200 comment = '库位表';
+
+
 
