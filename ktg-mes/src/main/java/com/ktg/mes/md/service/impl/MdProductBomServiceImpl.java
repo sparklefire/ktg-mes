@@ -1,24 +1,21 @@
 package com.ktg.mes.md.service.impl;
 
 import java.util.List;
-
-import com.ktg.mes.md.service.IMdProductBomService;
-import com.ktg.common.constant.UserConstants;
 import com.ktg.common.utils.DateUtils;
-import com.ktg.common.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ktg.mes.md.mapper.MdProductBomMapper;
 import com.ktg.mes.md.domain.MdProductBom;
+import com.ktg.mes.md.service.IMdProductBomService;
 
 /**
  * 产品BOM关系Service业务层处理
  * 
  * @author yinjinlu
- * @date 2022-05-05
+ * @date 2022-05-09
  */
 @Service
-public class MdProductBomServiceImpl implements IMdProductBomService
+public class MdProductBomServiceImpl implements IMdProductBomService 
 {
     @Autowired
     private MdProductBomMapper mdProductBomMapper;
@@ -45,16 +42,6 @@ public class MdProductBomServiceImpl implements IMdProductBomService
     public List<MdProductBom> selectMdProductBomList(MdProductBom mdProductBom)
     {
         return mdProductBomMapper.selectMdProductBomList(mdProductBom);
-    }
-
-    @Override
-    public String checkBomExist(MdProductBom mdProductBom) {
-        MdProductBom bom = mdProductBomMapper.checkBomExist(mdProductBom);
-        Long bomId = mdProductBom.getBomId()==null?-1L:mdProductBom.getBomId();
-        if(StringUtils.isNotNull(bom) && bom.getBomId().longValue() != bomId.longValue()){
-            return UserConstants.NOT_UNIQUE;
-        }
-        return UserConstants.UNIQUE;
     }
 
     /**

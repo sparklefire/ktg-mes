@@ -1,14 +1,13 @@
 package com.ktg.mes.md.service;
 
-import com.ktg.mes.md.domain.MdProductBom;
-
 import java.util.List;
+import com.ktg.mes.md.domain.MdProductBom;
 
 /**
  * 产品BOM关系Service接口
  * 
  * @author yinjinlu
- * @date 2022-05-05
+ * @date 2022-05-09
  */
 public interface IMdProductBomService 
 {
@@ -27,13 +26,6 @@ public interface IMdProductBomService
      * @return 产品BOM关系集合
      */
     public List<MdProductBom> selectMdProductBomList(MdProductBom mdProductBom);
-
-    /**
-     * 检查物料BOM是否已经存在
-     * @param mdProductBom
-     * @return
-     */
-    public String checkBomExist(MdProductBom mdProductBom);
 
     /**
      * 新增产品BOM关系

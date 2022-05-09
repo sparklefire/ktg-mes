@@ -1,26 +1,33 @@
 package com.ktg.mes.md.controller;
 
+import java.util.List;
+import javax.servlet.http.HttpServletResponse;
+
 import com.ktg.mes.md.service.IMdProductBomService;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import com.ktg.common.annotation.Log;
-import com.ktg.common.constant.UserConstants;
 import com.ktg.common.core.controller.BaseController;
 import com.ktg.common.core.domain.AjaxResult;
-import com.ktg.common.core.page.TableDataInfo;
 import com.ktg.common.enums.BusinessType;
-import com.ktg.common.utils.poi.ExcelUtil;
 import com.ktg.mes.md.domain.MdProductBom;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletResponse;
-import java.util.List;
+import com.ktg.mes.md.service.IMdProductBomService;
+import com.ktg.common.utils.poi.ExcelUtil;
+import com.ktg.common.core.page.TableDataInfo;
 
 /**
  * 产品BOM关系Controller
  * 
  * @author yinjinlu
- * @date 2022-05-05
+ * @date 2022-05-09
  */
 @RestController
 @RequestMapping("/mes/md/bom")
@@ -72,9 +79,6 @@ public class MdProductBomController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody MdProductBom mdProductBom)
     {
-        if(UserConstants.NOT_UNIQUE.equals(mdProductBomService.checkBomExist(mdProductBom))){
-            return AjaxResult.error("物料"+mdProductBom.getBomItemCode()+"已存在!");
-        }
         return toAjax(mdProductBomService.insertMdProductBom(mdProductBom));
     }
 

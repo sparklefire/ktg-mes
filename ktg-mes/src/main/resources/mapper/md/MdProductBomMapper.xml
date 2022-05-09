@@ -12,6 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="bomItemName"    column="bom_item_name"    />
         <result property="bomItemSpec"    column="bom_item_spec"    />
         <result property="unitOfMeasure"    column="unit_of_measure"    />
+        <result property="itemOrProduct"    column="item_or_product"    />
         <result property="quantity"    column="quantity"    />
         <result property="enableFlag"    column="enable_flag"    />
         <result property="remark"    column="remark"    />
@@ -26,7 +27,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectMdProductBomVo">
-        select bom_id, item_id, bom_item_id, bom_item_code, bom_item_name, bom_item_spec, unit_of_measure, quantity, enable_flag, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from md_product_bom
+        select bom_id, item_id, bom_item_id, bom_item_code, bom_item_name, bom_item_spec, unit_of_measure, item_or_product, quantity, enable_flag, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from md_product_bom
     </sql>
 
     <select id="selectMdProductBomList" parameterType="MdProductBom" resultMap="MdProductBomResult">
@@ -38,12 +39,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="bomItemName != null  and bomItemName != ''"> and bom_item_name like concat('%', #{bomItemName}, '%')</if>
             <if test="bomItemSpec != null  and bomItemSpec != ''"> and bom_item_spec = #{bomItemSpec}</if>
             <if test="unitOfMeasure != null  and unitOfMeasure != ''"> and unit_of_measure = #{unitOfMeasure}</if>
+            <if test="itemOrProduct != null  and itemOrProduct != ''"> and item_or_product = #{itemOrProduct}</if>
             <if test="quantity != null "> and quantity = #{quantity}</if>
             <if test="enableFlag != null  and enableFlag != ''"> and enable_flag = #{enableFlag}</if>
-            <if test="attr1 != null  and attr1 != ''"> and attr1 = #{attr1}</if>
-            <if test="attr2 != null  and attr2 != ''"> and attr2 = #{attr2}</if>
-            <if test="attr3 != null "> and attr3 = #{attr3}</if>
-            <if test="attr4 != null "> and attr4 = #{attr4}</if>
         </where>
     </select>
     
@@ -51,12 +49,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectMdProductBomVo"/>
         where bom_id = #{bomId}
     </select>
-
-    <select id="checkBomExist" parameterType="MdProductBom" resultMap="MdProductBomResult">
-        <include refid="selectMdProductBomVo"/>
-        where item_id = #{itemId} and bom_item_id = #{bomItemId} limit 1
-    </select>
-
+        
     <insert id="insertMdProductBom" parameterType="MdProductBom" useGeneratedKeys="true" keyProperty="bomId">
         insert into md_product_bom
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -66,6 +59,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="bomItemName != null and bomItemName != ''">bom_item_name,</if>
             <if test="bomItemSpec != null">bom_item_spec,</if>
             <if test="unitOfMeasure != null and unitOfMeasure != ''">unit_of_measure,</if>
+            <if test="itemOrProduct != null and itemOrProduct != ''">item_or_product,</if>
             <if test="quantity != null">quantity,</if>
             <if test="enableFlag != null and enableFlag != ''">enable_flag,</if>
             <if test="remark != null">remark,</if>
@@ -85,6 +79,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="bomItemName != null and bomItemName != ''">#{bomItemName},</if>
             <if test="bomItemSpec != null">#{bomItemSpec},</if>
             <if test="unitOfMeasure != null and unitOfMeasure != ''">#{unitOfMeasure},</if>
+            <if test="itemOrProduct != null and itemOrProduct != ''">#{itemOrProduct},</if>
             <if test="quantity != null">#{quantity},</if>
             <if test="enableFlag != null and enableFlag != ''">#{enableFlag},</if>
             <if test="remark != null">#{remark},</if>
@@ -108,6 +103,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="bomItemName != null and bomItemName != ''">bom_item_name = #{bomItemName},</if>
             <if test="bomItemSpec != null">bom_item_spec = #{bomItemSpec},</if>
             <if test="unitOfMeasure != null and unitOfMeasure != ''">unit_of_measure = #{unitOfMeasure},</if>
+            <if test="itemOrProduct != null and itemOrProduct != ''">item_or_product = #{itemOrProduct},</if>
             <if test="quantity != null">quantity = #{quantity},</if>
             <if test="enableFlag != null and enableFlag != ''">enable_flag = #{enableFlag},</if>
             <if test="remark != null">remark = #{remark},</if>

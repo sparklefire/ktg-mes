@@ -1,17 +1,16 @@
 package com.ktg.mes.md.domain;
 
-import com.ktg.common.annotation.Excel;
-import com.ktg.common.core.domain.BaseEntity;
+import java.math.BigDecimal;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-
-import java.math.BigDecimal;
+import com.ktg.common.annotation.Excel;
+import com.ktg.common.core.domain.BaseEntity;
 
 /**
  * 产品BOM关系对象 md_product_bom
  * 
  * @author yinjinlu
- * @date 2022-05-05
+ * @date 2022-05-09
  */
 public class MdProductBom extends BaseEntity
 {
@@ -40,11 +39,13 @@ public class MdProductBom extends BaseEntity
     @Excel(name = "BOM物料规格")
     private String bomItemSpec;
 
-    
-
     /** BOM物料单位 */
     @Excel(name = "BOM物料单位")
     private String unitOfMeasure;
+
+    /** 产品物料标识 */
+    @Excel(name = "产品物料标识")
+    private String itemOrProduct;
 
     /** 物料使用比例 */
     @Excel(name = "物料使用比例")
@@ -55,19 +56,15 @@ public class MdProductBom extends BaseEntity
     private String enableFlag;
 
     /** 预留字段1 */
-    @Excel(name = "预留字段1")
     private String attr1;
 
     /** 预留字段2 */
-    @Excel(name = "预留字段2")
     private String attr2;
 
     /** 预留字段3 */
-    @Excel(name = "预留字段3")
     private Long attr3;
 
     /** 预留字段4 */
-    @Excel(name = "预留字段4")
     private Long attr4;
 
     public void setBomId(Long bomId) 
@@ -132,6 +129,15 @@ public class MdProductBom extends BaseEntity
     public String getUnitOfMeasure() 
     {
         return unitOfMeasure;
+    }
+    public void setItemOrProduct(String itemOrProduct) 
+    {
+        this.itemOrProduct = itemOrProduct;
+    }
+
+    public String getItemOrProduct() 
+    {
+        return itemOrProduct;
     }
     public void setQuantity(BigDecimal quantity) 
     {
@@ -198,6 +204,7 @@ public class MdProductBom extends BaseEntity
             .append("bomItemName", getBomItemName())
             .append("bomItemSpec", getBomItemSpec())
             .append("unitOfMeasure", getUnitOfMeasure())
+            .append("itemOrProduct", getItemOrProduct())
             .append("quantity", getQuantity())
             .append("enableFlag", getEnableFlag())
             .append("remark", getRemark())
