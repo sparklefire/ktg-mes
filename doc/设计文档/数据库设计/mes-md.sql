@@ -65,6 +65,7 @@ create table md_product_bom (
   bom_item_name     varchar(255)    not null                   comment 'BOM物料名称',
   bom_item_spec     varchar(500)                               comment 'BOM物料规格',
   unit_of_measure   varchar(64)     not null                   comment 'BOM物料单位',
+  item_or_product   varchar(20)     not null                   comment '产品物料标识',
   quantity          double(12,4)    default 0 not null         comment '物料使用比例',
   enable_flag       char(1)         default 'Y' not null       comment '是否启用',
   remark            varchar(500)    default ''                 comment '备注',

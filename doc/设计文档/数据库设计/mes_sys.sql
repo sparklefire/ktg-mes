@@ -37,7 +37,7 @@ create table sys_auto_code_part (
   part_code			varchar(64)                                comment '分段编号',
   part_name         varchar(255)                               comment '分段名称',
   part_length       int(11)         not null                   comment '分段长度',
-  date_formart      varchar(20)          	                   comment '日期时间格式',
+  date_format      varchar(20)          	                   comment '日期时间格式',
   input_character   varchar(64)                                comment '输入字符',
   fix_character     varchar(64)                                comment '固定字符',
   seria_start_no    int(11)         					       comment '流水号起始值',
