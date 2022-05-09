@@ -20,6 +20,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="clientCode"    column="client_code"    />
         <result property="clientName"    column="client_name"    />
         <result property="requestDate"    column="request_date"    />
+        <result property="parentId"    column="parent_id"    />
+        <result property="ancestors"    column="ancestors"    />
         <result property="status"    column="status"    />
         <result property="remark"    column="remark"    />
         <result property="attr1"    column="attr1"    />
@@ -33,7 +35,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectProWorkorderVo">
-        select workorder_id, workorder_code, workorder_name, order_source, source_code, product_id, product_code, product_name, product_spc, unit_of_measure, quantity, client_id, client_code, client_name, request_date, status, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from pro_workorder
+        select workorder_id, workorder_code, workorder_name, order_source, source_code, product_id, product_code, product_name, product_spc, unit_of_measure, quantity, client_id, client_code, client_name, request_date, parent_id, ancestors, status, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from pro_workorder
     </sql>
 
     <select id="selectProWorkorderList" parameterType="ProWorkorder" resultMap="ProWorkorderResult">
@@ -53,6 +55,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="clientCode != null  and clientCode != ''"> and client_code = #{clientCode}</if>
             <if test="clientName != null  and clientName != ''"> and client_name like concat('%', #{clientName}, '%')</if>
             <if test="requestDate != null "> and request_date = #{requestDate}</if>
+            <if test="parentId != null "> and parent_id = #{parentId}</if>
+            <if test="ancestors != null  and ancestors != ''"> and ancestors = #{ancestors}</if>
             <if test="status != null  and status != ''"> and status = #{status}</if>
         </where>
     </select>
@@ -79,6 +83,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="clientCode != null">client_code,</if>
             <if test="clientName != null">client_name,</if>
             <if test="requestDate != null">request_date,</if>
+            <if test="parentId != null">parent_id,</if>
+            <if test="ancestors != null and ancestors != ''">ancestors,</if>
             <if test="status != null">status,</if>
             <if test="remark != null">remark,</if>
             <if test="attr1 != null">attr1,</if>
@@ -105,6 +111,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="clientCode != null">#{clientCode},</if>
             <if test="clientName != null">#{clientName},</if>
             <if test="requestDate != null">#{requestDate},</if>
+            <if test="parentId != null">#{parentId},</if>
+            <if test="ancestors != null and ancestors != ''">#{ancestors},</if>
             <if test="status != null">#{status},</if>
             <if test="remark != null">#{remark},</if>
             <if test="attr1 != null">#{attr1},</if>
@@ -135,6 +143,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="clientCode != null">client_code = #{clientCode},</if>
             <if test="clientName != null">client_name = #{clientName},</if>
             <if test="requestDate != null">request_date = #{requestDate},</if>
+            <if test="parentId != null">parent_id = #{parentId},</if>
+            <if test="ancestors != null and ancestors != ''">ancestors = #{ancestors},</if>
             <if test="status != null">status = #{status},</if>
             <if test="remark != null">remark = #{remark},</if>
             <if test="attr1 != null">attr1 = #{attr1},</if>

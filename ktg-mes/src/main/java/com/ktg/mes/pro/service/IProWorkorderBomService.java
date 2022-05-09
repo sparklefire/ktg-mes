@@ -58,4 +58,13 @@ public interface IProWorkorderBomService
      * @return 结果
      */
     public int deleteProWorkorderBomByLineId(Long lineId);
+
+
+    /**
+     * 批量删除工单下所有的BOM组成数据
+     * @param workorderId
+     * @return
+     */
+    public int deleteProWorkorderBomByWorkorderId(Long workorderId);
+
 }

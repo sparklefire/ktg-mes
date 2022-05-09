@@ -124,4 +124,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{lineId}
         </foreach>
     </delete>
+
+    <delete id="deleteProWorkorderBomByWorkorderId" parameterType="Long">
+        delete from pro_workorder_bom where workorder_id = #{workorderId}
+    </delete>
 </mapper>

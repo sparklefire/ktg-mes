@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ktg.common.annotation.Excel;
-import com.ktg.common.core.domain.BaseEntity;
+import com.ktg.common.core.domain.TreeEntity;
 
 /**
  * 生产工单对象 pro_workorder
@@ -14,7 +14,7 @@ import com.ktg.common.core.domain.BaseEntity;
  * @author yinjinlu
  * @date 2022-05-09
  */
-public class ProWorkorder extends BaseEntity
+public class ProWorkorder extends TreeEntity
 {
     private static final long serialVersionUID = 1L;
 
@@ -293,6 +293,8 @@ public class ProWorkorder extends BaseEntity
             .append("clientCode", getClientCode())
             .append("clientName", getClientName())
             .append("requestDate", getRequestDate())
+            .append("parentId", getParentId())
+            .append("ancestors", getAncestors())
             .append("status", getStatus())
             .append("remark", getRemark())
             .append("attr1", getAttr1())

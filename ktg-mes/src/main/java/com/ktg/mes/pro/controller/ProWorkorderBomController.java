@@ -28,7 +28,7 @@ import com.ktg.common.core.page.TableDataInfo;
  * @date 2022-05-09
  */
 @RestController
-@RequestMapping("/pro/workorderbom")
+@RequestMapping("/mes/pro/workorderbom")
 public class ProWorkorderBomController extends BaseController
 {
     @Autowired
@@ -37,7 +37,7 @@ public class ProWorkorderBomController extends BaseController
     /**
      * 查询生产工单BOM组成列表
      */
-    @PreAuthorize("@ss.hasPermi('pro:workorderbom:list')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:workorderbom:list')")
     @GetMapping("/list")
     public TableDataInfo list(ProWorkorderBom proWorkorderBom)
     {
@@ -49,7 +49,7 @@ public class ProWorkorderBomController extends BaseController
     /**
      * 导出生产工单BOM组成列表
      */
-    @PreAuthorize("@ss.hasPermi('pro:workorderbom:export')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:workorderbom:export')")
     @Log(title = "生产工单BOM组成", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, ProWorkorderBom proWorkorderBom)
@@ -62,7 +62,7 @@ public class ProWorkorderBomController extends BaseController
     /**
      * 获取生产工单BOM组成详细信息
      */
-    @PreAuthorize("@ss.hasPermi('pro:workorderbom:query')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:workorderbom:query')")
     @GetMapping(value = "/{lineId}")
     public AjaxResult getInfo(@PathVariable("lineId") Long lineId)
     {
@@ -72,7 +72,7 @@ public class ProWorkorderBomController extends BaseController
     /**
      * 新增生产工单BOM组成
      */
-    @PreAuthorize("@ss.hasPermi('pro:workorderbom:add')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:workorderbom:add')")
     @Log(title = "生产工单BOM组成", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody ProWorkorderBom proWorkorderBom)
@@ -83,7 +83,7 @@ public class ProWorkorderBomController extends BaseController
     /**
      * 修改生产工单BOM组成
      */
-    @PreAuthorize("@ss.hasPermi('pro:workorderbom:edit')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:workorderbom:edit')")
     @Log(title = "生产工单BOM组成", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody ProWorkorderBom proWorkorderBom)
@@ -94,7 +94,7 @@ public class ProWorkorderBomController extends BaseController
     /**
      * 删除生产工单BOM组成
      */
-    @PreAuthorize("@ss.hasPermi('pro:workorderbom:remove')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:workorderbom:remove')")
     @Log(title = "生产工单BOM组成", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{lineIds}")
     public AjaxResult remove(@PathVariable Long[] lineIds)

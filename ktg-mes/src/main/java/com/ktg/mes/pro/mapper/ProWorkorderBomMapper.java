@@ -58,4 +58,6 @@ public interface ProWorkorderBomMapper
      * @return 结果
      */
     public int deleteProWorkorderBomByLineIds(Long[] lineIds);
+
+    public int deleteProWorkorderBomByWorkorderId(Long workorderId);
 }

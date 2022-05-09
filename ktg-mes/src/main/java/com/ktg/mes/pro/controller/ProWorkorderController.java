@@ -1,5 +1,6 @@
 package com.ktg.mes.pro.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
@@ -26,7 +27,6 @@ import com.ktg.common.enums.BusinessType;
 import com.ktg.mes.pro.domain.ProWorkorder;
 import com.ktg.mes.pro.service.IProWorkorderService;
 import com.ktg.common.utils.poi.ExcelUtil;
-import com.ktg.common.core.page.TableDataInfo;
 
 /**
  * 生产工单Controller
@@ -52,11 +52,10 @@ public class ProWorkorderController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('mes:pro:workorder:list')")
     @GetMapping("/list")
-    public TableDataInfo list(ProWorkorder proWorkorder)
+    public AjaxResult list(ProWorkorder proWorkorder)
     {
-        startPage();
         List<ProWorkorder> list = proWorkorderService.selectProWorkorderList(proWorkorder);
-        return getDataTable(list);
+        return AjaxResult.success(list);
     }
 
     /**
@@ -90,7 +89,15 @@ public class ProWorkorderController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody ProWorkorder proWorkorder)
     {
-        return toAjax(proWorkorderService.insertProWorkorder(proWorkorder));
+        if(proWorkorder.getParentId()==null || proWorkorder.getParentId()==0){
+            proWorkorder.setAncestors("0");
+        }
+        proWorkorderService.insertProWorkorder(proWorkorder);
+
+        Long workorderId = proWorkorder.getWorkorderId();
+        generateBomLine(workorderId);
+
+        return AjaxResult.success(workorderId);
     }
 
     /**
@@ -101,7 +108,17 @@ public class ProWorkorderController extends BaseController
     @PutMapping
     public AjaxResult edit(@RequestBody ProWorkorder proWorkorder)
     {
-        return toAjax(proWorkorderService.updateProWorkorder(proWorkorder));
+        ProWorkorder workorder = proWorkorderService.selectProWorkorderByWorkorderId(proWorkorder.getWorkorderId());
+        int ret =proWorkorderService.updateProWorkorder(proWorkorder);
+        //如果是产品和数量发生变化则需要重新生成BOM组成
+        if(ret >0){
+            if(workorder.getProductId().longValue() != proWorkorder.getProductId().longValue() ||
+                    workorder.getQuantity().compareTo(proWorkorder.getQuantity())!=0){
+                removeBomLine(proWorkorder.getWorkorderId());
+                generateBomLine(proWorkorder.getWorkorderId());
+            }
+        }
+        return toAjax(ret);
     }
 
     /**
@@ -112,36 +129,53 @@ public class ProWorkorderController extends BaseController
 	@DeleteMapping("/{workorderIds}")
     public AjaxResult remove(@PathVariable Long[] workorderIds)
     {
+        for (Long id:workorderIds
+             ) {
+            removeBomLine(id);
+        }
         return toAjax(proWorkorderService.deleteProWorkorderByWorkorderIds(workorderIds));
     }
 
     /**
-     * 根据生产工单中的产品生成对应的BOM组成物料清单
-     * @param workOrderId
+     * 根据生产工单中的产品生成BOM物料行
+     * @param workorderId
      */
-    private void generateBomLine(Long workOrderId){
+    private void generateBomLine(Long workorderId){
+        //先根据ID找到对应的产品
+        ProWorkorder workorder = proWorkorderService.selectProWorkorderByWorkorderId(workorderId);
 
-        ProWorkorder workorder = proWorkorderService.selectProWorkorderByWorkorderId(workOrderId);
-        Long itemId = workorder.getProductId(); //得到当前工单生产的物料/产品ID
-
+        //根据产品找到BOM组成
         MdProductBom param = new MdProductBom();
-        param.setItemId(itemId);
+        param.setItemId(workorder.getProductId());
         List<MdProductBom> boms = mdProductBomService.selectMdProductBomList(param);
 
-        ProWorkorderBom proWorkorderBom = new ProWorkorderBom();
-        if(!CollUtil.isEmpty(boms)){
-            for (MdProductBom bom: boms
+        //生成BOM数据
+        BigDecimal orderQuantitiy = workorder.getQuantity();
+        ProWorkorderBom workorderBom = new ProWorkorderBom();
+        if(CollUtil.isNotEmpty(boms)){
+            for (MdProductBom bom:boms
                  ) {
-                proWorkorderBom.setWorkorderId(workOrderId);
-                proWorkorderBom.setItemId(bom.getBomItemId());
-                proWorkorderBom.setItemCode(bom.getBomItemCode());
-                proWorkorderBom.setItemName(bom.getBomItemName());
-                proWorkorderBom.setItemSpc(bom.getBomItemSpec());
-                proWorkorderBom.setUnitOfMeasure(bom.getUnitOfMeasure());
-                proWorkorderBom.setItemOrProduct(""); //TODO
+                workorderBom.setWorkorderId(workorderId);
+                workorderBom.setItemId(bom.getBomItemId());
+                workorderBom.setItemCode(bom.getBomItemCode());
+                workorderBom.setItemName(bom.getBomItemName());
+                workorderBom.setItemSpc(bom.getBomItemSpec());
+                workorderBom.setItemOrProduct(bom.getItemOrProduct());
+                workorderBom.setUnitOfMeasure(bom.getUnitOfMeasure());
+                workorderBom.setQuantity(orderQuantitiy.multiply(bom.getQuantity()));
+                proWorkorderBomService.insertProWorkorderBom(workorderBom);
             }
         }
+    }
 
+    /**
+     * 删除当前工单下所有BOM组成
+     * @param workorderId
+     */
+    private void removeBomLine(Long workorderId){
+        ProWorkorderBom param = new ProWorkorderBom();
+        param.setWorkorderId(workorderId);
+        proWorkorderBomService.deleteProWorkorderBomByWorkorderId(workorderId);
     }
 
 }

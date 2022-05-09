@@ -2,6 +2,8 @@ package com.ktg.mes.pro.service.impl;
 
 import java.util.List;
 import com.ktg.common.utils.DateUtils;
+import com.ktg.common.utils.StringUtils;
+import com.ktg.mes.dv.domain.DvMachineryType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ktg.mes.pro.mapper.ProWorkorderMapper;
@@ -53,6 +55,13 @@ public class ProWorkorderServiceImpl implements IProWorkorderService
     @Override
     public int insertProWorkorder(ProWorkorder proWorkorder)
     {
+        if(proWorkorder.getParentId()!= null){
+            ProWorkorder parent = proWorkorderMapper.selectProWorkorderByWorkorderId(proWorkorder.getParentId());
+            if(StringUtils.isNotNull(parent)){
+                proWorkorder.setAncestors(parent.getAncestors()+","+parent.getParentId());
+            }
+        }
+
         proWorkorder.setCreateTime(DateUtils.getNowDate());
         return proWorkorderMapper.insertProWorkorder(proWorkorder);
     }

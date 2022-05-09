@@ -93,4 +93,9 @@ public class ProWorkorderBomServiceImpl implements IProWorkorderBomService
     {
         return proWorkorderBomMapper.deleteProWorkorderBomByLineId(lineId);
     }
+
+    @Override
+    public int deleteProWorkorderBomByWorkorderId(Long workorderId) {
+        return proWorkorderBomMapper.deleteProWorkorderBomByWorkorderId(workorderId);
+    }
 }
