@@ -62,6 +62,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="contact2Email != null  and contact2Email != ''"> and contact2_email = #{contact2Email}</if>
             <if test="creditCode != null  and creditCode != ''"> and credit_code = #{creditCode}</if>
             <if test="enableFlag != null  and enableFlag != ''"> and enable_flag = #{enableFlag}</if>
+            and client_id != 0
         </where>
     </select>
     

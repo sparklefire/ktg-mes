@@ -12,7 +12,7 @@
         <result property="partCode" column="part_code"   />
         <result property="partName"     column="part_name"  />
         <result property="partLength"    column="part_length" />
-        <result property="dateFormat"    column="date_formart" />
+        <result property="dateFormat"    column="date_format" />
         <result property="inputCharacter"    column="input_character" />
         <result property="fixCharacter"    column="fix_character" />
         <result property="seriaStartNo"    column="seria_start_no" />
@@ -29,7 +29,7 @@
 
     <sql id="selectSysAutoCodePartVo">
         select d.part_id,d.rule_id,d.part_index,d.part_type,d.part_code, d.part_name,
-         d.part_length, d.date_formart,d.input_character,d.fix_character,d.seria_start_no,
+         d.part_length, d.date_format,d.input_character,d.fix_character,d.seria_start_no,
          d.seria_step,d.seria_now_no,d.cycle_flag,d.cycle_method,d.remark,d.create_by,
          d.create_time,d.update_by,d.update_time
         from sys_auto_code_part d
@@ -81,8 +81,8 @@
         <if test="partLength !=null and partLength !=0">
             part_length,
         </if>
-        <if test="dateFormart !=null and dateFormart !=''">
-            date_formart,
+        <if test="dateFormat !=null and dateFormat !=''">
+            date_format,
         </if>
         <if test="inputCharacter !=null and inputCharacter !=''">
             input_character,
@@ -117,8 +117,8 @@
         <if test="partLength !=null and partLength !=0">
             #{partLength},
         </if>
-        <if test="dateFormart !=null and dateFormart !=''">
-            #{dateFormart},
+        <if test="dateFormat !=null and dateFormat !=''">
+            #{dateFormat},
         </if>
         <if test="inputCharacter !=null and inputCharacter !=''">
             #{inputCharacter},
@@ -162,8 +162,8 @@
             <if test="partLength !=null and partLength !=0">
                 part_length = #{partLength},
             </if>
-            <if test="dateFormart !=null and dateFormart !=''">
-                date_formart = #{dateFormart},
+            <if test="dateFormat !=null and dateFormat !=''">
+                date_format = #{dateFormat},
             </if>
             <if test="inputCharacter !=null and inputCharacter !=''">
                 input_character = #{inputCharacter},

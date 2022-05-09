@@ -20,7 +20,7 @@ public class SysAutoCodePart extends BaseEntity {
 
     private Integer partLength;
 
-    private String dateFormart;
+    private String dateFormat;
 
     private String inputCharacter;
 
@@ -93,12 +93,12 @@ public class SysAutoCodePart extends BaseEntity {
         this.partLength = partLength;
     }
 
-    public String getDateFormart() {
-        return dateFormart;
+    public String getDateFormat() {
+        return dateFormat;
     }
 
-    public void setDateFormart(String dateFormart) {
-        this.dateFormart = dateFormart;
+    public void setDateFormat(String dateFormat) {
+        this.dateFormat = dateFormat;
     }
 
     public String getInputCharacter() {
@@ -167,7 +167,7 @@ public class SysAutoCodePart extends BaseEntity {
                 ", partCode='" + partCode + '\'' +
                 ", partName='" + partName + '\'' +
                 ", partLength=" + partLength +
-                ", dateFormart='" + dateFormart + '\'' +
+                ", dateFormat='" + dateFormat + '\'' +
                 ", inputCharacter='" + inputCharacter + '\'' +
                 ", fixCharacter='" + fixCharacter + '\'' +
                 ", seriaStartNo=" + seriaStartNo +

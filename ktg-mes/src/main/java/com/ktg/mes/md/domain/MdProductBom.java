@@ -40,6 +40,8 @@ public class MdProductBom extends BaseEntity
     @Excel(name = "BOM物料规格")
     private String bomItemSpec;
 
+    
+
     /** BOM物料单位 */
     @Excel(name = "BOM物料单位")
     private String unitOfMeasure;

@@ -13,7 +13,7 @@ public class PartTypeNowDateHandler implements PartTypeTemplate {
 
     @Override
     public String partHandle(SysAutoCodePart sysAutoCodePart) {
-        String formartDate = sysAutoCodePart.getDateFormart();
-        return DateTimeFormatter.ofPattern(formartDate).format(LocalDateTime.now());
+        String formatDate = sysAutoCodePart.getDateFormat();
+        return DateTimeFormatter.ofPattern(formatDate).format(LocalDateTime.now());
     }
 }
