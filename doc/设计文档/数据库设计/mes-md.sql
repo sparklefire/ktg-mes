@@ -206,7 +206,33 @@ create table md_workshop (
 ) engine=innodb auto_increment=200 comment = '车间表';
 
 
-
+-- ----------------------------
+-- 8、工作站表
+-- ----------------------------
+drop table if exists md_workstation;
+create table md_workstation (
+  workstation_id         bigint(20)      not null auto_increment      comment '工作站ID',
+  workstation_code       varchar(64)     not null                     comment '工作站编码',
+  workstation_name       varchar(255)    not null                     comment '工作站名称',
+  workstation_address    varchar(255)                                 comment '工作站地点',
+  workshop_id            bigint(20)                                   comment '所在车间ID',
+  workshop_code          varchar(64)                                  comment '所在车间编码',
+  workshop_name          varchar(255)                                 comment '所在车间名称',
+  process_id             bigint(20)                                   comment '工序ID',
+  process_code           varchar(64)                                  comment '工序编码',
+  process_name           varchar(255)                                 comment '工序名称',
+  enable_flag            char(1)         default 'Y' not null         comment '是否启用',
+  remark                 varchar(500)    default ''                   comment '备注',
+  attr1                  varchar(64)     default null                 comment '预留字段1',
+  attr2                  varchar(255)     default null                comment '预留字段2',
+  attr3                  int(11)         default 0                    comment '预留字段3',
+  attr4                  int(11)         default 0                    comment '预留字段4',
+  create_by              varchar(64)     default ''                   comment '创建者',
+  create_time 	         datetime                                     comment '创建时间',
+  update_by              varchar(64)     default ''                   comment '更新者',
+  update_time            datetime                                     comment '更新时间',
+  primary key (workstation_id)
+) engine=innodb auto_increment=200 comment = '工作站表';
 
 
 
