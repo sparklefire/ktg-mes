@@ -39,7 +39,7 @@ public class MdClientController extends BaseController
     /**
      * 查询客户列表
      */
-    @PreAuthorize("@ss.hasPermi('md:client:list')")
+    @PreAuthorize("@ss.hasPermi('mes:md:client:list')")
     @GetMapping("/list")
     public TableDataInfo list(MdClient mdClient)
     {
@@ -51,7 +51,7 @@ public class MdClientController extends BaseController
     /**
      * 导出客户列表
      */
-    @PreAuthorize("@ss.hasPermi('md:client:export')")
+    @PreAuthorize("@ss.hasPermi('mes:md:client:export')")
     @Log(title = "客户", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, MdClient mdClient)
@@ -64,7 +64,7 @@ public class MdClientController extends BaseController
     /**
      * 获取客户详细信息
      */
-    @PreAuthorize("@ss.hasPermi('md:client:query')")
+    @PreAuthorize("@ss.hasPermi('mes:md:client:query')")
     @GetMapping(value = "/{clientId}")
     public AjaxResult getInfo(@PathVariable("clientId") Long clientId)
     {
@@ -74,7 +74,7 @@ public class MdClientController extends BaseController
     /**
      * 新增客户
      */
-    @PreAuthorize("@ss.hasPermi('md:client:add')")
+    @PreAuthorize("@ss.hasPermi('mes:md:client:add')")
     @Log(title = "客户", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody MdClient mdClient)
@@ -97,7 +97,7 @@ public class MdClientController extends BaseController
     /**
      * 修改客户
      */
-    @PreAuthorize("@ss.hasPermi('md:client:edit')")
+    @PreAuthorize("@ss.hasPermi('mes:md:client:edit')")
     @Log(title = "客户", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody MdClient mdClient)
@@ -119,7 +119,7 @@ public class MdClientController extends BaseController
     /**
      * 删除客户
      */
-    @PreAuthorize("@ss.hasPermi('md:client:remove')")
+    @PreAuthorize("@ss.hasPermi('mes:md:client:remove')")
     @Log(title = "客户", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{clientIds}")
     public AjaxResult remove(@PathVariable Long[] clientIds)

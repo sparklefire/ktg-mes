@@ -39,7 +39,7 @@ public class MdVendorController extends BaseController
     /**
      * 查询供应商列表
      */
-    @PreAuthorize("@ss.hasPermi('md:vendor:list')")
+    @PreAuthorize("@ss.hasPermi('mes:md:vendor:list')")
     @GetMapping("/list")
     public TableDataInfo list(MdVendor mdVendor)
     {
@@ -51,7 +51,7 @@ public class MdVendorController extends BaseController
     /**
      * 导出供应商列表
      */
-    @PreAuthorize("@ss.hasPermi('md:vendor:export')")
+    @PreAuthorize("@ss.hasPermi('mes:md:vendor:export')")
     @Log(title = "供应商", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, MdVendor mdVendor)
@@ -64,7 +64,7 @@ public class MdVendorController extends BaseController
     /**
      * 获取供应商详细信息
      */
-    @PreAuthorize("@ss.hasPermi('md:vendor:query')")
+    @PreAuthorize("@ss.hasPermi('mes:md:vendor:query')")
     @GetMapping(value = "/{vendorId}")
     public AjaxResult getInfo(@PathVariable("vendorId") Long vendorId)
     {
@@ -74,7 +74,7 @@ public class MdVendorController extends BaseController
     /**
      * 新增供应商
      */
-    @PreAuthorize("@ss.hasPermi('md:vendor:add')")
+    @PreAuthorize("@ss.hasPermi('mes:md:vendor:add')")
     @Log(title = "供应商", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody MdVendor mdVendor)
@@ -95,7 +95,7 @@ public class MdVendorController extends BaseController
     /**
      * 修改供应商
      */
-    @PreAuthorize("@ss.hasPermi('md:vendor:edit')")
+    @PreAuthorize("@ss.hasPermi('mes:md:vendor:edit')")
     @Log(title = "供应商", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody MdVendor mdVendor)
@@ -115,7 +115,7 @@ public class MdVendorController extends BaseController
     /**
      * 删除供应商
      */
-    @PreAuthorize("@ss.hasPermi('md:vendor:remove')")
+    @PreAuthorize("@ss.hasPermi('mes:md:vendor:remove')")
     @Log(title = "供应商", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{vendorIds}")
     public AjaxResult remove(@PathVariable Long[] vendorIds)
