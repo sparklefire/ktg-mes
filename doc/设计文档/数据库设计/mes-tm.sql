@@ -36,6 +36,7 @@ create table tm_tool (
   tool_type_id                bigint(11)      not null                   comment '工装夹具类型ID',  
   tool_type_code              varchar(64)                                comment '工装夹具类型编码',
   tool_type_name              varchar(255)                               comment '工装夹具类型名称',
+  code_flag                   char(1)         default 'Y' not null       comment '是否单独编码管理',
   quantity                    int(11)         default 1 not null         comment '数量',
   quantity_avail              int(11)         default 1                  comment '可用数量',     
   mainten_type                varchar(20)                                comment '保养维护类型',

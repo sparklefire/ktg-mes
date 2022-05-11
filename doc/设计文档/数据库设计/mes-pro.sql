@@ -61,3 +61,49 @@ create table pro_workorder_bom (
 ) engine=innodb auto_increment=200 comment = '生产工单BOM组成表';
 
 
+-- ----------------------------
+-- 3、生产工序表
+-- ----------------------------
+drop table if exists pro_process;
+create table pro_process (
+  process_id                     bigint(20)      not null auto_increment    comment '工序ID',
+  process_code                   varchar(64)     not null                   comment '工序编码',
+  process_name                   varchar(255)    not null                   comment '工序名称',
+  enable_flag                    char(1)         default 'Y' not null       comment '是否启用',
+  remark                         varchar(500)    default ''                 comment '备注',
+  attr1                          varchar(64)     default null               comment '预留字段1',
+  attr2                          varchar(255)    default null               comment '预留字段2',
+  attr3                          int(11)         default 0                  comment '预留字段3',
+  attr4                          int(11)         default 0                  comment '预留字段4',
+  create_by                      varchar(64)     default ''                 comment '创建者',
+  create_time 	                 datetime                                   comment '创建时间',
+  update_by                      varchar(64)     default ''                 comment '更新者',
+  update_time                    datetime                                   comment '更新时间',
+  primary key (process_id)
+) engine=innodb auto_increment=200 comment = '生产工序表';
+
+
+-- ----------------------------
+-- 4、生产工序内容表
+-- ----------------------------
+drop table if exists pro_process_content;
+create table pro_process_content (
+  content_id                     bigint(20)      not null auto_increment    comment '内容ID',
+  process_id                     bigint(20)      not null                   comment '工序ID',
+  order_num                      int(4)          default 0                  comment '顺序编号',
+  content_text                   varchar(500)                               comment '内容说明',
+  device                         varchar(255)                               comment '辅助设备',
+  material                       varchar(255)                               comment '辅助材料',
+  doc_url                        varchar(255)                               comment '材料URL',  
+  remark                         varchar(500)    default ''                 comment '备注',
+  attr1                          varchar(64)     default null               comment '预留字段1',
+  attr2                          varchar(255)    default null               comment '预留字段2',
+  attr3                          int(11)         default 0                  comment '预留字段3',
+  attr4                          int(11)         default 0                  comment '预留字段4',
+  create_by                      varchar(64)     default ''                 comment '创建者',
+  create_time 	                 datetime                                   comment '创建时间',
+  update_by                      varchar(64)     default ''                 comment '更新者',
+  update_time                    datetime                                   comment '更新时间',
+  primary key (content_id)
+) engine=innodb auto_increment=200 comment = '生产工序内容表';
+
