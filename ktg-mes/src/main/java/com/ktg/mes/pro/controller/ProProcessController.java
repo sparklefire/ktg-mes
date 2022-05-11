@@ -31,7 +31,7 @@ import com.ktg.common.core.page.TableDataInfo;
  * @date 2022-05-11
  */
 @RestController
-@RequestMapping("/pro/process")
+@RequestMapping("/mes/pro/process")
 public class ProProcessController extends BaseController
 {
     @Autowired
@@ -40,7 +40,7 @@ public class ProProcessController extends BaseController
     /**
      * 查询生产工序列表
      */
-    @PreAuthorize("@ss.hasPermi('pro:process:list')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:process:list')")
     @GetMapping("/list")
     public TableDataInfo list(ProProcess proProcess)
     {
@@ -53,7 +53,7 @@ public class ProProcessController extends BaseController
      * 查询所有可用工序的清单
      * @return
      */
-    @PreAuthorize("@ss.hasPermi('pro:process:list')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:process:list')")
     @GetMapping("/listAll")
     public AjaxResult listAll(){
         ProProcess process = new ProProcess();
@@ -65,7 +65,7 @@ public class ProProcessController extends BaseController
     /**
      * 导出生产工序列表
      */
-    @PreAuthorize("@ss.hasPermi('pro:process:export')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:process:export')")
     @Log(title = "生产工序", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, ProProcess proProcess)
@@ -78,7 +78,7 @@ public class ProProcessController extends BaseController
     /**
      * 获取生产工序详细信息
      */
-    @PreAuthorize("@ss.hasPermi('pro:process:query')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:process:query')")
     @GetMapping(value = "/{processId}")
     public AjaxResult getInfo(@PathVariable("processId") Long processId)
     {
@@ -88,7 +88,7 @@ public class ProProcessController extends BaseController
     /**
      * 新增生产工序
      */
-    @PreAuthorize("@ss.hasPermi('pro:process:add')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:process:add')")
     @Log(title = "生产工序", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody ProProcess proProcess)
@@ -105,7 +105,7 @@ public class ProProcessController extends BaseController
     /**
      * 修改生产工序
      */
-    @PreAuthorize("@ss.hasPermi('pro:process:edit')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:process:edit')")
     @Log(title = "生产工序", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody ProProcess proProcess)
@@ -122,7 +122,7 @@ public class ProProcessController extends BaseController
     /**
      * 删除生产工序
      */
-    @PreAuthorize("@ss.hasPermi('pro:process:remove')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:process:remove')")
     @Log(title = "生产工序", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{processIds}")
     public AjaxResult remove(@PathVariable Long[] processIds)

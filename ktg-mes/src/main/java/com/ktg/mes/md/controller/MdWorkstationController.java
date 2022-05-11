@@ -4,6 +4,10 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ktg.common.constant.UserConstants;
+import com.ktg.mes.md.domain.MdWorkshop;
+import com.ktg.mes.md.service.IMdWorkshopService;
+import com.ktg.mes.pro.domain.ProProcess;
+import com.ktg.mes.pro.service.IProProcessService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +39,12 @@ public class MdWorkstationController extends BaseController
 {
     @Autowired
     private IMdWorkstationService mdWorkstationService;
+
+    @Autowired
+    private IProProcessService proProcessService;
+
+    @Autowired
+    private IMdWorkshopService mdWorkshopService;
 
     /**
      * 查询工作站列表
@@ -85,6 +95,13 @@ public class MdWorkstationController extends BaseController
         if(UserConstants.NOT_UNIQUE.equals(mdWorkstationService.checkWorkStationNameUnique(mdWorkstation))){
             return AjaxResult.error("工作站名称已存在！");
         }
+        ProProcess process = proProcessService.selectProProcessByProcessId(mdWorkstation.getProcessId());
+        mdWorkstation.setProcessCode(process.getProcessCode());
+        mdWorkstation.setProcessName(process.getProcessName());
+
+        MdWorkshop workshop = mdWorkshopService.selectMdWorkshopByWorkshopId(mdWorkstation.getWorkshopId());
+        mdWorkstation.setWorkshopCode(workshop.getWorkshopCode());
+        mdWorkstation.setWorkshopName(workshop.getWorkshopName());
         return toAjax(mdWorkstationService.insertMdWorkstation(mdWorkstation));
     }
 
@@ -102,6 +119,13 @@ public class MdWorkstationController extends BaseController
         if(UserConstants.NOT_UNIQUE.equals(mdWorkstationService.checkWorkStationNameUnique(mdWorkstation))){
             return AjaxResult.error("工作站名称已存在！");
         }
+        ProProcess process = proProcessService.selectProProcessByProcessId(mdWorkstation.getProcessId());
+        mdWorkstation.setProcessCode(process.getProcessCode());
+        mdWorkstation.setProcessName(process.getProcessName());
+
+        MdWorkshop workshop = mdWorkshopService.selectMdWorkshopByWorkshopId(mdWorkstation.getWorkshopId());
+        mdWorkstation.setWorkshopCode(workshop.getWorkshopCode());
+        mdWorkstation.setWorkshopName(workshop.getWorkshopName());
         return toAjax(mdWorkstationService.updateMdWorkstation(mdWorkstation));
     }
 
