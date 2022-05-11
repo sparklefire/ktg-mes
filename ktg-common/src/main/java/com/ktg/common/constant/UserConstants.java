@@ -83,4 +83,9 @@ public class UserConstants
     public static final String ITEM_CODE ="ITEM_CODE";
     public static final String MACHINERY_TYPE_CODE="MACHINERY_TYPE_CODE";
 
+    /**
+     * 维护类型
+     */
+    public static final String MAINTEN_TYPE_REGULAR="REGULAR";
+    public static final String MAINTEN_TYPE_USAGE="USAGE";
 }

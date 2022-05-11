@@ -48,6 +48,15 @@ public class TmToolTypeController extends BaseController
         return getDataTable(list);
     }
 
+    @PreAuthorize("@ss.hasPermi('mes:tm:tooltype:list')")
+    @GetMapping("/listAll")
+    public AjaxResult listAll(){
+        TmToolType tmToolType = new TmToolType();
+        List<TmToolType> list = tmToolTypeService.selectTmToolTypeList(tmToolType);
+        return AjaxResult.success(list);
+    }
+
+
     /**
      * 导出工装夹具类型列表
      */
