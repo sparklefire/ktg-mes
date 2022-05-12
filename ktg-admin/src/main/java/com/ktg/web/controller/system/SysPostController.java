@@ -46,7 +46,20 @@ public class SysPostController extends BaseController
         List<SysPost> list = postService.selectPostList(post);
         return getDataTable(list);
     }
-    
+
+    /**
+     * 查询所有有效岗位信息以List方式返回
+     * @return
+     */
+    @PreAuthorize("@ss.hasPermi('system:post:list')")
+    @GetMapping("/listAll")
+    public AjaxResult listAll(){
+        SysPost post = new SysPost();
+        post.setStatus("0");
+        List<SysPost> list = postService.selectPostList(post);
+        return AjaxResult.success(list);
+    }
+
     @Log(title = "岗位管理", businessType = BusinessType.EXPORT)
     @PreAuthorize("@ss.hasPermi('system:post:export')")
     @PostMapping("/export")
