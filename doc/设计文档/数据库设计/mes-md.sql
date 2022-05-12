@@ -235,7 +235,75 @@ create table md_workstation (
 ) engine=innodb auto_increment=200 comment = '工作站表';
 
 
+-- ----------------------------
+-- 9、设备资源表
+-- ----------------------------
+drop table if exists md_workstation_machine;
+create table md_workstation_machine (
+  record_id              bigint(20)      not null auto_increment      comment '记录ID',
+  workstation_id         bigint(20)      not null                     comment '工作站ID',
+  machinery_id           bigint(20)      not null                     comment '设备ID',
+  machinery_code         varchar(64)                                  comment '设备编码',
+  machinery_name         varchar(255)                                 comment '设备名称',
+  quantity               int(4)          default 1                    comment '数量',
+  remark                 varchar(500)    default ''                   comment '备注',
+  attr1                  varchar(64)     default null                 comment '预留字段1',
+  attr2                  varchar(255)     default null                comment '预留字段2',
+  attr3                  int(11)         default 0                    comment '预留字段3',
+  attr4                  int(11)         default 0                    comment '预留字段4',
+  create_by              varchar(64)     default ''                   comment '创建者',
+  create_time 	         datetime                                     comment '创建时间',
+  update_by              varchar(64)     default ''                   comment '更新者',
+  update_time            datetime                                     comment '更新时间',
+  primary key (record_id)
+) engine=innodb auto_increment=200 comment = '设备资源表';
 
 
+-- ----------------------------
+-- 10、人力资源表
+-- ----------------------------
+drop table if exists md_workstation_worker;
+create table md_workstation_worker (
+  record_id              bigint(20)      not null auto_increment      comment '记录ID',
+  workstation_id         bigint(20)      not null                     comment '工作站ID',
+  post_id                bigint(20)      not null                     comment '岗位ID',
+  post_code              varchar(64)                                  comment '岗位编码',
+  post_name              varchar(255)                                 comment '岗位名称',
+  quantity               int(4)          default 1 not null           comment '数量',
+  remark                 varchar(500)    default ''                   comment '备注',
+  attr1                  varchar(64)     default null                 comment '预留字段1',
+  attr2                  varchar(255)     default null                comment '预留字段2',
+  attr3                  int(11)         default 0                    comment '预留字段3',
+  attr4                  int(11)         default 0                    comment '预留字段4',
+  create_by              varchar(64)     default ''                   comment '创建者',
+  create_time 	         datetime                                     comment '创建时间',
+  update_by              varchar(64)     default ''                   comment '更新者',
+  update_time            datetime                                     comment '更新时间',
+  primary key (record_id)
+) engine=innodb auto_increment=200 comment = '人力资源表';
+
+
+-- ----------------------------
+-- 11、工装夹具资源表
+-- ----------------------------
+drop table if exists md_workstation_tool;
+create table md_workstation_tool (
+  record_id              bigint(20)      not null auto_increment      comment '记录ID',
+  workstation_id         bigint(20)      not null                     comment '工作站ID',
+  tool_type_id           bigint(20)      not null                     comment '工装夹具类型ID',
+  tool_type_code         varchar(64)                                  comment '类型编码',
+  tool_type_name         varchar(255)                                 comment '类型名称',
+  quantity               int(4)          default 1 not null           comment '数量',
+  remark                 varchar(500)    default ''                   comment '备注',
+  attr1                  varchar(64)     default null                 comment '预留字段1',
+  attr2                  varchar(255)     default null                comment '预留字段2',
+  attr3                  int(11)         default 0                    comment '预留字段3',
+  attr4                  int(11)         default 0                    comment '预留字段4',
+  create_by              varchar(64)     default ''                   comment '创建者',
+  create_time 	         datetime                                     comment '创建时间',
+  update_by              varchar(64)     default ''                   comment '更新者',
+  update_time            datetime                                     comment '更新时间',
+  primary key (record_id)
+) engine=innodb auto_increment=200 comment = '工装夹具资源表';
 
 
