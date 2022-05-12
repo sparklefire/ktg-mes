@@ -6,33 +6,41 @@ import com.ktg.common.annotation.Excel;
 import com.ktg.common.core.domain.BaseEntity;
 
 /**
- * 生产工序对象 pro_process
+ * 生产工序内容对象 pro_process_content
  * 
  * @author yinjinlu
  * @date 2022-05-12
  */
-public class ProProcess extends BaseEntity
+public class ProProcessContent extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
 
+    /** 内容ID */
+    private Long contentId;
+
     /** 工序ID */
+    @Excel(name = "工序ID")
     private Long processId;
 
-    /** 工序编码 */
-    @Excel(name = "工序编码")
-    private String processCode;
+    /** 顺序编号 */
+    @Excel(name = "顺序编号")
+    private Integer orderNum;
 
-    /** 工序名称 */
-    @Excel(name = "工序名称")
-    private String processName;
+    /** 内容说明 */
+    @Excel(name = "内容说明")
+    private String contentText;
 
-    /** 工艺要求 */
-    @Excel(name = "工艺要求")
-    private String attention;
+    /** 辅助设备 */
+    @Excel(name = "辅助设备")
+    private String device;
 
-    /** 是否启用 */
-    @Excel(name = "是否启用")
-    private String enableFlag;
+    /** 辅助材料 */
+    @Excel(name = "辅助材料")
+    private String material;
+
+    /** 材料URL */
+    @Excel(name = "材料URL")
+    private String docUrl;
 
     /** 预留字段1 */
     private String attr1;
@@ -46,6 +54,15 @@ public class ProProcess extends BaseEntity
     /** 预留字段4 */
     private Long attr4;
 
+    public void setContentId(Long contentId) 
+    {
+        this.contentId = contentId;
+    }
+
+    public Long getContentId() 
+    {
+        return contentId;
+    }
     public void setProcessId(Long processId) 
     {
         this.processId = processId;
@@ -55,41 +72,50 @@ public class ProProcess extends BaseEntity
     {
         return processId;
     }
-    public void setProcessCode(String processCode) 
+    public void setOrderNum(Integer orderNum) 
     {
-        this.processCode = processCode;
+        this.orderNum = orderNum;
     }
 
-    public String getProcessCode() 
+    public Integer getOrderNum() 
     {
-        return processCode;
+        return orderNum;
     }
-    public void setProcessName(String processName) 
+    public void setContentText(String contentText) 
     {
-        this.processName = processName;
-    }
-
-    public String getProcessName() 
-    {
-        return processName;
-    }
-    public void setAttention(String attention) 
-    {
-        this.attention = attention;
+        this.contentText = contentText;
     }
 
-    public String getAttention() 
+    public String getContentText() 
     {
-        return attention;
+        return contentText;
     }
-    public void setEnableFlag(String enableFlag) 
+    public void setDevice(String device) 
     {
-        this.enableFlag = enableFlag;
+        this.device = device;
     }
 
-    public String getEnableFlag() 
+    public String getDevice() 
     {
-        return enableFlag;
+        return device;
+    }
+    public void setMaterial(String material) 
+    {
+        this.material = material;
+    }
+
+    public String getMaterial() 
+    {
+        return material;
+    }
+    public void setDocUrl(String docUrl) 
+    {
+        this.docUrl = docUrl;
+    }
+
+    public String getDocUrl() 
+    {
+        return docUrl;
     }
     public void setAttr1(String attr1) 
     {
@@ -131,11 +157,13 @@ public class ProProcess extends BaseEntity
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
+            .append("contentId", getContentId())
             .append("processId", getProcessId())
-            .append("processCode", getProcessCode())
-            .append("processName", getProcessName())
-            .append("attention", getAttention())
-            .append("enableFlag", getEnableFlag())
+            .append("orderNum", getOrderNum())
+            .append("contentText", getContentText())
+            .append("device", getDevice())
+            .append("material", getMaterial())
+            .append("docUrl", getDocUrl())
             .append("remark", getRemark())
             .append("attr1", getAttr1())
             .append("attr2", getAttr2())
