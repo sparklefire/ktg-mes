@@ -70,28 +70,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="findPreProcess" parameterType="ProRouteProcess" resultMap="ProRouteProcessResult">
         <include refid="selectProRouteProcessVo"/>
         where route_id = #{routeId}
-        AND order_num &lt; (
-        SELECT order_num
-        FROM pro_route_process
-        WHERE route_id = #{routeId}
-        <if test="processId != null "> and process_id = #{processId}</if>
-        <if test="orderNum != null "> and order_num = #{orderNum}</if>
-        AND order_num = #{orderNum} limit 1
-        )
+        <choose>
+            <when test="orderNum != null "> and order_num &lt; #{orderNum}</when>
+            <otherwise>
+                AND order_num &lt; (
+                    SELECT order_num
+                    FROM pro_route_process
+                    WHERE route_id = #{routeId} limit 1
+                )
+            </otherwise>
+        </choose>
         ORDER BY order_num DESC LIMIT 1
     </select>
 
     <select id="findNextProcess" parameterType="ProRouteProcess" resultMap="ProRouteProcessResult">
         <include refid="selectProRouteProcessVo"/>
         where route_id = #{routeId}
-        AND order_num &gt; (
-        SELECT order_num
-        FROM pro_route_process
-        WHERE route_id = #{routeId}
-        <if test="processId != null "> and process_id = #{processId}</if>
-        <if test="orderNum != null "> and order_num = #{orderNum}</if>
-        AND order_num = #{orderNum} limit 1
-        )
+        <choose>
+            <when test="orderNum != null "> and order_num &gt; #{orderNum}</when>
+            <otherwise>
+                AND order_num &gt; (
+                SELECT order_num
+                FROM pro_route_process
+                WHERE route_id = #{routeId} limit 1
+                )
+            </otherwise>
+        </choose>
         ORDER BY order_num ASC LIMIT 1
     </select>
 
