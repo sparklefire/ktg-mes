@@ -2,6 +2,7 @@ package com.ktg.mes.pro.mapper;
 
 import java.util.List;
 import com.ktg.mes.pro.domain.ProRouteProcess;
+import org.springframework.security.core.parameters.P;
 
 /**
  * 工艺组成Mapper接口
@@ -28,7 +29,11 @@ public interface ProRouteProcessMapper
     public List<ProRouteProcess> selectProRouteProcessList(ProRouteProcess proRouteProcess);
 
     public ProRouteProcess checkOrderNumExists(ProRouteProcess proRouteProcess);
+    public ProRouteProcess checkProcessExists(ProRouteProcess proRouteProcess);
 
+    public ProRouteProcess findPreProcess(ProRouteProcess proRouteProcess);
+
+    public ProRouteProcess findNextProcess(ProRouteProcess proRouteProcess);
     /**
      * 新增工艺组成
      * 

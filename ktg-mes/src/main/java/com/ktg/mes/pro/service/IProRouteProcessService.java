@@ -34,6 +34,26 @@ public interface IProRouteProcessService
      */
     public String checkOrderNumExists(ProRouteProcess proRouteProcess);
 
+    /**
+     * 检查工序是否已经存在
+     * @param proRouteProcess
+     * @return
+     */
+    public String checkProcessExists(ProRouteProcess proRouteProcess);
+
+    /**
+     * 查找上一个工序
+     * @param proRouteProcess
+     * @return
+     */
+    public ProRouteProcess findPreProcess(ProRouteProcess proRouteProcess);
+
+    /**
+     * 查找下一个工序
+     * @param proRouteProcess
+     * @return
+     */
+    public ProRouteProcess findNextProcess(ProRouteProcess proRouteProcess);
 
     /**
      * 新增工艺组成

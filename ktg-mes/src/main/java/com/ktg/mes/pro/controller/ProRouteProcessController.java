@@ -4,6 +4,9 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ktg.common.constant.UserConstants;
+import com.ktg.common.utils.StringUtils;
+import com.ktg.mes.pro.domain.ProProcess;
+import com.ktg.mes.pro.service.IProProcessService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +38,9 @@ public class ProRouteProcessController extends BaseController
 {
     @Autowired
     private IProRouteProcessService proRouteProcessService;
+
+    @Autowired
+    private IProProcessService proProcessService;
 
     /**
      * 查询工艺组成列表
@@ -82,6 +88,33 @@ public class ProRouteProcessController extends BaseController
         if(UserConstants.NOT_UNIQUE.equals(proRouteProcessService.checkOrderNumExists(proRouteProcess))){
             return AjaxResult.error("序号已存在！");
         }
+        if(UserConstants.NOT_UNIQUE.equals(proRouteProcessService.checkProcessExists(proRouteProcess))){
+            return AjaxResult.error("不能重复添加工序！");
+        }
+        ProProcess process = proProcessService.selectProProcessByProcessId(proRouteProcess.getProcessId());
+        proRouteProcess.setProcessCode(process.getProcessCode());
+        proRouteProcess.setProcessName(process.getProcessName());
+
+        //更新上一个工序的nextProcess
+        ProRouteProcess preProcess = proRouteProcessService.findPreProcess(proRouteProcess);
+        if(StringUtils.isNotNull(preProcess)){
+            preProcess.setNextProcessId(proRouteProcess.getProcessId());
+            preProcess.setNextProcessCode(proRouteProcess.getProcessCode());
+            preProcess.setNextProcessName(proRouteProcess.getProcessName());
+            proRouteProcessService.updateProRouteProcess(preProcess);
+        }
+
+        //设置当前工序的nextProcess
+        ProRouteProcess nextProcess = proRouteProcessService.findNextProcess(proRouteProcess);
+        if(StringUtils.isNotNull(nextProcess)){
+            proRouteProcess.setNextProcessId(nextProcess.getProcessId());
+            proRouteProcess.setNextProcessCode(nextProcess.getProcessCode());
+            proRouteProcess.setNextProcessName(nextProcess.getProcessName());
+        }else{
+            proRouteProcess.setNextProcessId(0L);
+            proRouteProcess.setNextProcessName("无");
+        }
+
         return toAjax(proRouteProcessService.insertProRouteProcess(proRouteProcess));
     }
 
@@ -96,6 +129,33 @@ public class ProRouteProcessController extends BaseController
         if(UserConstants.NOT_UNIQUE.equals(proRouteProcessService.checkOrderNumExists(proRouteProcess))){
             return AjaxResult.error("序号已存在！");
         }
+        if(UserConstants.NOT_UNIQUE.equals(proRouteProcessService.checkProcessExists(proRouteProcess))){
+            return AjaxResult.error("不能重复添加工序！");
+        }
+        ProProcess process = proProcessService.selectProProcessByProcessId(proRouteProcess.getProcessId());
+        proRouteProcess.setProcessCode(process.getProcessCode());
+        proRouteProcess.setProcessName(process.getProcessName());
+
+        //更新上一个工序的nextProcess
+        ProRouteProcess preProcess = proRouteProcessService.findPreProcess(proRouteProcess);
+        if(StringUtils.isNotNull(preProcess)){
+            preProcess.setNextProcessId(proRouteProcess.getProcessId());
+            preProcess.setNextProcessCode(proRouteProcess.getProcessCode());
+            preProcess.setNextProcessName(proRouteProcess.getProcessName());
+            proRouteProcessService.updateProRouteProcess(preProcess);
+        }
+
+        //设置当前工序的nextProcess
+        ProRouteProcess nextProcess = proRouteProcessService.findNextProcess(proRouteProcess);
+        if(StringUtils.isNotNull(nextProcess)){
+            proRouteProcess.setNextProcessId(nextProcess.getProcessId());
+            proRouteProcess.setNextProcessCode(nextProcess.getProcessCode());
+            proRouteProcess.setNextProcessName(nextProcess.getProcessName());
+        }else{
+            proRouteProcess.setNextProcessId(0L);
+            proRouteProcess.setNextProcessName("无");
+        }
+
         return toAjax(proRouteProcessService.updateProRouteProcess(proRouteProcess));
     }
 
