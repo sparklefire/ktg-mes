@@ -1,6 +1,8 @@
 package com.ktg.mes.pro.service.impl;
 
 import java.util.List;
+
+import com.ktg.common.constant.UserConstants;
 import com.ktg.common.utils.DateUtils;
 import com.ktg.common.utils.StringUtils;
 import com.ktg.mes.dv.domain.DvMachineryType;
@@ -45,6 +47,17 @@ public class ProWorkorderServiceImpl implements IProWorkorderService
     {
         return proWorkorderMapper.selectProWorkorderList(proWorkorder);
     }
+
+    @Override
+    public String checkWorkorderCodeUnique(ProWorkorder proWorkorder) {
+        ProWorkorder workorder = proWorkorderMapper.checkWorkorderCodeUnique(proWorkorder);
+        Long workorderId = proWorkorder.getWorkorderId() == null? -1L: proWorkorder.getWorkorderId();
+        if(StringUtils.isNotNull(workorder) && workorder.getWorkorderId().longValue() != workorderId.longValue()){
+            return UserConstants.NOT_UNIQUE;
+        }
+        return UserConstants.UNIQUE;
+    }
+
 
     /**
      * 新增生产工单

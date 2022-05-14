@@ -37,7 +37,7 @@
         <if test="genDate != null and genDate != ''">
             AND gen_date like concat(#{genDate},'%')
         </if>
-        order by gen_index asc
+        order by gen_date desc
     </select>
 
     <insert id="add" parameterType="SysAutoCodeResult" >

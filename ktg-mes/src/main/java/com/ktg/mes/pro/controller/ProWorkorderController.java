@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import cn.hutool.core.collection.CollUtil;
+import com.ktg.common.constant.UserConstants;
 import com.ktg.common.utils.StringUtils;
 import com.ktg.mes.md.domain.MdProductBom;
 import com.ktg.mes.md.service.IMdProductBomService;
@@ -89,6 +90,10 @@ public class ProWorkorderController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody ProWorkorder proWorkorder)
     {
+        if(UserConstants.NOT_UNIQUE.equals(proWorkorderService.checkWorkorderCodeUnique(proWorkorder))){
+            return AjaxResult.error("生产工单编号已存在！");
+        }
+
         if(proWorkorder.getParentId()==null || proWorkorder.getParentId()==0){
             proWorkorder.setAncestors("0");
         }

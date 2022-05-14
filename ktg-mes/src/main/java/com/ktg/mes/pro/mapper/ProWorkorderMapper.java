@@ -27,6 +27,8 @@ public interface ProWorkorderMapper
      */
     public List<ProWorkorder> selectProWorkorderList(ProWorkorder proWorkorder);
 
+    public ProWorkorder checkWorkorderCodeUnique(ProWorkorder proWorkorder);
+
     /**
      * 新增生产工单
      * 

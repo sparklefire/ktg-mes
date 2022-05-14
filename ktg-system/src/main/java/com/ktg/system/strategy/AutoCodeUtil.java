@@ -123,7 +123,7 @@ public class AutoCodeUtil {
             rs.setLastInputChar(inputChar);
             iAutoCodeResultService.saveAutoCodeResult(rs);
         }else{
-            //直接更新对应的记录（我们默认一个RULE_CODE只有一种方式）
+            //直接更新对应的记录（我们默认非流水号模式下一个RULE_CODE只有一种方式）
             SysAutoCodeResult bo = new SysAutoCodeResult();
             bo.setRuleId(rule.getRuleId());
             List<SysAutoCodeResult> results = iAutoCodeResultService.list(bo);

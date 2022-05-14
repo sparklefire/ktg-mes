@@ -65,7 +65,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectProWorkorderVo"/>
         where workorder_id = #{workorderId}
     </select>
-        
+
+    <select id="checkWorkorderCodeUnique" parameterType="ProWorkorder" resultMap="ProWorkorderResult">
+        <include refid="selectProWorkorderVo"/>
+        where workorder_code = #{workorderCode} limit 1
+    </select>
+
     <insert id="insertProWorkorder" parameterType="ProWorkorder" useGeneratedKeys="true" keyProperty="workorderId">
         insert into pro_workorder
         <trim prefix="(" suffix=")" suffixOverrides=",">

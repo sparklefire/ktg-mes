@@ -27,6 +27,9 @@ public interface IProWorkorderService
      */
     public List<ProWorkorder> selectProWorkorderList(ProWorkorder proWorkorder);
 
+
+    public String checkWorkorderCodeUnique(ProWorkorder proWorkorder);
+
     /**
      * 新增生产工单
      * 
