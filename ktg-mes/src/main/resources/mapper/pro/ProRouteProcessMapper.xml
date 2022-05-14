@@ -50,6 +50,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="defaultSufTime != null "> and default_suf_time = #{defaultSufTime}</if>
             <if test="colorCode != null  and colorCode != ''"> and color_code = #{colorCode}</if>
         </where>
+        order by order_num asc
     </select>
     
     <select id="selectProRouteProcessByRecordId" parameterType="Long" resultMap="ProRouteProcessResult">

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ktg.mes.pro.mapper.ProRouteProductMapper">
+    
+    <resultMap type="ProRouteProduct" id="ProRouteProductResult">
+        <result property="recordId"    column="record_id"    />
+        <result property="routeId"    column="route_id"    />
+        <result property="itemId"    column="item_id"    />
+        <result property="itemCode"    column="item_code"    />
+        <result property="itemName"    column="item_name"    />
+        <result property="specification"    column="specification"    />
+        <result property="unitOfMeasure"    column="unit_of_measure"    />
+        <result property="quantity"    column="quantity"    />
+        <result property="productionTime"    column="production_time"    />
+        <result property="timeUnitType"    column="time_unit_type"    />
+        <result property="remark"    column="remark"    />
+        <result property="attr1"    column="attr1"    />
+        <result property="attr2"    column="attr2"    />
+        <result property="attr3"    column="attr3"    />
+        <result property="attr4"    column="attr4"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectProRouteProductVo">
+        select record_id, route_id, item_id, item_code, item_name, specification, unit_of_measure, quantity, production_time, time_unit_type, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from pro_route_product
+    </sql>
+
+
+    <select id="selectProRouteProductList" parameterType="ProRouteProduct" resultMap="ProRouteProductResult">
+        <include refid="selectProRouteProductVo"/>
+        <where>  
+            <if test="routeId != null "> and route_id = #{routeId}</if>
+            <if test="itemId != null "> and item_id = #{itemId}</if>
+            <if test="itemCode != null  and itemCode != ''"> and item_code = #{itemCode}</if>
+            <if test="itemName != null  and itemName != ''"> and item_name like concat('%', #{itemName}, '%')</if>
+            <if test="specification != null  and specification != ''"> and specification = #{specification}</if>
+            <if test="unitOfMeasure != null  and unitOfMeasure != ''"> and unit_of_measure = #{unitOfMeasure}</if>
+            <if test="quantity != null "> and quantity = #{quantity}</if>
+            <if test="productionTime != null "> and production_time = #{productionTime}</if>
+            <if test="timeUnitType != null  and timeUnitType != ''"> and time_unit_type = #{timeUnitType}</if>
+        </where>
+    </select>
+    
+    <select id="selectProRouteProductByRecordId" parameterType="Long" resultMap="ProRouteProductResult">
+        <include refid="selectProRouteProductVo"/>
+        where record_id = #{recordId}
+    </select>
+
+    <select id="checkItemUnique" parameterType="ProRouteProduct" resultMap="ProRouteProductResult">
+        <include refid="selectProRouteProductVo"/>
+        where item_id = #{itemId} limit 1
+    </select>
+
+    <insert id="insertProRouteProduct" parameterType="ProRouteProduct" useGeneratedKeys="true" keyProperty="recordId">
+        insert into pro_route_product
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="routeId != null">route_id,</if>
+            <if test="itemId != null">item_id,</if>
+            <if test="itemCode != null and itemCode != ''">item_code,</if>
+            <if test="itemName != null and itemName != ''">item_name,</if>
+            <if test="specification != null">specification,</if>
+            <if test="unitOfMeasure != null and unitOfMeasure != ''">unit_of_measure,</if>
+            <if test="quantity != null">quantity,</if>
+            <if test="productionTime != null">production_time,</if>
+            <if test="timeUnitType != null">time_unit_type,</if>
+            <if test="remark != null">remark,</if>
+            <if test="attr1 != null">attr1,</if>
+            <if test="attr2 != null">attr2,</if>
+            <if test="attr3 != null">attr3,</if>
+            <if test="attr4 != null">attr4,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="routeId != null">#{routeId},</if>
+            <if test="itemId != null">#{itemId},</if>
+            <if test="itemCode != null and itemCode != ''">#{itemCode},</if>
+            <if test="itemName != null and itemName != ''">#{itemName},</if>
+            <if test="specification != null">#{specification},</if>
+            <if test="unitOfMeasure != null and unitOfMeasure != ''">#{unitOfMeasure},</if>
+            <if test="quantity != null">#{quantity},</if>
+            <if test="productionTime != null">#{productionTime},</if>
+            <if test="timeUnitType != null">#{timeUnitType},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="attr1 != null">#{attr1},</if>
+            <if test="attr2 != null">#{attr2},</if>
+            <if test="attr3 != null">#{attr3},</if>
+            <if test="attr4 != null">#{attr4},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateProRouteProduct" parameterType="ProRouteProduct">
+        update pro_route_product
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="routeId != null">route_id = #{routeId},</if>
+            <if test="itemId != null">item_id = #{itemId},</if>
+            <if test="itemCode != null and itemCode != ''">item_code = #{itemCode},</if>
+            <if test="itemName != null and itemName != ''">item_name = #{itemName},</if>
+            <if test="specification != null">specification = #{specification},</if>
+            <if test="unitOfMeasure != null and unitOfMeasure != ''">unit_of_measure = #{unitOfMeasure},</if>
+            <if test="quantity != null">quantity = #{quantity},</if>
+            <if test="productionTime != null">production_time = #{productionTime},</if>
+            <if test="timeUnitType != null">time_unit_type = #{timeUnitType},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="attr1 != null">attr1 = #{attr1},</if>
+            <if test="attr2 != null">attr2 = #{attr2},</if>
+            <if test="attr3 != null">attr3 = #{attr3},</if>
+            <if test="attr4 != null">attr4 = #{attr4},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where record_id = #{recordId}
+    </update>
+
+    <delete id="deleteProRouteProductByRecordId" parameterType="Long">
+        delete from pro_route_product where record_id = #{recordId}
+    </delete>
+
+    <delete id="deleteProRouteProductByRecordIds" parameterType="String">
+        delete from pro_route_product where record_id in 
+        <foreach item="recordId" collection="array" open="(" separator="," close=")">
+            #{recordId}
+        </foreach>
+    </delete>
+</mapper>
