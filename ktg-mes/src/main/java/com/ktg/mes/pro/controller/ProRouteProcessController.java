@@ -67,8 +67,8 @@ public class ProRouteProcessController extends BaseController
      * @return
      */
     @PreAuthorize("@ss.hasPermi('mes:pro:routeproduct:list')")
-    @GetMapping("/listProductProcess")
-    public AjaxResult listProductProcess(Long productId){
+    @GetMapping("/listProductProcess/{productId}")
+    public AjaxResult listProductProcess(@PathVariable("productId") Long productId){
         ProRouteProduct proRouteProduct = new ProRouteProduct();
         proRouteProduct.setItemId(productId);
         List<ProRouteProduct> products = proRouteProductService.selectProRouteProductList(proRouteProduct);
