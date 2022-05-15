@@ -114,8 +114,8 @@ public class ProTask extends BaseEntity
     private String clientNick;
 
     /** 开始生产时间 */
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @Excel(name = "开始生产时间", width = 30, dateFormat = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Excel(name = "开始生产时间", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss")
     private Date startTime;
 
     /** 生产时长 */
@@ -123,8 +123,8 @@ public class ProTask extends BaseEntity
     private Long duration;
 
     /** 完成生产时间 */
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @Excel(name = "完成生产时间", width = 30, dateFormat = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Excel(name = "完成生产时间", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss")
     private Date endTime;
 
     /** 甘特图显示颜色 */
@@ -132,7 +132,7 @@ public class ProTask extends BaseEntity
     private String colorCode;
 
     /** 需求日期 */
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     @Excel(name = "需求日期", width = 30, dateFormat = "yyyy-MM-dd")
     private Date requestDate;
 
