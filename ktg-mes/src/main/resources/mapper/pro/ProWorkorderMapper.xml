@@ -16,6 +16,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="productSpc"    column="product_spc"    />
         <result property="unitOfMeasure"    column="unit_of_measure"    />
         <result property="quantity"    column="quantity"    />
+        <result property="quantityProduced"    column="quantity_produced"    />
+        <result property="quantityChanged"    column="quantity_changed"    />
+        <result property="quantityScheduled"    column="quantity_scheduled"    />
         <result property="clientId"    column="client_id"    />
         <result property="clientCode"    column="client_code"    />
         <result property="clientName"    column="client_name"    />
@@ -51,6 +54,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="productSpc != null  and productSpc != ''"> and product_spc = #{productSpc}</if>
             <if test="unitOfMeasure != null  and unitOfMeasure != ''"> and unit_of_measure = #{unitOfMeasure}</if>
             <if test="quantity != null "> and quantity = #{quantity}</if>
+            <if test="quantityProduced != null "> and quantity_produced = #{quantityProduced}</if>
+            <if test="quantityChanged != null "> and quantity_changed = #{quantityChanged}</if>
+            <if test="quantityScheduled != null "> and quantity_scheduled = #{quantityScheduled}</if>
             <if test="clientId != null "> and client_id = #{clientId}</if>
             <if test="clientCode != null  and clientCode != ''"> and client_code = #{clientCode}</if>
             <if test="clientName != null  and clientName != ''"> and client_name like concat('%', #{clientName}, '%')</if>
@@ -84,6 +90,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="productSpc != null">product_spc,</if>
             <if test="unitOfMeasure != null and unitOfMeasure != ''">unit_of_measure,</if>
             <if test="quantity != null">quantity,</if>
+            <if test="quantityProduced != null">quantity_produced,</if>
+            <if test="quantityChanged != null">quantity_changed,</if>
+            <if test="quantityScheduled != null">quantity_scheduled,</if>
             <if test="clientId != null">client_id,</if>
             <if test="clientCode != null">client_code,</if>
             <if test="clientName != null">client_name,</if>
@@ -112,6 +121,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="productSpc != null">#{productSpc},</if>
             <if test="unitOfMeasure != null and unitOfMeasure != ''">#{unitOfMeasure},</if>
             <if test="quantity != null">#{quantity},</if>
+            <if test="quantityProduced != null">#{quantityProduced},</if>
+            <if test="quantityChanged != null">#{quantityChanged},</if>
+            <if test="quantityScheduled != null">#{quantityScheduled},</if>
             <if test="clientId != null">#{clientId},</if>
             <if test="clientCode != null">#{clientCode},</if>
             <if test="clientName != null">#{clientName},</if>
@@ -144,6 +156,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="productSpc != null">product_spc = #{productSpc},</if>
             <if test="unitOfMeasure != null and unitOfMeasure != ''">unit_of_measure = #{unitOfMeasure},</if>
             <if test="quantity != null">quantity = #{quantity},</if>
+            <if test="quantityProduced != null">quantity_produced = #{quantityProduced},</if>
+            <if test="quantityChanged != null">quantity_changed = #{quantityChanged},</if>
+            <if test="quantityScheduled != null">quantity_scheduled = #{quantityScheduled},</if>
             <if test="clientId != null">client_id = #{clientId},</if>
             <if test="clientCode != null">client_code = #{clientCode},</if>
             <if test="clientName != null">client_name = #{clientName},</if>

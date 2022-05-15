@@ -14,6 +14,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="workstationId"    column="workstation_id"    />
         <result property="workstationCode"    column="workstation_code"    />
         <result property="workstationName"    column="workstation_name"    />
+        <result property="processId"    column="process_id"    />
+        <result property="processCode"    column="process_code"    />
+        <result property="processName"    column="process_name"    />
         <result property="itemId"    column="item_id"    />
         <result property="itemCode"    column="item_code"    />
         <result property="itemName"    column="item_name"    />
@@ -57,6 +60,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="workstationId != null "> and workstation_id = #{workstationId}</if>
             <if test="workstationCode != null  and workstationCode != ''"> and workstation_code = #{workstationCode}</if>
             <if test="workstationName != null  and workstationName != ''"> and workstation_name like concat('%', #{workstationName}, '%')</if>
+            <if test="processId != null "> and process_id = #{processId}</if>
+            <if test="processCode != null  and processCode != ''"> and process_code = #{processCode}</if>
+            <if test="processName != null  and processName != ''"> and process_name like concat('%', #{processName}, '%')</if>
             <if test="itemId != null "> and item_id = #{itemId}</if>
             <if test="itemCode != null  and itemCode != ''"> and item_code = #{itemCode}</if>
             <if test="itemName != null  and itemName != ''"> and item_name like concat('%', #{itemName}, '%')</if>
@@ -93,6 +99,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="workstationId != null">workstation_id,</if>
             <if test="workstationCode != null and workstationCode != ''">workstation_code,</if>
             <if test="workstationName != null and workstationName != ''">workstation_name,</if>
+            <if test="processId != null">process_id,</if>
+            <if test="processCode != null">process_code,</if>
+            <if test="processName != null">process_name,</if>
             <if test="itemId != null">item_id,</if>
             <if test="itemCode != null and itemCode != ''">item_code,</if>
             <if test="itemName != null and itemName != ''">item_name,</if>
@@ -129,6 +138,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="workstationId != null">#{workstationId},</if>
             <if test="workstationCode != null and workstationCode != ''">#{workstationCode},</if>
             <if test="workstationName != null and workstationName != ''">#{workstationName},</if>
+            <if test="processId != null">#{processId},</if>
+            <if test="processCode != null">#{processCode},</if>
+            <if test="processName != null">#{processName},</if>
             <if test="itemId != null">#{itemId},</if>
             <if test="itemCode != null and itemCode != ''">#{itemCode},</if>
             <if test="itemName != null and itemName != ''">#{itemName},</if>
@@ -169,6 +181,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="workstationId != null">workstation_id = #{workstationId},</if>
             <if test="workstationCode != null and workstationCode != ''">workstation_code = #{workstationCode},</if>
             <if test="workstationName != null and workstationName != ''">workstation_name = #{workstationName},</if>
+            <if test="processId != null">process_id = #{processId},</if>
+            <if test="processCode != null">process_code = #{processCode},</if>
+            <if test="processName != null">process_name = #{processName},</if>
             <if test="itemId != null">item_id = #{itemId},</if>
             <if test="itemCode != null and itemCode != ''">item_code = #{itemCode},</if>
             <if test="itemName != null and itemName != ''">item_name = #{itemName},</if>

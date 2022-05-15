@@ -12,7 +12,7 @@ import com.ktg.common.core.domain.TreeEntity;
  * 生产工单对象 pro_workorder
  * 
  * @author yinjinlu
- * @date 2022-05-09
+ * @date 2022-05-15
  */
 public class ProWorkorder extends TreeEntity
 {
@@ -60,6 +60,18 @@ public class ProWorkorder extends TreeEntity
     /** 生产数量 */
     @Excel(name = "生产数量")
     private BigDecimal quantity;
+
+    /** 已生产数量 */
+    @Excel(name = "已生产数量")
+    private BigDecimal quantityProduced;
+
+    /** 调整数量 */
+    @Excel(name = "调整数量")
+    private BigDecimal quantityChanged;
+
+    /** 已排产数量 */
+    @Excel(name = "已排产数量")
+    private BigDecimal quantityScheduled;
 
     /** 客户ID */
     @Excel(name = "客户ID")
@@ -193,6 +205,33 @@ public class ProWorkorder extends TreeEntity
     {
         return quantity;
     }
+    public void setQuantityProduced(BigDecimal quantityProduced) 
+    {
+        this.quantityProduced = quantityProduced;
+    }
+
+    public BigDecimal getQuantityProduced() 
+    {
+        return quantityProduced;
+    }
+    public void setQuantityChanged(BigDecimal quantityChanged) 
+    {
+        this.quantityChanged = quantityChanged;
+    }
+
+    public BigDecimal getQuantityChanged() 
+    {
+        return quantityChanged;
+    }
+    public void setQuantityScheduled(BigDecimal quantityScheduled) 
+    {
+        this.quantityScheduled = quantityScheduled;
+    }
+
+    public BigDecimal getQuantityScheduled() 
+    {
+        return quantityScheduled;
+    }
     public void setClientId(Long clientId) 
     {
         this.clientId = clientId;
@@ -289,6 +328,9 @@ public class ProWorkorder extends TreeEntity
             .append("productSpc", getProductSpc())
             .append("unitOfMeasure", getUnitOfMeasure())
             .append("quantity", getQuantity())
+            .append("quantityProduced", getQuantityProduced())
+            .append("quantityChanged", getQuantityChanged())
+            .append("quantityScheduled", getQuantityScheduled())
             .append("clientId", getClientId())
             .append("clientCode", getClientCode())
             .append("clientName", getClientName())

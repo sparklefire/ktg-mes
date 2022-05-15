@@ -3,10 +3,14 @@ package com.ktg.mes.pro.controller;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
+import cn.hutool.core.collection.CollUtil;
 import com.ktg.common.constant.UserConstants;
 import com.ktg.common.utils.StringUtils;
 import com.ktg.mes.pro.domain.ProProcess;
+import com.ktg.mes.pro.domain.ProRouteProduct;
+import com.ktg.mes.pro.domain.ProWorkorder;
 import com.ktg.mes.pro.service.IProProcessService;
+import com.ktg.mes.pro.service.IProRouteProductService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,6 +44,9 @@ public class ProRouteProcessController extends BaseController
     private IProRouteProcessService proRouteProcessService;
 
     @Autowired
+    private IProRouteProductService proRouteProductService;
+
+    @Autowired
     private IProProcessService proProcessService;
 
     /**
@@ -53,6 +60,28 @@ public class ProRouteProcessController extends BaseController
         List<ProRouteProcess> list = proRouteProcessService.selectProRouteProcessList(proRouteProcess);
         return getDataTable(list);
     }
+
+
+    /**
+     * 查询指定产品的工艺组成
+     * @return
+     */
+    @PreAuthorize("@ss.hasPermi('mes:pro:routeproduct:list')")
+    @GetMapping("/listProductProcess")
+    public AjaxResult listProductProcess(Long productId){
+        ProRouteProduct proRouteProduct = new ProRouteProduct();
+        proRouteProduct.setItemId(productId);
+        List<ProRouteProduct> products = proRouteProductService.selectProRouteProductList(proRouteProduct);
+        if(CollUtil.isNotEmpty(products)){
+            ProRouteProduct product = products.get(0);
+            ProRouteProcess param = new ProRouteProcess();
+            param.setRouteId(product.getRouteId());
+            return AjaxResult.success(proRouteProcessService.selectProRouteProcessList(param));
+        }else {
+            return AjaxResult.error("当前产品未配置工艺路线！");
+        }
+    }
+
 
     /**
      * 导出工艺组成列表

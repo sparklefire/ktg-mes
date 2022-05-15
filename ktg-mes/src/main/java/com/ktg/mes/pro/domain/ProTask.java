@@ -12,7 +12,7 @@ import com.ktg.common.core.domain.BaseEntity;
  * 生产任务对象 pro_task
  * 
  * @author yinjinlu
- * @date 2022-05-14
+ * @date 2022-05-15
  */
 public class ProTask extends BaseEntity
 {
@@ -52,6 +52,18 @@ public class ProTask extends BaseEntity
     /** 工作站名称 */
     @Excel(name = "工作站名称")
     private String workstationName;
+
+    /** 工序ID */
+    @Excel(name = "工序ID")
+    private Long processId;
+
+    /** 工序编码 */
+    @Excel(name = "工序编码")
+    private String processCode;
+
+    /** 工序名称 */
+    @Excel(name = "工序名称")
+    private String processName;
 
     /** 产品物料ID */
     @Excel(name = "产品物料ID")
@@ -216,6 +228,33 @@ public class ProTask extends BaseEntity
     public String getWorkstationName() 
     {
         return workstationName;
+    }
+    public void setProcessId(Long processId) 
+    {
+        this.processId = processId;
+    }
+
+    public Long getProcessId() 
+    {
+        return processId;
+    }
+    public void setProcessCode(String processCode) 
+    {
+        this.processCode = processCode;
+    }
+
+    public String getProcessCode() 
+    {
+        return processCode;
+    }
+    public void setProcessName(String processName) 
+    {
+        this.processName = processName;
+    }
+
+    public String getProcessName() 
+    {
+        return processName;
     }
     public void setItemId(Long itemId) 
     {
@@ -419,6 +458,9 @@ public class ProTask extends BaseEntity
             .append("workstationId", getWorkstationId())
             .append("workstationCode", getWorkstationCode())
             .append("workstationName", getWorkstationName())
+            .append("processId", getProcessId())
+            .append("processCode", getProcessCode())
+            .append("processName", getProcessName())
             .append("itemId", getItemId())
             .append("itemCode", getItemCode())
             .append("itemName", getItemName())
