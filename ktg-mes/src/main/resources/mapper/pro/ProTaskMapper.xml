@@ -46,7 +46,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectProTaskVo">
-        select task_id, task_code, task_name, workorder_id, workorder_code, workorder_name, workstation_id, workstation_code, workstation_name, item_id, item_code, item_name, specification, unit_of_measure, quantity, quantity_produced, quantity_changed, client_id, client_code, client_name, client_nick, start_time, duration, end_time, color_code, request_date, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from pro_task
+        select task_id, task_code, task_name, workorder_id, workorder_code, workorder_name, workstation_id, workstation_code, workstation_name,process_id,process_code,process_name, item_id, item_code, item_name, specification, unit_of_measure, quantity, quantity_produced, quantity_changed, client_id, client_code, client_name, client_nick, start_time, duration, end_time, color_code, request_date, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from pro_task
     </sql>
 
     <select id="selectProTaskList" parameterType="ProTask" resultMap="ProTaskResult">

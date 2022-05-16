@@ -90,4 +90,11 @@ public class UserConstants
      */
     public static final String MAINTEN_TYPE_REGULAR="REGULAR";
     public static final String MAINTEN_TYPE_USAGE="USAGE";
+
+    /**
+     * 甘特图中的TASK类型
+     */
+    public static final String GANTT_TASK_TYPE_TASK="task";
+    public static final String GANTT_TASK_TYPE_PROJECT="project";
+
 }

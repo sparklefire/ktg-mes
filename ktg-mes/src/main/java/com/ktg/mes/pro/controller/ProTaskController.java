@@ -1,11 +1,12 @@
 package com.ktg.mes.pro.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
+import cn.hutool.core.collection.CollUtil;
 import com.ktg.common.constant.UserConstants;
-import com.ktg.mes.pro.domain.ProProcess;
-import com.ktg.mes.pro.domain.ProWorkorder;
+import com.ktg.mes.pro.domain.*;
 import com.ktg.mes.pro.service.IProProcessService;
 import com.ktg.mes.pro.service.IProWorkorderService;
 import com.ktg.system.strategy.AutoCodeUtil;
@@ -23,7 +24,6 @@ import com.ktg.common.annotation.Log;
 import com.ktg.common.core.controller.BaseController;
 import com.ktg.common.core.domain.AjaxResult;
 import com.ktg.common.enums.BusinessType;
-import com.ktg.mes.pro.domain.ProTask;
 import com.ktg.mes.pro.service.IProTaskService;
 import com.ktg.common.utils.poi.ExcelUtil;
 import com.ktg.common.core.page.TableDataInfo;
@@ -94,9 +94,62 @@ public class ProTaskController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('pro:protask:list')")
     @GetMapping("/listGanttTaskList")
-    public AjaxResult getGanttTaskList(ProTask proTask){
+    public AjaxResult getGanttTaskList(ProWorkorder proWorkorder){
+        GanttTask ganttTask = new GanttTask();
+        List<GanttData> ganttData = new ArrayList<GanttData>();
+        List<GanttLink> ganttLinks = new ArrayList<GanttLink>();
 
-        return AjaxResult.success();
+        //查询所有的WorkOrder
+        List<ProWorkorder> workorders = proWorkorderService.selectProWorkorderList(proWorkorder);
+
+        //为每个workOrder生成type=project的GanttData
+        //为每个proTask生产type=task的GanttData
+        ProTask param = new ProTask();
+        if(CollUtil.isNotEmpty(workorders)){
+            for (ProWorkorder workorder: workorders
+                 ) {
+                //先添加当前的生产工单TASK
+                GanttData wdata = new GanttData();
+                wdata.setId("MO"+workorder.getWorkorderId().toString());
+                wdata.setText(new StringBuilder().append(workorder.getProductName()).append(workorder.getQuantity().stripTrailingZeros().toPlainString()).append(workorder.getUnitOfMeasure()).toString());//默认使用“[产品]+[数量]+[单位]”格式。
+                wdata.setProduct(workorder.getProductName());
+                wdata.setQuantity(workorder.getQuantity());
+                if(workorder.getParentId().longValue()!=0L){
+                    wdata.setParent("MO"+workorder.getParentId().toString());
+                }
+                wdata.setProgress(0f);
+                wdata.setDuration(0L);
+                wdata.setType(UserConstants.GANTT_TASK_TYPE_PROJECT);
+                ganttData.add(wdata);
+
+                //查询当前生产工单下所有的生产任务
+                param.setWorkorderId(workorder.getWorkorderId());
+                List<ProTask> proTasks = proTaskService.selectProTaskList(param);
+                if(CollUtil.isNotEmpty(proTasks)){
+                    for (ProTask task:proTasks
+                         ) {
+                        GanttData data = new GanttData();
+                        data.setId(task.getTaskId().toString());//使用生产任务的ID作为甘特图TASK的ID
+                        data.setText(new StringBuilder().append(task.getItemName()).append(task.getQuantity().stripTrailingZeros().toPlainString()).append(task.getUnitOfMeasure()).toString()); //默认使用“[产品]+[数量]+[单位]”格式。
+                        data.setColor(task.getColorCode());
+                        data.setDuration(task.getDuration());
+                        data.setStart_date(task.getStartTime());
+                        data.setParent("MO"+workorder.getWorkorderId().toString());//这里要设置为"MO+生产工单ID"的格式
+                        data.setProduct(task.getItemName());
+                        data.setQuantity(task.getQuantity());
+                        data.setProcess(task.getProcessName());
+                        data.setWorkstation(task.getWorkstationName());
+                        data.setProgress(0f);
+                        data.setType(UserConstants.GANTT_TASK_TYPE_TASK);
+                        ganttData.add(data);
+                    }
+                }
+            }
+        }
+
+        ganttTask.setData(ganttData);
+        ganttTask.setLinks(ganttLinks);
+        return AjaxResult.success(ganttTask);
     }
 
 
