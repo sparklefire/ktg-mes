@@ -1,3 +1,13 @@
+<p align="center">
+	<img alt="logo" width="96px" src="https://gitee.com/kutangguo/ktg-mes-ui/raw/master/src/assets/logo/logo.png">
+</p>
+<h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">苦糖果MES</h1>
+<h4 align="center">专业、通用、开源、免费的MES系统</h4>
+<p align="center">
+	<a href="https://gitee.com/kutangguo/ktg-mes/stargazers"><img src="https://gitee.com/y_project/RuoYi-Vue/badge/star.svg?theme=dark"></a>
+	<a href="https://gitee.com/kutangguo/ktg-mes/blob/master/LICENSE"><img src="https://img.shields.io/github/license/mashape/apistatus.svg"></a>
+</p>
+
 # ktg-mes
 
 ### 系统简介
