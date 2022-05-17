@@ -33,17 +33,17 @@ PC端：
 
   - 物料产品管理
 
-    ![1652761399464](D:\source_code\j2eeworkspace\ktg-mes\README.assets\1652761399464.png)
+    ![](https://gitee.com/kutangguo/ktg-mes/raw/master/doc/%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/%E5%8E%9F%E5%9E%8B%E8%AE%BE%E8%AE%A1/%E6%88%AA%E5%9B%BE/%E7%89%A9%E6%96%99%E4%BA%A7%E5%93%81%E8%AE%BE%E7%BD%AE.png)
 
   - 工作站设置
 
-    ![1652761458055](D:\source_code\j2eeworkspace\ktg-mes\README.assets\1652761458055.png)
+    ![](https://gitee.com/kutangguo/ktg-mes/raw/master/doc/%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/%E5%8E%9F%E5%9E%8B%E8%AE%BE%E8%AE%A1/%E6%88%AA%E5%9B%BE/%E5%B7%A5%E4%BD%9C%E7%AB%99%E8%AE%BE%E7%BD%AE.png)
 
 - 生产管理
 
   - 生产排产
 
-    ![1652761342892](D:\source_code\j2eeworkspace\ktg-mes\README.assets\1652761342892.png)
+    ![](https://gitee.com/kutangguo/ktg-mes/raw/master/doc/%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/%E5%8E%9F%E5%9E%8B%E8%AE%BE%E8%AE%A1/%E6%88%AA%E5%9B%BE/%E7%94%9F%E4%BA%A7%E6%8E%92%E4%BA%A7.png)
 
 - 质量管理
 
