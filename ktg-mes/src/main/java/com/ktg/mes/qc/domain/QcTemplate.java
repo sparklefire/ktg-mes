@@ -30,6 +30,11 @@ public class QcTemplate extends BaseEntity
     @Excel(name = "检测种类")
     private String qcTypes;
 
+    /**
+     * 用来传递检测种类参数
+     */
+    private String[] qcTypesParam;
+
     /** 是否启用 */
     @Excel(name = "是否启用")
     private String enableFlag;
@@ -82,7 +87,16 @@ public class QcTemplate extends BaseEntity
     {
         return qcTypes;
     }
-    public void setEnableFlag(String enableFlag) 
+
+    public String[] getQcTypesParam() {
+        return qcTypesParam;
+    }
+
+    public void setQcTypesParam(String[] qcTypesParam) {
+        this.qcTypesParam = qcTypesParam;
+    }
+
+    public void setEnableFlag(String enableFlag)
     {
         this.enableFlag = enableFlag;
     }
