@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ktg.mes.qc.mapper.QcIndexMapper">
+    
+    <resultMap type="QcIndex" id="QcIndexResult">
+        <result property="indexId"    column="index_id"    />
+        <result property="indexCode"    column="index_code"    />
+        <result property="indexName"    column="index_name"    />
+        <result property="indexType"    column="index_type"    />
+        <result property="qcTool"    column="qc_tool"    />
+        <result property="remark"    column="remark"    />
+        <result property="attr1"    column="attr1"    />
+        <result property="attr2"    column="attr2"    />
+        <result property="attr3"    column="attr3"    />
+        <result property="attr4"    column="attr4"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectQcIndexVo">
+        select index_id, index_code, index_name, index_type, qc_tool, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from qc_index
+    </sql>
+
+    <select id="selectQcIndexList" parameterType="QcIndex" resultMap="QcIndexResult">
+        <include refid="selectQcIndexVo"/>
+        <where>  
+            <if test="indexCode != null  and indexCode != ''"> and index_code = #{indexCode}</if>
+            <if test="indexName != null  and indexName != ''"> and index_name like concat('%', #{indexName}, '%')</if>
+            <if test="indexType != null  and indexType != ''"> and index_type = #{indexType}</if>
+            <if test="qcTool != null  and qcTool != ''"> and qc_tool = #{qcTool}</if>
+        </where>
+    </select>
+    
+    <select id="selectQcIndexByIndexId" parameterType="Long" resultMap="QcIndexResult">
+        <include refid="selectQcIndexVo"/>
+        where index_id = #{indexId}
+    </select>
+
+    <select id="checkIndexCodeUnique" parameterType="QcIndex" resultMap="QcIndexResult">
+        <include refid="selectQcIndexVo"/>
+        where index_code = #{indexCode}
+    </select>
+
+    <select id="checkIndexNameUnique" parameterType="QcIndex" resultMap="QcIndexResult">
+        <include refid="selectQcIndexVo"/>
+        where index_name = #{indexName}
+    </select>
+
+    <insert id="insertQcIndex" parameterType="QcIndex" useGeneratedKeys="true" keyProperty="indexId">
+        insert into qc_index
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="indexCode != null and indexCode != ''">index_code,</if>
+            <if test="indexName != null and indexName != ''">index_name,</if>
+            <if test="indexType != null and indexType != ''">index_type,</if>
+            <if test="qcTool != null">qc_tool,</if>
+            <if test="remark != null">remark,</if>
+            <if test="attr1 != null">attr1,</if>
+            <if test="attr2 != null">attr2,</if>
+            <if test="attr3 != null">attr3,</if>
+            <if test="attr4 != null">attr4,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="indexCode != null and indexCode != ''">#{indexCode},</if>
+            <if test="indexName != null and indexName != ''">#{indexName},</if>
+            <if test="indexType != null and indexType != ''">#{indexType},</if>
+            <if test="qcTool != null">#{qcTool},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="attr1 != null">#{attr1},</if>
+            <if test="attr2 != null">#{attr2},</if>
+            <if test="attr3 != null">#{attr3},</if>
+            <if test="attr4 != null">#{attr4},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateQcIndex" parameterType="QcIndex">
+        update qc_index
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="indexCode != null and indexCode != ''">index_code = #{indexCode},</if>
+            <if test="indexName != null and indexName != ''">index_name = #{indexName},</if>
+            <if test="indexType != null and indexType != ''">index_type = #{indexType},</if>
+            <if test="qcTool != null">qc_tool = #{qcTool},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="attr1 != null">attr1 = #{attr1},</if>
+            <if test="attr2 != null">attr2 = #{attr2},</if>
+            <if test="attr3 != null">attr3 = #{attr3},</if>
+            <if test="attr4 != null">attr4 = #{attr4},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where index_id = #{indexId}
+    </update>
+
+    <delete id="deleteQcIndexByIndexId" parameterType="Long">
+        delete from qc_index where index_id = #{indexId}
+    </delete>
+
+    <delete id="deleteQcIndexByIndexIds" parameterType="String">
+        delete from qc_index where index_id in 
+        <foreach item="indexId" collection="array" open="(" separator="," close=")">
+            #{indexId}
+        </foreach>
+    </delete>
+</mapper>
