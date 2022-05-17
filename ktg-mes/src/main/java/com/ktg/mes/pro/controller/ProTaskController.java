@@ -53,7 +53,7 @@ public class ProTaskController extends BaseController
     /**
      * 查询生产任务列表
      */
-    @PreAuthorize("@ss.hasPermi('pro:protask:list')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:protask:list')")
     @GetMapping("/list")
     public TableDataInfo list(ProTask proTask)
     {
@@ -65,7 +65,7 @@ public class ProTaskController extends BaseController
     /**
      * 导出生产任务列表
      */
-    @PreAuthorize("@ss.hasPermi('pro:protask:export')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:protask:export')")
     @Log(title = "生产任务", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, ProTask proTask)
@@ -78,7 +78,7 @@ public class ProTaskController extends BaseController
     /**
      * 获取生产任务详细信息
      */
-    @PreAuthorize("@ss.hasPermi('pro:protask:query')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:protask:query')")
     @GetMapping(value = "/{taskId}")
     public AjaxResult getInfo(@PathVariable("taskId") Long taskId)
     {
@@ -92,7 +92,7 @@ public class ProTaskController extends BaseController
      * 2.Task：基于生产工单拆分到具体工作站后的生产任务转换而来的Task。
      * 3.Link：根据工序与工序之间的依赖关系转换而来的Link。
      */
-    @PreAuthorize("@ss.hasPermi('pro:protask:list')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:protask:list')")
     @GetMapping("/listGanttTaskList")
     public AjaxResult getGanttTaskList(ProWorkorder proWorkorder){
         GanttTask ganttTask = new GanttTask();
@@ -156,7 +156,7 @@ public class ProTaskController extends BaseController
     /**
      * 新增生产任务
      */
-    @PreAuthorize("@ss.hasPermi('pro:protask:add')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:protask:add')")
     @Log(title = "生产任务", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody ProTask proTask)
@@ -192,18 +192,19 @@ public class ProTaskController extends BaseController
     /**
      * 修改生产任务
      */
-    @PreAuthorize("@ss.hasPermi('pro:protask:edit')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:protask:edit')")
     @Log(title = "生产任务", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody ProTask proTask)
     {
+
         return toAjax(proTaskService.updateProTask(proTask));
     }
 
     /**
      * 删除生产任务
      */
-    @PreAuthorize("@ss.hasPermi('pro:protask:remove')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:protask:remove')")
     @Log(title = "生产任务", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{taskIds}")
     public AjaxResult remove(@PathVariable Long[] taskIds)
