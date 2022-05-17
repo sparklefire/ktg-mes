@@ -28,12 +28,31 @@ QQ：411641505
 PC端：
 
 - 系统管理
+
 - 主数据
+
+  - 物料产品管理
+
+    ![1652761399464](D:\source_code\j2eeworkspace\ktg-mes\README.assets\1652761399464.png)
+
+  - 工作站设置
+
+    ![1652761458055](D:\source_code\j2eeworkspace\ktg-mes\README.assets\1652761458055.png)
+
 - 生产管理
+
+  - 生产排产
+
+    ![1652761342892](D:\source_code\j2eeworkspace\ktg-mes\README.assets\1652761342892.png)
+
 - 质量管理
+
 - 仓储管理
+
 - 设备管理
+
 - 统计报表
+
 - 大屏展示
 
 Android端：
