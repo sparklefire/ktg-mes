@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ktg.mes.qc.mapper.QcTemplateIndexMapper">
+    
+    <resultMap type="QcTemplateIndex" id="QcTemplateIndexResult">
+        <result property="recordId"    column="record_id"    />
+        <result property="templateId"    column="template_id"    />
+        <result property="indexId"    column="index_id"    />
+        <result property="indexCode"    column="index_code"    />
+        <result property="indexName"    column="index_name"    />
+        <result property="indexType"    column="index_type"    />
+        <result property="qcTool"    column="qc_tool"    />
+        <result property="checkMethod"    column="check_method"    />
+        <result property="standerVal"    column="stander_val"    />
+        <result property="unitOfMeasure"    column="unit_of_measure"    />
+        <result property="thresholdMax"    column="threshold_max"    />
+        <result property="thresholdMin"    column="threshold_min"    />
+        <result property="docUrl"    column="doc_url"    />
+        <result property="remark"    column="remark"    />
+        <result property="attr1"    column="attr1"    />
+        <result property="attr2"    column="attr2"    />
+        <result property="attr3"    column="attr3"    />
+        <result property="attr4"    column="attr4"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectQcTemplateIndexVo">
+        select record_id, template_id, index_id, index_code, index_name, index_type, qc_tool, check_method, stander_val, unit_of_measure, threshold_max, threshold_min, doc_url, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from qc_template_index
+    </sql>
+
+    <select id="selectQcTemplateIndexList" parameterType="QcTemplateIndex" resultMap="QcTemplateIndexResult">
+        <include refid="selectQcTemplateIndexVo"/>
+        <where>  
+            <if test="templateId != null "> and template_id = #{templateId}</if>
+            <if test="indexId != null "> and index_id = #{indexId}</if>
+            <if test="indexCode != null  and indexCode != ''"> and index_code = #{indexCode}</if>
+            <if test="indexName != null  and indexName != ''"> and index_name like concat('%', #{indexName}, '%')</if>
+            <if test="indexType != null  and indexType != ''"> and index_type = #{indexType}</if>
+            <if test="qcTool != null  and qcTool != ''"> and qc_tool = #{qcTool}</if>
+            <if test="checkMethod != null  and checkMethod != ''"> and check_method = #{checkMethod}</if>
+            <if test="standerVal != null "> and stander_val = #{standerVal}</if>
+            <if test="unitOfMeasure != null  and unitOfMeasure != ''"> and unit_of_measure = #{unitOfMeasure}</if>
+            <if test="thresholdMax != null "> and threshold_max = #{thresholdMax}</if>
+            <if test="thresholdMin != null "> and threshold_min = #{thresholdMin}</if>
+            <if test="docUrl != null  and docUrl != ''"> and doc_url = #{docUrl}</if>
+        </where>
+    </select>
+    
+    <select id="selectQcTemplateIndexByRecordId" parameterType="Long" resultMap="QcTemplateIndexResult">
+        <include refid="selectQcTemplateIndexVo"/>
+        where record_id = #{recordId}
+    </select>
+        
+    <insert id="insertQcTemplateIndex" parameterType="QcTemplateIndex" useGeneratedKeys="true" keyProperty="recordId">
+        insert into qc_template_index
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="templateId != null">template_id,</if>
+            <if test="indexId != null">index_id,</if>
+            <if test="indexCode != null and indexCode != ''">index_code,</if>
+            <if test="indexName != null and indexName != ''">index_name,</if>
+            <if test="indexType != null and indexType != ''">index_type,</if>
+            <if test="qcTool != null">qc_tool,</if>
+            <if test="checkMethod != null">check_method,</if>
+            <if test="standerVal != null">stander_val,</if>
+            <if test="unitOfMeasure != null">unit_of_measure,</if>
+            <if test="thresholdMax != null">threshold_max,</if>
+            <if test="thresholdMin != null">threshold_min,</if>
+            <if test="docUrl != null">doc_url,</if>
+            <if test="remark != null">remark,</if>
+            <if test="attr1 != null">attr1,</if>
+            <if test="attr2 != null">attr2,</if>
+            <if test="attr3 != null">attr3,</if>
+            <if test="attr4 != null">attr4,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="templateId != null">#{templateId},</if>
+            <if test="indexId != null">#{indexId},</if>
+            <if test="indexCode != null and indexCode != ''">#{indexCode},</if>
+            <if test="indexName != null and indexName != ''">#{indexName},</if>
+            <if test="indexType != null and indexType != ''">#{indexType},</if>
+            <if test="qcTool != null">#{qcTool},</if>
+            <if test="checkMethod != null">#{checkMethod},</if>
+            <if test="standerVal != null">#{standerVal},</if>
+            <if test="unitOfMeasure != null">#{unitOfMeasure},</if>
+            <if test="thresholdMax != null">#{thresholdMax},</if>
+            <if test="thresholdMin != null">#{thresholdMin},</if>
+            <if test="docUrl != null">#{docUrl},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="attr1 != null">#{attr1},</if>
+            <if test="attr2 != null">#{attr2},</if>
+            <if test="attr3 != null">#{attr3},</if>
+            <if test="attr4 != null">#{attr4},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateQcTemplateIndex" parameterType="QcTemplateIndex">
+        update qc_template_index
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="templateId != null">template_id = #{templateId},</if>
+            <if test="indexId != null">index_id = #{indexId},</if>
+            <if test="indexCode != null and indexCode != ''">index_code = #{indexCode},</if>
+            <if test="indexName != null and indexName != ''">index_name = #{indexName},</if>
+            <if test="indexType != null and indexType != ''">index_type = #{indexType},</if>
+            <if test="qcTool != null">qc_tool = #{qcTool},</if>
+            <if test="checkMethod != null">check_method = #{checkMethod},</if>
+            <if test="standerVal != null">stander_val = #{standerVal},</if>
+            <if test="unitOfMeasure != null">unit_of_measure = #{unitOfMeasure},</if>
+            <if test="thresholdMax != null">threshold_max = #{thresholdMax},</if>
+            <if test="thresholdMin != null">threshold_min = #{thresholdMin},</if>
+            <if test="docUrl != null">doc_url = #{docUrl},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="attr1 != null">attr1 = #{attr1},</if>
+            <if test="attr2 != null">attr2 = #{attr2},</if>
+            <if test="attr3 != null">attr3 = #{attr3},</if>
+            <if test="attr4 != null">attr4 = #{attr4},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where record_id = #{recordId}
+    </update>
+
+    <delete id="deleteQcTemplateIndexByRecordId" parameterType="Long">
+        delete from qc_template_index where record_id = #{recordId}
+    </delete>
+
+    <delete id="deleteQcTemplateIndexByRecordIds" parameterType="String">
+        delete from qc_template_index where record_id in 
+        <foreach item="recordId" collection="array" open="(" separator="," close=")">
+            #{recordId}
+        </foreach>
+    </delete>
+</mapper>

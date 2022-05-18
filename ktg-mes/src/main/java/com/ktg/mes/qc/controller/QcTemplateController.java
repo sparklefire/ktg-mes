@@ -49,13 +49,12 @@ public class QcTemplateController extends BaseController
         startPage();
         List<QcTemplate> list = qcTemplateService.selectQcTemplateList(qcTemplate);
         if(CollUtil.isNotEmpty(list)){
-            int i=0;
-            for (QcTemplate template: list
-                    ) {
+            for (int i=0;i<list.size();i++)
+            {
+                QcTemplate template = list.get(i);
                 template.setQcTypesParam(template.getQcTypes().split(","));
                 list.set(i,template);
             }
-            i++;
         }
         return getDataTable(list);
     }
@@ -80,7 +79,11 @@ public class QcTemplateController extends BaseController
     @GetMapping(value = "/{templateId}")
     public AjaxResult getInfo(@PathVariable("templateId") Long templateId)
     {
-        return AjaxResult.success(qcTemplateService.selectQcTemplateByTemplateId(templateId));
+        QcTemplate template = qcTemplateService.selectQcTemplateByTemplateId(templateId);
+        if(StringUtils.isNotNull(template)){
+            template.setQcTypesParam(template.getQcTypes().split(","));
+        }
+        return AjaxResult.success(template);
     }
 
     /**
@@ -96,7 +99,9 @@ public class QcTemplateController extends BaseController
         }
 
         if(ArrayUtil.isNotEmpty(qcTemplate.getQcTypesParam())){
+            qcTemplate.setQcTypes(null); //先置空
             String[] types = qcTemplate.getQcTypesParam();
+            //根据输入参数重新生成
             for (String type:types
                  ) {
                 if(StringUtils.isNotNull(qcTemplate.getQcTypes())){
@@ -122,6 +127,7 @@ public class QcTemplateController extends BaseController
             return AjaxResult.error("检测模板编号已存在！");
         }
         if(ArrayUtil.isNotEmpty(qcTemplate.getQcTypesParam())){
+            qcTemplate.setQcTypes(null); //先置空
             String[] types = qcTemplate.getQcTypesParam();
             for (String type:types
                     ) {
