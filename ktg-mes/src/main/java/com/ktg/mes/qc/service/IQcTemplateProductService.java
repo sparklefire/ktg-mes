@@ -60,4 +60,11 @@ public interface IQcTemplateProductService
      * @return 结果
      */
     public int deleteQcTemplateProductByRecordId(Long recordId);
+
+    /**
+     * 根据检测模板ID删除产品
+     * @param templateId
+     * @return
+     */
+    public int deleteByTemplateId(Long templateId);
 }

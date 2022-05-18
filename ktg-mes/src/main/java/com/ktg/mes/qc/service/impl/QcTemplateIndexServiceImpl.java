@@ -93,4 +93,9 @@ public class QcTemplateIndexServiceImpl implements IQcTemplateIndexService
     {
         return qcTemplateIndexMapper.deleteQcTemplateIndexByRecordId(recordId);
     }
+
+    @Override
+    public int deleteByTemplateId(Long templateId) {
+        return qcTemplateIndexMapper.deleteByTemplateId(templateId);
+    }
 }

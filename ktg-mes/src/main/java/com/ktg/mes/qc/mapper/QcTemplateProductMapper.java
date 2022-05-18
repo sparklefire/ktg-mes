@@ -61,4 +61,7 @@ public interface QcTemplateProductMapper
      * @return 结果
      */
     public int deleteQcTemplateProductByRecordIds(Long[] recordIds);
+
+    public int deleteByTemplateId(Long templateId);
+
 }

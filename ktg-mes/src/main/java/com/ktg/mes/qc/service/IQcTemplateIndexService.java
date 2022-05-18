@@ -58,4 +58,11 @@ public interface IQcTemplateIndexService
      * @return 结果
      */
     public int deleteQcTemplateIndexByRecordId(Long recordId);
+
+    /**
+     * 根据检测模板ID删除所有检测项
+     * @param templateId
+     * @return
+     */
+    public int deleteByTemplateId(Long templateId);
 }

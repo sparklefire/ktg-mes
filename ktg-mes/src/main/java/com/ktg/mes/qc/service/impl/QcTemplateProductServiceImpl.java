@@ -106,4 +106,9 @@ public class QcTemplateProductServiceImpl implements IQcTemplateProductService
     {
         return qcTemplateProductMapper.deleteQcTemplateProductByRecordId(recordId);
     }
+
+    @Override
+    public int deleteByTemplateId(Long templateId) {
+        return qcTemplateProductMapper.deleteByTemplateId(templateId);
+    }
 }

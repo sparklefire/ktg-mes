@@ -7,8 +7,11 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ArrayUtil;
 import com.ktg.common.constant.UserConstants;
 import com.ktg.common.utils.StringUtils;
+import com.ktg.mes.qc.service.IQcTemplateIndexService;
+import com.ktg.mes.qc.service.IQcTemplateProductService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -38,6 +41,12 @@ public class QcTemplateController extends BaseController
 {
     @Autowired
     private IQcTemplateService qcTemplateService;
+
+    @Autowired
+    private IQcTemplateIndexService qcTemplateIndexService;
+
+    @Autowired
+    private IQcTemplateProductService qcTemplateProductService;
 
     /**
      * 查询检测模板列表
@@ -146,9 +155,18 @@ public class QcTemplateController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('mes:qc:qctemplate:remove')")
     @Log(title = "检测模板", businessType = BusinessType.DELETE)
+    @Transactional
 	@DeleteMapping("/{templateIds}")
     public AjaxResult remove(@PathVariable Long[] templateIds)
     {
+
+        for (Long id:templateIds
+             ) {
+            //删除当前模板下所有检测项数据
+            qcTemplateIndexService.deleteByTemplateId(id);
+            //删除当前模板下所有检测产品
+            qcTemplateProductService.deleteByTemplateId(id);
+        }
         return toAjax(qcTemplateService.deleteQcTemplateByTemplateIds(templateIds));
     }
 }
