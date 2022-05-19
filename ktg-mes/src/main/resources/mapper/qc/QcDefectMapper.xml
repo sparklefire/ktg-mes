@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ktg.mes.qc.mapper.QcDefectMapper">
+    
+    <resultMap type="QcDefect" id="QcDefectResult">
+        <result property="defectId"    column="defect_id"    />
+        <result property="defectCode"    column="defect_code"    />
+        <result property="defectName"    column="defect_name"    />
+        <result property="indexType"    column="index_type"    />
+        <result property="defectLevel"    column="defect_level"    />
+        <result property="remark"    column="remark"    />
+        <result property="attr1"    column="attr1"    />
+        <result property="attr2"    column="attr2"    />
+        <result property="attr3"    column="attr3"    />
+        <result property="attr4"    column="attr4"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectQcDefectVo">
+        select defect_id, defect_code, defect_name, index_type, defect_level, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from qc_defect
+    </sql>
+
+    <select id="selectQcDefectList" parameterType="QcDefect" resultMap="QcDefectResult">
+        <include refid="selectQcDefectVo"/>
+        <where>  
+            <if test="defectCode != null  and defectCode != ''"> and defect_code = #{defectCode}</if>
+            <if test="defectName != null  and defectName != ''"> and defect_name like concat('%', #{defectName}, '%')</if>
+            <if test="indexType != null  and indexType != ''"> and index_type = #{indexType}</if>
+            <if test="defectLevel != null  and defectLevel != ''"> and defect_level = #{defectLevel}</if>
+        </where>
+    </select>
+    
+    <select id="selectQcDefectByDefectId" parameterType="Long" resultMap="QcDefectResult">
+        <include refid="selectQcDefectVo"/>
+        where defect_id = #{defectId}
+    </select>
+        
+    <insert id="insertQcDefect" parameterType="QcDefect" useGeneratedKeys="true" keyProperty="defectId">
+        insert into qc_defect
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="defectCode != null and defectCode != ''">defect_code,</if>
+            <if test="defectName != null and defectName != ''">defect_name,</if>
+            <if test="indexType != null and indexType != ''">index_type,</if>
+            <if test="defectLevel != null and defectLevel != ''">defect_level,</if>
+            <if test="remark != null">remark,</if>
+            <if test="attr1 != null">attr1,</if>
+            <if test="attr2 != null">attr2,</if>
+            <if test="attr3 != null">attr3,</if>
+            <if test="attr4 != null">attr4,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="defectCode != null and defectCode != ''">#{defectCode},</if>
+            <if test="defectName != null and defectName != ''">#{defectName},</if>
+            <if test="indexType != null and indexType != ''">#{indexType},</if>
+            <if test="defectLevel != null and defectLevel != ''">#{defectLevel},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="attr1 != null">#{attr1},</if>
+            <if test="attr2 != null">#{attr2},</if>
+            <if test="attr3 != null">#{attr3},</if>
+            <if test="attr4 != null">#{attr4},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateQcDefect" parameterType="QcDefect">
+        update qc_defect
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="defectCode != null and defectCode != ''">defect_code = #{defectCode},</if>
+            <if test="defectName != null and defectName != ''">defect_name = #{defectName},</if>
+            <if test="indexType != null and indexType != ''">index_type = #{indexType},</if>
+            <if test="defectLevel != null and defectLevel != ''">defect_level = #{defectLevel},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="attr1 != null">attr1 = #{attr1},</if>
+            <if test="attr2 != null">attr2 = #{attr2},</if>
+            <if test="attr3 != null">attr3 = #{attr3},</if>
+            <if test="attr4 != null">attr4 = #{attr4},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where defect_id = #{defectId}
+    </update>
+
+    <delete id="deleteQcDefectByDefectId" parameterType="Long">
+        delete from qc_defect where defect_id = #{defectId}
+    </delete>
+
+    <delete id="deleteQcDefectByDefectIds" parameterType="String">
+        delete from qc_defect where defect_id in 
+        <foreach item="defectId" collection="array" open="(" separator="," close=")">
+            #{defectId}
+        </foreach>
+    </delete>
+</mapper>
