@@ -135,6 +135,8 @@ public class QcIqc extends BaseEntity
     @Excel(name = "检测人员")
     private String inspector;
 
+    private String inspectorName;
+
     /** 单据状态 */
     @Excel(name = "单据状态")
     private String status;
@@ -417,7 +419,15 @@ public class QcIqc extends BaseEntity
         this.status = status;
     }
 
-    public String getStatus() 
+    public String getInspectorName() {
+        return inspectorName;
+    }
+
+    public void setInspectorName(String inspectorName) {
+        this.inspectorName = inspectorName;
+    }
+
+    public String getStatus()
     {
         return status;
     }
@@ -460,46 +470,42 @@ public class QcIqc extends BaseEntity
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("iqcId", getIqcId())
-            .append("iqcCode", getIqcCode())
-            .append("iqcName", getIqcName())
-            .append("templateId", getTemplateId())
-            .append("vendorId", getVendorId())
-            .append("vendorCode", getVendorCode())
-            .append("vendorName", getVendorName())
-            .append("vendorNick", getVendorNick())
-            .append("vendorBatch", getVendorBatch())
-            .append("itemId", getItemId())
-            .append("itemCode", getItemCode())
-            .append("itemName", getItemName())
-            .append("specification", getSpecification())
-            .append("unitOfMeasure", getUnitOfMeasure())
-            .append("quantityMinCheck", getQuantityMinCheck())
-            .append("quantityMaxUnqualified", getQuantityMaxUnqualified())
-            .append("quantityRecived", getQuantityRecived())
-            .append("quantityCheck", getQuantityCheck())
-            .append("quantityUnqualified", getQuantityUnqualified())
-            .append("crRate", getCrRate())
-            .append("majRate", getMajRate())
-            .append("minRate", getMinRate())
-            .append("crQuantity", getCrQuantity())
-            .append("majQuantity", getMajQuantity())
-            .append("minQuantity", getMinQuantity())
-            .append("checkResult", getCheckResult())
-            .append("reciveDate", getReciveDate())
-            .append("inspectDate", getInspectDate())
-            .append("inspector", getInspector())
-            .append("status", getStatus())
-            .append("remark", getRemark())
-            .append("attr1", getAttr1())
-            .append("attr2", getAttr2())
-            .append("attr3", getAttr3())
-            .append("attr4", getAttr4())
-            .append("createBy", getCreateBy())
-            .append("createTime", getCreateTime())
-            .append("updateBy", getUpdateBy())
-            .append("updateTime", getUpdateTime())
-            .toString();
+        return "QcIqc{" +
+                "iqcId=" + iqcId +
+                ", iqcCode='" + iqcCode + '\'' +
+                ", iqcName='" + iqcName + '\'' +
+                ", templateId=" + templateId +
+                ", vendorId=" + vendorId +
+                ", vendorCode='" + vendorCode + '\'' +
+                ", vendorName='" + vendorName + '\'' +
+                ", vendorNick='" + vendorNick + '\'' +
+                ", vendorBatch='" + vendorBatch + '\'' +
+                ", itemId=" + itemId +
+                ", itemCode='" + itemCode + '\'' +
+                ", itemName='" + itemName + '\'' +
+                ", specification='" + specification + '\'' +
+                ", unitOfMeasure='" + unitOfMeasure + '\'' +
+                ", quantityMinCheck=" + quantityMinCheck +
+                ", quantityMaxUnqualified=" + quantityMaxUnqualified +
+                ", quantityRecived=" + quantityRecived +
+                ", quantityCheck=" + quantityCheck +
+                ", quantityUnqualified=" + quantityUnqualified +
+                ", crRate=" + crRate +
+                ", majRate=" + majRate +
+                ", minRate=" + minRate +
+                ", crQuantity=" + crQuantity +
+                ", majQuantity=" + majQuantity +
+                ", minQuantity=" + minQuantity +
+                ", checkResult='" + checkResult + '\'' +
+                ", reciveDate=" + reciveDate +
+                ", inspectDate=" + inspectDate +
+                ", inspector='" + inspector + '\'' +
+                ", inspectorName='" + inspectorName + '\'' +
+                ", status='" + status + '\'' +
+                ", attr1='" + attr1 + '\'' +
+                ", attr2='" + attr2 + '\'' +
+                ", attr3=" + attr3 +
+                ", attr4=" + attr4 +
+                '}';
     }
 }

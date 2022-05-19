@@ -34,6 +34,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="reciveDate"    column="recive_date"    />
         <result property="inspectDate"    column="inspect_date"    />
         <result property="inspector"    column="inspector"    />
+        <result property="inspectorName" column="inspector_name"    />
         <result property="status"    column="status"    />
         <result property="remark"    column="remark"    />
         <result property="attr1"    column="attr1"    />
@@ -47,7 +48,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectQcIqcVo">
-        select iqc_id, iqc_code, iqc_name, template_id, vendor_id, vendor_code, vendor_name, vendor_nick, vendor_batch, item_id, item_code, item_name, specification, unit_of_measure, quantity_min_check, quantity_max_unqualified, quantity_recived, quantity_check, quantity_unqualified, cr_rate, maj_rate, min_rate, cr_quantity, maj_quantity, min_quantity, check_result, recive_date, inspect_date, inspector, status, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from qc_iqc
+        select iqc_id, iqc_code, iqc_name, template_id, vendor_id, vendor_code, vendor_name, vendor_nick, vendor_batch, item_id, item_code, item_name, specification, unit_of_measure, quantity_min_check, quantity_max_unqualified, quantity_recived, quantity_check, quantity_unqualified, cr_rate, maj_rate, min_rate, cr_quantity, maj_quantity, min_quantity, check_result, recive_date, inspect_date, inspector,u.nick_name as inspector_name, q.status, q.remark, attr1, attr2, attr3, attr4, q.create_by, q.create_time, q.update_by, q.update_time from qc_iqc q left join sys_user u on u.user_name = q.inspector
     </sql>
 
     <select id="selectQcIqcList" parameterType="QcIqc" resultMap="QcIqcResult">
