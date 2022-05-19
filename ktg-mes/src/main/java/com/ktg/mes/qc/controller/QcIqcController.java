@@ -8,9 +8,7 @@ import com.ktg.common.constant.UserConstants;
 import com.ktg.mes.qc.domain.QcIqcLine;
 import com.ktg.mes.qc.domain.QcTemplateIndex;
 import com.ktg.mes.qc.domain.QcTemplateProduct;
-import com.ktg.mes.qc.service.IQcIqcLineService;
-import com.ktg.mes.qc.service.IQcTemplateIndexService;
-import com.ktg.mes.qc.service.IQcTemplateProductService;
+import com.ktg.mes.qc.service.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +25,6 @@ import com.ktg.common.core.controller.BaseController;
 import com.ktg.common.core.domain.AjaxResult;
 import com.ktg.common.enums.BusinessType;
 import com.ktg.mes.qc.domain.QcIqc;
-import com.ktg.mes.qc.service.IQcIqcService;
 import com.ktg.common.utils.poi.ExcelUtil;
 import com.ktg.common.core.page.TableDataInfo;
 
@@ -52,6 +49,9 @@ public class QcIqcController extends BaseController
 
     @Autowired
     private IQcIqcLineService qcIqcLineService;
+
+    @Autowired
+    private IQcIqcDefectService qcIqcDefectService;
 
     /**
      * 查询来料检验单列表
@@ -137,6 +137,7 @@ public class QcIqcController extends BaseController
             return AjaxResult.error("当前产品未配置检测模板！");
         }
         qcIqcLineService.deleteByIqcId(qcIqc.getIqcId());
+        qcIqcDefectService.deleteByIqcId(qcIqc.getIqcId());
         int ret = qcIqcService.updateQcIqc(qcIqc);
         generateLine(qcIqc);
         return toAjax(ret);
@@ -154,6 +155,7 @@ public class QcIqcController extends BaseController
         for (Long iqcId:iqcIds
              ) {
             qcIqcLineService.deleteByIqcId(iqcId);
+            qcIqcDefectService.deleteByIqcId(iqcId);
         }
         return toAjax(qcIqcService.deleteQcIqcByIqcIds(iqcIds));
     }
