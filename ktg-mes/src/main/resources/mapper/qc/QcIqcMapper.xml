@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ktg.mes.qc.mapper.QcIqcMapper">
+    
+    <resultMap type="QcIqc" id="QcIqcResult">
+        <result property="iqcId"    column="iqc_id"    />
+        <result property="iqcCode"    column="iqc_code"    />
+        <result property="iqcName"    column="iqc_name"    />
+        <result property="templateId"    column="template_id"    />
+        <result property="vendorId"    column="vendor_id"    />
+        <result property="vendorCode"    column="vendor_code"    />
+        <result property="vendorName"    column="vendor_name"    />
+        <result property="vendorNick"    column="vendor_nick"    />
+        <result property="vendorBatch"    column="vendor_batch"    />
+        <result property="itemId"    column="item_id"    />
+        <result property="itemCode"    column="item_code"    />
+        <result property="itemName"    column="item_name"    />
+        <result property="specification"    column="specification"    />
+        <result property="unitOfMeasure"    column="unit_of_measure"    />
+        <result property="quantityMinCheck"    column="quantity_min_check"    />
+        <result property="quantityMaxUnqualified"    column="quantity_max_unqualified"    />
+        <result property="quantityRecived"    column="quantity_recived"    />
+        <result property="quantityCheck"    column="quantity_check"    />
+        <result property="quantityUnqualified"    column="quantity_unqualified"    />
+        <result property="crRate"    column="cr_rate"    />
+        <result property="majRate"    column="maj_rate"    />
+        <result property="minRate"    column="min_rate"    />
+        <result property="crQuantity"    column="cr_quantity"    />
+        <result property="majQuantity"    column="maj_quantity"    />
+        <result property="minQuantity"    column="min_quantity"    />
+        <result property="checkResult"    column="check_result"    />
+        <result property="reciveDate"    column="recive_date"    />
+        <result property="inspectDate"    column="inspect_date"    />
+        <result property="inspector"    column="inspector"    />
+        <result property="status"    column="status"    />
+        <result property="remark"    column="remark"    />
+        <result property="attr1"    column="attr1"    />
+        <result property="attr2"    column="attr2"    />
+        <result property="attr3"    column="attr3"    />
+        <result property="attr4"    column="attr4"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectQcIqcVo">
+        select iqc_id, iqc_code, iqc_name, template_id, vendor_id, vendor_code, vendor_name, vendor_nick, vendor_batch, item_id, item_code, item_name, specification, unit_of_measure, quantity_min_check, quantity_max_unqualified, quantity_recived, quantity_check, quantity_unqualified, cr_rate, maj_rate, min_rate, cr_quantity, maj_quantity, min_quantity, check_result, recive_date, inspect_date, inspector, status, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from qc_iqc
+    </sql>
+
+    <select id="selectQcIqcList" parameterType="QcIqc" resultMap="QcIqcResult">
+        <include refid="selectQcIqcVo"/>
+        <where>  
+            <if test="iqcCode != null  and iqcCode != ''"> and iqc_code = #{iqcCode}</if>
+            <if test="iqcName != null  and iqcName != ''"> and iqc_name like concat('%', #{iqcName}, '%')</if>
+            <if test="templateId != null "> and template_id = #{templateId}</if>
+            <if test="vendorId != null "> and vendor_id = #{vendorId}</if>
+            <if test="vendorCode != null  and vendorCode != ''"> and vendor_code = #{vendorCode}</if>
+            <if test="vendorName != null  and vendorName != ''"> and vendor_name like concat('%', #{vendorName}, '%')</if>
+            <if test="vendorNick != null  and vendorNick != ''"> and vendor_nick = #{vendorNick}</if>
+            <if test="vendorBatch != null  and vendorBatch != ''"> and vendor_batch = #{vendorBatch}</if>
+            <if test="itemId != null "> and item_id = #{itemId}</if>
+            <if test="itemCode != null  and itemCode != ''"> and item_code = #{itemCode}</if>
+            <if test="itemName != null  and itemName != ''"> and item_name like concat('%', #{itemName}, '%')</if>
+            <if test="specification != null  and specification != ''"> and specification = #{specification}</if>
+            <if test="unitOfMeasure != null  and unitOfMeasure != ''"> and unit_of_measure = #{unitOfMeasure}</if>
+            <if test="quantityMinCheck != null "> and quantity_min_check = #{quantityMinCheck}</if>
+            <if test="quantityMaxUnqualified != null "> and quantity_max_unqualified = #{quantityMaxUnqualified}</if>
+            <if test="quantityRecived != null "> and quantity_recived = #{quantityRecived}</if>
+            <if test="quantityCheck != null "> and quantity_check = #{quantityCheck}</if>
+            <if test="quantityUnqualified != null "> and quantity_unqualified = #{quantityUnqualified}</if>
+            <if test="crRate != null "> and cr_rate = #{crRate}</if>
+            <if test="majRate != null "> and maj_rate = #{majRate}</if>
+            <if test="minRate != null "> and min_rate = #{minRate}</if>
+            <if test="crQuantity != null "> and cr_quantity = #{crQuantity}</if>
+            <if test="majQuantity != null "> and maj_quantity = #{majQuantity}</if>
+            <if test="minQuantity != null "> and min_quantity = #{minQuantity}</if>
+            <if test="checkResult != null  and checkResult != ''"> and check_result = #{checkResult}</if>
+            <if test="reciveDate != null "> and recive_date = #{reciveDate}</if>
+            <if test="inspectDate != null "> and inspect_date = #{inspectDate}</if>
+            <if test="inspector != null  and inspector != ''"> and inspector = #{inspector}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+        </where>
+    </select>
+    
+    <select id="selectQcIqcByIqcId" parameterType="Long" resultMap="QcIqcResult">
+        <include refid="selectQcIqcVo"/>
+        where iqc_id = #{iqcId}
+    </select>
+
+    <select id="checkIqcCodeUnique" parameterType="QcIqc" resultMap="QcIqcResult">
+        <include refid="selectQcIqcVo"/>
+        where iqc_code = #{iqcCode} limit 1
+    </select>
+
+    <insert id="insertQcIqc" parameterType="QcIqc" useGeneratedKeys="true" keyProperty="iqcId">
+        insert into qc_iqc
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="iqcCode != null and iqcCode != ''">iqc_code,</if>
+            <if test="iqcName != null and iqcName != ''">iqc_name,</if>
+            <if test="templateId != null">template_id,</if>
+            <if test="vendorId != null">vendor_id,</if>
+            <if test="vendorCode != null and vendorCode != ''">vendor_code,</if>
+            <if test="vendorName != null and vendorName != ''">vendor_name,</if>
+            <if test="vendorNick != null">vendor_nick,</if>
+            <if test="vendorBatch != null">vendor_batch,</if>
+            <if test="itemId != null">item_id,</if>
+            <if test="itemCode != null">item_code,</if>
+            <if test="itemName != null">item_name,</if>
+            <if test="specification != null">specification,</if>
+            <if test="unitOfMeasure != null">unit_of_measure,</if>
+            <if test="quantityMinCheck != null">quantity_min_check,</if>
+            <if test="quantityMaxUnqualified != null">quantity_max_unqualified,</if>
+            <if test="quantityRecived != null">quantity_recived,</if>
+            <if test="quantityCheck != null">quantity_check,</if>
+            <if test="quantityUnqualified != null">quantity_unqualified,</if>
+            <if test="crRate != null">cr_rate,</if>
+            <if test="majRate != null">maj_rate,</if>
+            <if test="minRate != null">min_rate,</if>
+            <if test="crQuantity != null">cr_quantity,</if>
+            <if test="majQuantity != null">maj_quantity,</if>
+            <if test="minQuantity != null">min_quantity,</if>
+            <if test="checkResult != null">check_result,</if>
+            <if test="reciveDate != null">recive_date,</if>
+            <if test="inspectDate != null">inspect_date,</if>
+            <if test="inspector != null">inspector,</if>
+            <if test="status != null">status,</if>
+            <if test="remark != null">remark,</if>
+            <if test="attr1 != null">attr1,</if>
+            <if test="attr2 != null">attr2,</if>
+            <if test="attr3 != null">attr3,</if>
+            <if test="attr4 != null">attr4,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="iqcCode != null and iqcCode != ''">#{iqcCode},</if>
+            <if test="iqcName != null and iqcName != ''">#{iqcName},</if>
+            <if test="templateId != null">#{templateId},</if>
+            <if test="vendorId != null">#{vendorId},</if>
+            <if test="vendorCode != null and vendorCode != ''">#{vendorCode},</if>
+            <if test="vendorName != null and vendorName != ''">#{vendorName},</if>
+            <if test="vendorNick != null">#{vendorNick},</if>
+            <if test="vendorBatch != null">#{vendorBatch},</if>
+            <if test="itemId != null">#{itemId},</if>
+            <if test="itemCode != null">#{itemCode},</if>
+            <if test="itemName != null">#{itemName},</if>
+            <if test="specification != null">#{specification},</if>
+            <if test="unitOfMeasure != null">#{unitOfMeasure},</if>
+            <if test="quantityMinCheck != null">#{quantityMinCheck},</if>
+            <if test="quantityMaxUnqualified != null">#{quantityMaxUnqualified},</if>
+            <if test="quantityRecived != null">#{quantityRecived},</if>
+            <if test="quantityCheck != null">#{quantityCheck},</if>
+            <if test="quantityUnqualified != null">#{quantityUnqualified},</if>
+            <if test="crRate != null">#{crRate},</if>
+            <if test="majRate != null">#{majRate},</if>
+            <if test="minRate != null">#{minRate},</if>
+            <if test="crQuantity != null">#{crQuantity},</if>
+            <if test="majQuantity != null">#{majQuantity},</if>
+            <if test="minQuantity != null">#{minQuantity},</if>
+            <if test="checkResult != null">#{checkResult},</if>
+            <if test="reciveDate != null">#{reciveDate},</if>
+            <if test="inspectDate != null">#{inspectDate},</if>
+            <if test="inspector != null">#{inspector},</if>
+            <if test="status != null">#{status},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="attr1 != null">#{attr1},</if>
+            <if test="attr2 != null">#{attr2},</if>
+            <if test="attr3 != null">#{attr3},</if>
+            <if test="attr4 != null">#{attr4},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateQcIqc" parameterType="QcIqc">
+        update qc_iqc
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="iqcCode != null and iqcCode != ''">iqc_code = #{iqcCode},</if>
+            <if test="iqcName != null and iqcName != ''">iqc_name = #{iqcName},</if>
+            <if test="templateId != null">template_id = #{templateId},</if>
+            <if test="vendorId != null">vendor_id = #{vendorId},</if>
+            <if test="vendorCode != null and vendorCode != ''">vendor_code = #{vendorCode},</if>
+            <if test="vendorName != null and vendorName != ''">vendor_name = #{vendorName},</if>
+            <if test="vendorNick != null">vendor_nick = #{vendorNick},</if>
+            <if test="vendorBatch != null">vendor_batch = #{vendorBatch},</if>
+            <if test="itemId != null">item_id = #{itemId},</if>
+            <if test="itemCode != null">item_code = #{itemCode},</if>
+            <if test="itemName != null">item_name = #{itemName},</if>
+            <if test="specification != null">specification = #{specification},</if>
+            <if test="unitOfMeasure != null">unit_of_measure = #{unitOfMeasure},</if>
+            <if test="quantityMinCheck != null">quantity_min_check = #{quantityMinCheck},</if>
+            <if test="quantityMaxUnqualified != null">quantity_max_unqualified = #{quantityMaxUnqualified},</if>
+            <if test="quantityRecived != null">quantity_recived = #{quantityRecived},</if>
+            <if test="quantityCheck != null">quantity_check = #{quantityCheck},</if>
+            <if test="quantityUnqualified != null">quantity_unqualified = #{quantityUnqualified},</if>
+            <if test="crRate != null">cr_rate = #{crRate},</if>
+            <if test="majRate != null">maj_rate = #{majRate},</if>
+            <if test="minRate != null">min_rate = #{minRate},</if>
+            <if test="crQuantity != null">cr_quantity = #{crQuantity},</if>
+            <if test="majQuantity != null">maj_quantity = #{majQuantity},</if>
+            <if test="minQuantity != null">min_quantity = #{minQuantity},</if>
+            <if test="checkResult != null">check_result = #{checkResult},</if>
+            <if test="reciveDate != null">recive_date = #{reciveDate},</if>
+            <if test="inspectDate != null">inspect_date = #{inspectDate},</if>
+            <if test="inspector != null">inspector = #{inspector},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="attr1 != null">attr1 = #{attr1},</if>
+            <if test="attr2 != null">attr2 = #{attr2},</if>
+            <if test="attr3 != null">attr3 = #{attr3},</if>
+            <if test="attr4 != null">attr4 = #{attr4},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where iqc_id = #{iqcId}
+    </update>
+
+    <delete id="deleteQcIqcByIqcId" parameterType="Long">
+        delete from qc_iqc where iqc_id = #{iqcId}
+    </delete>
+
+    <delete id="deleteQcIqcByIqcIds" parameterType="String">
+        delete from qc_iqc where iqc_id in 
+        <foreach item="iqcId" collection="array" open="(" separator="," close=")">
+            #{iqcId}
+        </foreach>
+    </delete>
+</mapper>
