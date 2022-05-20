@@ -97,20 +97,10 @@ public class QcIqcDefectController extends BaseController
             for (QcIqcDefect defect: defects
                  ) {
                 if(StringUtils.isNotNull(defect.getRecordId())){
-                    if("Y".equals(defect.getDeleteflag())){
-                        qcIqcDefectService.deleteQcIqcDefectByRecordId(defect.getRecordId());
-                    }else {
-                        qcIqcDefectService.updateQcIqcDefect(defect);
-                    }
+                    qcIqcDefectService.updateQcIqcDefect(defect);
                 }else {
-                    if("Y".equals(defect.getDeleteflag())){
-                        //doNothing
-                    }else {
-                        qcIqcDefectService.insertQcIqcDefect(defect);
-                    }
-
+                    qcIqcDefectService.insertQcIqcDefect(defect);
                 }
-
             }
         }
 

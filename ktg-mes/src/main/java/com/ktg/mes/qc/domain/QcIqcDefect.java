@@ -43,7 +43,7 @@ public class QcIqcDefect extends BaseEntity
     @Excel(name = "缺陷数量")
     private Long defectQuantity;
 
-    private String deleteflag;
+    private String flag;
 
     /** 预留字段1 */
     private String attr1;
@@ -116,12 +116,12 @@ public class QcIqcDefect extends BaseEntity
         this.attr1 = attr1;
     }
 
-    public String getDeleteflag() {
-        return deleteflag;
+    public String getFlag() {
+        return flag;
     }
 
-    public void setDeleteflag(String deleteflag) {
-        this.deleteflag = deleteflag;
+    public void setFlag(String flag) {
+        this.flag = flag;
     }
 
     public String getAttr1()
@@ -165,7 +165,7 @@ public class QcIqcDefect extends BaseEntity
                 ", defectName='" + defectName + '\'' +
                 ", defectLevel='" + defectLevel + '\'' +
                 ", defectQuantity=" + defectQuantity +
-                ", deleteflag='" + deleteflag + '\'' +
+                ", flag='" + flag + '\'' +
                 ", attr1='" + attr1 + '\'' +
                 ", attr2='" + attr2 + '\'' +
                 ", attr3=" + attr3 +
