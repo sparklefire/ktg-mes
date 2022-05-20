@@ -87,6 +87,11 @@ public class QcIqcDefectServiceImpl implements IQcIqcDefectService
         return qcIqcDefectMapper.deleteByIqcId(iqcID);
     }
 
+    @Override
+    public int deleteByIqcIdLineId(QcIqcDefect qcIqcDefect) {
+        return qcIqcDefectMapper.deleteByIqcIdLineId(qcIqcDefect);
+    }
+
     /**
      * 删除来料检验单缺陷记录信息
      * 

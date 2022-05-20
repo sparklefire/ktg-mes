@@ -5,6 +5,9 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ktg.common.annotation.Excel;
 import com.ktg.common.core.domain.BaseEntity;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 /**
  * 来料检验单缺陷记录对象 qc_iqc_defect
  * 
@@ -27,16 +30,20 @@ public class QcIqcDefect extends BaseEntity
     private Long lineId;
 
     /** 缺陷描述 */
+    @NotBlank(message = "缺陷描述不能为空")
     @Excel(name = "缺陷描述")
     private String defectName;
 
     /** 缺陷等级 */
+    @NotBlank(message = "请选择缺陷等级")
     @Excel(name = "缺陷等级")
     private String defectLevel;
 
     /** 缺陷数量 */
     @Excel(name = "缺陷数量")
     private Long defectQuantity;
+
+    private String deleteflag;
 
     /** 预留字段1 */
     private String attr1;
@@ -109,7 +116,15 @@ public class QcIqcDefect extends BaseEntity
         this.attr1 = attr1;
     }
 
-    public String getAttr1() 
+    public String getDeleteflag() {
+        return deleteflag;
+    }
+
+    public void setDeleteflag(String deleteflag) {
+        this.deleteflag = deleteflag;
+    }
+
+    public String getAttr1()
     {
         return attr1;
     }
@@ -143,22 +158,18 @@ public class QcIqcDefect extends BaseEntity
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("recordId", getRecordId())
-            .append("iqcId", getIqcId())
-            .append("lineId", getLineId())
-            .append("defectName", getDefectName())
-            .append("defectLevel", getDefectLevel())
-            .append("defectQuantity", getDefectQuantity())
-            .append("remark", getRemark())
-            .append("attr1", getAttr1())
-            .append("attr2", getAttr2())
-            .append("attr3", getAttr3())
-            .append("attr4", getAttr4())
-            .append("createBy", getCreateBy())
-            .append("createTime", getCreateTime())
-            .append("updateBy", getUpdateBy())
-            .append("updateTime", getUpdateTime())
-            .toString();
+        return "QcIqcDefect{" +
+                "recordId=" + recordId +
+                ", iqcId=" + iqcId +
+                ", lineId=" + lineId +
+                ", defectName='" + defectName + '\'' +
+                ", defectLevel='" + defectLevel + '\'' +
+                ", defectQuantity=" + defectQuantity +
+                ", deleteflag='" + deleteflag + '\'' +
+                ", attr1='" + attr1 + '\'' +
+                ", attr2='" + attr2 + '\'' +
+                ", attr3=" + attr3 +
+                ", attr4=" + attr4 +
+                '}';
     }
 }

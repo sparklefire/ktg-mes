@@ -51,6 +51,7 @@ public interface QcIqcDefectMapper
      */
     public int deleteQcIqcDefectByRecordId(Long recordId);
 
+    public int deleteByIqcIdLineId(QcIqcDefect qcIqcDefect);
 
     public int deleteByIqcId(Long iqcId);
 

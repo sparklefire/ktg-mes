@@ -35,6 +35,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="defectLevel != null  and defectLevel != ''"> and defect_level = #{defectLevel}</if>
             <if test="defectQuantity != null "> and defect_quantity = #{defectQuantity}</if>
         </where>
+        order by create_time desc
     </select>
     
     <select id="selectQcIqcDefectByRecordId" parameterType="Long" resultMap="QcIqcDefectResult">
@@ -105,6 +106,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <delete id="deleteByIqcId" parameterType="Long">
         delete from qc_iqc_defect where iqc_id = #{iqcId}
+    </delete>
+
+    <delete id="deleteByIqcIdLineId" parameterType="QcIqcDefect">
+        delete from qc_iqc_defect where iqc_id = #{iqcId} and line_id =#{lineId}
     </delete>
 
     <delete id="deleteQcIqcDefectByRecordIds" parameterType="String">

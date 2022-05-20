@@ -2,8 +2,13 @@ package com.ktg.mes.qc.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import cn.hutool.core.collection.CollUtil;
+import com.ktg.common.utils.StringUtils;
+import com.ktg.mes.qc.domain.ValidList;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -80,16 +85,38 @@ public class QcIqcDefectController extends BaseController
         return toAjax(qcIqcDefectService.insertQcIqcDefect(qcIqcDefect));
     }
 
+
     /**
      * 修改来料检验单缺陷记录
      */
     @PreAuthorize("@ss.hasPermi('mes:qc:iqcdefect:edit')")
     @Log(title = "来料检验单缺陷记录", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@RequestBody QcIqcDefect qcIqcDefect)
-    {
-        return toAjax(qcIqcDefectService.updateQcIqcDefect(qcIqcDefect));
+    public AjaxResult updateList(@Validated @RequestBody ValidList<QcIqcDefect> defects){
+        if(CollUtil.isNotEmpty(defects)){
+            for (QcIqcDefect defect: defects
+                 ) {
+                if(StringUtils.isNotNull(defect.getRecordId())){
+                    if("Y".equals(defect.getDeleteflag())){
+                        qcIqcDefectService.deleteQcIqcDefectByRecordId(defect.getRecordId());
+                    }else {
+                        qcIqcDefectService.updateQcIqcDefect(defect);
+                    }
+                }else {
+                    if("Y".equals(defect.getDeleteflag())){
+                        //doNothing
+                    }else {
+                        qcIqcDefectService.insertQcIqcDefect(defect);
+                    }
+
+                }
+
+            }
+        }
+
+        return AjaxResult.success();
     }
+
 
     /**
      * 删除来料检验单缺陷记录

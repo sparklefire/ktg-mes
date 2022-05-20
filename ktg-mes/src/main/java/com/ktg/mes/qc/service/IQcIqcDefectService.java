@@ -59,6 +59,13 @@ public interface IQcIqcDefectService
     public int deleteByIqcId(Long iqcID);
 
     /**
+     * 删除行下所有缺陷记录
+     * @param qcIqcDefect
+     * @return
+     */
+    public int deleteByIqcIdLineId(QcIqcDefect qcIqcDefect);
+
+    /**
      * 删除来料检验单缺陷记录信息
      * 
      * @param recordId 来料检验单缺陷记录主键
