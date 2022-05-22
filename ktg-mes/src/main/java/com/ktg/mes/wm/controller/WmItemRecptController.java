@@ -4,7 +4,11 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ktg.common.constant.UserConstants;
-import com.ktg.mes.wm.service.IWmItemRecptLineService;
+import com.ktg.common.utils.StringUtils;
+import com.ktg.mes.wm.domain.WmStorageArea;
+import com.ktg.mes.wm.domain.WmStorageLocation;
+import com.ktg.mes.wm.domain.WmWarehouse;
+import com.ktg.mes.wm.service.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +25,6 @@ import com.ktg.common.core.controller.BaseController;
 import com.ktg.common.core.domain.AjaxResult;
 import com.ktg.common.enums.BusinessType;
 import com.ktg.mes.wm.domain.WmItemRecpt;
-import com.ktg.mes.wm.service.IWmItemRecptService;
 import com.ktg.common.utils.poi.ExcelUtil;
 import com.ktg.common.core.page.TableDataInfo;
 
@@ -40,6 +43,15 @@ public class WmItemRecptController extends BaseController
 
     @Autowired
     private IWmItemRecptLineService wmItemRecptLineService;
+
+    @Autowired
+    private IWmWarehouseService wmWarehouseService;
+
+    @Autowired
+    private IWmStorageLocationService wmStorageLocationService;
+
+    @Autowired
+    private IWmStorageAreaService wmStorageAreaService;
 
     /**
      * 查询物料入库单列表
@@ -87,6 +99,23 @@ public class WmItemRecptController extends BaseController
         if(UserConstants.NOT_UNIQUE.equals(wmItemRecptService.checkRecptCodeUnique(wmItemRecpt))){
             return  AjaxResult.error("单据编号已存在！");
         }
+
+        if(StringUtils.isNotNull(wmItemRecpt.getWarehouseId())){
+           WmWarehouse warehouse = wmWarehouseService.selectWmWarehouseByWarehouseId(wmItemRecpt.getWarehouseId());
+           wmItemRecpt.setWarehouseCode(warehouse.getWarehouseCode());
+           wmItemRecpt.setWarehouseName(warehouse.getWarehouseName());
+        }
+        if(StringUtils.isNotNull(wmItemRecpt.getLocationId())){
+           WmStorageLocation location = wmStorageLocationService.selectWmStorageLocationByLocationId(wmItemRecpt.getLocationId());
+           wmItemRecpt.setLocationCode(location.getLocationCode());
+           wmItemRecpt.setLocationName(location.getLocationName());
+        }
+        if(StringUtils.isNotNull(wmItemRecpt.getAreaId())){
+           WmStorageArea area = wmStorageAreaService.selectWmStorageAreaByAreaId(wmItemRecpt.getAreaId());
+           wmItemRecpt.setAreaCode(area.getAreaCode());
+           wmItemRecpt.setAreaName(area.getAreaName());
+        }
+
         return toAjax(wmItemRecptService.insertWmItemRecpt(wmItemRecpt));
     }
 
@@ -98,6 +127,21 @@ public class WmItemRecptController extends BaseController
     @PutMapping
     public AjaxResult edit(@RequestBody WmItemRecpt wmItemRecpt)
     {
+        if(StringUtils.isNotNull(wmItemRecpt.getWarehouseId())){
+            WmWarehouse warehouse = wmWarehouseService.selectWmWarehouseByWarehouseId(wmItemRecpt.getWarehouseId());
+            wmItemRecpt.setWarehouseCode(warehouse.getWarehouseCode());
+            wmItemRecpt.setWarehouseName(warehouse.getWarehouseName());
+        }
+        if(StringUtils.isNotNull(wmItemRecpt.getLocationId())){
+            WmStorageLocation location = wmStorageLocationService.selectWmStorageLocationByLocationId(wmItemRecpt.getLocationId());
+            wmItemRecpt.setLocationCode(location.getLocationCode());
+            wmItemRecpt.setLocationName(location.getLocationName());
+        }
+        if(StringUtils.isNotNull(wmItemRecpt.getAreaId())){
+            WmStorageArea area = wmStorageAreaService.selectWmStorageAreaByAreaId(wmItemRecpt.getAreaId());
+            wmItemRecpt.setAreaCode(area.getAreaCode());
+            wmItemRecpt.setAreaName(area.getAreaName());
+        }
         return toAjax(wmItemRecptService.updateWmItemRecpt(wmItemRecpt));
     }
 

@@ -2,6 +2,14 @@ package com.ktg.mes.wm.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ktg.common.utils.StringUtils;
+import com.ktg.mes.wm.domain.WmStorageArea;
+import com.ktg.mes.wm.domain.WmStorageLocation;
+import com.ktg.mes.wm.domain.WmWarehouse;
+import com.ktg.mes.wm.service.IWmStorageAreaService;
+import com.ktg.mes.wm.service.IWmStorageLocationService;
+import com.ktg.mes.wm.service.IWmWarehouseService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +41,16 @@ public class WmItemRecptLineController extends BaseController
 {
     @Autowired
     private IWmItemRecptLineService wmItemRecptLineService;
+
+
+    @Autowired
+    private IWmWarehouseService wmWarehouseService;
+
+    @Autowired
+    private IWmStorageLocationService wmStorageLocationService;
+
+    @Autowired
+    private IWmStorageAreaService wmStorageAreaService;
 
     /**
      * 查询物料入库单行列表
@@ -77,6 +95,21 @@ public class WmItemRecptLineController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody WmItemRecptLine wmItemRecptLine)
     {
+        if(StringUtils.isNotNull(wmItemRecptLine.getWarehouseId())){
+            WmWarehouse warehouse = wmWarehouseService.selectWmWarehouseByWarehouseId(wmItemRecptLine.getWarehouseId());
+            wmItemRecptLine.setWarehouseCode(warehouse.getWarehouseCode());
+            wmItemRecptLine.setWarehouseName(warehouse.getWarehouseName());
+        }
+        if(StringUtils.isNotNull(wmItemRecptLine.getLocationId())){
+            WmStorageLocation location = wmStorageLocationService.selectWmStorageLocationByLocationId(wmItemRecptLine.getLocationId());
+            wmItemRecptLine.setLocationCode(location.getLocationCode());
+            wmItemRecptLine.setLocationName(location.getLocationName());
+        }
+        if(StringUtils.isNotNull(wmItemRecptLine.getAreaId())){
+            WmStorageArea area = wmStorageAreaService.selectWmStorageAreaByAreaId(wmItemRecptLine.getAreaId());
+            wmItemRecptLine.setAreaCode(area.getAreaCode());
+            wmItemRecptLine.setAreaName(area.getAreaName());
+        }
         return toAjax(wmItemRecptLineService.insertWmItemRecptLine(wmItemRecptLine));
     }
 
@@ -88,6 +121,21 @@ public class WmItemRecptLineController extends BaseController
     @PutMapping
     public AjaxResult edit(@RequestBody WmItemRecptLine wmItemRecptLine)
     {
+        if(StringUtils.isNotNull(wmItemRecptLine.getWarehouseId())){
+            WmWarehouse warehouse = wmWarehouseService.selectWmWarehouseByWarehouseId(wmItemRecptLine.getWarehouseId());
+            wmItemRecptLine.setWarehouseCode(warehouse.getWarehouseCode());
+            wmItemRecptLine.setWarehouseName(warehouse.getWarehouseName());
+        }
+        if(StringUtils.isNotNull(wmItemRecptLine.getLocationId())){
+            WmStorageLocation location = wmStorageLocationService.selectWmStorageLocationByLocationId(wmItemRecptLine.getLocationId());
+            wmItemRecptLine.setLocationCode(location.getLocationCode());
+            wmItemRecptLine.setLocationName(location.getLocationName());
+        }
+        if(StringUtils.isNotNull(wmItemRecptLine.getAreaId())){
+            WmStorageArea area = wmStorageAreaService.selectWmStorageAreaByAreaId(wmItemRecptLine.getAreaId());
+            wmItemRecptLine.setAreaCode(area.getAreaCode());
+            wmItemRecptLine.setAreaName(area.getAreaName());
+        }
         return toAjax(wmItemRecptLineService.updateWmItemRecptLine(wmItemRecptLine));
     }
 
