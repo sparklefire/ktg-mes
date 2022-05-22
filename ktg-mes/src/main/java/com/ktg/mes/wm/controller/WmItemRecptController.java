@@ -146,6 +146,27 @@ public class WmItemRecptController extends BaseController
     }
 
     /**
+     * 执行入库
+     * @return
+     */
+    @PreAuthorize("@ss.hasPermi('mes:wm:itemrecpt:edit')")
+    @Log(title = "物料入库单", businessType = BusinessType.UPDATE)
+    @PutMapping("/{recptIds}")
+    public AjaxResult execute(@PathVariable Long[] recptIds){
+        if(recptIds !=null && recptIds.length>0){
+            for (Long id:recptIds
+                 ) {
+                WmItemRecpt wmItemRecpt =wmItemRecptService.selectWmItemRecptByRecptId(id);
+                wmItemRecpt.setStatus(UserConstants.ORDER_STATUS_FINISHED);
+                wmItemRecptService.updateWmItemRecpt(wmItemRecpt);
+            }
+
+        }
+        return AjaxResult.success();
+    }
+
+
+    /**
      * 删除物料入库单
      */
     @PreAuthorize("@ss.hasPermi('mes:wm:itemrecpt:remove')")

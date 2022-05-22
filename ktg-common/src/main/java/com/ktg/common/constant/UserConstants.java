@@ -85,6 +85,14 @@ public class UserConstants
     public static final String TASK_CODE="TASK_CODE";
     public static final String DEFECT_CODE = "DEFECT_CODE";
 
+    /**
+     * 单据的状态类型
+     */
+    public static final String ORDER_STATUS_PREPAR="PREPARE";
+    public static final String ORDER_STATUS_CONFIRMED="CONFIRMED";
+    public static final String ORDER_STATUS_APPROVING="APPROVING";
+    public static final String ORDER_STATUS_APPROVED="APPROVED";
+    public static final String ORDER_STATUS_FINISHED="FINISHED";
 
     /**
      * 维护类型
