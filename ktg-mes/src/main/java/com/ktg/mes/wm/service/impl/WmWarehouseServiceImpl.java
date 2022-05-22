@@ -49,6 +49,11 @@ public class WmWarehouseServiceImpl implements IWmWarehouseService
     }
 
     @Override
+    public List<WmWarehouse> getTreeList() {
+        return wmWarehouseMapper.getTreeList();
+    }
+
+    @Override
     public String checkWarehouseCodeUnique(WmWarehouse wmWarehouse) {
         WmWarehouse warehouse = wmWarehouseMapper.checkWarehouseCodeUnique(wmWarehouse);
         Long warehouseId = wmWarehouse.getWarehouseId()==null?-1L:wmWarehouse.getWarehouseId();

@@ -1,6 +1,8 @@
 package com.ktg.mes.wm.domain;
 
 import java.math.BigDecimal;
+import java.util.List;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ktg.common.annotation.Excel;
@@ -50,6 +52,8 @@ public class WmWarehouse extends BaseEntity
 
     /** 预留字段4 */
     private Long attr4;
+
+    private List<WmStorageLocation> children;
 
     public void setWarehouseId(Long warehouseId) 
     {
@@ -142,24 +146,28 @@ public class WmWarehouse extends BaseEntity
         return attr4;
     }
 
+    public List<WmStorageLocation> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<WmStorageLocation> children) {
+        this.children = children;
+    }
+
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("warehouseId", getWarehouseId())
-            .append("warehouseCode", getWarehouseCode())
-            .append("warehouseName", getWarehouseName())
-            .append("location", getLocation())
-            .append("area", getArea())
-            .append("charge", getCharge())
-            .append("remark", getRemark())
-            .append("attr1", getAttr1())
-            .append("attr2", getAttr2())
-            .append("attr3", getAttr3())
-            .append("attr4", getAttr4())
-            .append("createBy", getCreateBy())
-            .append("createTime", getCreateTime())
-            .append("updateBy", getUpdateBy())
-            .append("updateTime", getUpdateTime())
-            .toString();
+        return "WmWarehouse{" +
+                "warehouseId=" + warehouseId +
+                ", warehouseCode='" + warehouseCode + '\'' +
+                ", warehouseName='" + warehouseName + '\'' +
+                ", location='" + location + '\'' +
+                ", area=" + area +
+                ", charge='" + charge + '\'' +
+                ", attr1='" + attr1 + '\'' +
+                ", attr2='" + attr2 + '\'' +
+                ", attr3=" + attr3 +
+                ", attr4=" + attr4 +
+                ", children=" + children +
+                '}';
     }
 }

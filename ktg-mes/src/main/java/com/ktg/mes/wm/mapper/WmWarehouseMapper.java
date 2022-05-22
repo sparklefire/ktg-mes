@@ -27,6 +27,8 @@ public interface WmWarehouseMapper
      */
     public List<WmWarehouse> selectWmWarehouseList(WmWarehouse wmWarehouse);
 
+    public List<WmWarehouse> getTreeList();
+
     public WmWarehouse checkWarehouseCodeUnique(WmWarehouse wmWarehouse);
     public WmWarehouse checkWarehouseNameUnique(WmWarehouse wmWarehouse);
 

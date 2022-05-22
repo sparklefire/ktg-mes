@@ -49,6 +49,15 @@ public class WmWarehouseController extends BaseController
     }
 
     /**
+     * 查询树型的列表
+     * @return
+     */
+    @GetMapping("/getTreeList")
+    public AjaxResult getTreeList(){
+        return AjaxResult.success(wmWarehouseService.getTreeList());
+    }
+
+    /**
      * 导出仓库设置列表
      */
     @PreAuthorize("@ss.hasPermi('mes:wm:warehouse:export')")

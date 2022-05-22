@@ -27,6 +27,8 @@ public interface IWmWarehouseService
      */
     public List<WmWarehouse> selectWmWarehouseList(WmWarehouse wmWarehouse);
 
+    public List<WmWarehouse> getTreeList();
+
     /**
      * 检查仓库编码是否重复
      * @param wmWarehouse
