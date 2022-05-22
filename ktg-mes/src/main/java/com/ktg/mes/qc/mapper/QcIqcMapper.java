@@ -45,6 +45,8 @@ public interface QcIqcMapper
      */
     public int updateQcIqc(QcIqc qcIqc);
 
+    public int updateCrMajMinQuaAndRate(Long iqcId);
+
     /**
      * 删除来料检验单
      * 

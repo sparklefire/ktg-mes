@@ -44,6 +44,15 @@ public interface IQcIqcLineService
     public int updateQcIqcLine(QcIqcLine qcIqcLine);
 
     /**
+     * 计算并更新当前行的Cr,Maj,Min的总数量
+     * @param iqcId
+     * @param lineId
+     * @return
+     */
+    public int updateCrMajMinQuantity(Long iqcId,Long lineId);
+
+
+    /**
      * 批量删除来料检验单行
      * 
      * @param lineIds 需要删除的来料检验单行主键集合

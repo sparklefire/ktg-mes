@@ -50,6 +50,8 @@ public interface IQcIqcService
      */
     public int updateQcIqc(QcIqc qcIqc);
 
+    public int updateCrMajMinQuaAndRate(Long iqcId);
+
     /**
      * 批量删除来料检验单
      * 

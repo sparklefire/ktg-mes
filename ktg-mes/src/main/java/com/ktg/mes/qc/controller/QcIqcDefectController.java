@@ -6,8 +6,11 @@ import javax.servlet.http.HttpServletResponse;
 import cn.hutool.core.collection.CollUtil;
 import com.ktg.common.utils.StringUtils;
 import com.ktg.mes.qc.domain.ValidList;
+import com.ktg.mes.qc.service.IQcIqcLineService;
+import com.ktg.mes.qc.service.IQcIqcService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,6 +41,12 @@ public class QcIqcDefectController extends BaseController
 {
     @Autowired
     private IQcIqcDefectService qcIqcDefectService;
+
+    @Autowired
+    private IQcIqcLineService qcIqcLineService;
+
+    @Autowired
+    private IQcIqcService qcIqcService;
 
     /**
      * 查询来料检验单缺陷记录列表
@@ -91,8 +100,11 @@ public class QcIqcDefectController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('mes:qc:iqcdefect:edit')")
     @Log(title = "来料检验单缺陷记录", businessType = BusinessType.UPDATE)
+    @Transactional
     @PutMapping
     public AjaxResult updateList(@Validated @RequestBody ValidList<QcIqcDefect> defects){
+        Long iqcId = -1L;
+        Long lineId = -1L;
         if(CollUtil.isNotEmpty(defects)){
             for (QcIqcDefect defect: defects
                  ) {
@@ -101,9 +113,14 @@ public class QcIqcDefectController extends BaseController
                 }else {
                     qcIqcDefectService.insertQcIqcDefect(defect);
                 }
+                iqcId = defect.getIqcId();
+                lineId = defect.getLineId();
             }
+            //更新行上的cr,maj,min数量
+            qcIqcLineService.updateCrMajMinQuantity(iqcId,lineId);
+            //更新头上的cr,maj,min数量和比例
+            qcIqcService.updateCrMajMinQuaAndRate(iqcId);
         }
-
         return AjaxResult.success();
     }
 
@@ -116,6 +133,19 @@ public class QcIqcDefectController extends BaseController
 	@DeleteMapping("/{recordIds}")
     public AjaxResult remove(@PathVariable Long[] recordIds)
     {
+        Long iqcId =-1L;
+        Long lineId =-1L;
+        if(recordIds!=null && recordIds.length>0){
+            QcIqcDefect defect = qcIqcDefectService.selectQcIqcDefectByRecordId(recordIds[0]);
+            iqcId = defect.getIqcId();
+            lineId = defect.getLineId();
+
+            //更新行上的cr,maj,min数量
+            qcIqcLineService.updateCrMajMinQuantity(iqcId,lineId);
+            //更新头上的cr,maj,min数量和比例
+            qcIqcService.updateCrMajMinQuaAndRate(iqcId);
+        }
+
         return toAjax(qcIqcDefectService.deleteQcIqcDefectByRecordIds(recordIds));
     }
 }

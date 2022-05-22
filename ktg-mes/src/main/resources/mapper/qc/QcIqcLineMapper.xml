@@ -114,6 +114,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          </trim>
     </insert>
 
+
+    <update id="updateCrMajMinQuantity" parameterType="QcIqcLine">
+        UPDATE qc_iqc_line a
+         INNER JOIN (
+            SELECT SUM(CASE WHEN defect_level = 'CR' THEN defect_quantity ELSE 0 END ) AS cr_quantity,
+               SUM(CASE WHEN defect_level = 'MAJ' THEN defect_quantity ELSE 0 END) AS maj_quantity,
+               SUM(CASE WHEN defect_level = 'MIN' THEN defect_quantity ELSE 0 END) AS min_quantity,
+               qid.`iqc_id`,
+               qid.`line_id`
+            FROM qc_iqc_defect qid
+            WHERE qid.iqc_id = #{iqcId}
+            AND qid.line_id = #{lineId}
+            GROUP BY qid.iqc_id,qid.line_id
+        )b
+        ON a.iqc_id = b.iqc_id AND a.line_id = b.line_id
+        SET a.cr_quantity=b.cr_quantity,a.maj_quantity=b.maj_quantity,a.min_quantity=b.min_quantity
+        WHERE a.iqc_id = #{iqcId}
+        AND a.line_id = #{lineId}
+    </update>
+
     <update id="updateQcIqcLine" parameterType="QcIqcLine">
         update qc_iqc_line
         <trim prefix="SET" suffixOverrides=",">

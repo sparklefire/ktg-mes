@@ -43,6 +43,9 @@ public interface QcIqcLineMapper
      */
     public int updateQcIqcLine(QcIqcLine qcIqcLine);
 
+
+    public int updateCrMajMinQuantity(QcIqcLine qcIqcLine);
+
     /**
      * 删除来料检验单行
      * 
