@@ -85,6 +85,38 @@ public class WmTransaction extends BaseEntity
     @Excel(name = "库位名称")
     private String areaName;
 
+    /** 供应商ID */
+    @Excel(name = "供应商ID")
+    private Long vendorId;
+
+    /** 供应商编号 */
+    @Excel(name = "供应商编号")
+    private String vendorCode;
+
+    /** 供应商名称 */
+    @Excel(name = "供应商名称")
+    private String vendorName;
+
+    /** 供应商简称 */
+    @Excel(name = "供应商简称")
+    private String vendorNick;
+
+    /** 单据类型 */
+    @Excel(name = "单据类型")
+    private String sourceDocType;
+
+    /** 单据ID */
+    @Excel(name = "单据ID")
+    private Long sourceDocId;
+
+    /** 单据编号 */
+    @Excel(name = "单据编号")
+    private String sourceDocCode;
+
+    /** 单据行ID */
+    @Excel(name = "单据行ID")
+    private Long sourceDocLineId;
+
     /** 库存记录ID */
     @Excel(name = "库存记录ID")
     private Long materialStockId;
@@ -102,6 +134,10 @@ public class WmTransaction extends BaseEntity
     @Excel(name = "事务日期", width = 30, dateFormat = "yyyy-MM-dd")
     private Date transactionDate;
 
+    /** 关联的事务ID */
+    @Excel(name = "关联的事务ID")
+    private Long relatedTransactionId;
+
     /** ERP账期 */
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Excel(name = "ERP账期", width = 30, dateFormat = "yyyy-MM-dd")
@@ -113,15 +149,19 @@ public class WmTransaction extends BaseEntity
     private Date expireDate;
 
     /** 预留字段1 */
+    @Excel(name = "预留字段1")
     private String attr1;
 
     /** 预留字段2 */
+    @Excel(name = "预留字段2")
     private String attr2;
 
     /** 预留字段3 */
+    @Excel(name = "预留字段3")
     private Long attr3;
 
     /** 预留字段4 */
+    @Excel(name = "预留字段4")
     private Long attr4;
 
     public void setTransactionId(Long transactionId) 
@@ -277,6 +317,78 @@ public class WmTransaction extends BaseEntity
     {
         return areaName;
     }
+    public void setVendorId(Long vendorId) 
+    {
+        this.vendorId = vendorId;
+    }
+
+    public Long getVendorId() 
+    {
+        return vendorId;
+    }
+    public void setVendorCode(String vendorCode) 
+    {
+        this.vendorCode = vendorCode;
+    }
+
+    public String getVendorCode() 
+    {
+        return vendorCode;
+    }
+    public void setVendorName(String vendorName) 
+    {
+        this.vendorName = vendorName;
+    }
+
+    public String getVendorName() 
+    {
+        return vendorName;
+    }
+    public void setVendorNick(String vendorNick) 
+    {
+        this.vendorNick = vendorNick;
+    }
+
+    public String getVendorNick() 
+    {
+        return vendorNick;
+    }
+    public void setSourceDocType(String sourceDocType) 
+    {
+        this.sourceDocType = sourceDocType;
+    }
+
+    public String getSourceDocType() 
+    {
+        return sourceDocType;
+    }
+    public void setSourceDocId(Long sourceDocId) 
+    {
+        this.sourceDocId = sourceDocId;
+    }
+
+    public Long getSourceDocId() 
+    {
+        return sourceDocId;
+    }
+    public void setSourceDocCode(String sourceDocCode) 
+    {
+        this.sourceDocCode = sourceDocCode;
+    }
+
+    public String getSourceDocCode() 
+    {
+        return sourceDocCode;
+    }
+    public void setSourceDocLineId(Long sourceDocLineId) 
+    {
+        this.sourceDocLineId = sourceDocLineId;
+    }
+
+    public Long getSourceDocLineId() 
+    {
+        return sourceDocLineId;
+    }
     public void setMaterialStockId(Long materialStockId) 
     {
         this.materialStockId = materialStockId;
@@ -312,6 +424,15 @@ public class WmTransaction extends BaseEntity
     public Date getTransactionDate() 
     {
         return transactionDate;
+    }
+    public void setRelatedTransactionId(Long relatedTransactionId) 
+    {
+        this.relatedTransactionId = relatedTransactionId;
+    }
+
+    public Long getRelatedTransactionId() 
+    {
+        return relatedTransactionId;
     }
     public void setErpDate(Date erpDate) 
     {
@@ -388,10 +509,19 @@ public class WmTransaction extends BaseEntity
             .append("areaId", getAreaId())
             .append("areaCode", getAreaCode())
             .append("areaName", getAreaName())
+            .append("vendorId", getVendorId())
+            .append("vendorCode", getVendorCode())
+            .append("vendorName", getVendorName())
+            .append("vendorNick", getVendorNick())
+            .append("sourceDocType", getSourceDocType())
+            .append("sourceDocId", getSourceDocId())
+            .append("sourceDocCode", getSourceDocCode())
+            .append("sourceDocLineId", getSourceDocLineId())
             .append("materialStockId", getMaterialStockId())
             .append("transactionFlag", getTransactionFlag())
             .append("transactionQuantity", getTransactionQuantity())
             .append("transactionDate", getTransactionDate())
+            .append("relatedTransactionId", getRelatedTransactionId())
             .append("erpDate", getErpDate())
             .append("expireDate", getExpireDate())
             .append("attr1", getAttr1())

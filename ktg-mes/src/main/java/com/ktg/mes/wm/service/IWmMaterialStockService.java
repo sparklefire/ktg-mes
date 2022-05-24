@@ -1,7 +1,8 @@
 package com.ktg.mes.wm.service;
 
-import java.util.List;
 import com.ktg.mes.wm.domain.WmMaterialStock;
+
+import java.util.List;
 
 /**
  * 库存记录Service接口

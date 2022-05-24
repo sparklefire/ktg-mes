@@ -21,6 +21,10 @@ public class WmMaterialStock extends BaseEntity
     /** 事务ID */
     private Long materialStockId;
 
+    /** 物料类型ID */
+    @Excel(name = "物料类型ID")
+    private Long itemTypeId;
+
     /** 产品物料ID */
     @Excel(name = "产品物料ID")
     private Long itemId;
@@ -81,6 +85,22 @@ public class WmMaterialStock extends BaseEntity
     @Excel(name = "库位名称")
     private String areaName;
 
+    /** 供应商ID */
+    @Excel(name = "供应商ID")
+    private Long vendorId;
+
+    /** 供应商编号 */
+    @Excel(name = "供应商编号")
+    private String vendorCode;
+
+    /** 供应商名称 */
+    @Excel(name = "供应商名称")
+    private String vendorName;
+
+    /** 供应商简称 */
+    @Excel(name = "供应商简称")
+    private String vendorNick;
+
     /** 在库数量 */
     @Excel(name = "在库数量")
     private BigDecimal quantityOnhand;
@@ -114,6 +134,15 @@ public class WmMaterialStock extends BaseEntity
     public Long getMaterialStockId() 
     {
         return materialStockId;
+    }
+    public void setItemTypeId(Long itemTypeId) 
+    {
+        this.itemTypeId = itemTypeId;
+    }
+
+    public Long getItemTypeId() 
+    {
+        return itemTypeId;
     }
     public void setItemId(Long itemId) 
     {
@@ -250,6 +279,42 @@ public class WmMaterialStock extends BaseEntity
     {
         return areaName;
     }
+    public void setVendorId(Long vendorId) 
+    {
+        this.vendorId = vendorId;
+    }
+
+    public Long getVendorId() 
+    {
+        return vendorId;
+    }
+    public void setVendorCode(String vendorCode) 
+    {
+        this.vendorCode = vendorCode;
+    }
+
+    public String getVendorCode() 
+    {
+        return vendorCode;
+    }
+    public void setVendorName(String vendorName) 
+    {
+        this.vendorName = vendorName;
+    }
+
+    public String getVendorName() 
+    {
+        return vendorName;
+    }
+    public void setVendorNick(String vendorNick) 
+    {
+        this.vendorNick = vendorNick;
+    }
+
+    public String getVendorNick() 
+    {
+        return vendorNick;
+    }
     public void setQuantityOnhand(BigDecimal quantityOnhand) 
     {
         this.quantityOnhand = quantityOnhand;
@@ -309,6 +374,7 @@ public class WmMaterialStock extends BaseEntity
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("materialStockId", getMaterialStockId())
+            .append("itemTypeId", getItemTypeId())
             .append("itemId", getItemId())
             .append("itemCode", getItemCode())
             .append("itemName", getItemName())
@@ -324,6 +390,10 @@ public class WmMaterialStock extends BaseEntity
             .append("areaId", getAreaId())
             .append("areaCode", getAreaCode())
             .append("areaName", getAreaName())
+            .append("vendorId", getVendorId())
+            .append("vendorCode", getVendorCode())
+            .append("vendorName", getVendorName())
+            .append("vendorNick", getVendorNick())
             .append("quantityOnhand", getQuantityOnhand())
             .append("expireDate", getExpireDate())
             .append("attr1", getAttr1())

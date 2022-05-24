@@ -6,6 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <resultMap type="WmMaterialStock" id="WmMaterialStockResult">
         <result property="materialStockId"    column="material_stock_id"    />
+        <result property="itemTypeId"    column="item_type_id"    />
         <result property="itemId"    column="item_id"    />
         <result property="itemCode"    column="item_code"    />
         <result property="itemName"    column="item_name"    />
@@ -21,6 +22,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="areaId"    column="area_id"    />
         <result property="areaCode"    column="area_code"    />
         <result property="areaName"    column="area_name"    />
+        <result property="vendorId"    column="vendor_id"    />
+        <result property="vendorCode"    column="vendor_code"    />
+        <result property="vendorName"    column="vendor_name"    />
+        <result property="vendorNick"    column="vendor_nick"    />
         <result property="quantityOnhand"    column="quantity_onhand"    />
         <result property="expireDate"    column="expire_date"    />
         <result property="attr1"    column="attr1"    />
@@ -34,12 +39,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectWmMaterialStockVo">
-        select material_stock_id, item_id, item_code, item_name, specification, unit_of_measure, batch_code, warehouse_id, warehouse_code, warehouse_name, location_id, location_code, location_name, area_id, area_code, area_name, quantity_onhand, expire_date, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from wm_material_stock
+        select material_stock_id, item_type_id, item_id, item_code, item_name, specification, unit_of_measure, batch_code, warehouse_id, warehouse_code, warehouse_name, location_id, location_code, location_name, area_id, area_code, area_name, vendor_id, vendor_code, vendor_name, vendor_nick, quantity_onhand, expire_date, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from wm_material_stock
     </sql>
 
     <select id="selectWmMaterialStockList" parameterType="WmMaterialStock" resultMap="WmMaterialStockResult">
         <include refid="selectWmMaterialStockVo"/>
         <where>  
+            <if test="itemTypeId != null "> and item_type_id = #{itemTypeId}</if>
             <if test="itemId != null "> and item_id = #{itemId}</if>
             <if test="itemCode != null  and itemCode != ''"> and item_code = #{itemCode}</if>
             <if test="itemName != null  and itemName != ''"> and item_name like concat('%', #{itemName}, '%')</if>
@@ -55,6 +61,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="areaId != null "> and area_id = #{areaId}</if>
             <if test="areaCode != null  and areaCode != ''"> and area_code = #{areaCode}</if>
             <if test="areaName != null  and areaName != ''"> and area_name like concat('%', #{areaName}, '%')</if>
+            <if test="vendorId != null "> and vendor_id = #{vendorId}</if>
+            <if test="vendorCode != null  and vendorCode != ''"> and vendor_code = #{vendorCode}</if>
+            <if test="vendorName != null  and vendorName != ''"> and vendor_name like concat('%', #{vendorName}, '%')</if>
+            <if test="vendorNick != null  and vendorNick != ''"> and vendor_nick = #{vendorNick}</if>
             <if test="quantityOnhand != null "> and quantity_onhand = #{quantityOnhand}</if>
             <if test="expireDate != null "> and expire_date = #{expireDate}</if>
             <if test="attr1 != null  and attr1 != ''"> and attr1 = #{attr1}</if>
@@ -72,6 +82,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <insert id="insertWmMaterialStock" parameterType="WmMaterialStock" useGeneratedKeys="true" keyProperty="materialStockId">
         insert into wm_material_stock
         <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="itemTypeId != null">item_type_id,</if>
             <if test="itemId != null">item_id,</if>
             <if test="itemCode != null">item_code,</if>
             <if test="itemName != null">item_name,</if>
@@ -87,6 +98,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="areaId != null">area_id,</if>
             <if test="areaCode != null">area_code,</if>
             <if test="areaName != null">area_name,</if>
+            <if test="vendorId != null">vendor_id,</if>
+            <if test="vendorCode != null">vendor_code,</if>
+            <if test="vendorName != null">vendor_name,</if>
+            <if test="vendorNick != null">vendor_nick,</if>
             <if test="quantityOnhand != null">quantity_onhand,</if>
             <if test="expireDate != null">expire_date,</if>
             <if test="attr1 != null">attr1,</if>
@@ -99,6 +114,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="updateTime != null">update_time,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="itemTypeId != null">#{itemTypeId},</if>
             <if test="itemId != null">#{itemId},</if>
             <if test="itemCode != null">#{itemCode},</if>
             <if test="itemName != null">#{itemName},</if>
@@ -114,6 +130,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="areaId != null">#{areaId},</if>
             <if test="areaCode != null">#{areaCode},</if>
             <if test="areaName != null">#{areaName},</if>
+            <if test="vendorId != null">#{vendorId},</if>
+            <if test="vendorCode != null">#{vendorCode},</if>
+            <if test="vendorName != null">#{vendorName},</if>
+            <if test="vendorNick != null">#{vendorNick},</if>
             <if test="quantityOnhand != null">#{quantityOnhand},</if>
             <if test="expireDate != null">#{expireDate},</if>
             <if test="attr1 != null">#{attr1},</if>
@@ -130,6 +150,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <update id="updateWmMaterialStock" parameterType="WmMaterialStock">
         update wm_material_stock
         <trim prefix="SET" suffixOverrides=",">
+            <if test="itemTypeId != null">item_type_id = #{itemTypeId},</if>
             <if test="itemId != null">item_id = #{itemId},</if>
             <if test="itemCode != null">item_code = #{itemCode},</if>
             <if test="itemName != null">item_name = #{itemName},</if>
@@ -145,6 +166,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="areaId != null">area_id = #{areaId},</if>
             <if test="areaCode != null">area_code = #{areaCode},</if>
             <if test="areaName != null">area_name = #{areaName},</if>
+            <if test="vendorId != null">vendor_id = #{vendorId},</if>
+            <if test="vendorCode != null">vendor_code = #{vendorCode},</if>
+            <if test="vendorName != null">vendor_name = #{vendorName},</if>
+            <if test="vendorNick != null">vendor_nick = #{vendorNick},</if>
             <if test="quantityOnhand != null">quantity_onhand = #{quantityOnhand},</if>
             <if test="expireDate != null">expire_date = #{expireDate},</if>
             <if test="attr1 != null">attr1 = #{attr1},</if>

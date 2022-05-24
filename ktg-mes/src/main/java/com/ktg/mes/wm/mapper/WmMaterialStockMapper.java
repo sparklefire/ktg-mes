@@ -1,7 +1,8 @@
 package com.ktg.mes.wm.mapper;
 
-import java.util.List;
 import com.ktg.mes.wm.domain.WmMaterialStock;
+
+import java.util.List;
 
 /**
  * 库存记录Mapper接口
