@@ -106,4 +106,11 @@ public class UserConstants
     public static final String GANTT_TASK_TYPE_TASK="task";
     public static final String GANTT_TASK_TYPE_PROJECT="project";
 
+
+    public static final String REPORT_PRINT_TYPE ="print";
+    public static final String REPORT_PDF_TYPE ="pdf";
+    public static final String REPORT_EXCEL_TYPE ="excel";
+    public static final String REPORT_WORD_TYPE ="word";
+
+
 }
