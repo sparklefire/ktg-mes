@@ -2,6 +2,7 @@ package com.ktg.mes.wm.service;
 
 import java.util.List;
 import com.ktg.mes.wm.domain.WmItemRecpt;
+import com.ktg.mes.wm.domain.tx.ItemRecptTxBean;
 
 /**
  * 物料入库单Service接口
@@ -65,4 +66,14 @@ public interface IWmItemRecptService
      * @return 结果
      */
     public int deleteWmItemRecptByRecptId(Long recptId);
+
+
+    /**
+     * 组装当前入库单对应的库存事务传入bean
+     * @param receptId
+     * @return
+     */
+    public List<ItemRecptTxBean> getTxBeans(Long receptId);
+
+
 }

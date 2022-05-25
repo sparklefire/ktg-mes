@@ -151,17 +151,20 @@ public class WmItemRecptController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('mes:wm:itemrecpt:edit')")
     @Log(title = "物料入库单", businessType = BusinessType.UPDATE)
-    @PutMapping("/{recptIds}")
-    public AjaxResult execute(@PathVariable Long[] recptIds){
-        if(recptIds !=null && recptIds.length>0){
-            for (Long id:recptIds
-                 ) {
-                WmItemRecpt wmItemRecpt =wmItemRecptService.selectWmItemRecptByRecptId(id);
-                wmItemRecpt.setStatus(UserConstants.ORDER_STATUS_FINISHED);
-                wmItemRecptService.updateWmItemRecpt(wmItemRecpt);
-            }
+    @PutMapping("/{recptId}")
+    public AjaxResult execute(@PathVariable Long recptId){
 
-        }
+        //构造Transaction事务，并执行库存更新逻辑
+
+
+        //调用ERP接口
+
+        //更新单据状态
+        WmItemRecpt wmItemRecpt =wmItemRecptService.selectWmItemRecptByRecptId(recptId);
+        wmItemRecpt.setStatus(UserConstants.ORDER_STATUS_FINISHED);
+        wmItemRecptService.updateWmItemRecpt(wmItemRecpt);
+
+
         return AjaxResult.success();
     }
 
