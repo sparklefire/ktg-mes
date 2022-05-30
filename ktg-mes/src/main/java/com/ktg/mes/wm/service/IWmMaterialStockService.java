@@ -20,6 +20,8 @@ public interface IWmMaterialStockService
      */
     public WmMaterialStock selectWmMaterialStockByMaterialStockId(Long materialStockId);
 
+
+
     /**
      * 查询库存记录列表
      * 

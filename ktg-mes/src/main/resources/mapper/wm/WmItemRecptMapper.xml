@@ -37,6 +37,39 @@
         <result property="updateTime"    column="update_time"    />
     </resultMap>
 
+    <resultMap type="ItemRecptTxBean"  id="ItemRecptTxBeanResult">
+        <result property="itemId" column="item_id"></result>
+        <result property="itemCode" column="item_code"></result>
+        <result property="itemName" column="item_name"></result>
+        <result property="specification" column="specification"></result>
+        <result property="unitOfMeasure" column="unit_of_measure"></result>
+        <result property="batchCode" column="batch_code"></result>
+        <result property="warehouseId" column="warehouse_id"></result>
+        <result property="warehouseCode" column="warehouse_code"></result>
+        <result property="warehouseName" column="warehouse_name"></result>
+        <result property="locationId" column="location_id"></result>
+        <result property="locationCode" column="location_code"></result>
+        <result property="locationName" column="location_name"></result>
+        <result property="areaId" column="area_id"></result>
+        <result property="areaCode" column="area_code"></result>
+        <result property="areaName" column="area_name"></result>
+        <result property="vendorId" column="vendor_id"></result>
+        <result property="vendorCode" column="vendor_code"></result>
+        <result property="vendorName" column="vendor_name"></result>
+        <result property="vendorNick" column="vendor_nick"></result>
+        <result property="sourceDocType" column="source_doc_type"></result>
+        <result property="sourceDocId" column="source_doc_id"></result>
+        <result property="sourceDocCode" column="source_doc_code"></result>
+        <result property="sourceDocLineId" column="source_doc_line_id"></result>
+        <result property="transactionQuantity" column="transaction_quantity"></result>
+        <result property="expireDate" column="expire_date"></result>
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+
     <sql id="selectWmItemRecptVo">
         select recpt_id, recpt_code, recpt_name, iqc_id, iqc_code, po_code, vendor_id, vendor_code, vendor_name, vendor_nick, warehouse_id, warehouse_code, warehouse_name, location_id, location_code, location_name, area_id, area_code, area_name, recpt_date, status, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from wm_item_recpt
     </sql>
@@ -77,6 +110,20 @@
         <include refid="selectWmItemRecptVo"/>
         where recpt_code = #{recptCode}
     </select>
+
+    <select id="getTxBeans" parameterType="Long" resultMap="ItemRecptTxBeanResult">
+        SELECT irl.`item_id`,irl.`item_code`,irl.`item_name`,irl.`specification`,irl.`unit_of_measure`,irl.`batch_code`,
+            irl.`warehouse_id`,irl.`warehouse_code`,irl.`warehouse_name`,irl.`location_id`,irl.`location_code`,irl.`location_name`,irl.`area_id`,irl.`area_code`,irl.`area_name`,
+            ir.`vendor_id`,ir.`vendor_code`,ir.`vendor_name`,ir.`vendor_nick`,
+            'IR' AS source_doc_type,ir.`recpt_id` AS source_doc_id,ir.`recpt_code` AS source_doc_code,irl.`line_id` AS source_doc_line_id,
+            irl.`quantity_recived` AS transaction_quantity,irl.`expire_date`,
+            ir.`create_by`,ir.`create_time`,ir.`update_by`,ir.`update_time`
+        FROM wm_item_recpt ir
+           LEFT JOIN wm_item_recpt_line irl
+           ON ir.recpt_id = irl.`recpt_id`
+        WHERE ir.`recpt_id` = #{recptId}
+    </select>
+
 
     <insert id="insertWmItemRecpt" parameterType="WmItemRecpt" useGeneratedKeys="true" keyProperty="recptId">
         insert into wm_item_recpt

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ktg.mes.md.mapper.WmMaterialStockMapper">
+<mapper namespace="com.ktg.mes.wm.mapper.WmMaterialStockMapper">
     
     <resultMap type="WmMaterialStock" id="WmMaterialStockResult">
         <result property="materialStockId"    column="material_stock_id"    />
@@ -78,7 +78,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectWmMaterialStockVo"/>
         where material_stock_id = #{materialStockId}
     </select>
-        
+
+
+    <select id="loadMaterialStock" parameterType="WmMaterialStock" resultMap="WmMaterialStockResult">
+        <include refid="selectWmMaterialStockVo"/>
+        <where>
+            <if test="itemId != null "> and item_id = #{itemId}</if>
+            <if test="unitOfMeasure != null  and unitOfMeasure != ''"> and unit_of_measure = #{unitOfMeasure}</if>
+            <if test="batchCode != null  and batchCode != ''"> and batch_code = #{batchCode}</if>
+            <if test="warehouseId != null "> and warehouse_id = #{warehouseId}</if>
+            <if test="locationId != null "> and location_id = #{locationId}</if>
+            <if test="areaId != null "> and area_id = #{areaId}</if>
+            <if test="vendorId != null "> and vendor_id = #{vendorId}</if>
+        </where>
+        and 1=1 limit 1
+    </select>
+
     <insert id="insertWmMaterialStock" parameterType="WmMaterialStock" useGeneratedKeys="true" keyProperty="materialStockId">
         insert into wm_material_stock
         <trim prefix="(" suffix=")" suffixOverrides=",">

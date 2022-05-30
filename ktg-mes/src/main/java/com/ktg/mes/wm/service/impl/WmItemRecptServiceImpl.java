@@ -110,6 +110,6 @@ public class WmItemRecptServiceImpl implements IWmItemRecptService
 
     @Override
     public List<ItemRecptTxBean> getTxBeans(Long receptId) {
-        return null;
+        return wmItemRecptMapper.getTxBeans(receptId);
     }
 }

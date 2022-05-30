@@ -2,6 +2,7 @@ package com.ktg.mes.wm.mapper;
 
 import java.util.List;
 import com.ktg.mes.wm.domain.WmItemRecpt;
+import com.ktg.mes.wm.domain.tx.ItemRecptTxBean;
 
 /**
  * 物料入库单Mapper接口
@@ -28,6 +29,9 @@ public interface WmItemRecptMapper
     public List<WmItemRecpt> selectWmItemRecptList(WmItemRecpt wmItemRecpt);
 
     public WmItemRecpt checkRecptCodeUnique(WmItemRecpt wmItemRecpt);
+
+
+    public List<ItemRecptTxBean> getTxBeans(Long recptId);
 
     /**
      * 新增物料入库单

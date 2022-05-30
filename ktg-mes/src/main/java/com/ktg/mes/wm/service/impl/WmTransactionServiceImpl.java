@@ -1,7 +1,14 @@
 package com.ktg.mes.wm.service.impl;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
+
+import com.ktg.common.exception.BussinessException;
 import com.ktg.common.utils.DateUtils;
+import com.ktg.common.utils.StringUtils;
+import com.ktg.mes.wm.domain.WmMaterialStock;
+import com.ktg.mes.wm.mapper.WmMaterialStockMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ktg.mes.wm.mapper.WmTransactionMapper;
@@ -19,6 +26,85 @@ public class WmTransactionServiceImpl implements IWmTransactionService
 {
     @Autowired
     private WmTransactionMapper wmTransactionMapper;
+
+    @Autowired
+    private WmMaterialStockMapper wmMaterialStockMapper;
+
+    @Override
+    public WmTransaction processTransaction(WmTransaction wmTransaction) {
+        WmMaterialStock stock = new WmMaterialStock();
+
+        validate(wmTransaction);
+        initStock(wmTransaction,stock);
+
+        WmMaterialStock ms =wmMaterialStockMapper.loadMaterialStock(stock);
+        BigDecimal quantity = wmTransaction.getTransactionQuantity().multiply(new BigDecimal(wmTransaction.getTransactionFlag()));
+        if(StringUtils.isNotNull(ms)){
+            //MS已存在
+            stock.setQuantityOnhand(ms.getQuantityOnhand().add(quantity));
+            stock.setMaterialStockId(ms.getMaterialStockId());
+            wmMaterialStockMapper.updateWmMaterialStock(stock);
+        }else {
+            //MS不存在
+            stock.setQuantityOnhand(quantity);
+            wmMaterialStockMapper.insertWmMaterialStock(stock);
+        }
+        wmTransaction.setMaterialStockId(stock.getMaterialStockId());
+        wmTransaction.setTransactionQuantity(quantity);
+        wmTransactionMapper.insertWmTransaction(wmTransaction);
+        return wmTransaction;
+    }
+
+
+    private void validate(WmTransaction transaction){
+        if(StringUtils.isNull(transaction.getTransactionType())){
+            throw new BussinessException("库存事务不能为空");
+        }
+
+        if(StringUtils.isNull(transaction.getTransactionQuantity())){
+            throw new BussinessException("事务数量不能为空");
+        }
+
+        if(StringUtils.isNull(transaction.getSourceDocCode())){
+            throw new BussinessException("来源单据号不能为空");
+        }
+
+        if(StringUtils.isNull(transaction.getSourceDocLineId())){
+            throw new BussinessException("来源单据行ID不能为空");
+        }
+
+        if(StringUtils.isNull(transaction.getTransactionDate())){
+            transaction.setTransactionDate(new Date());
+        }
+    }
+
+    public void initStock(WmTransaction transaction,WmMaterialStock stock){
+        stock.setItemId(transaction.getItemId());
+        stock.setItemCode(transaction.getItemCode());
+        stock.setItemName(transaction.getItemName());
+        stock.setSpecification(transaction.getSpecification());
+        stock.setUnitOfMeasure(transaction.getUnitOfMeasure());
+        stock.setBatchCode(transaction.getBatchCode());
+        stock.setWarehouseId(transaction.getWarehouseId());
+        stock.setWarehouseCode(transaction.getWarehouseCode());
+        stock.setWarehouseName(transaction.getWarehouseName());
+        stock.setLocationId(transaction.getLocationId());
+        stock.setLocationCode(transaction.getLocationCode());
+        stock.setLocationName(transaction.getLocationName());
+        if(StringUtils.isNotNull(transaction.getAreaId())){
+            stock.setAreaId(transaction.getAreaId());
+            stock.setAreaCode(transaction.getAreaCode());
+            stock.setAreaName(transaction.getAreaName());
+        }
+        if(StringUtils.isNotNull(transaction.getVendorId())){
+            stock.setVendorId(transaction.getVendorId());
+            stock.setVendorCode(transaction.getVendorCode());
+            stock.setVendorName(transaction.getVendorName());
+            stock.setVendorNick(transaction.getVendorNick());
+        }
+        stock.setExpireDate(transaction.getExpireDate());
+    }
+
 
     /**
      * 查询库存事务

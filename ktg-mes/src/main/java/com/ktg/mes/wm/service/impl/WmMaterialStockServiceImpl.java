@@ -33,6 +33,7 @@ public class WmMaterialStockServiceImpl implements IWmMaterialStockService
         return wmMaterialStockMapper.selectWmMaterialStockByMaterialStockId(materialStockId);
     }
 
+
     /**
      * 查询库存记录列表
      * 

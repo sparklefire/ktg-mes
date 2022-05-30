@@ -3,16 +3,28 @@ package com.ktg.mes.wm.service.impl;
 import cn.hutool.core.collection.CollUtil;
 import com.ktg.common.constant.UserConstants;
 import com.ktg.common.exception.BussinessException;
-import com.ktg.mes.wm.domain.WmItemRecptLine;
+import com.ktg.common.utils.bean.BeanUtils;
 import com.ktg.mes.wm.domain.WmTransaction;
 import com.ktg.mes.wm.domain.tx.ItemRecptTxBean;
 import com.ktg.mes.wm.service.IStorageCoreService;
+import com.ktg.mes.wm.service.IWmTransactionService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.List;
 
+
+@Component
 public class StorageCoreServiceImpl implements IStorageCoreService {
 
+    @Autowired
+    private IWmTransactionService wmTransactionService;
 
+    /**
+     * 处理入库单行
+     * @param lines
+     */
     @Override
     public void processItemRecpt(List<ItemRecptTxBean> lines) {
         String transactionType = UserConstants.TRANSACTION_TYPE_ITEM_RECPT;
@@ -24,8 +36,20 @@ public class StorageCoreServiceImpl implements IStorageCoreService {
             ItemRecptTxBean line = lines.get(i);
             WmTransaction transaction = new WmTransaction();
             transaction.setTransactionType(transactionType);
-
-
+            BeanUtils.copyBeanProp(transaction,line);
+            transaction.setTransactionFlag(1); //库存增加
+            transaction.setTransactionDate(new Date());
+            wmTransactionService.processTransaction(transaction);
+//            transaction.setItemId(line.getItemId());
+//            transaction.setItemCode(line.getItemCode());
+//            transaction.setItemName(line.getItemName());
+//            transaction.setSpecification(line.getSpecification());
+//            transaction.setUnitOfMeasure(line.getUnitOfMeasure());
+//            transaction.setBatchCode(line.getBatchCode());
+//            transaction.setWarehouseId(line.getWarehouseId());
+//            transaction.setWarehouseCode(line.getWarehouseCode());
+//            transaction.setWarehouseName(line.getWarehouseName());
+//            transaction.setLocationId(line.getLocationId());
         }
 
     }

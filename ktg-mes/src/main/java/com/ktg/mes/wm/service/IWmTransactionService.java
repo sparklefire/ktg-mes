@@ -11,6 +11,10 @@ import com.ktg.mes.wm.domain.WmTransaction;
  */
 public interface IWmTransactionService 
 {
+
+    public WmTransaction processTransaction(WmTransaction wmTransaction);
+
+
     /**
      * 查询库存事务
      * 

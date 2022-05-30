@@ -20,6 +20,9 @@ public interface WmMaterialStockMapper
      */
     public WmMaterialStock selectWmMaterialStockByMaterialStockId(Long materialStockId);
 
+
+    public WmMaterialStock loadMaterialStock(WmMaterialStock stock);
+
     /**
      * 查询库存记录列表
      * 
