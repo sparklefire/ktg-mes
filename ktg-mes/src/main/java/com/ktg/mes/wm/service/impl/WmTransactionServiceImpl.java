@@ -7,6 +7,8 @@ import java.util.List;
 import com.ktg.common.exception.BussinessException;
 import com.ktg.common.utils.DateUtils;
 import com.ktg.common.utils.StringUtils;
+import com.ktg.mes.md.domain.MdItem;
+import com.ktg.mes.md.mapper.MdItemMapper;
 import com.ktg.mes.wm.domain.WmMaterialStock;
 import com.ktg.mes.wm.mapper.WmMaterialStockMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,9 @@ public class WmTransactionServiceImpl implements IWmTransactionService
 
     @Autowired
     private WmMaterialStockMapper wmMaterialStockMapper;
+
+    @Autowired
+    private MdItemMapper mdItemMapper;
 
     @Override
     public WmTransaction processTransaction(WmTransaction wmTransaction) {
@@ -79,6 +84,9 @@ public class WmTransactionServiceImpl implements IWmTransactionService
     }
 
     public void initStock(WmTransaction transaction,WmMaterialStock stock){
+
+        MdItem item =mdItemMapper.selectMdItemById(transaction.getItemId());
+        stock.setItemTypeId(item.getItemTypeId());
         stock.setItemId(transaction.getItemId());
         stock.setItemCode(transaction.getItemCode());
         stock.setItemName(transaction.getItemName());
