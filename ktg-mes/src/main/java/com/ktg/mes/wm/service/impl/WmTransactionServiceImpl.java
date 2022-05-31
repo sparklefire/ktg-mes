@@ -36,7 +36,7 @@ public class WmTransactionServiceImpl implements IWmTransactionService
     private MdItemMapper mdItemMapper;
 
     @Override
-    public WmTransaction processTransaction(WmTransaction wmTransaction) {
+    public synchronized WmTransaction processTransaction(WmTransaction wmTransaction) {
         WmMaterialStock stock = new WmMaterialStock();
 
         validate(wmTransaction);
