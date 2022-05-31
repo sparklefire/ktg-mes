@@ -58,7 +58,11 @@ PC端：
 - 质量管理
 
 - 仓储管理
-
+  
+  - 库存现有量
+  
+    ![](https://gitee.com/kutangguo/ktg-mes/raw/master/doc/%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/%E5%8E%9F%E5%9E%8B%E8%AE%BE%E8%AE%A1/%E6%88%AA%E5%9B%BE/%E5%BA%93%E5%AD%98%E7%8E%B0%E6%9C%89%E9%87%8F.png)
+  
 - 设备管理
 
 - 统计报表
