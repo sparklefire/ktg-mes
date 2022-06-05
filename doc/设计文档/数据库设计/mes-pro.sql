@@ -173,7 +173,7 @@ drop table if exists pro_route_product;
 create table pro_route_product (
   record_id                      bigint(20)      not null auto_increment    comment '记录ID',
   route_id                       bigint(20)      not null                   comment '工艺路线ID',
-  item_id                        bigint(20)      not null auto_increment    comment '产品物料ID',
+  item_id                        bigint(20)      not null                   comment '产品物料ID',
   item_code                      varchar(64)     not null                   comment '产品物料编码',
   item_name                      varchar(255)    not null                   comment '产品物料名称',
   specification                  varchar(500)    default null               comment '规格型号',
