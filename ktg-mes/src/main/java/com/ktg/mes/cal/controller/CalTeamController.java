@@ -28,7 +28,7 @@ import com.ktg.common.core.page.TableDataInfo;
  * @date 2022-06-05
  */
 @RestController
-@RequestMapping("/cal/team")
+@RequestMapping("/mes/cal/team")
 public class CalTeamController extends BaseController
 {
     @Autowired
@@ -37,7 +37,7 @@ public class CalTeamController extends BaseController
     /**
      * 查询班组列表
      */
-    @PreAuthorize("@ss.hasPermi('cal:team:list')")
+    @PreAuthorize("@ss.hasPermi('mes:cal:team:list')")
     @GetMapping("/list")
     public TableDataInfo list(CalTeam calTeam)
     {
@@ -49,7 +49,7 @@ public class CalTeamController extends BaseController
     /**
      * 导出班组列表
      */
-    @PreAuthorize("@ss.hasPermi('cal:team:export')")
+    @PreAuthorize("@ss.hasPermi('mes:cal:team:export')")
     @Log(title = "班组", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, CalTeam calTeam)
@@ -62,7 +62,7 @@ public class CalTeamController extends BaseController
     /**
      * 获取班组详细信息
      */
-    @PreAuthorize("@ss.hasPermi('cal:team:query')")
+    @PreAuthorize("@ss.hasPermi('mes:cal:team:query')")
     @GetMapping(value = "/{teamId}")
     public AjaxResult getInfo(@PathVariable("teamId") Long teamId)
     {
@@ -72,7 +72,7 @@ public class CalTeamController extends BaseController
     /**
      * 新增班组
      */
-    @PreAuthorize("@ss.hasPermi('cal:team:add')")
+    @PreAuthorize("@ss.hasPermi('mes:cal:team:add')")
     @Log(title = "班组", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody CalTeam calTeam)
@@ -83,7 +83,7 @@ public class CalTeamController extends BaseController
     /**
      * 修改班组
      */
-    @PreAuthorize("@ss.hasPermi('cal:team:edit')")
+    @PreAuthorize("@ss.hasPermi('mes:cal:team:edit')")
     @Log(title = "班组", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody CalTeam calTeam)
@@ -94,7 +94,7 @@ public class CalTeamController extends BaseController
     /**
      * 删除班组
      */
-    @PreAuthorize("@ss.hasPermi('cal:team:remove')")
+    @PreAuthorize("@ss.hasPermi('mes:cal:team:remove')")
     @Log(title = "班组", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{teamIds}")
     public AjaxResult remove(@PathVariable Long[] teamIds)
