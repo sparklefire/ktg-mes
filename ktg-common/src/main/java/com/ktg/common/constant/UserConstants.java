@@ -107,10 +107,14 @@ public class UserConstants
     public static final String GANTT_TASK_TYPE_PROJECT="project";
 
 
+    /**
+     * 报表相关
+     */
     public static final String REPORT_PRINT_TYPE ="print";
     public static final String REPORT_PDF_TYPE ="pdf";
     public static final String REPORT_EXCEL_TYPE ="excel";
     public static final String REPORT_WORD_TYPE ="word";
+    public static final String REPORT_JASPER_PATH="reports/jasper/";
 
 
     /**
