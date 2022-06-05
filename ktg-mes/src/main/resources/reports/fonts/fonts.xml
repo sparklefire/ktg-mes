@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<fontFamilies>
+    <fontFamily name="微软雅黑"><!--字体名称-->
+        <normal>reports/fonts/msyh.ttf</normal><!--字体文件的路径-->
+        <bold>reports/fonts/msyh.ttf</bold>
+        <italic>reports/fonts/msyh.ttf</italic>
+        <boldItalic>reports/fonts/msyh.ttf</boldItalic>
+        <pdfEncoding>Identity-H</pdfEncoding>
+        <pdfEmbedded>true</pdfEmbedded>
+        <exportFonts>
+            <export key="net.sf.jasperreports.html">'微软雅黑', Arial, Helvetica, sans-serif</export>
+            <export key="net.sf.jasperreports.xhtml">'微软雅黑', Arial, Helvetica, sans-serif</export>
+        </exportFonts>
+    </fontFamily>
+</fontFamilies>
