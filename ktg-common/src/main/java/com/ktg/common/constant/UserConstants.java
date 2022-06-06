@@ -131,4 +131,8 @@ public class UserConstants
     public static final String TRANSACTION_TYPE_MISC_RECPT = "MISC_RECPT"; //杂项入库
     public static final String TRANSACTION_TYPE_MISC_ISSUE = "MISC_ISSUE"; //杂项出库
 
+    public static final String CAL_SHIFT_TYPE_SINGLE="SINGLE";
+    public static final String CAL_SHIFT_TYPE_TWO="TWO";
+    public static final String CAL_SHIFT_TYPE_THREE="THREE";
+
 }

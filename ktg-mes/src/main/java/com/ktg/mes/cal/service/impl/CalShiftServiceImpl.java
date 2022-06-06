@@ -44,6 +44,11 @@ public class CalShiftServiceImpl implements ICalShiftService
         return calShiftMapper.selectCalShiftList(calShift);
     }
 
+    @Override
+    public int checkShiftCount(Long planId) {
+        return calShiftMapper.checkShiftCount(planId);
+    }
+
     /**
      * 新增计划班次
      * 

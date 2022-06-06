@@ -27,6 +27,8 @@ public interface ICalShiftService
      */
     public List<CalShift> selectCalShiftList(CalShift calShift);
 
+    public int checkShiftCount(Long planId);
+
     /**
      * 新增计划班次
      * 

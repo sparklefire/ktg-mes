@@ -2,6 +2,10 @@ package com.ktg.mes.cal.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ktg.common.constant.UserConstants;
+import com.ktg.mes.cal.domain.CalPlan;
+import com.ktg.mes.cal.service.ICalPlanService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +37,9 @@ public class CalShiftController extends BaseController
 {
     @Autowired
     private ICalShiftService calShiftService;
+
+    @Autowired
+    private ICalPlanService calPlanService;
 
     /**
      * 查询计划班次列表
@@ -77,6 +84,18 @@ public class CalShiftController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody CalShift calShift)
     {
+        int count = calShiftService.checkShiftCount(calShift.getPlanId());
+        CalPlan plan = calPlanService.selectCalPlanByPlanId(calShift.getPlanId());
+        if(UserConstants.CAL_SHIFT_TYPE_SINGLE.equals(plan.getShiftType())&&count>0){
+            return AjaxResult.error("轮班方式为 白班 时只能有一个班次！");
+        }
+        if(UserConstants.CAL_SHIFT_TYPE_TWO.equals(plan.getShiftType())&&count>1){
+            return AjaxResult.error("轮班方式为 白班 时只能有两个班次！");
+        }
+        if(UserConstants.CAL_SHIFT_TYPE_THREE.equals(plan.getShiftType())&&count>2){
+            return AjaxResult.error("轮班方式为 白班 时只能有三个班次！");
+        }
+
         return toAjax(calShiftService.insertCalShift(calShift));
     }
 
@@ -88,6 +107,17 @@ public class CalShiftController extends BaseController
     @PutMapping
     public AjaxResult edit(@RequestBody CalShift calShift)
     {
+        int count = calShiftService.checkShiftCount(calShift.getPlanId());
+        CalPlan plan = calPlanService.selectCalPlanByPlanId(calShift.getPlanId());
+        if(UserConstants.CAL_SHIFT_TYPE_SINGLE.equals(plan.getShiftType())&&count>0){
+            return AjaxResult.error("轮班方式为 白班 时只能有一个班次！");
+        }
+        if(UserConstants.CAL_SHIFT_TYPE_TWO.equals(plan.getShiftType())&&count>1){
+            return AjaxResult.error("轮班方式为 白班 时只能有两个班次！");
+        }
+        if(UserConstants.CAL_SHIFT_TYPE_THREE.equals(plan.getShiftType())&&count>2){
+            return AjaxResult.error("轮班方式为 白班 时只能有三个班次！");
+        }
         return toAjax(calShiftService.updateCalShift(calShift));
     }
 
