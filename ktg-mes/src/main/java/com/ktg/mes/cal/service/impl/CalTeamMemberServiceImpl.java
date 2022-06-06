@@ -1,7 +1,10 @@
 package com.ktg.mes.cal.service.impl;
 
 import java.util.List;
+
+import com.ktg.common.constant.UserConstants;
 import com.ktg.common.utils.DateUtils;
+import com.ktg.common.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ktg.mes.cal.mapper.CalTeamMemberMapper;
@@ -44,6 +47,16 @@ public class CalTeamMemberServiceImpl implements ICalTeamMemberService
         return calTeamMemberMapper.selectCalTeamMemberList(calTeamMember);
     }
 
+    @Override
+    public String checkUserUnique(CalTeamMember calTeamMember) {
+        CalTeamMember member = calTeamMemberMapper.checkUserUnique(calTeamMember);
+        Long memberId = calTeamMember.getMemberId()==null?-1L:calTeamMember.getMemberId();
+        if(StringUtils.isNotNull(member) && memberId !=member.getMemberId()){
+            return UserConstants.NOT_UNIQUE;
+        }
+        return UserConstants.UNIQUE;
+    }
+
     /**
      * 新增班组成员
      * 
@@ -80,6 +93,11 @@ public class CalTeamMemberServiceImpl implements ICalTeamMemberService
     public int deleteCalTeamMemberByMemberIds(Long[] memberIds)
     {
         return calTeamMemberMapper.deleteCalTeamMemberByMemberIds(memberIds);
+    }
+
+    @Override
+    public int deleteByTeamId(Long teamId) {
+        return calTeamMemberMapper.deleteByTeamId(teamId);
     }
 
     /**

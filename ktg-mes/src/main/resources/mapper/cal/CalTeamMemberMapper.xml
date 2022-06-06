@@ -41,6 +41,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectCalTeamMemberVo"/>
         where member_id = #{memberId}
     </select>
+
+    <select id="checkUserUnique" parameterType="CalTeamMember" resultMap="CalTeamMemberResult">
+        <include refid="selectCalTeamMemberVo"/>
+        where user_id = #{userId}
+    </select>
         
     <insert id="insertCalTeamMember" parameterType="CalTeamMember" useGeneratedKeys="true" keyProperty="memberId">
         insert into cal_team_member
@@ -109,4 +114,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{memberId}
         </foreach>
     </delete>
+
+    <delete id="deleteByTeamId" parameterType="Long">
+        delete from cal_team_member where team_id = #{teamId}
+    </delete>
+
 </mapper>

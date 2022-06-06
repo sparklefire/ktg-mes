@@ -2,8 +2,11 @@ package com.ktg.mes.cal.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ktg.mes.cal.service.ICalTeamMemberService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -33,6 +36,9 @@ public class CalTeamController extends BaseController
 {
     @Autowired
     private ICalTeamService calTeamService;
+
+    @Autowired
+    private ICalTeamMemberService calTeamMemberService;
 
     /**
      * 查询班组列表
@@ -96,9 +102,14 @@ public class CalTeamController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('mes:cal:team:remove')")
     @Log(title = "班组", businessType = BusinessType.DELETE)
+    @Transactional
 	@DeleteMapping("/{teamIds}")
     public AjaxResult remove(@PathVariable Long[] teamIds)
     {
+        for (Long teamId:teamIds
+             ) {
+            calTeamMemberService.deleteByTeamId(teamId);
+        }
         return toAjax(calTeamService.deleteCalTeamByTeamIds(teamIds));
     }
 }

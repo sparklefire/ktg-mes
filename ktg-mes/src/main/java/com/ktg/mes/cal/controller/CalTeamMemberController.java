@@ -2,6 +2,8 @@ package com.ktg.mes.cal.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ktg.common.constant.UserConstants;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -77,18 +79,11 @@ public class CalTeamMemberController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody CalTeamMember calTeamMember)
     {
-        return toAjax(calTeamMemberService.insertCalTeamMember(calTeamMember));
-    }
+        if(UserConstants.NOT_UNIQUE.equals(calTeamMemberService.checkUserUnique(calTeamMember))){
+            return AjaxResult.error("用户"+calTeamMember.getNickName()+"已分配过班组！");
+        }
 
-    /**
-     * 修改班组成员
-     */
-    @PreAuthorize("@ss.hasPermi('mes:cal:teammember:edit')")
-    @Log(title = "班组成员", businessType = BusinessType.UPDATE)
-    @PutMapping
-    public AjaxResult edit(@RequestBody CalTeamMember calTeamMember)
-    {
-        return toAjax(calTeamMemberService.updateCalTeamMember(calTeamMember));
+        return toAjax(calTeamMemberService.insertCalTeamMember(calTeamMember));
     }
 
     /**

@@ -27,6 +27,8 @@ public interface CalTeamMemberMapper
      */
     public List<CalTeamMember> selectCalTeamMemberList(CalTeamMember calTeamMember);
 
+    public CalTeamMember checkUserUnique(CalTeamMember calTeamMember);
+
     /**
      * 新增班组成员
      * 
@@ -50,6 +52,8 @@ public interface CalTeamMemberMapper
      * @return 结果
      */
     public int deleteCalTeamMemberByMemberId(Long memberId);
+
+    public int deleteByTeamId(Long teamId);
 
     /**
      * 批量删除班组成员

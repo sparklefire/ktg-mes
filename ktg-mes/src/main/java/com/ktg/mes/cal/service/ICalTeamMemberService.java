@@ -27,6 +27,9 @@ public interface ICalTeamMemberService
      */
     public List<CalTeamMember> selectCalTeamMemberList(CalTeamMember calTeamMember);
 
+
+    public String checkUserUnique(CalTeamMember calTeamMember);
+
     /**
      * 新增班组成员
      * 
@@ -50,6 +53,8 @@ public interface ICalTeamMemberService
      * @return 结果
      */
     public int deleteCalTeamMemberByMemberIds(Long[] memberIds);
+
+    public int deleteByTeamId(Long teamId);
 
     /**
      * 删除班组成员信息
