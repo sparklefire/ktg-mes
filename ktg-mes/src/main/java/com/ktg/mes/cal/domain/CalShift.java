@@ -33,14 +33,13 @@ public class CalShift extends BaseEntity
     private String shiftName;
 
     /** 开始时间 */
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @Excel(name = "开始时间", width = 30, dateFormat = "yyyy-MM-dd")
-    private Date startTime;
+    @Excel(name = "开始时间")
+    private String startTime;
 
     /** 结束时间 */
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @Excel(name = "结束时间", width = 30, dateFormat = "yyyy-MM-dd")
-    private Date endTime;
+
+    @Excel(name = "结束时间")
+    private String endTime;
 
     /** 预留字段1 */
     private String attr1;
@@ -90,21 +89,21 @@ public class CalShift extends BaseEntity
     {
         return shiftName;
     }
-    public void setStartTime(Date startTime) 
+    public void setStartTime(String startTime)
     {
         this.startTime = startTime;
     }
 
-    public Date getStartTime() 
+    public String getStartTime()
     {
         return startTime;
     }
-    public void setEndTime(Date endTime) 
+    public void setEndTime(String endTime)
     {
         this.endTime = endTime;
     }
 
-    public Date getEndTime() 
+    public String getEndTime()
     {
         return endTime;
     }

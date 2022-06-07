@@ -90,10 +90,10 @@ public class CalShiftController extends BaseController
             return AjaxResult.error("轮班方式为 白班 时只能有一个班次！");
         }
         if(UserConstants.CAL_SHIFT_TYPE_TWO.equals(plan.getShiftType())&&count>1){
-            return AjaxResult.error("轮班方式为 白班 时只能有两个班次！");
+            return AjaxResult.error("轮班方式为 两班倒 时只能有两个班次！");
         }
         if(UserConstants.CAL_SHIFT_TYPE_THREE.equals(plan.getShiftType())&&count>2){
-            return AjaxResult.error("轮班方式为 白班 时只能有三个班次！");
+            return AjaxResult.error("轮班方式为 三班倒 时只能有三个班次！");
         }
 
         return toAjax(calShiftService.insertCalShift(calShift));
