@@ -29,6 +29,9 @@ public interface ICalShiftService
 
     public int checkShiftCount(Long planId);
 
+
+    public void addDefaultShift(Long plandId,String shiftType);
+
     /**
      * 新增计划班次
      * 
@@ -60,4 +63,7 @@ public interface ICalShiftService
      * @return 结果
      */
     public int deleteCalShiftByShiftId(Long shiftId);
+
+    public int deleteByPlanId(Long planId);
+
 }

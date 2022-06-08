@@ -28,6 +28,8 @@ public class CalPlan extends BaseEntity
     @Excel(name = "计划名称")
     private String planName;
 
+    private String calendarType;
+
     /** 开始日期 */
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Excel(name = "开始日期", width = 30, dateFormat = "yyyy-MM-dd")
@@ -94,7 +96,15 @@ public class CalPlan extends BaseEntity
         this.startDate = startDate;
     }
 
-    public Date getStartDate() 
+    public String getCalendarType() {
+        return calendarType;
+    }
+
+    public void setCalendarType(String calendarType) {
+        this.calendarType = calendarType;
+    }
+
+    public Date getStartDate()
     {
         return startDate;
     }
@@ -179,6 +189,7 @@ public class CalPlan extends BaseEntity
             .append("planName", getPlanName())
             .append("startDate", getStartDate())
             .append("endDate", getEndDate())
+            .append("calendarType", getCalendarType())
             .append("shiftType", getShiftType())
             .append("shiftMethod", getShiftMethod())
             .append("shiftCount", getShiftCount())

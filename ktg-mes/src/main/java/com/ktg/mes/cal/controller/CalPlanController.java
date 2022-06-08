@@ -2,8 +2,12 @@ package com.ktg.mes.cal.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ktg.mes.cal.service.ICalPlanTeamService;
+import com.ktg.mes.cal.service.ICalShiftService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -33,6 +37,12 @@ public class CalPlanController extends BaseController
 {
     @Autowired
     private ICalPlanService calPlanService;
+
+    @Autowired
+    private ICalShiftService calShiftService;
+
+    @Autowired
+    private ICalPlanTeamService calPlanTeamService;
 
     /**
      * 查询排班计划列表
@@ -74,10 +84,14 @@ public class CalPlanController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('mes:cal:calplan:add')")
     @Log(title = "排班计划", businessType = BusinessType.INSERT)
+    @Transactional
     @PostMapping
     public AjaxResult add(@RequestBody CalPlan calPlan)
     {
-        return toAjax(calPlanService.insertCalPlan(calPlan));
+        int ret = calPlanService.insertCalPlan(calPlan);
+        //根据选择的轮班方式生成默认的班次
+        calShiftService.addDefaultShift(calPlan.getPlanId(),calPlan.getShiftType());
+        return toAjax(ret);
     }
 
     /**
@@ -96,9 +110,15 @@ public class CalPlanController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('mes:cal:calplan:remove')")
     @Log(title = "排班计划", businessType = BusinessType.DELETE)
+    @Transactional
 	@DeleteMapping("/{planIds}")
     public AjaxResult remove(@PathVariable Long[] planIds)
     {
+        for (Long planId:planIds
+             ) {
+            calShiftService.deleteByPlanId(planId);
+            calPlanTeamService.deleteByPlanId(planId);
+        }
         return toAjax(calPlanService.deleteCalPlanByPlanIds(planIds));
     }
 }

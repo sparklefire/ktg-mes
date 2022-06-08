@@ -115,4 +115,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{shiftId}
         </foreach>
     </delete>
+
+    <delete id="deleteByPlanId" parameterType="Long">
+        delete from cal_shift where plan_id = #{planId}
+    </delete>
 </mapper>

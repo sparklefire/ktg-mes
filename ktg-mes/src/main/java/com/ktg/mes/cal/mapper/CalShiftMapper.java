@@ -61,4 +61,6 @@ public interface CalShiftMapper
      * @return 结果
      */
     public int deleteCalShiftByShiftIds(Long[] shiftIds);
+
+    public int deleteByPlanId(Long planId);
 }

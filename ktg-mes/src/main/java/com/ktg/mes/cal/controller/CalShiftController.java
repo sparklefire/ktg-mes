@@ -107,17 +107,6 @@ public class CalShiftController extends BaseController
     @PutMapping
     public AjaxResult edit(@RequestBody CalShift calShift)
     {
-        int count = calShiftService.checkShiftCount(calShift.getPlanId());
-        CalPlan plan = calPlanService.selectCalPlanByPlanId(calShift.getPlanId());
-        if(UserConstants.CAL_SHIFT_TYPE_SINGLE.equals(plan.getShiftType())&&count>0){
-            return AjaxResult.error("轮班方式为 白班 时只能有一个班次！");
-        }
-        if(UserConstants.CAL_SHIFT_TYPE_TWO.equals(plan.getShiftType())&&count>1){
-            return AjaxResult.error("轮班方式为 白班 时只能有两个班次！");
-        }
-        if(UserConstants.CAL_SHIFT_TYPE_THREE.equals(plan.getShiftType())&&count>2){
-            return AjaxResult.error("轮班方式为 白班 时只能有三个班次！");
-        }
         return toAjax(calShiftService.updateCalShift(calShift));
     }
 

@@ -131,8 +131,14 @@ public class UserConstants
     public static final String TRANSACTION_TYPE_MISC_RECPT = "MISC_RECPT"; //杂项入库
     public static final String TRANSACTION_TYPE_MISC_ISSUE = "MISC_ISSUE"; //杂项出库
 
+    /**
+     * 轮班方式
+     */
     public static final String CAL_SHIFT_TYPE_SINGLE="SINGLE";
     public static final String CAL_SHIFT_TYPE_TWO="SHIFT_TWO";
     public static final String CAL_SHIFT_TYPE_THREE="SHIFT_THREE";
+    public static final String CAL_SHIFT_NAME_DAY="白班";
+    public static final String CAL_SHIFT_NAME_NIGHT="夜班";
+    public static final String CAL_SHIFT_NAME_MID="中班";
 
 }

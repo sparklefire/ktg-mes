@@ -60,4 +60,6 @@ public interface CalPlanTeamMapper
      * @return 结果
      */
     public int deleteCalPlanTeamByRecordIds(Long[] recordIds);
+
+    public int deleteByPlanId(Long planId);
 }

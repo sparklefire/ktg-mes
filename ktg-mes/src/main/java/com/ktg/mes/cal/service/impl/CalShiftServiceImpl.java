@@ -1,6 +1,8 @@
 package com.ktg.mes.cal.service.impl;
 
 import java.util.List;
+
+import com.ktg.common.constant.UserConstants;
 import com.ktg.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,6 +49,56 @@ public class CalShiftServiceImpl implements ICalShiftService
     @Override
     public int checkShiftCount(Long planId) {
         return calShiftMapper.checkShiftCount(planId);
+    }
+
+    @Override
+    public void addDefaultShift(Long plandId,String shiftType) {
+        if(UserConstants.CAL_SHIFT_TYPE_SINGLE.equals(shiftType)){
+            CalShift shift = new CalShift();
+            shift.setPlanId(plandId);
+            shift.setShiftName(UserConstants.CAL_SHIFT_NAME_DAY);
+            shift.setOrderNum(1);
+            shift.setStartTime("8:00");
+            shift.setEndTime("18:00");
+            calShiftMapper.insertCalShift(shift);
+        }else if(UserConstants.CAL_SHIFT_TYPE_TWO.equals(shiftType)){
+            CalShift shiftDay = new CalShift();
+            shiftDay.setPlanId(plandId);
+            shiftDay.setShiftName(UserConstants.CAL_SHIFT_NAME_DAY);
+            shiftDay.setOrderNum(1);
+            shiftDay.setStartTime("8:00");
+            shiftDay.setEndTime("20:00");
+            CalShift shiftNight = new CalShift();
+            shiftNight.setPlanId(plandId);
+            shiftNight.setShiftName(UserConstants.CAL_SHIFT_NAME_NIGHT);
+            shiftNight.setOrderNum(2);
+            shiftNight.setStartTime("20:00");
+            shiftNight.setEndTime("8:00");
+            calShiftMapper.insertCalShift(shiftDay);
+            calShiftMapper.insertCalShift(shiftNight);
+        }else {
+            CalShift shiftDay = new CalShift();
+            shiftDay.setPlanId(plandId);
+            shiftDay.setShiftName(UserConstants.CAL_SHIFT_NAME_DAY);
+            shiftDay.setOrderNum(1);
+            shiftDay.setStartTime("8:00");
+            shiftDay.setEndTime("16:00");
+            CalShift shiftMid = new CalShift();
+            shiftMid.setPlanId(plandId);
+            shiftMid.setShiftName(UserConstants.CAL_SHIFT_NAME_MID);
+            shiftMid.setOrderNum(2);
+            shiftMid.setStartTime("16:00");
+            shiftMid.setEndTime("24:00");
+            CalShift shiftNight = new CalShift();
+            shiftNight.setPlanId(plandId);
+            shiftNight.setShiftName(UserConstants.CAL_SHIFT_NAME_NIGHT);
+            shiftNight.setOrderNum(3);
+            shiftNight.setStartTime("00:00");
+            shiftNight.setEndTime("8:00");
+            calShiftMapper.insertCalShift(shiftDay);
+            calShiftMapper.insertCalShift(shiftMid);
+            calShiftMapper.insertCalShift(shiftNight);
+        }
     }
 
     /**
@@ -97,5 +149,10 @@ public class CalShiftServiceImpl implements ICalShiftService
     public int deleteCalShiftByShiftId(Long shiftId)
     {
         return calShiftMapper.deleteCalShiftByShiftId(shiftId);
+    }
+
+    @Override
+    public int deleteByPlanId(Long planId) {
+        return calShiftMapper.deleteByPlanId(planId);
     }
 }

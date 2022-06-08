@@ -8,6 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="planId"    column="plan_id"    />
         <result property="planCode"    column="plan_code"    />
         <result property="planName"    column="plan_name"    />
+        <result property="calendarType"    column="calendar_type"    />
         <result property="startDate"    column="start_date"    />
         <result property="endDate"    column="end_date"    />
         <result property="shiftType"    column="shift_type"    />
@@ -25,7 +26,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectCalPlanVo">
-        select plan_id, plan_code, plan_name, start_date, end_date, shift_type, shift_method, shift_count, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from cal_plan
+        select plan_id, plan_code, plan_name,calendar_type, start_date, end_date, shift_type, shift_method, shift_count, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from cal_plan
     </sql>
 
     <select id="selectCalPlanList" parameterType="CalPlan" resultMap="CalPlanResult">
@@ -33,6 +34,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <where>  
             <if test="planCode != null "> and plan_code like concat('%', #{planCode}, '%')</if>
             <if test="planName != null  and planName != ''"> and plan_name like concat('%', #{planName}, '%')</if>
+            <if test="calendarType != null  and calendarType != ''"> and calendar_type =#{calendarType}</if>
             <if test="startDate != null "> and start_date = #{startDate}</if>
             <if test="endDate != null "> and end_date = #{endDate}</if>
             <if test="shiftType != null  and shiftType != ''"> and shift_type = #{shiftType}</if>
@@ -51,6 +53,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="planCode != null">plan_code,</if>
             <if test="planName != null and planName != ''">plan_name,</if>
+            <if test="calendarType != null and calendarType != ''">calendar_type,</if>
             <if test="startDate != null">start_date,</if>
             <if test="endDate != null">end_date,</if>
             <if test="shiftType != null">shift_type,</if>
@@ -69,6 +72,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="planCode != null">#{planCode},</if>
             <if test="planName != null and planName != ''">#{planName},</if>
+            <if test="calendarType != null and calendarType != ''">#{calendarType},</if>
             <if test="startDate != null">#{startDate},</if>
             <if test="endDate != null">#{endDate},</if>
             <if test="shiftType != null">#{shiftType},</if>
@@ -91,6 +95,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <trim prefix="SET" suffixOverrides=",">
             <if test="planCode != null">plan_code = #{planCode},</if>
             <if test="planName != null and planName != ''">plan_name = #{planName},</if>
+            <if test="calendarType != null and calendarType != ''">calendar_type = #{calendarType},</if>
             <if test="startDate != null">start_date = #{startDate},</if>
             <if test="endDate != null">end_date = #{endDate},</if>
             <if test="shiftType != null">shift_type = #{shiftType},</if>

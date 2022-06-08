@@ -106,4 +106,9 @@ public class CalPlanTeamServiceImpl implements ICalPlanTeamService
     {
         return calPlanTeamMapper.deleteCalPlanTeamByRecordId(recordId);
     }
+
+    @Override
+    public int deleteByPlanId(Long plandId) {
+        return calPlanTeamMapper.deleteByPlanId(plandId);
+    }
 }

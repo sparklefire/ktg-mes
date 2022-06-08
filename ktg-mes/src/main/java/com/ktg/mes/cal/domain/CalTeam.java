@@ -26,6 +26,8 @@ public class CalTeam extends BaseEntity
     @Excel(name = "班组名称")
     private String teamName;
 
+    private String calendarType;
+
     /** 预留字段1 */
     private String attr1;
 
@@ -70,7 +72,15 @@ public class CalTeam extends BaseEntity
         this.attr1 = attr1;
     }
 
-    public String getAttr1() 
+    public String getCalendarType() {
+        return calendarType;
+    }
+
+    public void setCalendarType(String calendarType) {
+        this.calendarType = calendarType;
+    }
+
+    public String getAttr1()
     {
         return attr1;
     }
@@ -104,19 +114,15 @@ public class CalTeam extends BaseEntity
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("teamId", getTeamId())
-            .append("teamCode", getTeamCode())
-            .append("teamName", getTeamName())
-            .append("remark", getRemark())
-            .append("attr1", getAttr1())
-            .append("attr2", getAttr2())
-            .append("attr3", getAttr3())
-            .append("attr4", getAttr4())
-            .append("createBy", getCreateBy())
-            .append("createTime", getCreateTime())
-            .append("updateBy", getUpdateBy())
-            .append("updateTime", getUpdateTime())
-            .toString();
+        return "CalTeam{" +
+                "teamId=" + teamId +
+                ", teamCode='" + teamCode + '\'' +
+                ", teamName='" + teamName + '\'' +
+                ", calendarType='" + calendarType + '\'' +
+                ", attr1='" + attr1 + '\'' +
+                ", attr2='" + attr2 + '\'' +
+                ", attr3=" + attr3 +
+                ", attr4=" + attr4 +
+                '}';
     }
 }

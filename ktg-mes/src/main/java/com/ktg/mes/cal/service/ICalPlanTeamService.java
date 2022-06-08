@@ -60,4 +60,6 @@ public interface ICalPlanTeamService
      * @return 结果
      */
     public int deleteCalPlanTeamByRecordId(Long recordId);
+
+    public int deleteByPlanId(Long plandId);
 }
