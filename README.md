@@ -57,6 +57,12 @@ PC端：
 
 - 质量管理
 
+- 生产排班
+
+  - 节假日/工作日设置
+
+    ![](https://gitee.com/kutangguo/ktg-mes/raw/master/doc/%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/%E5%8E%9F%E5%9E%8B%E8%AE%BE%E8%AE%A1/%E6%88%AA%E5%9B%BE/%E8%8A%82%E5%81%87%E6%97%A5%E8%AE%BE%E7%BD%AE.png)
+
 - 仓储管理
   
   - 库存现有量
