@@ -53,6 +53,17 @@ public class CalTeamController extends BaseController
     }
 
     /**
+     * 查询所有班组列表
+     */
+    @PreAuthorize("@ss.hasPermi('mes:cal:team:list')")
+    @GetMapping("/listAll")
+    public AjaxResult listAll(){
+        CalTeam  calTeam= new CalTeam();
+        List<CalTeam> list = calTeamService.selectCalTeamList(calTeam);
+        return AjaxResult.success(list);
+    }
+
+    /**
      * 导出班组列表
      */
     @PreAuthorize("@ss.hasPermi('mes:cal:team:export')")
