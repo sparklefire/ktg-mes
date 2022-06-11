@@ -2,10 +2,12 @@ package com.ktg.mes.cal.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import com.ktg.mes.cal.domain.CalCalendar;
+import com.ktg.mes.cal.domain.CalTeamMember;
 import com.ktg.mes.cal.domain.CalTeamshift;
 import com.ktg.mes.cal.mapper.CalPlanMapper;
 import com.ktg.mes.cal.mapper.CalTeamshiftMapper;
 import com.ktg.mes.cal.service.ICalCalendarService;
+import com.ktg.mes.cal.service.ICalTeamMemberService;
 import com.ktg.mes.cal.utils.CalendarUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,9 @@ public class CalCalendarServiceImpl implements ICalCalendarService {
 
     @Autowired
     private CalTeamshiftMapper calTeamshiftMapper;
+
+    @Autowired
+    private ICalTeamMemberService calTeamMemberService;
 
 
     /**
@@ -70,7 +75,28 @@ public class CalCalendarServiceImpl implements ICalCalendarService {
 
     @Override
     public List<CalCalendar> getCalendarByUser(Date day, Long userId) {
-        return null;
+        List<CalCalendar>  calendars = null;
+
+        CalTeamMember param = new CalTeamMember();
+        param.setUserId(userId);
+        List<CalTeamMember> members = calTeamMemberService.selectCalTeamMemberList(param);
+        if(CollUtil.isNotEmpty(members)){
+            Long teamId = members.get(0).getTeamId();
+            calendars = CalendarUtil.getDays(day);
+            for (CalCalendar cal:calendars
+                    ) {
+                CalTeamshift param2 = new CalTeamshift();
+                param2.setTheDay(cal.getTheDay());
+                param2.setTeamId(teamId);
+                List<CalTeamshift> teamshifts = calTeamshiftMapper.selectCalTeamshiftList(param2);
+                cal.setTeamShifts(teamshifts);
+                if(CollUtil.isNotEmpty(teamshifts)){
+                    cal.setShiftType(teamshifts.get(0).getShiftType());
+                }
+            }
+        }
+
+        return calendars;
     }
 
 
