@@ -58,6 +58,7 @@ create table cal_plan (
   shift_type               varchar(64)                                comment '轮班方式',
   shift_method             varchar(64)                                comment '倒班方式',
   shift_count              int(11)                                    comment '数',
+  status                   varchar(64)     default 'PREPARE'          comment '状态',
   remark                   varchar(500)    default ''                 comment '备注',
   attr1                    varchar(64)     default null               comment '预留字段1',
   attr2                    varchar(255)    default null               comment '预留字段2',
@@ -142,5 +143,30 @@ create table cal_holiday (
 ) engine=innodb auto_increment=200 comment = '节假日设置';
 
 
-
+-- ----------------------------
+-- 7、班组排班表
+-- ----------------------------
+drop table if exists cal_teamshift;
+create table cal_teamshift (
+  record_id                 bigint(20)      not null auto_increment    comment '流水号',
+  the_day                   varchar(64)     not null                   comment '日期',
+  team_id                   bigint(20)      not null                   comment '班组ID',
+  team_name                 varchar(255)                               comment '班组名称',
+  shift_id                  bigint(20)      not null                   comment '班次ID',
+  shift_name                varchar(255)                               comment '班次名称',
+  order_num                 int(11)                                    comment '序号',
+  plan_id                   bigint(20)                                 comment '计划ID',
+  calendar_type             varchar(64)                                comment '班组类型',
+  shift_type                varchar(64)                                comment '轮班方式',
+  remark                    varchar(500)    default ''                 comment '备注',
+  attr1                     varchar(64)     default null               comment '预留字段1',
+  attr2                     varchar(255)    default null               comment '预留字段2',
+  attr3                     int(11)         default 0                  comment '预留字段3',
+  attr4                     int(11)         default 0                  comment '预留字段4',
+  create_by                 varchar(64)     default ''                 comment '创建者',
+  create_time 	            datetime                                   comment '创建时间',
+  update_by                 varchar(64)     default ''                 comment '更新者',
+  update_time               datetime                                   comment '更新时间',
+  primary key (record_id)
+) engine=innodb auto_increment=200 comment = '班组排班表';
 
