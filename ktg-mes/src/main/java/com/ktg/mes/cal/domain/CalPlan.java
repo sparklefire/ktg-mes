@@ -52,6 +52,8 @@ public class CalPlan extends BaseEntity
     @Excel(name = "数")
     private Long shiftCount;
 
+    private String status;
+
     /** 预留字段1 */
     private String attr1;
 
@@ -149,7 +151,15 @@ public class CalPlan extends BaseEntity
         this.attr1 = attr1;
     }
 
-    public String getAttr1() 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getAttr1()
     {
         return attr1;
     }
@@ -183,25 +193,21 @@ public class CalPlan extends BaseEntity
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("planId", getPlanId())
-            .append("planCode", getPlanCode())
-            .append("planName", getPlanName())
-            .append("startDate", getStartDate())
-            .append("endDate", getEndDate())
-            .append("calendarType", getCalendarType())
-            .append("shiftType", getShiftType())
-            .append("shiftMethod", getShiftMethod())
-            .append("shiftCount", getShiftCount())
-            .append("remark", getRemark())
-            .append("attr1", getAttr1())
-            .append("attr2", getAttr2())
-            .append("attr3", getAttr3())
-            .append("attr4", getAttr4())
-            .append("createBy", getCreateBy())
-            .append("createTime", getCreateTime())
-            .append("updateBy", getUpdateBy())
-            .append("updateTime", getUpdateTime())
-            .toString();
+        return "CalPlan{" +
+                "planId=" + planId +
+                ", planCode='" + planCode + '\'' +
+                ", planName='" + planName + '\'' +
+                ", calendarType='" + calendarType + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", shiftType='" + shiftType + '\'' +
+                ", shiftMethod='" + shiftMethod + '\'' +
+                ", shiftCount=" + shiftCount +
+                ", status='" + status + '\'' +
+                ", attr1='" + attr1 + '\'' +
+                ", attr2='" + attr2 + '\'' +
+                ", attr3=" + attr3 +
+                ", attr4=" + attr4 +
+                '}';
     }
 }

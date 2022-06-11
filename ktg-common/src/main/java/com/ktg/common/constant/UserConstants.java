@@ -141,4 +141,12 @@ public class UserConstants
     public static final String CAL_SHIFT_NAME_NIGHT="夜班";
     public static final String CAL_SHIFT_NAME_MID="中班";
 
+    /**
+     * 排班日历的查询方式
+     */
+    public static final String CAL_QUERY_BY_TYPE="TYPE";
+    public static final String CAL_QUERY_BY_TEAM="TEAM";
+    public static final String CAL_QUERY_BY_USER="USER";
+
+
 }

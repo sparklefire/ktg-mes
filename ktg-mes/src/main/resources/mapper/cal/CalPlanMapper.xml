@@ -14,6 +14,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="shiftType"    column="shift_type"    />
         <result property="shiftMethod"    column="shift_method"    />
         <result property="shiftCount"    column="shift_count"    />
+        <result property="status"    column="status"    />
         <result property="remark"    column="remark"    />
         <result property="attr1"    column="attr1"    />
         <result property="attr2"    column="attr2"    />
@@ -26,7 +27,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectCalPlanVo">
-        select plan_id, plan_code, plan_name,calendar_type, start_date, end_date, shift_type, shift_method, shift_count, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from cal_plan
+        select plan_id, plan_code, plan_name,calendar_type, start_date, end_date, shift_type, shift_method, shift_count,status, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from cal_plan
     </sql>
 
     <select id="selectCalPlanList" parameterType="CalPlan" resultMap="CalPlanResult">
@@ -35,11 +36,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="planCode != null "> and plan_code like concat('%', #{planCode}, '%')</if>
             <if test="planName != null  and planName != ''"> and plan_name like concat('%', #{planName}, '%')</if>
             <if test="calendarType != null  and calendarType != ''"> and calendar_type =#{calendarType}</if>
-            <if test="startDate != null "> and start_date = #{startDate}</if>
-            <if test="endDate != null "> and end_date = #{endDate}</if>
+            <if test="startDate != null "> and start_date &gt;= #{startDate}</if>
+            <if test="endDate != null "> and end_date $lt; #{endDate}</if>
             <if test="shiftType != null  and shiftType != ''"> and shift_type = #{shiftType}</if>
             <if test="shiftMethod != null  and shiftMethod != ''"> and shift_method = #{shiftMethod}</if>
             <if test="shiftCount != null "> and shift_count = #{shiftCount}</if>
+            <if test="status != and status !='' "> and status = #{status}</if>
         </where>
     </select>
     
@@ -59,6 +61,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="shiftType != null">shift_type,</if>
             <if test="shiftMethod != null">shift_method,</if>
             <if test="shiftCount != null">shift_count,</if>
+            <if test="status != null and status !=''">status,</if>
             <if test="remark != null">remark,</if>
             <if test="attr1 != null">attr1,</if>
             <if test="attr2 != null">attr2,</if>
@@ -78,6 +81,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="shiftType != null">#{shiftType},</if>
             <if test="shiftMethod != null">#{shiftMethod},</if>
             <if test="shiftCount != null">#{shiftCount},</if>
+            <if test="status != null and status !=''">#{status},</if>
             <if test="remark != null">#{remark},</if>
             <if test="attr1 != null">#{attr1},</if>
             <if test="attr2 != null">#{attr2},</if>
@@ -101,6 +105,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="shiftType != null">shift_type = #{shiftType},</if>
             <if test="shiftMethod != null">shift_method = #{shiftMethod},</if>
             <if test="shiftCount != null">shift_count = #{shiftCount},</if>
+            <if test="status != null and status !=''">status = #{status},</if>
             <if test="remark != null">remark = #{remark},</if>
             <if test="attr1 != null">attr1 = #{attr1},</if>
             <if test="attr2 != null">attr2 = #{attr2},</if>
