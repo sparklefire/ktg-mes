@@ -1,10 +1,14 @@
 package com.ktg.mes.cal.controller;
 
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Future;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ktg.common.constant.UserConstants;
 import com.ktg.mes.cal.service.ICalPlanTeamService;
 import com.ktg.mes.cal.service.ICalShiftService;
+import com.ktg.mes.cal.service.ICalTeamshiftService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,6 +47,9 @@ public class CalPlanController extends BaseController
 
     @Autowired
     private ICalPlanTeamService calPlanTeamService;
+
+    @Autowired
+    private ICalTeamshiftService calTeamshiftService;
 
     /**
      * 查询排班计划列表
@@ -94,14 +101,20 @@ public class CalPlanController extends BaseController
         return toAjax(ret);
     }
 
+
     /**
      * 修改排班计划
      */
     @PreAuthorize("@ss.hasPermi('mes:cal:calplan:edit')")
     @Log(title = "排班计划", businessType = BusinessType.UPDATE)
+    @Transactional
     @PutMapping
     public AjaxResult edit(@RequestBody CalPlan calPlan)
     {
+        if(UserConstants.ORDER_STATUS_CONFIRMED.equals(calPlan.getStatus())){
+
+            calTeamshiftService.genRecords(calPlan.getPlanId());
+        }
         return toAjax(calPlanService.updateCalPlan(calPlan));
     }
 

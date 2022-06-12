@@ -41,7 +41,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="shiftType != null  and shiftType != ''"> and shift_type = #{shiftType}</if>
             <if test="shiftMethod != null  and shiftMethod != ''"> and shift_method = #{shiftMethod}</if>
             <if test="shiftCount != null "> and shift_count = #{shiftCount}</if>
-            <if test="status != and status !='' "> and status = #{status}</if>
+            <if test="status !=null and status !='' "> and status = #{status}</if>
         </where>
     </select>
     

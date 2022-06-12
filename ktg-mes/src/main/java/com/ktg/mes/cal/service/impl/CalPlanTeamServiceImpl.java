@@ -48,6 +48,13 @@ public class CalPlanTeamServiceImpl implements ICalPlanTeamService
     }
 
     @Override
+    public List<CalPlanTeam> selectCalPlanTeamListByPlanId(Long plandId) {
+        CalPlanTeam param = new CalPlanTeam();
+        param.setPlanId(plandId);
+        return calPlanTeamMapper.selectCalPlanTeamList(param);
+    }
+
+    @Override
     public String checkPlanTeamUnique(CalPlanTeam calPlanTeam) {
         CalPlanTeam team = calPlanTeamMapper.checkPlanTeamUnique(calPlanTeam);
         Long recodeId = calPlanTeam.getRecordId()==null?-1L:calPlanTeam.getRecordId();

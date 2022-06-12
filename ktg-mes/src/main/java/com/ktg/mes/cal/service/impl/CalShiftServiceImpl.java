@@ -47,6 +47,13 @@ public class CalShiftServiceImpl implements ICalShiftService
     }
 
     @Override
+    public List<CalShift> selectCalShiftListByPlanId(Long planId) {
+        CalShift param = new CalShift();
+        param.setPlanId(planId);
+        return calShiftMapper.selectCalShiftList(param);
+    }
+
+    @Override
     public int checkShiftCount(Long planId) {
         return calShiftMapper.checkShiftCount(planId);
     }

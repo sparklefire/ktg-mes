@@ -27,6 +27,9 @@ public interface ICalPlanTeamService
      */
     public List<CalPlanTeam> selectCalPlanTeamList(CalPlanTeam calPlanTeam);
 
+    public List<CalPlanTeam> selectCalPlanTeamListByPlanId(Long plandId);
+
+
     public String checkPlanTeamUnique(CalPlanTeam calPlanTeam);
 
     /**

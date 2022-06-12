@@ -27,6 +27,14 @@ public interface ICalShiftService
      */
     public List<CalShift> selectCalShiftList(CalShift calShift);
 
+    /**
+     * 根据计划ID查询班次
+     * @param planId
+     * @return
+     */
+    public List<CalShift> selectCalShiftListByPlanId(Long planId);
+
+
     public int checkShiftCount(Long planId);
 
 

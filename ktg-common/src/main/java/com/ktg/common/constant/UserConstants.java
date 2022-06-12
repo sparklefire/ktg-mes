@@ -140,6 +140,10 @@ public class UserConstants
     public static final String CAL_SHIFT_NAME_DAY="白班";
     public static final String CAL_SHIFT_NAME_NIGHT="夜班";
     public static final String CAL_SHIFT_NAME_MID="中班";
+    public static final String CAL_SHIFT_METHOD_QUARTER="QUARTER";
+    public static final String CAL_SHIFT_METHOD_MONTH="MONTH";
+    public static final String CAL_SHIFT_METHOD_WEEK="WEEK";
+    public static final String CAL_SHIFT_METHOD_DAY="DAY";
 
     /**
      * 排班日历的查询方式

@@ -58,4 +58,9 @@ public interface ICalTeamshiftService
      * @return 结果
      */
     public int deleteCalTeamshiftByRecordId(Long recordId);
+
+
+    public void genRecords(Long plandId);
+
+
 }
