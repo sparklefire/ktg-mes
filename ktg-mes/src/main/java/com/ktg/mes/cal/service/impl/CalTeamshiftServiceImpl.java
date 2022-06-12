@@ -172,6 +172,13 @@ public class CalTeamshiftServiceImpl implements ICalTeamshiftService
                     shiftIndex ++;
                 }
             }
+            //按天
+            else{
+                //如果到了指定的轮班天数，并且不是刚开始
+                if(i%(plan.getShiftCount())==0 && i!=0){
+                    shiftIndex ++;
+                }
+            }
 
             //如果是单白班，不需要倒班
             if(UserConstants.CAL_SHIFT_TYPE_SINGLE.equals(plan.getShiftType())){
