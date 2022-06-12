@@ -62,6 +62,12 @@ PC端：
   - 节假日/工作日设置
 
     ![](https://gitee.com/kutangguo/ktg-mes/raw/master/doc/%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/%E5%8E%9F%E5%9E%8B%E8%AE%BE%E8%AE%A1/%E6%88%AA%E5%9B%BE/%E8%8A%82%E5%81%87%E6%97%A5%E8%AE%BE%E7%BD%AE.png)
+    
+  - 排班日历
+
+    ![](https://gitee.com/kutangguo/ktg-mes/raw/master/doc/%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/%E5%8E%9F%E5%9E%8B%E8%AE%BE%E8%AE%A1/%E6%88%AA%E5%9B%BE/%E6%8E%92%E7%8F%AD%E6%97%A5%E5%8E%86.png)
+    
+    
 
 - 仓储管理
   
