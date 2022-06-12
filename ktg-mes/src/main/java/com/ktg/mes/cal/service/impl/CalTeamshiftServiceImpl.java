@@ -232,7 +232,7 @@ public class CalTeamshiftServiceImpl implements ICalTeamshiftService
                     beanA.setTeamName(teams.get(0).getTeamName());
                     beanA.setShiftId(shifts.get(1).getShiftId());
                     beanA.setShiftName(shifts.get(1).getShiftName());
-                    beanA.setOrderNum(1L);
+                    beanA.setOrderNum(2L);
                     saveTeamShift(beanA);
                     //B组上白班
                     CalTeamshift beanB = new CalTeamshift();
@@ -244,7 +244,7 @@ public class CalTeamshiftServiceImpl implements ICalTeamshiftService
                     beanB.setTeamName(teams.get(1).getTeamName());
                     beanB.setShiftId(shifts.get(0).getShiftId());
                     beanB.setShiftName(shifts.get(0).getShiftName());
-                    beanB.setOrderNum(2L);
+                    beanB.setOrderNum(1L);
                     saveTeamShift(beanB);
                 }
             }
@@ -286,7 +286,7 @@ public class CalTeamshiftServiceImpl implements ICalTeamshiftService
                     beanC.setTeamName(teams.get(2).getTeamName());
                     beanC.setShiftId(shifts.get(2).getShiftId());
                     beanC.setShiftName(shifts.get(2).getShiftName());
-                    beanC.setOrderNum(2L);
+                    beanC.setOrderNum(3L);
                     saveTeamShift(beanC);
                 }else if(shiftIndex%2 == 1){
                     //A组上中班
@@ -299,7 +299,7 @@ public class CalTeamshiftServiceImpl implements ICalTeamshiftService
                     beanA.setTeamName(teams.get(0).getTeamName());
                     beanA.setShiftId(shifts.get(1).getShiftId());
                     beanA.setShiftName(shifts.get(1).getShiftName());
-                    beanA.setOrderNum(1L);
+                    beanA.setOrderNum(2L);
                     saveTeamShift(beanA);
                     //B组上夜班
                     CalTeamshift beanB = new CalTeamshift();
@@ -311,7 +311,7 @@ public class CalTeamshiftServiceImpl implements ICalTeamshiftService
                     beanB.setTeamName(teams.get(1).getTeamName());
                     beanB.setShiftId(shifts.get(2).getShiftId());
                     beanB.setShiftName(shifts.get(2).getShiftName());
-                    beanB.setOrderNum(2L);
+                    beanB.setOrderNum(3L);
                     saveTeamShift(beanB);
                     //C组上白班
                     CalTeamshift beanC = new CalTeamshift();
@@ -323,7 +323,7 @@ public class CalTeamshiftServiceImpl implements ICalTeamshiftService
                     beanC.setTeamName(teams.get(2).getTeamName());
                     beanC.setShiftId(shifts.get(0).getShiftId());
                     beanC.setShiftName(shifts.get(0).getShiftName());
-                    beanC.setOrderNum(2L);
+                    beanC.setOrderNum(1L);
                     saveTeamShift(beanC);
                 }else{
                     //A组上夜班
@@ -336,7 +336,7 @@ public class CalTeamshiftServiceImpl implements ICalTeamshiftService
                     beanA.setTeamName(teams.get(0).getTeamName());
                     beanA.setShiftId(shifts.get(2).getShiftId());
                     beanA.setShiftName(shifts.get(2).getShiftName());
-                    beanA.setOrderNum(1L);
+                    beanA.setOrderNum(3L);
                     saveTeamShift(beanA);
                     //B组上白班
                     CalTeamshift beanB = new CalTeamshift();
@@ -348,7 +348,7 @@ public class CalTeamshiftServiceImpl implements ICalTeamshiftService
                     beanB.setTeamName(teams.get(1).getTeamName());
                     beanB.setShiftId(shifts.get(0).getShiftId());
                     beanB.setShiftName(shifts.get(0).getShiftName());
-                    beanB.setOrderNum(2L);
+                    beanB.setOrderNum(1L);
                     saveTeamShift(beanB);
                     //C组上中班
                     CalTeamshift beanC = new CalTeamshift();
