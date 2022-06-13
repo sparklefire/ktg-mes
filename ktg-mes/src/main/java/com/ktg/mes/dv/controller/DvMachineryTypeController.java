@@ -3,7 +3,10 @@ package com.ktg.mes.dv.controller;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
+import cn.hutool.core.collection.CollUtil;
 import com.ktg.common.constant.UserConstants;
+import com.ktg.mes.dv.domain.DvMachinery;
+import com.ktg.mes.dv.service.IDvMachineryService;
 import com.ktg.system.strategy.AutoCodeUtil;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +38,9 @@ public class DvMachineryTypeController extends BaseController
 {
     @Autowired
     private IDvMachineryTypeService dvMachineryTypeService;
+
+    @Autowired
+    private IDvMachineryService dvMachineryService;
 
     @Autowired
     private AutoCodeUtil autoCodeUtil;
@@ -103,6 +109,16 @@ public class DvMachineryTypeController extends BaseController
 	@DeleteMapping("/{machineryTypeIds}")
     public AjaxResult remove(@PathVariable Long[] machineryTypeIds)
     {
+        for (Long typeId:machineryTypeIds
+             ) {
+            DvMachinery param = new DvMachinery();
+            param.setMachineryId(typeId);
+            List<DvMachinery> machinerys = dvMachineryService.selectDvMachineryList(param);
+            if(CollUtil.isNotEmpty(machinerys)){
+                return AjaxResult.error("设备类型下已配置了设备，不能删除！");
+            }
+        }
+
         return toAjax(dvMachineryTypeService.deleteDvMachineryTypeByMachineryTypeIds(machineryTypeIds));
     }
 }
