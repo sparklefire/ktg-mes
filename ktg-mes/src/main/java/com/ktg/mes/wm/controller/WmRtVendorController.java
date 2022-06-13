@@ -119,4 +119,18 @@ public class WmRtVendorController extends BaseController
         }
         return toAjax(wmRtVendorService.deleteWmRtVendorByRtIds(rtIds));
     }
+
+    /**
+     * 执行退货
+     */
+    @PreAuthorize("@ss.hasPermi('mes:wm:rtvendor:edit')")
+    @Log(title = "供应商退货单", businessType = BusinessType.UPDATE)
+    @Transactional
+    @PutMapping("/{rtId}")
+    public AjaxResult execute(@PathVariable Long rtId){
+
+        return AjaxResult.success();
+    }
+
+
 }
