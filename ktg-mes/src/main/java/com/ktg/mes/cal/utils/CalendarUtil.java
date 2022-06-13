@@ -432,7 +432,7 @@ public class CalendarUtil {
     }
 
 
-    private static Date getNext(Date date) {
+    public static Date getNext(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         calendar.add(Calendar.DATE, 1);

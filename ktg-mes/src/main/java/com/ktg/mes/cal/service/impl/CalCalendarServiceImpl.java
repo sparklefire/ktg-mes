@@ -2,18 +2,24 @@ package com.ktg.mes.cal.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import com.ktg.mes.cal.domain.CalCalendar;
+import com.ktg.mes.cal.domain.CalHoliday;
 import com.ktg.mes.cal.domain.CalTeamMember;
 import com.ktg.mes.cal.domain.CalTeamshift;
 import com.ktg.mes.cal.mapper.CalPlanMapper;
+import com.ktg.mes.cal.mapper.CalTeamMemberMapper;
 import com.ktg.mes.cal.mapper.CalTeamshiftMapper;
 import com.ktg.mes.cal.service.ICalCalendarService;
+import com.ktg.mes.cal.service.ICalHolidayService;
 import com.ktg.mes.cal.service.ICalTeamMemberService;
 import com.ktg.mes.cal.utils.CalendarUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CalCalendarServiceImpl implements ICalCalendarService {
@@ -25,10 +31,12 @@ public class CalCalendarServiceImpl implements ICalCalendarService {
     private CalTeamshiftMapper calTeamshiftMapper;
 
     @Autowired
-    private ICalTeamMemberService calTeamMemberService;
+    private CalTeamMemberMapper calTeamMemberMapper;
 
 
-    /**
+
+
+   /**
      * 1.循环生成当前月份每一天的CalCalendar
      * 2.根据月份和班组类型查询合适的plan
      * 3.根据plan上的Shift_type和shift_method计算每个班组的班次
@@ -79,7 +87,7 @@ public class CalCalendarServiceImpl implements ICalCalendarService {
 
         CalTeamMember param = new CalTeamMember();
         param.setUserId(userId);
-        List<CalTeamMember> members = calTeamMemberService.selectCalTeamMemberList(param);
+        List<CalTeamMember> members = calTeamMemberMapper.selectCalTeamMemberList(param);
         if(CollUtil.isNotEmpty(members)){
             Long teamId = members.get(0).getTeamId();
             calendars = CalendarUtil.getDays(day);
@@ -98,6 +106,4 @@ public class CalCalendarServiceImpl implements ICalCalendarService {
 
         return calendars;
     }
-
-
 }
