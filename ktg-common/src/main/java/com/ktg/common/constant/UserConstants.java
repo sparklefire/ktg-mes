@@ -121,7 +121,7 @@ public class UserConstants
      * 库存事务类型
      */
     public static final String TRANSACTION_TYPE_ITEM_RECPT = "ITEM_RECPT"; //原材料接收入库
-    public static final String TRANSACTION_TYPE_ITEM_RV = "ITEM_RV"; //原材料退回供应商
+    public static final String TRANSACTION_TYPE_ITEM_RTV = "ITEM_RTV"; //原材料退回供应商
     public static final String TRANSACTION_TYPE_ITEM_ISSUE = "ITEM_ISSUE"; //原材料领用出库
     public static final String TRANSACTION_TYPE_ITEM_RS = "ITEM_RS"; //原材料退库
     public static final String TRANSACTION_TYPE_WAREHOUSE_TRANS_OUT = "TRANS_OUT"; //移库,移出

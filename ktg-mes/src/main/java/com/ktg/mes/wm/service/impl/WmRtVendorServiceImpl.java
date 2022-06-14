@@ -5,6 +5,7 @@ import java.util.List;
 import com.ktg.common.constant.UserConstants;
 import com.ktg.common.utils.DateUtils;
 import com.ktg.common.utils.StringUtils;
+import com.ktg.mes.wm.domain.tx.RtVendorTxBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ktg.mes.wm.mapper.WmRtVendorMapper;
@@ -105,5 +106,10 @@ public class WmRtVendorServiceImpl implements IWmRtVendorService
     public int deleteWmRtVendorByRtId(Long rtId)
     {
         return wmRtVendorMapper.deleteWmRtVendorByRtId(rtId);
+    }
+
+    @Override
+    public List<RtVendorTxBean> getTxBeans(Long rtId) {
+        return wmRtVendorMapper.getTxBeans(rtId);
     }
 }

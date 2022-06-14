@@ -11,6 +11,7 @@ import com.ktg.mes.md.domain.MdItem;
 import com.ktg.mes.md.mapper.MdItemMapper;
 import com.ktg.mes.wm.domain.WmMaterialStock;
 import com.ktg.mes.wm.mapper.WmMaterialStockMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ktg.mes.wm.mapper.WmTransactionMapper;
@@ -46,7 +47,11 @@ public class WmTransactionServiceImpl implements IWmTransactionService
         BigDecimal quantity = wmTransaction.getTransactionQuantity().multiply(new BigDecimal(wmTransaction.getTransactionFlag()));
         if(StringUtils.isNotNull(ms)){
             //MS已存在
-            stock.setQuantityOnhand(ms.getQuantityOnhand().add(quantity));
+            BigDecimal resultQuantity =ms.getQuantityOnhand().add(quantity);
+            if(resultQuantity.compareTo(new BigDecimal(0))<0){
+                throw new BussinessException("库存数量不足！");
+            }
+            stock.setQuantityOnhand(resultQuantity);
             stock.setMaterialStockId(ms.getMaterialStockId());
             wmMaterialStockMapper.updateWmMaterialStock(stock);
         }else {
@@ -85,32 +90,37 @@ public class WmTransactionServiceImpl implements IWmTransactionService
 
     public void initStock(WmTransaction transaction,WmMaterialStock stock){
 
-        MdItem item =mdItemMapper.selectMdItemById(transaction.getItemId());
-        stock.setItemTypeId(item.getItemTypeId());
-        stock.setItemId(transaction.getItemId());
-        stock.setItemCode(transaction.getItemCode());
-        stock.setItemName(transaction.getItemName());
-        stock.setSpecification(transaction.getSpecification());
-        stock.setUnitOfMeasure(transaction.getUnitOfMeasure());
-        stock.setBatchCode(transaction.getBatchCode());
-        stock.setWarehouseId(transaction.getWarehouseId());
-        stock.setWarehouseCode(transaction.getWarehouseCode());
-        stock.setWarehouseName(transaction.getWarehouseName());
-        stock.setLocationId(transaction.getLocationId());
-        stock.setLocationCode(transaction.getLocationCode());
-        stock.setLocationName(transaction.getLocationName());
-        if(StringUtils.isNotNull(transaction.getAreaId())){
-            stock.setAreaId(transaction.getAreaId());
-            stock.setAreaCode(transaction.getAreaCode());
-            stock.setAreaName(transaction.getAreaName());
+        if(StringUtils.isNotNull(transaction.getMaterialStockId())){
+            WmMaterialStock st = wmMaterialStockMapper.selectWmMaterialStockByMaterialStockId(transaction.getMaterialStockId());
+            BeanUtils.copyProperties(st,stock);
+        }else{
+            MdItem item =mdItemMapper.selectMdItemById(transaction.getItemId());
+            stock.setItemTypeId(item.getItemTypeId());
+            stock.setItemId(transaction.getItemId());
+            stock.setItemCode(transaction.getItemCode());
+            stock.setItemName(transaction.getItemName());
+            stock.setSpecification(transaction.getSpecification());
+            stock.setUnitOfMeasure(transaction.getUnitOfMeasure());
+            stock.setBatchCode(transaction.getBatchCode());
+            stock.setWarehouseId(transaction.getWarehouseId());
+            stock.setWarehouseCode(transaction.getWarehouseCode());
+            stock.setWarehouseName(transaction.getWarehouseName());
+            stock.setLocationId(transaction.getLocationId());
+            stock.setLocationCode(transaction.getLocationCode());
+            stock.setLocationName(transaction.getLocationName());
+            if(StringUtils.isNotNull(transaction.getAreaId())){
+                stock.setAreaId(transaction.getAreaId());
+                stock.setAreaCode(transaction.getAreaCode());
+                stock.setAreaName(transaction.getAreaName());
+            }
+            if(StringUtils.isNotNull(transaction.getVendorId())){
+                stock.setVendorId(transaction.getVendorId());
+                stock.setVendorCode(transaction.getVendorCode());
+                stock.setVendorName(transaction.getVendorName());
+                stock.setVendorNick(transaction.getVendorNick());
+            }
+            stock.setExpireDate(transaction.getExpireDate());
         }
-        if(StringUtils.isNotNull(transaction.getVendorId())){
-            stock.setVendorId(transaction.getVendorId());
-            stock.setVendorCode(transaction.getVendorCode());
-            stock.setVendorName(transaction.getVendorName());
-            stock.setVendorNick(transaction.getVendorNick());
-        }
-        stock.setExpireDate(transaction.getExpireDate());
     }
 
 

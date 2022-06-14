@@ -4,6 +4,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ktg.common.constant.UserConstants;
+import com.ktg.mes.wm.domain.tx.RtVendorTxBean;
+import com.ktg.mes.wm.service.IStorageCoreService;
 import com.ktg.mes.wm.service.IWmRtVendorLineService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +43,8 @@ public class WmRtVendorController extends BaseController
     @Autowired
     private IWmRtVendorLineService wmRtVendorLineService;
 
+    @Autowired
+    private IStorageCoreService storageCoreService;
     /**
      * 查询供应商退货列表
      */
@@ -135,6 +139,15 @@ public class WmRtVendorController extends BaseController
         }
 
         //构造事务Bean
+        List<RtVendorTxBean> beans = wmRtVendorService.getTxBeans(rtId);
+
+        //调用库存核心
+        storageCoreService.processRtVendor(beans);
+
+        //更新单据状态
+        WmRtVendor rtVendor = wmRtVendorService.selectWmRtVendorByRtId(rtId);
+        rtVendor.setStatus(UserConstants.ORDER_STATUS_FINISHED);
+        wmRtVendorService.updateWmRtVendor(rtVendor);
 
         return AjaxResult.success();
     }
