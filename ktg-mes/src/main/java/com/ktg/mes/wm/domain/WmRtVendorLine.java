@@ -19,6 +19,8 @@ public class WmRtVendorLine extends BaseEntity
     /** 行ID */
     private Long lineId;
 
+    private Long materialStockId;
+
     /** 退货单ID */
     @Excel(name = "退货单ID")
     private Long rtId;
@@ -108,7 +110,16 @@ public class WmRtVendorLine extends BaseEntity
     {
         return lineId;
     }
-    public void setRtId(Long rtId) 
+
+    public Long getMaterialStockId() {
+        return materialStockId;
+    }
+
+    public void setMaterialStockId(Long materialStockId) {
+        this.materialStockId = materialStockId;
+    }
+
+    public void setRtId(Long rtId)
     {
         this.rtId = rtId;
     }
@@ -300,34 +311,30 @@ public class WmRtVendorLine extends BaseEntity
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("lineId", getLineId())
-            .append("rtId", getRtId())
-            .append("itemId", getItemId())
-            .append("itemCode", getItemCode())
-            .append("itemName", getItemName())
-            .append("specification", getSpecification())
-            .append("unitOfMeasure", getUnitOfMeasure())
-            .append("quantityRted", getQuantityRted())
-            .append("batchCode", getBatchCode())
-            .append("warehouseId", getWarehouseId())
-            .append("warehouseCode", getWarehouseCode())
-            .append("warehouseName", getWarehouseName())
-            .append("locationId", getLocationId())
-            .append("locationCode", getLocationCode())
-            .append("locationName", getLocationName())
-            .append("areaId", getAreaId())
-            .append("areaCode", getAreaCode())
-            .append("areaName", getAreaName())
-            .append("remark", getRemark())
-            .append("attr1", getAttr1())
-            .append("attr2", getAttr2())
-            .append("attr3", getAttr3())
-            .append("attr4", getAttr4())
-            .append("createBy", getCreateBy())
-            .append("createTime", getCreateTime())
-            .append("updateBy", getUpdateBy())
-            .append("updateTime", getUpdateTime())
-            .toString();
+        return "WmRtVendorLine{" +
+                "lineId=" + lineId +
+                ", materialStockId=" + materialStockId +
+                ", rtId=" + rtId +
+                ", itemId=" + itemId +
+                ", itemCode='" + itemCode + '\'' +
+                ", itemName='" + itemName + '\'' +
+                ", specification='" + specification + '\'' +
+                ", unitOfMeasure='" + unitOfMeasure + '\'' +
+                ", quantityRted=" + quantityRted +
+                ", batchCode='" + batchCode + '\'' +
+                ", warehouseId=" + warehouseId +
+                ", warehouseCode='" + warehouseCode + '\'' +
+                ", warehouseName='" + warehouseName + '\'' +
+                ", locationId=" + locationId +
+                ", locationCode='" + locationCode + '\'' +
+                ", locationName='" + locationName + '\'' +
+                ", areaId=" + areaId +
+                ", areaCode='" + areaCode + '\'' +
+                ", areaName='" + areaName + '\'' +
+                ", attr1='" + attr1 + '\'' +
+                ", attr2='" + attr2 + '\'' +
+                ", attr3=" + attr3 +
+                ", attr4=" + attr4 +
+                '}';
     }
 }

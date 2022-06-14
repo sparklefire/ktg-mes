@@ -7,6 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <resultMap type="WmRtVendorLine" id="WmRtVendorLineResult">
         <result property="lineId"    column="line_id"    />
         <result property="rtId"    column="rt_id"    />
+        <result property="materialStockId"    column="material_stock_id"    />
         <result property="itemId"    column="item_id"    />
         <result property="itemCode"    column="item_code"    />
         <result property="itemName"    column="item_name"    />
@@ -35,13 +36,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectWmRtVendorLineVo">
-        select line_id, rt_id, item_id, item_code, item_name, specification, unit_of_measure, quantity_rted, batch_code, warehouse_id, warehouse_code, warehouse_name, location_id, location_code, location_name, area_id, area_code, area_name, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from wm_rt_vendor_line
+        select line_id, rt_id, material_stock_id, item_id, item_code, item_name, specification, unit_of_measure, quantity_rted, batch_code, warehouse_id, warehouse_code, warehouse_name, location_id, location_code, location_name, area_id, area_code, area_name, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from wm_rt_vendor_line
     </sql>
 
     <select id="selectWmRtVendorLineList" parameterType="WmRtVendorLine" resultMap="WmRtVendorLineResult">
         <include refid="selectWmRtVendorLineVo"/>
         <where>  
             <if test="rtId != null "> and rt_id = #{rtId}</if>
+            <if test="materialStockId != null "> and material_stock_id = #{materialStockId}</if>
             <if test="itemId != null "> and item_id = #{itemId}</if>
             <if test="itemCode != null  and itemCode != ''"> and item_code = #{itemCode}</if>
             <if test="itemName != null  and itemName != ''"> and item_name like concat('%', #{itemName}, '%')</if>
@@ -70,6 +72,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         insert into wm_rt_vendor_line
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="rtId != null">rt_id,</if>
+            <if test="materialStockId != null">material_stock_id,</if>
             <if test="itemId != null">item_id,</if>
             <if test="itemCode != null">item_code,</if>
             <if test="itemName != null">item_name,</if>
@@ -98,6 +101,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="rtId != null">#{rtId},</if>
+            <if test="materialStockId != null">#{materialStockId},</if>
             <if test="itemId != null">#{itemId},</if>
             <if test="itemCode != null">#{itemCode},</if>
             <if test="itemName != null">#{itemName},</if>
@@ -130,6 +134,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         update wm_rt_vendor_line
         <trim prefix="SET" suffixOverrides=",">
             <if test="rtId != null">rt_id = #{rtId},</if>
+            <if test="materialStockId != null">material_stock_id = #{materialStockId},</if>
             <if test="itemId != null">item_id = #{itemId},</if>
             <if test="itemCode != null">item_code = #{itemCode},</if>
             <if test="itemName != null">item_name = #{itemName},</if>

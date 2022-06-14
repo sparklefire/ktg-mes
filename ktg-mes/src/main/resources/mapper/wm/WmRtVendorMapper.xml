@@ -13,6 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="vendorCode"    column="vendor_code"    />
         <result property="vendorName"    column="vendor_name"    />
         <result property="vendorNick"    column="vendor_nick"    />
+        <result property="batchCode"    column="batch_code"    />
         <result property="rtDate"    column="rt_date"    />
         <result property="status"    column="status"    />
         <result property="remark"    column="remark"    />
@@ -27,7 +28,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectWmRtVendorVo">
-        select rt_id, rt_code, rt_name, po_code, vendor_id, vendor_code, vendor_name, vendor_nick, rt_date, status, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from wm_rt_vendor
+        select rt_id, rt_code, rt_name, po_code, vendor_id, vendor_code, vendor_name, vendor_nick, batch_code, rt_date, status, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from wm_rt_vendor
     </sql>
 
     <select id="selectWmRtVendorList" parameterType="WmRtVendor" resultMap="WmRtVendorResult">
@@ -40,6 +41,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="vendorCode != null  and vendorCode != ''"> and vendor_code = #{vendorCode}</if>
             <if test="vendorName != null  and vendorName != ''"> and vendor_name like concat('%', #{vendorName}, '%')</if>
             <if test="vendorNick != null  and vendorNick != ''"> and vendor_nick = #{vendorNick}</if>
+            <if test="batchCode != null  and batchCode != ''"> and batch_code = #{batchCode}</if>
             <if test="rtDate != null "> and rt_date = #{rtDate}</if>
             <if test="status != null  and status != ''"> and status = #{status}</if>
         </where>
@@ -65,6 +67,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="vendorCode != null">vendor_code,</if>
             <if test="vendorName != null">vendor_name,</if>
             <if test="vendorNick != null">vendor_nick,</if>
+            <if test="batchCode != null">batch_code,</if>
             <if test="rtDate != null">rt_date,</if>
             <if test="status != null">status,</if>
             <if test="remark != null">remark,</if>
@@ -85,6 +88,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="vendorCode != null">#{vendorCode},</if>
             <if test="vendorName != null">#{vendorName},</if>
             <if test="vendorNick != null">#{vendorNick},</if>
+            <if test="batchCode != null">#{batchCode},</if>
             <if test="rtDate != null">#{rtDate},</if>
             <if test="status != null">#{status},</if>
             <if test="remark != null">#{remark},</if>
@@ -109,6 +113,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="vendorCode != null">vendor_code = #{vendorCode},</if>
             <if test="vendorName != null">vendor_name = #{vendorName},</if>
             <if test="vendorNick != null">vendor_nick = #{vendorNick},</if>
+            <if test="batchCode != null">batch_code = #{batchCode},</if>
             <if test="rtDate != null">rt_date = #{rtDate},</if>
             <if test="status != null">status = #{status},</if>
             <if test="remark != null">remark = #{remark},</if>

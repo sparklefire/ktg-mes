@@ -48,6 +48,9 @@ public class WmRtVendor extends BaseEntity
     @Excel(name = "供应商简称")
     private String vendorNick;
 
+    @Excel(name = "批次号" )
+    private String batchCode;
+
     /** 退货日期 */
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Excel(name = "退货日期", width = 30, dateFormat = "yyyy-MM-dd")
@@ -146,7 +149,15 @@ public class WmRtVendor extends BaseEntity
         this.rtDate = rtDate;
     }
 
-    public Date getRtDate() 
+    public String getBatchCode() {
+        return batchCode;
+    }
+
+    public void setBatchCode(String batchCode) {
+        this.batchCode = batchCode;
+    }
+
+    public Date getRtDate()
     {
         return rtDate;
     }
@@ -198,26 +209,22 @@ public class WmRtVendor extends BaseEntity
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("rtId", getRtId())
-            .append("rtCode", getRtCode())
-            .append("rtName", getRtName())
-            .append("poCode", getPoCode())
-            .append("vendorId", getVendorId())
-            .append("vendorCode", getVendorCode())
-            .append("vendorName", getVendorName())
-            .append("vendorNick", getVendorNick())
-            .append("rtDate", getRtDate())
-            .append("status", getStatus())
-            .append("remark", getRemark())
-            .append("attr1", getAttr1())
-            .append("attr2", getAttr2())
-            .append("attr3", getAttr3())
-            .append("attr4", getAttr4())
-            .append("createBy", getCreateBy())
-            .append("createTime", getCreateTime())
-            .append("updateBy", getUpdateBy())
-            .append("updateTime", getUpdateTime())
-            .toString();
+        return "WmRtVendor{" +
+                "rtId=" + rtId +
+                ", rtCode='" + rtCode + '\'' +
+                ", rtName='" + rtName + '\'' +
+                ", poCode='" + poCode + '\'' +
+                ", vendorId=" + vendorId +
+                ", vendorCode='" + vendorCode + '\'' +
+                ", vendorName='" + vendorName + '\'' +
+                ", vendorNick='" + vendorNick + '\'' +
+                ", batchCode='" + batchCode + '\'' +
+                ", rtDate=" + rtDate +
+                ", status='" + status + '\'' +
+                ", attr1='" + attr1 + '\'' +
+                ", attr2='" + attr2 + '\'' +
+                ", attr3=" + attr3 +
+                ", attr4=" + attr4 +
+                '}';
     }
 }

@@ -128,6 +128,13 @@ public class WmRtVendorController extends BaseController
     @Transactional
     @PutMapping("/{rtId}")
     public AjaxResult execute(@PathVariable Long rtId){
+        //判断单据状态
+        WmRtVendor wmRtVendor = wmRtVendorService.selectWmRtVendorByRtId(rtId);
+        if(!UserConstants.ORDER_STATUS_CONFIRMED.equals(wmRtVendor.getStatus())){
+            return AjaxResult.error("请先确认单据！");
+        }
+
+        //构造事务Bean
 
         return AjaxResult.success();
     }
