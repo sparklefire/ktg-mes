@@ -258,7 +258,8 @@ create table wm_rt_vendor (
   vendor_code           varchar(64)                                 comment '供应商编码',
   vendor_name           varchar(255)                                comment '供应商名称',
   vendor_nick           varchar(255)                                comment '供应商简称',
-  rt_date            datetime                                       comment '退货日期',
+  batch_code            varchar(255)                                comment '批次号',
+  rt_date               datetime                                    comment '退货日期',
   status                varchar(64)     default 'PREPARE'           comment '单据状态',  
   remark                varchar(500)    default ''                  comment '备注',
   attr1                 varchar(64)     default null                comment '预留字段1',
@@ -280,6 +281,7 @@ drop table if exists wm_rt_vendor_line;
 create table wm_rt_vendor_line (
   line_id               bigint(20)      not null auto_increment     comment '行ID',
   rt_id                 bigint(20)                                  comment '退货单ID',
+  material_stock_id     bigint(20)                                  comment '库存记录ID',
   item_id               bigint(20)      not null                    comment '产品物料ID',
   item_code             varchar(64)                                 comment '产品物料编码',
   item_name             varchar(255)                                comment '产品物料名称',
