@@ -136,6 +136,10 @@ public class ProWorkorderController extends BaseController
     {
         for (Long id:workorderIds
              ) {
+            ProWorkorder workorder = proWorkorderService.selectProWorkorderByWorkorderId(id);
+            if(!UserConstants.ORDER_STATUS_PREPARE.equals(workorder.getStatus())){
+                return AjaxResult.error("只能删除草稿状态单据！");
+            }
             removeBomLine(id);
         }
         return toAjax(proWorkorderService.deleteProWorkorderByWorkorderIds(workorderIds));
