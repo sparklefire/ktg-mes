@@ -129,6 +129,11 @@ public class CalPlanController extends BaseController
     {
         for (Long planId:planIds
              ) {
+            //状态判断
+            CalPlan plan = calPlanService.selectCalPlanByPlanId(planId);
+            if(!UserConstants.ORDER_STATUS_PREPARE.equals(plan.getStatus())){
+                return AjaxResult.error("只能删除草稿状态单据！");
+            }
             calShiftService.deleteByPlanId(planId);
             calPlanTeamService.deleteByPlanId(planId);
         }
