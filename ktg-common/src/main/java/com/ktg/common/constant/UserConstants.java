@@ -88,7 +88,7 @@ public class UserConstants
     /**
      * 单据的状态类型
      */
-    public static final String ORDER_STATUS_PREPAR="PREPARE";
+    public static final String ORDER_STATUS_PREPARE="PREPARE";
     public static final String ORDER_STATUS_CONFIRMED="CONFIRMED";
     public static final String ORDER_STATUS_APPROVING="APPROVING";
     public static final String ORDER_STATUS_APPROVED="APPROVED";
