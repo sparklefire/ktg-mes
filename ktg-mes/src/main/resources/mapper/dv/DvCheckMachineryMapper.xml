@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ktg.mes.dv.mapper.DvCheckMachineryMapper">
+    
+    <resultMap type="DvCheckMachinery" id="DvCheckMachineryResult">
+        <result property="recordId"    column="record_id"    />
+        <result property="planId"    column="plan_id"    />
+        <result property="machineryId"    column="machinery_id"    />
+        <result property="machineryCode"    column="machinery_code"    />
+        <result property="machineryName"    column="machinery_name"    />
+        <result property="machineryBrand"    column="machinery_brand"    />
+        <result property="machinerySpec"    column="machinery_spec"    />
+        <result property="remark"    column="remark"    />
+        <result property="attr1"    column="attr1"    />
+        <result property="attr2"    column="attr2"    />
+        <result property="attr3"    column="attr3"    />
+        <result property="attr4"    column="attr4"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectDvCheckMachineryVo">
+        select record_id, plan_id, machinery_id, machinery_code, machinery_name, machinery_brand, machinery_spec, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from dv_check_machinery
+    </sql>
+
+    <select id="selectDvCheckMachineryList" parameterType="DvCheckMachinery" resultMap="DvCheckMachineryResult">
+        <include refid="selectDvCheckMachineryVo"/>
+        <where>  
+            <if test="planId != null "> and plan_id = #{planId}</if>
+            <if test="machineryId != null "> and machinery_id = #{machineryId}</if>
+            <if test="machineryCode != null  and machineryCode != ''"> and machinery_code = #{machineryCode}</if>
+            <if test="machineryName != null  and machineryName != ''"> and machinery_name like concat('%', #{machineryName}, '%')</if>
+            <if test="machineryBrand != null  and machineryBrand != ''"> and machinery_brand = #{machineryBrand}</if>
+            <if test="machinerySpec != null  and machinerySpec != ''"> and machinery_spec = #{machinerySpec}</if>
+        </where>
+    </select>
+    
+    <select id="selectDvCheckMachineryByRecordId" parameterType="Long" resultMap="DvCheckMachineryResult">
+        <include refid="selectDvCheckMachineryVo"/>
+        where record_id = #{recordId}
+    </select>
+
+    <select id="checkMachineryUnique" parameterType="DvCheckMachinery" resultMap="DvCheckMachineryResult">
+        <include refid="selectDvCheckMachineryVo"/>
+        where machinery_id = #{machineryId}
+    </select>
+        
+    <insert id="insertDvCheckMachinery" parameterType="DvCheckMachinery" useGeneratedKeys="true" keyProperty="recordId">
+        insert into dv_check_machinery
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="planId != null">plan_id,</if>
+            <if test="machineryId != null">machinery_id,</if>
+            <if test="machineryCode != null and machineryCode != ''">machinery_code,</if>
+            <if test="machineryName != null and machineryName != ''">machinery_name,</if>
+            <if test="machineryBrand != null">machinery_brand,</if>
+            <if test="machinerySpec != null">machinery_spec,</if>
+            <if test="remark != null">remark,</if>
+            <if test="attr1 != null">attr1,</if>
+            <if test="attr2 != null">attr2,</if>
+            <if test="attr3 != null">attr3,</if>
+            <if test="attr4 != null">attr4,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="planId != null">#{planId},</if>
+            <if test="machineryId != null">#{machineryId},</if>
+            <if test="machineryCode != null and machineryCode != ''">#{machineryCode},</if>
+            <if test="machineryName != null and machineryName != ''">#{machineryName},</if>
+            <if test="machineryBrand != null">#{machineryBrand},</if>
+            <if test="machinerySpec != null">#{machinerySpec},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="attr1 != null">#{attr1},</if>
+            <if test="attr2 != null">#{attr2},</if>
+            <if test="attr3 != null">#{attr3},</if>
+            <if test="attr4 != null">#{attr4},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateDvCheckMachinery" parameterType="DvCheckMachinery">
+        update dv_check_machinery
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="planId != null">plan_id = #{planId},</if>
+            <if test="machineryId != null">machinery_id = #{machineryId},</if>
+            <if test="machineryCode != null and machineryCode != ''">machinery_code = #{machineryCode},</if>
+            <if test="machineryName != null and machineryName != ''">machinery_name = #{machineryName},</if>
+            <if test="machineryBrand != null">machinery_brand = #{machineryBrand},</if>
+            <if test="machinerySpec != null">machinery_spec = #{machinerySpec},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="attr1 != null">attr1 = #{attr1},</if>
+            <if test="attr2 != null">attr2 = #{attr2},</if>
+            <if test="attr3 != null">attr3 = #{attr3},</if>
+            <if test="attr4 != null">attr4 = #{attr4},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where record_id = #{recordId}
+    </update>
+
+    <delete id="deleteDvCheckMachineryByRecordId" parameterType="Long">
+        delete from dv_check_machinery where record_id = #{recordId}
+    </delete>
+
+    <delete id="deleteDvCheckMachineryByRecordIds" parameterType="String">
+        delete from dv_check_machinery where record_id in 
+        <foreach item="recordId" collection="array" open="(" separator="," close=")">
+            #{recordId}
+        </foreach>
+    </delete>
+</mapper>
