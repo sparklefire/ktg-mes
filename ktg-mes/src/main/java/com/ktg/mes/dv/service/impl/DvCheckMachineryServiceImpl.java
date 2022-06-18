@@ -51,7 +51,7 @@ public class DvCheckMachineryServiceImpl implements IDvCheckMachineryService
     public String checkMachineryUnique(DvCheckMachinery dvCheckMachinery) {
         DvCheckMachinery machinery = dvCheckMachineryMapper.checkMachineryUnique(dvCheckMachinery);
         Long recordId = dvCheckMachinery.getRecordId()==null?-1L:dvCheckMachinery.getRecordId();
-        if(StringUtils.isNotNull(machinery) && machinery.getRecordId().longValue() == recordId.longValue()){
+        if(StringUtils.isNotNull(machinery) && machinery.getRecordId().longValue() != recordId.longValue()){
             return UserConstants.NOT_UNIQUE;
         }
         return UserConstants.UNIQUE;
