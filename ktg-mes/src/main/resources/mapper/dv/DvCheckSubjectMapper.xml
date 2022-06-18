@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ktg.mes.dv.mapper.DvCheckSubjectMapper">
+    
+    <resultMap type="DvCheckSubject" id="DvCheckSubjectResult">
+        <result property="recordId"    column="record_id"    />
+        <result property="planId"    column="plan_id"    />
+        <result property="subjectId"    column="subject_id"    />
+        <result property="subjectCode"    column="subject_code"    />
+        <result property="subjectName"    column="subject_name"    />
+        <result property="subjectType"    column="subject_type"    />
+        <result property="subjectContent"    column="subject_content"    />
+        <result property="subjectStandard"    column="subject_standard"    />
+        <result property="remark"    column="remark"    />
+        <result property="attr1"    column="attr1"    />
+        <result property="attr2"    column="attr2"    />
+        <result property="attr3"    column="attr3"    />
+        <result property="attr4"    column="attr4"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectDvCheckSubjectVo">
+        select record_id, plan_id, subject_id, subject_code, subject_name, subject_type, subject_content, subject_standard, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from dv_check_subject
+    </sql>
+
+    <select id="selectDvCheckSubjectList" parameterType="DvCheckSubject" resultMap="DvCheckSubjectResult">
+        <include refid="selectDvCheckSubjectVo"/>
+        <where>  
+            <if test="planId != null "> and plan_id = #{planId}</if>
+            <if test="subjectId != null "> and subject_id = #{subjectId}</if>
+            <if test="subjectCode != null  and subjectCode != ''"> and subject_code = #{subjectCode}</if>
+            <if test="subjectName != null  and subjectName != ''"> and subject_name like concat('%', #{subjectName}, '%')</if>
+            <if test="subjectType != null  and subjectType != ''"> and subject_type = #{subjectType}</if>
+            <if test="subjectContent != null  and subjectContent != ''"> and subject_content = #{subjectContent}</if>
+            <if test="subjectStandard != null  and subjectStandard != ''"> and subject_standard = #{subjectStandard}</if>
+        </where>
+    </select>
+    
+    <select id="selectDvCheckSubjectByRecordId" parameterType="Long" resultMap="DvCheckSubjectResult">
+        <include refid="selectDvCheckSubjectVo"/>
+        where record_id = #{recordId}
+    </select>
+
+    <select id="checkSubjectUnique" parameterType="DvCheckSubject" resultMap="DvCheckSubjectResult">
+        <include refid="selectDvCheckSubjectVo"/>
+        where plan_id = #{planId} and subject_id = #{subjectId} limit 1
+    </select>
+
+    <insert id="insertDvCheckSubject" parameterType="DvCheckSubject" useGeneratedKeys="true" keyProperty="recordId">
+        insert into dv_check_subject
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="planId != null">plan_id,</if>
+            <if test="subjectId != null">subject_id,</if>
+            <if test="subjectCode != null and subjectCode != ''">subject_code,</if>
+            <if test="subjectName != null">subject_name,</if>
+            <if test="subjectType != null">subject_type,</if>
+            <if test="subjectContent != null and subjectContent != ''">subject_content,</if>
+            <if test="subjectStandard != null">subject_standard,</if>
+            <if test="remark != null">remark,</if>
+            <if test="attr1 != null">attr1,</if>
+            <if test="attr2 != null">attr2,</if>
+            <if test="attr3 != null">attr3,</if>
+            <if test="attr4 != null">attr4,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="planId != null">#{planId},</if>
+            <if test="subjectId != null">#{subjectId},</if>
+            <if test="subjectCode != null and subjectCode != ''">#{subjectCode},</if>
+            <if test="subjectName != null">#{subjectName},</if>
+            <if test="subjectType != null">#{subjectType},</if>
+            <if test="subjectContent != null and subjectContent != ''">#{subjectContent},</if>
+            <if test="subjectStandard != null">#{subjectStandard},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="attr1 != null">#{attr1},</if>
+            <if test="attr2 != null">#{attr2},</if>
+            <if test="attr3 != null">#{attr3},</if>
+            <if test="attr4 != null">#{attr4},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateDvCheckSubject" parameterType="DvCheckSubject">
+        update dv_check_subject
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="planId != null">plan_id = #{planId},</if>
+            <if test="subjectId != null">subject_id = #{subjectId},</if>
+            <if test="subjectCode != null and subjectCode != ''">subject_code = #{subjectCode},</if>
+            <if test="subjectName != null">subject_name = #{subjectName},</if>
+            <if test="subjectType != null">subject_type = #{subjectType},</if>
+            <if test="subjectContent != null and subjectContent != ''">subject_content = #{subjectContent},</if>
+            <if test="subjectStandard != null">subject_standard = #{subjectStandard},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="attr1 != null">attr1 = #{attr1},</if>
+            <if test="attr2 != null">attr2 = #{attr2},</if>
+            <if test="attr3 != null">attr3 = #{attr3},</if>
+            <if test="attr4 != null">attr4 = #{attr4},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where record_id = #{recordId}
+    </update>
+
+    <delete id="deleteDvCheckSubjectByRecordId" parameterType="Long">
+        delete from dv_check_subject where record_id = #{recordId}
+    </delete>
+
+    <delete id="deleteDvCheckSubjectByRecordIds" parameterType="String">
+        delete from dv_check_subject where record_id in 
+        <foreach item="recordId" collection="array" open="(" separator="," close=")">
+            #{recordId}
+        </foreach>
+    </delete>
+</mapper>
