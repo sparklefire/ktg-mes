@@ -3,7 +3,12 @@ package com.ktg.mes.dv.controller;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
+import cn.hutool.core.collection.CollUtil;
 import com.ktg.common.constant.UserConstants;
+import com.ktg.mes.dv.domain.DvCheckMachinery;
+import com.ktg.mes.dv.domain.DvCheckSubject;
+import com.ktg.mes.dv.service.IDvCheckMachineryService;
+import com.ktg.mes.dv.service.IDvCheckSubjectService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +40,12 @@ public class DvCheckPlanController extends BaseController
 {
     @Autowired
     private IDvCheckPlanService dvCheckPlanService;
+
+    @Autowired
+    IDvCheckMachineryService dvCheckMachineryService;
+
+    @Autowired
+    IDvCheckSubjectService dvCheckSubjectService;
 
     /**
      * 查询设备点检计划头列表
@@ -90,6 +101,21 @@ public class DvCheckPlanController extends BaseController
     @PutMapping
     public AjaxResult edit(@RequestBody DvCheckPlan dvCheckPlan)
     {
+        if(UserConstants.ORDER_STATUS_FINISHED.equals(dvCheckPlan.getStatus())){
+            DvCheckMachinery para1 = new DvCheckMachinery();
+            para1.setPlanId(dvCheckPlan.getPlanId());
+            List<DvCheckMachinery> machinerys = dvCheckMachineryService.selectDvCheckMachineryList(para1);
+            if(!CollUtil.isNotEmpty(machinerys)){
+                return AjaxResult.error("请指定设备!");
+            }
+
+            DvCheckSubject para2 = new DvCheckSubject();
+            para2.setPlanId(dvCheckPlan.getPlanId());
+            List<DvCheckSubject> subjects = dvCheckSubjectService.selectDvCheckSubjectList(para2);
+            if(!CollUtil.isNotEmpty(subjects)){
+                return AjaxResult.error("请指定项目!");
+            }
+        }
         return toAjax(dvCheckPlanService.updateDvCheckPlan(dvCheckPlan));
     }
 

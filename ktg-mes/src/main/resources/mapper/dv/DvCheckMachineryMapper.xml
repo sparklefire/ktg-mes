@@ -46,7 +46,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="checkMachineryUnique" parameterType="DvCheckMachinery" resultMap="DvCheckMachineryResult">
         <include refid="selectDvCheckMachineryVo"/>
-        where machinery_id = #{machineryId} limit 1
+        where machinery_id = #{machineryId} and plan_type = #{planType} limit 1
     </select>
         
     <insert id="insertDvCheckMachinery" parameterType="DvCheckMachinery" useGeneratedKeys="true" keyProperty="recordId">

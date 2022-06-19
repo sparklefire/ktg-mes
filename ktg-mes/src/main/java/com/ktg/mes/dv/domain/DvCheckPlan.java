@@ -28,6 +28,8 @@ public class DvCheckPlan extends BaseEntity
     @Excel(name = "计划名称")
     private String planName;
 
+    private String planType;
+
     /** 开始日期 */
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Excel(name = "开始日期", width = 30, dateFormat = "yyyy-MM-dd")
@@ -94,7 +96,15 @@ public class DvCheckPlan extends BaseEntity
         this.startDate = startDate;
     }
 
-    public Date getStartDate() 
+    public String getPlanType() {
+        return planType;
+    }
+
+    public void setPlanType(String planType) {
+        this.planType = planType;
+    }
+
+    public Date getStartDate()
     {
         return startDate;
     }
@@ -173,24 +183,20 @@ public class DvCheckPlan extends BaseEntity
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("planId", getPlanId())
-            .append("planCode", getPlanCode())
-            .append("planName", getPlanName())
-            .append("startDate", getStartDate())
-            .append("endDate", getEndDate())
-            .append("cycleType", getCycleType())
-            .append("cycleCount", getCycleCount())
-            .append("status", getStatus())
-            .append("remark", getRemark())
-            .append("attr1", getAttr1())
-            .append("attr2", getAttr2())
-            .append("attr3", getAttr3())
-            .append("attr4", getAttr4())
-            .append("createBy", getCreateBy())
-            .append("createTime", getCreateTime())
-            .append("updateBy", getUpdateBy())
-            .append("updateTime", getUpdateTime())
-            .toString();
+        return "DvCheckPlan{" +
+                "planId=" + planId +
+                ", planCode='" + planCode + '\'' +
+                ", planName='" + planName + '\'' +
+                ", planType='" + planType + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", cycleType='" + cycleType + '\'' +
+                ", cycleCount=" + cycleCount +
+                ", status='" + status + '\'' +
+                ", attr1='" + attr1 + '\'' +
+                ", attr2='" + attr2 + '\'' +
+                ", attr3=" + attr3 +
+                ", attr4=" + attr4 +
+                '}';
     }
 }
