@@ -79,13 +79,14 @@ create table dv_subject (
 
 
 -- ----------------------------
--- 4、设备点检计划头表
+-- 4、设备点检保养计划头表
 -- ----------------------------
 drop table if exists dv_check_plan;
 create table dv_check_plan (
   plan_id                     bigint(20)      not null auto_increment    comment '计划ID',
   plan_code                   varchar(64)     not null                   comment '计划编码',
   plan_name                   varchar(255)                               comment '计划名称',
+  plan_type                   varchar(64)     not null                   comment '计划类型',
   start_date                  datetime                                   comment '开始日期',
   end_date                    datetime                                   comment '结束日期',
   cycle_type                  varchar(64)                                comment '频率',
@@ -101,13 +102,13 @@ create table dv_check_plan (
   update_by                   varchar(64)     default ''                 comment '更新者',
   update_time                 datetime                                   comment '更新时间',
   primary key (plan_id)
-) engine=innodb auto_increment=200 comment = '设备点检计划头表';
+) engine=innodb auto_increment=200 comment = '设备点检保养计划头表';
 
 
 
 
 -- ----------------------------
--- 5、点检设备表
+-- 5、点检保养设备表
 -- ----------------------------
 drop table if exists dv_check_machinery;
 create table dv_check_machinery (
@@ -132,7 +133,7 @@ create table dv_check_machinery (
 
 
 -- ----------------------------
--- 6、点检项目表
+-- 6、点检保养项目表
 -- ----------------------------
 drop table if exists dv_check_subject;
 create table dv_check_subject (
@@ -155,4 +156,3 @@ create table dv_check_subject (
   update_time                 datetime                                   comment '更新时间',
   primary key (record_id)
 ) engine=innodb auto_increment=200 comment = '点检项目表';
-
