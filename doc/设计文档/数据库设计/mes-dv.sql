@@ -138,7 +138,7 @@ drop table if exists dv_check_subject;
 create table dv_check_subject (
   record_id                   bigint(20)      not null auto_increment    comment '流水号',
   plan_id                     bigint(20)      not null                   comment '计划ID',
-  subject_id                  bigint(20)      not null                   comment '设备ID',
+  subject_id                  bigint(20)      not null                   comment '项目ID',
   subject_code                varchar(64)     not null                   comment '项目编码',
   subject_name                varchar(255)                               comment '项目名称',
   subject_type                varchar(64)                                comment '项目类型',
