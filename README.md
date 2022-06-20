@@ -23,7 +23,7 @@
 
 前端代码地址：https://gitee.com/kutangguo/ktg-mes-ui
 
-
+触控屏端地址：https://gitee.com/kutangguo/ktg-mes-pad
 
 欢迎交流沟通：
 
