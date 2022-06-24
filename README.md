@@ -90,9 +90,16 @@ Android端：
 
 触控屏端：
 
+- 登录
+
+  ![](https://gitee.com/kutangguo/ktg-mes/raw/master/doc/%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/%E5%8E%9F%E5%9E%8B%E8%AE%BE%E8%AE%A1/%E6%88%AA%E5%9B%BE/%E8%A7%A6%E6%8E%A7%E5%B1%8F-%E7%99%BB%E5%BD%95%E9%A1%B5%E9%9D%A2.png)
+
 - 生产
+
 - 质量
+
 - 工序
+
 - 设备
 
 PDA：
