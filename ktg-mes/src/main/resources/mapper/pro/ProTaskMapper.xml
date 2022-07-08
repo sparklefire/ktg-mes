@@ -80,6 +80,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="endTime != null "> and end_time = #{endTime}</if>
             <if test="colorCode != null  and colorCode != ''"> and color_code = #{colorCode}</if>
             <if test="requestDate != null "> and request_date = #{requestDate}</if>
+             order by request_date asc
         </where>
     </select>
     
