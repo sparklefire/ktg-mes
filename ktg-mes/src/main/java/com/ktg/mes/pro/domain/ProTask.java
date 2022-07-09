@@ -136,6 +136,8 @@ public class ProTask extends BaseEntity
     @Excel(name = "需求日期", width = 30, dateFormat = "yyyy-MM-dd")
     private Date requestDate;
 
+    private String status;
+
     /** 预留字段1 */
     private String attr1;
 
@@ -409,7 +411,16 @@ public class ProTask extends BaseEntity
     {
         return requestDate;
     }
-    public void setAttr1(String attr1) 
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setAttr1(String attr1)
     {
         this.attr1 = attr1;
     }
@@ -448,45 +459,41 @@ public class ProTask extends BaseEntity
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("taskId", getTaskId())
-            .append("taskCode", getTaskCode())
-            .append("taskName", getTaskName())
-            .append("workorderId", getWorkorderId())
-            .append("workorderCode", getWorkorderCode())
-            .append("workorderName", getWorkorderName())
-            .append("workstationId", getWorkstationId())
-            .append("workstationCode", getWorkstationCode())
-            .append("workstationName", getWorkstationName())
-            .append("processId", getProcessId())
-            .append("processCode", getProcessCode())
-            .append("processName", getProcessName())
-            .append("itemId", getItemId())
-            .append("itemCode", getItemCode())
-            .append("itemName", getItemName())
-            .append("specification", getSpecification())
-            .append("unitOfMeasure", getUnitOfMeasure())
-            .append("quantity", getQuantity())
-            .append("quantityProduced", getQuantityProduced())
-            .append("quantityChanged", getQuantityChanged())
-            .append("clientId", getClientId())
-            .append("clientCode", getClientCode())
-            .append("clientName", getClientName())
-            .append("clientNick", getClientNick())
-            .append("startTime", getStartTime())
-            .append("duration", getDuration())
-            .append("endTime", getEndTime())
-            .append("colorCode", getColorCode())
-            .append("requestDate", getRequestDate())
-            .append("remark", getRemark())
-            .append("attr1", getAttr1())
-            .append("attr2", getAttr2())
-            .append("attr3", getAttr3())
-            .append("attr4", getAttr4())
-            .append("createBy", getCreateBy())
-            .append("createTime", getCreateTime())
-            .append("updateBy", getUpdateBy())
-            .append("updateTime", getUpdateTime())
-            .toString();
+        return "ProTask{" +
+                "taskId=" + taskId +
+                ", taskCode='" + taskCode + '\'' +
+                ", taskName='" + taskName + '\'' +
+                ", workorderId=" + workorderId +
+                ", workorderCode='" + workorderCode + '\'' +
+                ", workorderName='" + workorderName + '\'' +
+                ", workstationId=" + workstationId +
+                ", workstationCode='" + workstationCode + '\'' +
+                ", workstationName='" + workstationName + '\'' +
+                ", processId=" + processId +
+                ", processCode='" + processCode + '\'' +
+                ", processName='" + processName + '\'' +
+                ", itemId=" + itemId +
+                ", itemCode='" + itemCode + '\'' +
+                ", itemName='" + itemName + '\'' +
+                ", specification='" + specification + '\'' +
+                ", unitOfMeasure='" + unitOfMeasure + '\'' +
+                ", quantity=" + quantity +
+                ", quantityProduced=" + quantityProduced +
+                ", quantityChanged=" + quantityChanged +
+                ", clientId=" + clientId +
+                ", clientCode='" + clientCode + '\'' +
+                ", clientName='" + clientName + '\'' +
+                ", clientNick='" + clientNick + '\'' +
+                ", startTime=" + startTime +
+                ", duration=" + duration +
+                ", endTime=" + endTime +
+                ", colorCode='" + colorCode + '\'' +
+                ", requestDate=" + requestDate +
+                ", status='" + status + '\'' +
+                ", attr1='" + attr1 + '\'' +
+                ", attr2='" + attr2 + '\'' +
+                ", attr3=" + attr3 +
+                ", attr4=" + attr4 +
+                '}';
     }
 }

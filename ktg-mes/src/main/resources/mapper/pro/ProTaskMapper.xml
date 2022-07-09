@@ -34,6 +34,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="endTime"    column="end_time"    />
         <result property="colorCode"    column="color_code"    />
         <result property="requestDate"    column="request_date"    />
+        <result property="status"    column="status"    />
         <result property="remark"    column="remark"    />
         <result property="attr1"    column="attr1"    />
         <result property="attr2"    column="attr2"    />
@@ -46,7 +47,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectProTaskVo">
-        select task_id, task_code, task_name, workorder_id, workorder_code, workorder_name, workstation_id, workstation_code, workstation_name,process_id,process_code,process_name, item_id, item_code, item_name, specification, unit_of_measure, quantity, quantity_produced, quantity_changed, client_id, client_code, client_name, client_nick, start_time, duration, end_time, color_code, request_date, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from pro_task
+        select task_id, task_code, task_name, workorder_id, workorder_code, workorder_name, workstation_id, workstation_code, workstation_name,process_id,process_code,process_name, item_id, item_code, item_name, specification, unit_of_measure, quantity, quantity_produced, quantity_changed, client_id, client_code, client_name, client_nick, start_time, duration, end_time, color_code, request_date, status, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from pro_task
     </sql>
 
     <select id="selectProTaskList" parameterType="ProTask" resultMap="ProTaskResult">
@@ -80,6 +81,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="endTime != null "> and end_time = #{endTime}</if>
             <if test="colorCode != null  and colorCode != ''"> and color_code = #{colorCode}</if>
             <if test="requestDate != null "> and request_date = #{requestDate}</if>
+            <if test="status != null "> and status = #{status}</if>
              order by request_date asc
         </where>
     </select>
@@ -120,6 +122,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="endTime != null">end_time,</if>
             <if test="colorCode != null">color_code,</if>
             <if test="requestDate != null">request_date,</if>
+            <if test="status != null">status,</if>
             <if test="remark != null">remark,</if>
             <if test="attr1 != null">attr1,</if>
             <if test="attr2 != null">attr2,</if>
@@ -159,6 +162,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="endTime != null">#{endTime},</if>
             <if test="colorCode != null">#{colorCode},</if>
             <if test="requestDate != null">#{requestDate},</if>
+            <if test="status != null">#{status},</if>
             <if test="remark != null">#{remark},</if>
             <if test="attr1 != null">#{attr1},</if>
             <if test="attr2 != null">#{attr2},</if>
@@ -202,6 +206,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="endTime != null">end_time = #{endTime},</if>
             <if test="colorCode != null">color_code = #{colorCode},</if>
             <if test="requestDate != null">request_date = #{requestDate},</if>
+            <if test="status != null">status = #{status},</if>
             <if test="remark != null">remark = #{remark},</if>
             <if test="attr1 != null">attr1 = #{attr1},</if>
             <if test="attr2 != null">attr2 = #{attr2},</if>

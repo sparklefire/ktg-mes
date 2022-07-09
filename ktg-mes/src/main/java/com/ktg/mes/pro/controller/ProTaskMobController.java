@@ -1,15 +1,14 @@
 package com.ktg.mes.pro.controller;
 
+import com.ktg.common.annotation.Log;
 import com.ktg.common.core.controller.BaseController;
 import com.ktg.common.core.domain.AjaxResult;
+import com.ktg.common.enums.BusinessType;
 import com.ktg.mes.pro.domain.ProTask;
 import com.ktg.mes.pro.service.IProTaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -40,4 +39,19 @@ public class ProTaskMobController extends BaseController {
     {
         return AjaxResult.success(proTaskService.selectProTaskByTaskId(taskId));
     }
+
+
+    /**
+     * 修改生产任务状态
+     */
+    @PreAuthorize("@ss.hasPermi('mes:pro:protask:edit')")
+    @Log(title = "生产任务", businessType = BusinessType.UPDATE)
+    @PostMapping
+    @ResponseBody
+    public AjaxResult edit(@RequestBody ProTask proTask)
+    {
+        return toAjax(proTaskService.updateProTask(proTask));
+    }
+
+
 }
