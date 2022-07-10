@@ -242,3 +242,35 @@ create table pro_task (
 ) engine=innodb auto_increment=200 comment = '生产任务表';
 
 
+-- ----------------------------
+-- 4、生产报工记录表
+-- ----------------------------
+drop table if exists pro_feedback;
+create table pro_feedback (
+  record_id                      bigint(20)      not null auto_increment    comment '记录ID',
+  workstation_id                 bigint(20)      not null                   comment '工作站ID',
+  workstation_code               varchar(64)                                comment '工作站编号',
+  workstation_name               varchar(255)                               comment '工作站名称',
+  workorder_id                   bigint(20)      not null                   comment '生产工单ID',
+  workorder_code                 varchar(64)                                comment '生产工单编号',
+  workorder_name                 varchar(255)                               comment '生产工单名称',
+  task_id                        bigint(20)                                 comment '生产任务ID',
+  task_code                      varchar(64)                                comment '生产任务编号',
+  quantity                       double(14,2)                               comment '排产数量',
+  quantity_feedback              double(14,2)                               comment '本次报工数量',
+  quantity_qualified             double(14,2)                               comment '合格品数量',
+  quantity_unquanlified          double(14,2)                               comment '不良品数量',
+  user_name                      varchar(64)                                comment '报工用户名',
+  nick_name                      varchar(64)                                comment '昵称',
+  feedback_time                  datetime                                   comment '报工时间',
+  remark                         varchar(500)    default ''                 comment '备注',
+  attr1                          varchar(64)     default null               comment '预留字段1',
+  attr2                          varchar(255)    default null               comment '预留字段2',
+  attr3                          int(11)         default 0                  comment '预留字段3',
+  attr4                          int(11)         default 0                  comment '预留字段4',
+  create_by                      varchar(64)     default ''                 comment '创建者',
+  create_time 	                 datetime                                   comment '创建时间',
+  update_by                      varchar(64)     default ''                 comment '更新者',
+  update_time                    datetime                                   comment '更新时间',
+  primary key (record_id)
+) engine=innodb auto_increment=200 comment = '生产报工记录表';

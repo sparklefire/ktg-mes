@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ktg.mes.pro.mapper.ProFeedbackMapper">
+    
+    <resultMap type="ProFeedback" id="ProFeedbackResult">
+        <result property="recordId"    column="record_id"    />
+        <result property="workstationId"    column="workstation_id"    />
+        <result property="workstationCode"    column="workstation_code"    />
+        <result property="workstationName"    column="workstation_name"    />
+        <result property="workorderId"    column="workorder_id"    />
+        <result property="workorderCode"    column="workorder_code"    />
+        <result property="workorderName"    column="workorder_name"    />
+        <result property="taskId"    column="task_id"    />
+        <result property="taskCode"    column="task_code"    />
+        <result property="quantity"    column="quantity"    />
+        <result property="quantityFeedback"    column="quantity_feedback"    />
+        <result property="quantityQualified"    column="quantity_qualified"    />
+        <result property="quantityUnquanlified"    column="quantity_unquanlified"    />
+        <result property="userName"    column="user_name"    />
+        <result property="nickName"    column="nick_name"    />
+        <result property="feedbackChannel"    column="feedback_channel"    />
+        <result property="feedbackTime"    column="feedback_time"    />
+        <result property="remark"    column="remark"    />
+        <result property="attr1"    column="attr1"    />
+        <result property="attr2"    column="attr2"    />
+        <result property="attr3"    column="attr3"    />
+        <result property="attr4"    column="attr4"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectProFeedbackVo">
+        select record_id, workstation_id, workstation_code, workstation_name, workorder_id, workorder_code, workorder_name, task_id, task_code, quantity, quantity_feedback, quantity_qualified, quantity_unquanlified, user_name, nick_name, feedback_channel, feedback_time, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from pro_feedback
+    </sql>
+
+    <select id="selectProFeedbackList" parameterType="ProFeedback" resultMap="ProFeedbackResult">
+        <include refid="selectProFeedbackVo"/>
+        <where>  
+            <if test="workstationId != null "> and workstation_id = #{workstationId}</if>
+            <if test="workstationCode != null  and workstationCode != ''"> and workstation_code = #{workstationCode}</if>
+            <if test="workstationName != null  and workstationName != ''"> and workstation_name like concat('%', #{workstationName}, '%')</if>
+            <if test="workorderId != null "> and workorder_id = #{workorderId}</if>
+            <if test="workorderCode != null  and workorderCode != ''"> and workorder_code = #{workorderCode}</if>
+            <if test="workorderName != null  and workorderName != ''"> and workorder_name like concat('%', #{workorderName}, '%')</if>
+            <if test="taskId != null "> and task_id = #{taskId}</if>
+            <if test="taskCode != null  and taskCode != ''"> and task_code = #{taskCode}</if>
+            <if test="quantity != null "> and quantity = #{quantity}</if>
+            <if test="quantityFeedback != null "> and quantity_feedback = #{quantityFeedback}</if>
+            <if test="quantityQualified != null "> and quantity_qualified = #{quantityQualified}</if>
+            <if test="quantityUnquanlified != null "> and quantity_unquanlified = #{quantityUnquanlified}</if>
+            <if test="userName != null  and userName != ''"> and user_name like concat('%', #{userName}, '%')</if>
+            <if test="nickName != null  and nickName != ''"> and nick_name like concat('%', #{nickName}, '%')</if>
+            <if test="feedbackChannel != null  and feedbackChannel != ''"> and feedback_channel = #{feedbackChannel}</if>
+            <if test="feedbackTime != null "> and feedback_time = #{feedbackTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectProFeedbackByRecordId" parameterType="Long" resultMap="ProFeedbackResult">
+        <include refid="selectProFeedbackVo"/>
+        where record_id = #{recordId}
+    </select>
+        
+    <insert id="insertProFeedback" parameterType="ProFeedback" useGeneratedKeys="true" keyProperty="recordId">
+        insert into pro_feedback
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="workstationId != null">workstation_id,</if>
+            <if test="workstationCode != null">workstation_code,</if>
+            <if test="workstationName != null">workstation_name,</if>
+            <if test="workorderId != null">workorder_id,</if>
+            <if test="workorderCode != null">workorder_code,</if>
+            <if test="workorderName != null">workorder_name,</if>
+            <if test="taskId != null">task_id,</if>
+            <if test="taskCode != null">task_code,</if>
+            <if test="quantity != null">quantity,</if>
+            <if test="quantityFeedback != null">quantity_feedback,</if>
+            <if test="quantityQualified != null">quantity_qualified,</if>
+            <if test="quantityUnquanlified != null">quantity_unquanlified,</if>
+            <if test="userName != null">user_name,</if>
+            <if test="nickName != null">nick_name,</if>
+            <if test="feedbackChannel != null">feedback_channel,</if>
+            <if test="feedbackTime != null">feedback_time,</if>
+            <if test="remark != null">remark,</if>
+            <if test="attr1 != null">attr1,</if>
+            <if test="attr2 != null">attr2,</if>
+            <if test="attr3 != null">attr3,</if>
+            <if test="attr4 != null">attr4,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="workstationId != null">#{workstationId},</if>
+            <if test="workstationCode != null">#{workstationCode},</if>
+            <if test="workstationName != null">#{workstationName},</if>
+            <if test="workorderId != null">#{workorderId},</if>
+            <if test="workorderCode != null">#{workorderCode},</if>
+            <if test="workorderName != null">#{workorderName},</if>
+            <if test="taskId != null">#{taskId},</if>
+            <if test="taskCode != null">#{taskCode},</if>
+            <if test="quantity != null">#{quantity},</if>
+            <if test="quantityFeedback != null">#{quantityFeedback},</if>
+            <if test="quantityQualified != null">#{quantityQualified},</if>
+            <if test="quantityUnquanlified != null">#{quantityUnquanlified},</if>
+            <if test="userName != null">#{userName},</if>
+            <if test="nickName != null">#{nickName},</if>
+            <if test="feedbackChannel != null">#{feedbackChannel},</if>
+            <if test="feedbackTime != null">#{feedbackTime},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="attr1 != null">#{attr1},</if>
+            <if test="attr2 != null">#{attr2},</if>
+            <if test="attr3 != null">#{attr3},</if>
+            <if test="attr4 != null">#{attr4},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateProFeedback" parameterType="ProFeedback">
+        update pro_feedback
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="workstationId != null">workstation_id = #{workstationId},</if>
+            <if test="workstationCode != null">workstation_code = #{workstationCode},</if>
+            <if test="workstationName != null">workstation_name = #{workstationName},</if>
+            <if test="workorderId != null">workorder_id = #{workorderId},</if>
+            <if test="workorderCode != null">workorder_code = #{workorderCode},</if>
+            <if test="workorderName != null">workorder_name = #{workorderName},</if>
+            <if test="taskId != null">task_id = #{taskId},</if>
+            <if test="taskCode != null">task_code = #{taskCode},</if>
+            <if test="quantity != null">quantity = #{quantity},</if>
+            <if test="quantityFeedback != null">quantity_feedback = #{quantityFeedback},</if>
+            <if test="quantityQualified != null">quantity_qualified = #{quantityQualified},</if>
+            <if test="quantityUnquanlified != null">quantity_unquanlified = #{quantityUnquanlified},</if>
+            <if test="userName != null">user_name = #{userName},</if>
+            <if test="nickName != null">nick_name = #{nickName},</if>
+            <if test="feedbackChannel != null">feedback_channel = #{feedbackChannel},</if>
+            <if test="feedbackTime != null">feedback_time = #{feedbackTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="attr1 != null">attr1 = #{attr1},</if>
+            <if test="attr2 != null">attr2 = #{attr2},</if>
+            <if test="attr3 != null">attr3 = #{attr3},</if>
+            <if test="attr4 != null">attr4 = #{attr4},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where record_id = #{recordId}
+    </update>
+
+    <delete id="deleteProFeedbackByRecordId" parameterType="Long">
+        delete from pro_feedback where record_id = #{recordId}
+    </delete>
+
+    <delete id="deleteProFeedbackByRecordIds" parameterType="String">
+        delete from pro_feedback where record_id in 
+        <foreach item="recordId" collection="array" open="(" separator="," close=")">
+            #{recordId}
+        </foreach>
+    </delete>
+</mapper>
