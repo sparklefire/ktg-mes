@@ -93,6 +93,10 @@ public class ProTask extends BaseEntity
     @Excel(name = "已生产数量")
     private BigDecimal quantityProduced;
 
+    private BigDecimal quantityQuanlify;
+
+    private BigDecimal quantityUnquanlify;
+
     /** 调整数量 */
     @Excel(name = "调整数量")
     private BigDecimal quantityChanged;
@@ -326,7 +330,23 @@ public class ProTask extends BaseEntity
         this.quantityChanged = quantityChanged;
     }
 
-    public BigDecimal getQuantityChanged() 
+    public BigDecimal getQuantityQuanlify() {
+        return quantityQuanlify;
+    }
+
+    public void setQuantityQuanlify(BigDecimal quantityQuanlify) {
+        this.quantityQuanlify = quantityQuanlify;
+    }
+
+    public BigDecimal getQuantityUnquanlify() {
+        return quantityUnquanlify;
+    }
+
+    public void setQuantityUnquanlify(BigDecimal quantityUnquanlify) {
+        this.quantityUnquanlify = quantityUnquanlify;
+    }
+
+    public BigDecimal getQuantityChanged()
     {
         return quantityChanged;
     }
@@ -479,6 +499,8 @@ public class ProTask extends BaseEntity
                 ", unitOfMeasure='" + unitOfMeasure + '\'' +
                 ", quantity=" + quantity +
                 ", quantityProduced=" + quantityProduced +
+                ", quantityQuanlify=" + quantityQuanlify +
+                ", quantityUnquanlify=" + quantityUnquanlify +
                 ", quantityChanged=" + quantityChanged +
                 ", clientId=" + clientId +
                 ", clientCode='" + clientCode + '\'' +

@@ -64,12 +64,9 @@ public class ProTaskMobController extends BaseController {
     }
 
     @Log(title = "生产报工", businessType = BusinessType.INSERT)
-    @PostMapping("/feedBack")
+    @PostMapping("/feedback")
     @ResponseBody
     public AjaxResult feedBack( ProFeedback feedback){
-        MdWorkstation workstation = mdWorkstationService.selectMdWorkstationByWorkstationId(feedback.getWorkstationId());
-        feedback.setWorkstationCode(workstation.getWorkstationCode());
-        feedback.setWorkstationName(workstation.getWorkstationName());
 
         ProTask task = proTaskService.selectProTaskByTaskId(feedback.getTaskId());
         feedback.setTaskCode(task.getTaskCode());
@@ -78,6 +75,19 @@ public class ProTaskMobController extends BaseController {
         feedback.setWorkorderName(task.getWorkorderName());
         feedback.setQuantity(task.getQuantity());
         feedback.setFeedbackTime(new Date());
+
+        if(feedback.getWorkstationId() == null){
+            feedback.setWorkstationId(task.getWorkstationId());
+        }
+
+        MdWorkstation workstation = mdWorkstationService.selectMdWorkstationByWorkstationId(feedback.getWorkstationId());
+        feedback.setWorkstationCode(workstation.getWorkstationCode());
+        feedback.setWorkstationName(workstation.getWorkstationName());
+
+        task.setQuantityProduced(task.getQuantityProduced().add(feedback.getQuantityFeedback()));
+        task.setQuantityQuanlify(task.getQuantityQuanlify().add(feedback.getQuantityQualified()));
+        task.setQuantityUnquanlify(task.getQuantityUnquanlify().add(feedback.getQuantityUnquanlified()));
+        proTaskService.updateProTask(task);
         return toAjax(proFeedbackService.insertProFeedback(feedback));
     }
 

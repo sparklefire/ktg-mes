@@ -24,6 +24,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="unitOfMeasure"    column="unit_of_measure"    />
         <result property="quantity"    column="quantity"    />
         <result property="quantityProduced"    column="quantity_produced"    />
+        <result property="quantityQuanlify"    column="quantity_quanlify"    />
+        <result property="quantityUnquanlify"    column="quantity_unquanlify"    />
         <result property="quantityChanged"    column="quantity_changed"    />
         <result property="clientId"    column="client_id"    />
         <result property="clientCode"    column="client_code"    />
@@ -47,7 +49,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectProTaskVo">
-        select task_id, task_code, task_name, workorder_id, workorder_code, workorder_name, workstation_id, workstation_code, workstation_name,process_id,process_code,process_name, item_id, item_code, item_name, specification, unit_of_measure, quantity, quantity_produced, quantity_changed, client_id, client_code, client_name, client_nick, start_time, duration, end_time, color_code, request_date, status, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from pro_task
+        select task_id, task_code, task_name, workorder_id, workorder_code, workorder_name, workstation_id, workstation_code, workstation_name,process_id,process_code,process_name, item_id, item_code, item_name, specification, unit_of_measure, quantity, quantity_produced,quantity_quanlify,quantity_unquanlify, quantity_changed, client_id, client_code, client_name, client_nick, start_time, duration, end_time, color_code, request_date, status, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from pro_task
     </sql>
 
     <select id="selectProTaskList" parameterType="ProTask" resultMap="ProTaskResult">
@@ -71,6 +73,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="unitOfMeasure != null  and unitOfMeasure != ''"> and unit_of_measure = #{unitOfMeasure}</if>
             <if test="quantity != null "> and quantity = #{quantity}</if>
             <if test="quantityProduced != null "> and quantity_produced = #{quantityProduced}</if>
+            <if test="quantityQuanlify != null "> and quantity_quanlify = #{quantityQuanlify}</if>
+            <if test="quantityUnquanlify != null "> and quantity_unquanlify = #{quantityUnquanlify}</if>
             <if test="quantityChanged != null "> and quantity_changed = #{quantityChanged}</if>
             <if test="clientId != null "> and client_id = #{clientId}</if>
             <if test="clientCode != null  and clientCode != ''"> and client_code = #{clientCode}</if>
@@ -112,6 +116,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="unitOfMeasure != null and unitOfMeasure != ''">unit_of_measure,</if>
             <if test="quantity != null">quantity,</if>
             <if test="quantityProduced != null">quantity_produced,</if>
+            <if test="quantityQuanlify != null ">quantity_quanlify,</if>
+            <if test="quantityUnquanlify != null ">quantity_unquanlify,</if>
             <if test="quantityChanged != null">quantity_changed,</if>
             <if test="clientId != null">client_id,</if>
             <if test="clientCode != null and clientCode != ''">client_code,</if>
@@ -152,6 +158,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="unitOfMeasure != null and unitOfMeasure != ''">#{unitOfMeasure},</if>
             <if test="quantity != null">#{quantity},</if>
             <if test="quantityProduced != null">#{quantityProduced},</if>
+            <if test="quantityQuanlify != null ">#{quantityQuanlify},</if>
+            <if test="quantityUnquanlify != null ">#{quantityUnquanlify},</if>
             <if test="quantityChanged != null">#{quantityChanged},</if>
             <if test="clientId != null">#{clientId},</if>
             <if test="clientCode != null and clientCode != ''">#{clientCode},</if>
@@ -196,6 +204,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="unitOfMeasure != null and unitOfMeasure != ''">unit_of_measure = #{unitOfMeasure},</if>
             <if test="quantity != null">quantity = #{quantity},</if>
             <if test="quantityProduced != null">quantity_produced = #{quantityProduced},</if>
+            <if test="quantityQuanlify != null ">quantity_quanlify = #{quantityQuanlify},</if>
+            <if test="quantityUnquanlify != null ">quantity_unquanlify = #{quantityUnquanlify},</if>
             <if test="quantityChanged != null">quantity_changed = #{quantityChanged},</if>
             <if test="clientId != null">client_id = #{clientId},</if>
             <if test="clientCode != null and clientCode != ''">client_code = #{clientCode},</if>
