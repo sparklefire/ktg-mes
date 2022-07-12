@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/mobile/pro/protask")
@@ -38,7 +39,8 @@ public class ProTaskMobController extends BaseController {
     public AjaxResult list(ProTask proTask)
     {
         List<ProTask> list = proTaskService.selectProTaskList(proTask);
-        return AjaxResult.success(list);
+        List<ProTask> l = list.stream().filter(t ->!"FINISHED".equals(t.getStatus())).collect(Collectors.toList());
+        return AjaxResult.success(l);
     }
 
     /**
