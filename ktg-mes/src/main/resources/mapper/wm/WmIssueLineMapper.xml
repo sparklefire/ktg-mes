@@ -7,6 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <resultMap type="WmIssueLine" id="WmIssueLineResult">
         <result property="lineId"    column="line_id"    />
         <result property="issueId"    column="issue_id"    />
+        <result property="materialStockId" column="material_stock_id" />
         <result property="itemId"    column="item_id"    />
         <result property="itemCode"    column="item_code"    />
         <result property="itemName"    column="item_name"    />
@@ -35,13 +36,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectWmIssueLineVo">
-        select line_id, issue_id, item_id, item_code, item_name, specification, unit_of_measure, quantity_issued, batch_code, warehouse_id, warehouse_code, warehouse_name, location_id, location_code, location_name, area_id, area_code, area_name, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from wm_issue_line
+        select line_id, issue_id,material_stock_id, item_id, item_code, item_name, specification, unit_of_measure, quantity_issued, batch_code, warehouse_id, warehouse_code, warehouse_name, location_id, location_code, location_name, area_id, area_code, area_name, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from wm_issue_line
     </sql>
 
     <select id="selectWmIssueLineList" parameterType="WmIssueLine" resultMap="WmIssueLineResult">
         <include refid="selectWmIssueLineVo"/>
         <where>  
             <if test="issueId != null "> and issue_id = #{issueId}</if>
+            <if test="materialStockId != null"> and material_stock_id = #{materialStockId}</if>
             <if test="itemId != null "> and item_id = #{itemId}</if>
             <if test="itemCode != null  and itemCode != ''"> and item_code = #{itemCode}</if>
             <if test="itemName != null  and itemName != ''"> and item_name like concat('%', #{itemName}, '%')</if>
@@ -70,6 +72,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         insert into wm_issue_line
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="issueId != null">issue_id,</if>
+            <if test="materialStockId != null ">material_stock_id,</if>
             <if test="itemId != null">item_id,</if>
             <if test="itemCode != null">item_code,</if>
             <if test="itemName != null">item_name,</if>
@@ -98,6 +101,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="issueId != null">#{issueId},</if>
+            <if test="materialStockId != null ">#{materialStockId},</if>
             <if test="itemId != null">#{itemId},</if>
             <if test="itemCode != null">#{itemCode},</if>
             <if test="itemName != null">#{itemName},</if>
@@ -130,6 +134,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         update wm_issue_line
         <trim prefix="SET" suffixOverrides=",">
             <if test="issueId != null">issue_id = #{issueId},</if>
+            <if test="materialStockId != null">material_stock_id = #{materialStockId},</if>
             <if test="itemId != null">item_id = #{itemId},</if>
             <if test="itemCode != null">item_code = #{itemCode},</if>
             <if test="itemName != null">item_name = #{itemName},</if>

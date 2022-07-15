@@ -5,6 +5,7 @@ import com.ktg.common.constant.UserConstants;
 import com.ktg.common.exception.BussinessException;
 import com.ktg.common.utils.bean.BeanUtils;
 import com.ktg.mes.wm.domain.WmTransaction;
+import com.ktg.mes.wm.domain.tx.IssueTxBean;
 import com.ktg.mes.wm.domain.tx.ItemRecptTxBean;
 import com.ktg.mes.wm.domain.tx.RtVendorTxBean;
 import com.ktg.mes.wm.service.IStorageCoreService;
@@ -72,5 +73,23 @@ public class StorageCoreServiceImpl implements IStorageCoreService {
             wmTransactionService.processTransaction(transaction);
         }
 
+    }
+
+    @Override
+    public void processIssue(List<IssueTxBean> lines) {
+        String transactionType = UserConstants.TRANSACTION_TYPE_ITEM_ISSUE;
+        if(CollUtil.isEmpty(lines)){
+            throw new BussinessException("没有需要处理的领料单行");
+        }
+
+        for(int i=0;i<lines.size();i++){
+            IssueTxBean line = lines.get(i);
+            WmTransaction transaction = new WmTransaction();
+            transaction.setTransactionType(transactionType);
+            BeanUtils.copyBeanProp(transaction,line);
+            transaction.setTransactionFlag(-1);//库存减少
+            transaction.setTransactionDate(new Date());
+            wmTransactionService.processTransaction(transaction);
+        }
     }
 }

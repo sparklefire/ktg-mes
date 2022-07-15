@@ -5,6 +5,7 @@ import java.util.List;
 import com.ktg.common.constant.UserConstants;
 import com.ktg.common.utils.DateUtils;
 import com.ktg.common.utils.StringUtils;
+import com.ktg.mes.wm.domain.tx.IssueTxBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ktg.mes.wm.mapper.WmIssueHeaderMapper;
@@ -105,5 +106,10 @@ public class WmIssueHeaderServiceImpl implements IWmIssueHeaderService
     public int deleteWmIssueHeaderByIssueId(Long issueId)
     {
         return wmIssueHeaderMapper.deleteWmIssueHeaderByIssueId(issueId);
+    }
+
+    @Override
+    public List<IssueTxBean> getTxBeans(Long issueId) {
+        return wmIssueHeaderMapper.getTxBeans(issueId);
     }
 }

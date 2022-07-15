@@ -23,6 +23,8 @@ public class WmIssueLine extends BaseEntity
     @Excel(name = "领料单ID")
     private Long issueId;
 
+    private Long materialStockId;
+
     /** 产品物料ID */
     @Excel(name = "产品物料ID")
     private Long itemId;
@@ -122,7 +124,15 @@ public class WmIssueLine extends BaseEntity
         this.itemId = itemId;
     }
 
-    public Long getItemId() 
+    public Long getMaterialStockId() {
+        return materialStockId;
+    }
+
+    public void setMaterialStockId(Long materialStockId) {
+        this.materialStockId = materialStockId;
+    }
+
+    public Long getItemId()
     {
         return itemId;
     }

@@ -2,6 +2,7 @@ package com.ktg.mes.wm.service;
 
 import java.util.List;
 import com.ktg.mes.wm.domain.WmIssueHeader;
+import com.ktg.mes.wm.domain.tx.IssueTxBean;
 
 /**
  * 生产领料单头Service接口
@@ -65,4 +66,6 @@ public interface IWmIssueHeaderService
      * @return 结果
      */
     public int deleteWmIssueHeaderByIssueId(Long issueId);
+
+    public List<IssueTxBean> getTxBeans(Long issueId);
 }

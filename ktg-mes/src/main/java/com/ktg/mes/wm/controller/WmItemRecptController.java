@@ -206,10 +206,8 @@ public class WmItemRecptController extends BaseController
         storageCoreService.processItemRecpt(beans);
 
         //更新单据状态
-        WmItemRecpt wmItemRecpt =wmItemRecptService.selectWmItemRecptByRecptId(recptId);
-        wmItemRecpt.setStatus(UserConstants.ORDER_STATUS_FINISHED);
-        wmItemRecptService.updateWmItemRecpt(wmItemRecpt);
-
+        recpt.setStatus(UserConstants.ORDER_STATUS_FINISHED);
+        wmItemRecptService.updateWmItemRecpt(recpt);
 
         return AjaxResult.success();
     }

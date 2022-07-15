@@ -3,8 +3,13 @@ package com.ktg.mes.wm.controller;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
+import cn.hutool.core.collection.CollUtil;
 import com.ktg.common.constant.UserConstants;
+import com.ktg.mes.wm.domain.WmIssueLine;
+import com.ktg.mes.wm.domain.tx.IssueTxBean;
+import com.ktg.mes.wm.service.IStorageCoreService;
 import com.ktg.mes.wm.service.IWmIssueLineService;
+import com.ktg.mes.wm.service.IWmStorageAreaService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,6 +45,9 @@ public class WmIssueHeaderController extends BaseController
 
     @Autowired
     private IWmIssueLineService wmIssueLineService;
+
+    @Autowired
+    private IStorageCoreService storageCoreService;
 
     /**
      * 查询生产领料单头列表
@@ -120,4 +128,34 @@ public class WmIssueHeaderController extends BaseController
 
         return toAjax(wmIssueHeaderService.deleteWmIssueHeaderByIssueIds(issueIds));
     }
+
+    /**
+     * 执行出库
+     * @return
+     */
+    @PreAuthorize("@ss.hasPermi('mes:wm:issueheader:edit')")
+    @Log(title = "生产领料单头", businessType = BusinessType.UPDATE)
+    @Transactional
+    @PutMapping("/{issueId}")
+    public AjaxResult execute(@PathVariable Long issueId){
+        WmIssueHeader header = wmIssueHeaderService.selectWmIssueHeaderByIssueId(issueId);
+        WmIssueLine param = new WmIssueLine();
+        param.setIssueId(issueId);
+        List<WmIssueLine> lines = wmIssueLineService.selectWmIssueLineList(param);
+        if(CollUtil.isEmpty(lines)){
+            return AjaxResult.error("请指定领出的物资");
+        }
+
+        List<IssueTxBean> beans = wmIssueHeaderService.getTxBeans(issueId);
+
+        //调用库存核心
+        storageCoreService.processIssue(beans);
+
+        //更新单据状态
+        header.setStatus(UserConstants.ORDER_STATUS_FINISHED);
+        wmIssueHeaderService.updateWmIssueHeader(header);
+        return AjaxResult.success();
+    }
+
+
 }

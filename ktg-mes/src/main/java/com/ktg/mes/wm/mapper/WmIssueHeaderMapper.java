@@ -2,6 +2,7 @@ package com.ktg.mes.wm.mapper;
 
 import java.util.List;
 import com.ktg.mes.wm.domain.WmIssueHeader;
+import com.ktg.mes.wm.domain.tx.IssueTxBean;
 
 /**
  * 生产领料单头Mapper接口
@@ -65,4 +66,8 @@ public interface WmIssueHeaderMapper
      * @return 结果
      */
     public int deleteWmIssueHeaderByIssueIds(Long[] issueIds);
+
+
+    public List<IssueTxBean> getTxBeans(Long issueId);
+
 }

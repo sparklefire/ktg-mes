@@ -359,6 +359,7 @@ drop table if exists wm_issue_line;
 create table wm_issue_line (
   line_id               bigint(20)      not null auto_increment     comment '行ID',
   issue_id              bigint(20)                                  comment '领料单ID',
+  material_stock_id     bigint(20)                                  comment '库存ID',
   item_id               bigint(20)      not null                    comment '产品物料ID',
   item_code             varchar(64)                                 comment '产品物料编码',
   item_name             varchar(255)                                comment '产品物料名称',

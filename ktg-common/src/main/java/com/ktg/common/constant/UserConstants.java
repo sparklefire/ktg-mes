@@ -122,12 +122,12 @@ public class UserConstants
      */
     public static final String TRANSACTION_TYPE_ITEM_RECPT = "ITEM_RECPT"; //原材料接收入库
     public static final String TRANSACTION_TYPE_ITEM_RTV = "ITEM_RTV"; //原材料退回供应商
-    public static final String TRANSACTION_TYPE_ITEM_ISSUE = "ITEM_ISSUE"; //原材料领用出库
-    public static final String TRANSACTION_TYPE_ITEM_RS = "ITEM_RS"; //原材料退库
+    public static final String TRANSACTION_TYPE_ITEM_ISSUE = "ITEM_ISSUE"; //生产领用
+    public static final String TRANSACTION_TYPE_ITEM_RS = "ITEM_RS"; //生产退库
     public static final String TRANSACTION_TYPE_WAREHOUSE_TRANS_OUT = "TRANS_OUT"; //移库,移出
     public static final String TRANSACTION_TYPE_WAREHOUSE_TRANS_IN = "TRANS_IN"; //移库,移入
-    public static final String TRANSACTION_TYPE_PRODUCT_ISSUE = "PRODUCT_ISSUE"; //产品出库
-    public static final String TRANSACTION_TYPE_PRODUCT_RS = "PRODUCT_RS"; //产品退货
+    public static final String TRANSACTION_TYPE_PRODUCT_ISSUE = "PRODUCT_ISSUE"; //销售出库
+    public static final String TRANSACTION_TYPE_PRODUCT_RS = "PRODUCT_RS"; //销售退货
     public static final String TRANSACTION_TYPE_MISC_RECPT = "MISC_RECPT"; //杂项入库
     public static final String TRANSACTION_TYPE_MISC_ISSUE = "MISC_ISSUE"; //杂项出库
 
