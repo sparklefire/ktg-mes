@@ -323,6 +323,7 @@ create table wm_issue_header (
   issue_name            varchar(255)    not null                    comment '领料单名称',
   workstation_id        bigint(20)                                  comment '工作站ID',
   workstation_code      varchar(64)                                 comment '工作站编号',    
+  workstation_name      varchar(255)                                comment '工作站名称',
   workorder_id          bigint(20)                                  comment '生产工单ID',
   workorder_code        varchar(64)                                 comment '生产工单编码',
   task_id               bigint(20)                                  comment '生产任务ID',

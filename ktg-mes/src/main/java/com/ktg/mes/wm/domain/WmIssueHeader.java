@@ -36,6 +36,8 @@ public class WmIssueHeader extends BaseEntity
     @Excel(name = "工作站编号")
     private String workstationCode;
 
+    private String workstationName;
+
     /** 生产工单ID */
     @Excel(name = "生产工单ID")
     private Long workorderId;
