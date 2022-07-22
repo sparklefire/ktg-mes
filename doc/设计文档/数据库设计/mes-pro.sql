@@ -277,3 +277,123 @@ create table pro_feedback (
   update_time                    datetime                                   comment '更新时间',
   primary key (record_id)
 ) engine=innodb auto_increment=200 comment = '生产报工记录表';
+
+
+
+
+
+-- ----------------------------
+-- 4、生产任务投料表
+-- ----------------------------
+drop table if exists pro_task_issue;
+create table pro_task_issue (
+  record_id                      bigint(20)      not null auto_increment    comment '记录ID',
+  task_id                        bigint(20)      not null                   comment '生产任务ID',
+  workorder_id                   bigint(20)                                 comment '生产工单ID',
+  workstation_id                 bigint(20)                                 comment '工作站ID',
+  source_doc_id                  bigint(20)      not null                   comment '单据ID',
+  source_doc_code                varchar(64)                                comment '单据编号',
+  batch_code                     varchar(64)                                comment '投料批次',
+  source_line_id                 bigint(20)                                 comment '行ID',
+  item_id                        bigint(20)                                 comment '产品物料ID',
+  item_code                      varchar(64)     not null                   comment '产品物料编码',
+  item_name                      varchar(255)    not null                   comment '产品物料名称',
+  specification                  varchar(500)    default null               comment '规格型号',
+  unit_of_measure                varchar(64)     not null                   comment '单位',
+  quantity_issued                double(12,2)                               comment '总的投料数量',
+  quantity_available             double(12,2)                               comment '当前可用数量',
+  quantity_used                  double(12,2)                               comment '当前使用数量',
+  remark                         varchar(500)    default ''                 comment '备注',
+  attr1                          varchar(64)     default null               comment '预留字段1',
+  attr2                          varchar(255)    default null               comment '预留字段2',
+  attr3                          int(11)         default 0                  comment '预留字段3',
+  attr4                          int(11)         default 0                  comment '预留字段4',
+  create_by                      varchar(64)     default ''                 comment '创建者',
+  create_time 	                 datetime                                   comment '创建时间',
+  update_by                      varchar(64)     default ''                 comment '更新者',
+  update_time                    datetime                                   comment '更新时间',
+  primary key (record_id)
+) engine=innodb auto_increment=200 comment = '生产任务投料表';
+
+
+
+
+-- ----------------------------
+-- 4、流转单表
+-- ----------------------------
+drop table if exists pro_trans_order;
+create table pro_trans_order (
+  trans_order_id                 bigint(20)      not null auto_increment    comment '流转单ID',
+  trans_order_code               varchar(64)                                comment '流转单编号',
+  task_id                        bigint(20)      not null                   comment '生产任务ID',
+  task_code                      varchar(64)                                comment '生产任务编号',
+  workstation_id                 bigint(20)      not null                   comment '工作站ID',
+  workstation_code               varchar(64)                                comment '工作站编号',
+  workstation_name               varchar(255)                               comment '工作站名称', 
+  process_id                     bigint(20)                                 comment '工序ID',
+  process_code                   varchar(64)                                comment '工序编号',
+  process_name                   varchar(255)                               comment '工序名称',
+  workorder_id                   bigint(20)                                 comment '生产工单ID',
+  workorder_code                 varchar(64)                                comment '生产工单编号',
+  workorder_name                 varchar(255)                               comment '生产工单名称', 
+  batch_code                     varchar(64)                                comment '批次号',  
+  item_id                        bigint(20)                                 comment '产品物料ID',
+  item_code                      varchar(64)     not null                   comment '产品物料编码',
+  item_name                      varchar(255)    not null                   comment '产品物料名称',
+  specification                  varchar(500)    default null               comment '规格型号',
+  unit_of_measure                varchar(64)     not null                   comment '单位',
+  quantity_transfered            double(12,2)                               comment '流转数量',  
+  produce_date                   datetime                                   comment '生产日期',
+  remark                         varchar(500)    default ''                 comment '备注',
+  attr1                          varchar(64)     default null               comment '预留字段1',
+  attr2                          varchar(255)    default null               comment '预留字段2',
+  attr3                          int(11)         default 0                  comment '预留字段3',
+  attr4                          int(11)         default 0                  comment '预留字段4',
+  create_by                      varchar(64)     default ''                 comment '创建者',
+  create_time 	                 datetime                                   comment '创建时间',
+  update_by                      varchar(64)     default ''                 comment '更新者',
+  update_time                    datetime                                   comment '更新时间',
+  primary key (record_id)
+) engine=innodb auto_increment=200 comment = '流转单表';
+
+
+
+
+
+-- ----------------------------
+-- 4、物料消耗记录表
+-- ----------------------------
+drop table if exists pro_trans_consume;
+create table pro_trans_consume (
+  record_id                      bigint(20)      not null auto_increment    comment '记录ID',
+  trans_order_id                 bigint(20)                                 comment '流转单ID',
+  trans_order_code               varchar(64)                                comment '流转单编号',
+  task_id                        bigint(20)      not null                   comment '生产任务ID',  
+  workstation_id                 bigint(20)      not null                   comment '工作站ID',
+  process_id                     bigint(20)                                 comment '工序ID',
+  workorder_id                   bigint(20)                                 comment '生产工单ID',
+  batch_code                     varchar(64)                                comment '批次号',  
+  source_doc_id                  bigint(20)                                 comment '被消耗单据ID',
+  source_doc_code                varchar(64)                                comment '被消耗单据编号',
+  source_doc_type                varchar(64)                                comment '被消耗单据类型',
+  source_line_id                 bigint(20)                                 comment '被消耗单据行ID',
+  batch_code                     varchar(64)                                comment '被消耗物料批次号',  
+  item_id                        bigint(20)                                 comment '被消耗产品物料ID',
+  item_code                      varchar(64)     not null                   comment '被消耗产品物料编码',
+  item_name                      varchar(255)    not null                   comment '被消耗产品物料名称',
+  specification                  varchar(500)    default null               comment '规格型号',
+  unit_of_measure                varchar(64)     not null                   comment '单位',
+  quantity_consumed              double(12,2)                               comment '消耗数量',  
+  consume_date                   datetime                                   comment '消耗时间',
+  remark                         varchar(500)    default ''                 comment '备注',
+  attr1                          varchar(64)     default null               comment '预留字段1',
+  attr2                          varchar(255)    default null               comment '预留字段2',
+  attr3                          int(11)         default 0                  comment '预留字段3',
+  attr4                          int(11)         default 0                  comment '预留字段4',
+  create_by                      varchar(64)     default ''                 comment '创建者',
+  create_time 	                 datetime                                   comment '创建时间',
+  update_by                      varchar(64)     default ''                 comment '更新者',
+  update_time                    datetime                                   comment '更新时间',
+  primary key (record_id)
+) engine=innodb auto_increment=200 comment = '物料消耗记录表';
+
