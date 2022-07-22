@@ -27,6 +27,8 @@ public interface IProTaskIssueService
      */
     public List<ProTaskIssue> selectProTaskIssueList(ProTaskIssue proTaskIssue);
 
+    public String checkUnique(ProTaskIssue proTaskIssue);
+
     /**
      * 新增生产任务投料
      * 

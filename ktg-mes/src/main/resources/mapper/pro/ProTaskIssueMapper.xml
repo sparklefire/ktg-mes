@@ -63,7 +63,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectProTaskIssueVo"/>
         where record_id = #{recordId}
     </select>
-        
+
+    <select id="checkUnique" parameterType="ProTaskIssue" resultMap="ProTaskIssueResult">
+        <include refid="selectProTaskIssueVo"/>
+        where workstation_id = #{workstationId}
+        and task_id = #{taskId}
+        and source_doc_type = #{sourceDocType}
+        and source_line_id = #{sourceLineId}
+        limit 1
+    </select>
+
     <insert id="insertProTaskIssue" parameterType="ProTaskIssue" useGeneratedKeys="true" keyProperty="recordId">
         insert into pro_task_issue
         <trim prefix="(" suffix=")" suffixOverrides=",">

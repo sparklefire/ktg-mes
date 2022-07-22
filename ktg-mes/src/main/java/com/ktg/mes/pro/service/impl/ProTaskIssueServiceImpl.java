@@ -1,7 +1,11 @@
 package com.ktg.mes.pro.service.impl;
 
 import java.util.List;
+
+import com.ktg.common.constant.UserConstants;
 import com.ktg.common.utils.DateUtils;
+import com.ktg.common.utils.StringUtils;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ktg.mes.pro.mapper.ProTaskIssueMapper;
@@ -42,6 +46,15 @@ public class ProTaskIssueServiceImpl implements IProTaskIssueService
     public List<ProTaskIssue> selectProTaskIssueList(ProTaskIssue proTaskIssue)
     {
         return proTaskIssueMapper.selectProTaskIssueList(proTaskIssue);
+    }
+
+    @Override
+    public String checkUnique(ProTaskIssue proTaskIssue) {
+        ProTaskIssue taskIssue = proTaskIssueMapper.checkUnique(proTaskIssue);
+        if(StringUtils.isNotNull(taskIssue)){
+            return UserConstants.NOT_UNIQUE;
+        }
+        return UserConstants.UNIQUE;
     }
 
     /**

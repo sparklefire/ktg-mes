@@ -152,5 +152,10 @@ public class UserConstants
     public static final String CAL_QUERY_BY_TEAM="TEAM";
     public static final String CAL_QUERY_BY_USER="USER";
 
+    /**
+     * 生产投料单据的类型
+     */
+    public static final String TASK_ISSUE_DOC_TYPE_ISSUE="ISSUE"; //领料单
+    public static final String TASK_ISSUE_DOC_TYPE_TRANS="TRANS"; //流转单
 
 }

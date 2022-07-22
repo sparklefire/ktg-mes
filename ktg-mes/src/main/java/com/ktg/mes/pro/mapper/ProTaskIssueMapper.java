@@ -27,6 +27,8 @@ public interface ProTaskIssueMapper
      */
     public List<ProTaskIssue> selectProTaskIssueList(ProTaskIssue proTaskIssue);
 
+    public ProTaskIssue checkUnique(ProTaskIssue proTaskIssue);
+
     /**
      * 新增生产任务投料
      * 
