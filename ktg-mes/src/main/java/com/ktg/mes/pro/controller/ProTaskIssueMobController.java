@@ -38,7 +38,7 @@ public class ProTaskIssueMobController extends BaseController {
      * 至少提供workstationId、taskId两个参数
      */
     ///@PreAuthorize("@ss.hasPermi('mes:pro:taskissue:list')")
-    @GetMapping("/getIssueList")
+    @GetMapping("/getlist")
     public AjaxResult getIssueList(ProTaskIssue proTaskIssue) {
         List<ProTaskIssue> list = proTaskIssueService.selectProTaskIssueList(proTaskIssue);
         return AjaxResult.success(list);

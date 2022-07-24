@@ -8,8 +8,12 @@ import com.ktg.mes.md.domain.MdWorkstation;
 import com.ktg.mes.md.service.IMdWorkstationService;
 import com.ktg.mes.pro.domain.ProFeedback;
 import com.ktg.mes.pro.domain.ProTask;
+import com.ktg.mes.pro.domain.ProTaskIssue;
 import com.ktg.mes.pro.service.IProFeedbackService;
+import com.ktg.mes.pro.service.IProTaskIssueService;
 import com.ktg.mes.pro.service.IProTaskService;
+import com.ktg.mes.wm.service.IWmIssueHeaderService;
+import com.ktg.mes.wm.service.IWmIssueLineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +34,21 @@ public class ProTaskMobController extends BaseController {
 
     @Autowired
     private IMdWorkstationService mdWorkstationService;
+
+    @Autowired
+    private IProTaskIssueService proTaskIssueService;
+
+    @Autowired
+    private IWmIssueHeaderService wmIssueHeaderService;
+
+    @Autowired
+    private IWmIssueLineService wmIssueLineService;
+
+    @GetMapping("/getlist")
+    public AjaxResult getIssueList(ProTaskIssue proTaskIssue) {
+        List<ProTaskIssue> list = proTaskIssueService.selectProTaskIssueList(proTaskIssue);
+        return AjaxResult.success(list);
+    }
 
     /**
      * 查询工作站的生产任务
