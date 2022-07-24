@@ -353,7 +353,7 @@ create table pro_trans_order (
   create_time 	                 datetime                                   comment '创建时间',
   update_by                      varchar(64)     default ''                 comment '更新者',
   update_time                    datetime                                   comment '更新时间',
-  primary key (record_id)
+  primary key (trans_order_id)
 ) engine=innodb auto_increment=200 comment = '流转单表';
 
 
@@ -377,7 +377,7 @@ create table pro_trans_consume (
   source_doc_code                varchar(64)                                comment '被消耗单据编号',
   source_doc_type                varchar(64)                                comment '被消耗单据类型',
   source_line_id                 bigint(20)                                 comment '被消耗单据行ID',
-  batch_code                     varchar(64)                                comment '被消耗物料批次号',  
+  source_batch_code              varchar(64)                                comment '被消耗物料批次号',  
   item_id                        bigint(20)                                 comment '被消耗产品物料ID',
   item_code                      varchar(64)     not null                   comment '被消耗产品物料编码',
   item_name                      varchar(255)    not null                   comment '被消耗产品物料名称',
