@@ -35,8 +35,9 @@ public class ProTaskIssueMobController extends BaseController {
 
     /**
      * 查询当前工作站、当前任务的投料清单
+     * 至少提供workstationId、taskId两个参数
      */
-    @PreAuthorize("@ss.hasPermi('mes:pro:taskissue:list')")
+    ///@PreAuthorize("@ss.hasPermi('mes:pro:taskissue:list')")
     @GetMapping("/getIssueList")
     public AjaxResult getIssueList(ProTaskIssue proTaskIssue) {
         List<ProTaskIssue> list = proTaskIssueService.selectProTaskIssueList(proTaskIssue);
@@ -48,7 +49,7 @@ public class ProTaskIssueMobController extends BaseController {
      * 如果某个领料单是领出到当前工作站或者当前任务的，则可以查询到
      */
     @PreAuthorize("@ss.hasPermi('mes:pro:taskissue:list')")
-    @GetMapping("/getIssueList")
+    @GetMapping("/getReserveIssueList")
     public AjaxResult getReserveIssueList(ProTaskIssue proTaskIssue){
         WmIssueHeader param = new WmIssueHeader();
         //领料单上指定了工作站
@@ -140,6 +141,15 @@ public class ProTaskIssueMobController extends BaseController {
         return AjaxResult.success();
     }
 
-
+    /**
+     * 删除生产任务投料
+     */
+    @PreAuthorize("@ss.hasPermi('mes:pro:taskissue:remove')")
+    @Log(title = "生产任务投料", businessType = BusinessType.DELETE)
+    @DeleteMapping("/{recordIds}")
+    public AjaxResult remove(@PathVariable Long[] recordIds)
+    {
+        return toAjax(proTaskIssueService.deleteProTaskIssueByRecordIds(recordIds));
+    }
 
 }
