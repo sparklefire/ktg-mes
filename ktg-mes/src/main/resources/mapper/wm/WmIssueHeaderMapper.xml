@@ -70,7 +70,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectWmIssueHeaderVo">
-        select issue_id, issue_code, issue_name, workstation_id, workstation_code, workorder_id, workorder_code, task_id, task_code, warehouse_id, warehouse_code, warehouse_name, location_id, location_code, location_name, area_id, area_code, area_name, issue_date, status, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from wm_issue_header
+        select issue_id, issue_code, issue_name, workstation_id, workstation_code,workstation_name, workorder_id, workorder_code, task_id, task_code, warehouse_id, warehouse_code, warehouse_name, location_id, location_code, location_name, area_id, area_code, area_name, issue_date, status, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from wm_issue_header
     </sql>
 
     <select id="selectWmIssueHeaderList" parameterType="WmIssueHeader" resultMap="WmIssueHeaderResult">

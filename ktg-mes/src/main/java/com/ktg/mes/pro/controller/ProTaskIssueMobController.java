@@ -18,7 +18,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/mobile/pro/taskissue")
@@ -69,7 +71,17 @@ public class ProTaskIssueMobController extends BaseController {
 
         List<WmIssueHeader> issueList = wmIssueHeaderService.selectWmIssueHeaderList(param);
 
-        return AjaxResult.success(issueList);
+        List<WmIssueLine> lines = new ArrayList<WmIssueLine>();
+        if(CollUtil.isNotEmpty(issueList)){
+            WmIssueLine p = new WmIssueLine();
+            for (WmIssueHeader header: issueList
+                 ) {
+                p.setIssueId(header.getIssueId());
+                lines.addAll(wmIssueLineService.selectWmIssueLineList(p));
+            }
+        }
+
+        return AjaxResult.success(lines);
     }
 
     /**

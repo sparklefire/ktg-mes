@@ -161,7 +161,15 @@ public class WmIssueHeader extends BaseEntity
         this.workorderId = workorderId;
     }
 
-    public Long getWorkorderId() 
+    public String getWorkstationName() {
+        return workstationName;
+    }
+
+    public void setWorkstationName(String workstationName) {
+        this.workstationName = workstationName;
+    }
+
+    public Long getWorkorderId()
     {
         return workorderId;
     }
@@ -336,6 +344,7 @@ public class WmIssueHeader extends BaseEntity
             .append("issueName", getIssueName())
             .append("workstationId", getWorkstationId())
             .append("workstationCode", getWorkstationCode())
+                .append("workstationName", getWorkstationName())
             .append("workorderId", getWorkorderId())
             .append("workorderCode", getWorkorderCode())
             .append("taskId", getTaskId())
