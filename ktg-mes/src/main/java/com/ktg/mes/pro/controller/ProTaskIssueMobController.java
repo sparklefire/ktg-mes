@@ -7,8 +7,14 @@ import com.ktg.common.core.controller.BaseController;
 import com.ktg.common.core.domain.AjaxResult;
 import com.ktg.common.enums.BusinessType;
 import com.ktg.common.utils.StringUtils;
+import com.ktg.mes.md.domain.MdWorkstation;
+import com.ktg.mes.md.service.IMdWorkstationService;
+import com.ktg.mes.pro.domain.ProTask;
 import com.ktg.mes.pro.domain.ProTaskIssue;
+import com.ktg.mes.pro.domain.ProTransOrder;
 import com.ktg.mes.pro.service.IProTaskIssueService;
+import com.ktg.mes.pro.service.IProTaskService;
+import com.ktg.mes.pro.service.IProTransOrderService;
 import com.ktg.mes.wm.domain.WmIssueHeader;
 import com.ktg.mes.wm.domain.WmIssueLine;
 import com.ktg.mes.wm.service.IWmIssueHeaderService;
@@ -28,6 +34,13 @@ public class ProTaskIssueMobController extends BaseController {
 
     @Autowired
     private IProTaskIssueService proTaskIssueService;
+
+    @Autowired
+    private IProTaskService proTaskService;
+
+    @Autowired
+    private IProTransOrderService proTransOrderService;
+
 
     @Autowired
     private IWmIssueHeaderService wmIssueHeaderService;
@@ -91,8 +104,40 @@ public class ProTaskIssueMobController extends BaseController {
     @PreAuthorize("@ss.hasPermi('mes:pro:taskissue:add')")
     @Log(title = "生产任务投料", businessType = BusinessType.INSERT)
     @PostMapping("/add")
-    public AjaxResult add(@RequestBody ProTaskIssue proTaskIssue)
+    @ResponseBody
+    public AjaxResult add(ProTaskIssue proTaskIssue)
     {
+        //前端至少会传递taskId、workstationId、sourceLineId、sourceDocType几个字段过来
+        ProTask task = proTaskService.selectProTaskByTaskId(proTaskIssue.getTaskId());
+        proTaskIssue.setWorkorderId(task.getWorkorderId());
+
+        //如果是领料单
+        if(UserConstants.TASK_ISSUE_DOC_TYPE_ISSUE.equals(proTaskIssue.getSourceDocType())){
+            WmIssueLine line = wmIssueLineService.selectWmIssueLineByLineId(proTaskIssue.getSourceLineId());
+            WmIssueHeader header = wmIssueHeaderService.selectWmIssueHeaderByIssueId(line.getIssueId());
+            proTaskIssue.setSourceDocId(line.getIssueId());//设置领料单ID
+            proTaskIssue.setSourceDocCode(header.getIssueCode());//设置领料单编号
+            proTaskIssue.setBatchCode(line.getBatchCode());
+            proTaskIssue.setItemId(line.getItemId());
+            proTaskIssue.setItemCode(line.getItemCode());
+            proTaskIssue.setItemName(line.getItemName());
+            proTaskIssue.setSpecification(line.getSpecification());
+            proTaskIssue.setUnitOfMeasure(line.getUnitOfMeasure());
+            proTaskIssue.setQuantityIssued(line.getQuantityIssued());
+        }else{
+            //如果是流转单
+            ProTransOrder transOrder = proTransOrderService.selectProTransOrderByTransOrderId(proTaskIssue.getSourceDocId());
+            proTaskIssue.setTaskId(transOrder.getTaskId());
+            proTaskIssue.setWorkorderId(transOrder.getWorkorderId());
+            proTaskIssue.setSourceDocCode(transOrder.getTransOrderCode());
+            proTaskIssue.setBatchCode(transOrder.getBatchCode());
+            proTaskIssue.setSourceLineId(transOrder.getTransOrderId());//这里直接使用头ID作为source_line_id，因为流转单不是头行结构
+            proTaskIssue.setItemId(transOrder.getItemId());
+            proTaskIssue.setItemCode(transOrder.getItemCode());
+            proTaskIssue.setItemName(transOrder.getItemName());
+            proTaskIssue.setUnitOfMeasure(transOrder.getUnitOfMeasure());
+            proTaskIssue.setQuantityIssued(transOrder.getQuantityTransfered());//流转单的流转数量作为投料数量
+        }
         //不能重复添加
         if(UserConstants.NOT_UNIQUE.equals(proTaskIssueService.checkUnique(proTaskIssue))){
             return AjaxResult.error("物料已添加过");
@@ -158,10 +203,11 @@ public class ProTaskIssueMobController extends BaseController {
      */
     @PreAuthorize("@ss.hasPermi('mes:pro:taskissue:remove')")
     @Log(title = "生产任务投料", businessType = BusinessType.DELETE)
-    @DeleteMapping("/{recordIds}")
-    public AjaxResult remove(@PathVariable Long[] recordIds)
+    @PostMapping("/{recordId}")
+    @ResponseBody
+    public AjaxResult remove(@PathVariable Long recordId)
     {
-        return toAjax(proTaskIssueService.deleteProTaskIssueByRecordIds(recordIds));
+        return toAjax(proTaskIssueService.deleteProTaskIssueByRecordId(recordId));
     }
 
 }
