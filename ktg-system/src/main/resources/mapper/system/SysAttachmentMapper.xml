@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ktg.system.mapper.SysAttachmentMapper">
+    
+    <resultMap type="SysAttachment" id="SysAttachmentResult">
+        <result property="attachmentId"    column="attachment_id"    />
+        <result property="sourceDocId"    column="source_doc_id"    />
+        <result property="sourceDocType"    column="source_doc_type"    />
+        <result property="fileUrl"    column="file_url"    />
+        <result property="basePath"    column="base_path"    />
+        <result property="fileName"    column="file_name"    />
+        <result property="orignalName"    column="orignal_name"    />
+        <result property="fileType"    column="file_type"    />
+        <result property="fileSize"    column="file_size"    />
+        <result property="remark"    column="remark"    />
+        <result property="attr1"    column="attr1"    />
+        <result property="attr2"    column="attr2"    />
+        <result property="attr3"    column="attr3"    />
+        <result property="attr4"    column="attr4"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectSysAttachmentVo">
+        select attachment_id, source_doc_id, source_doc_type, file_url, base_path, file_name, orignal_name, file_type, file_size, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from sys_attachment
+    </sql>
+
+    <select id="selectSysAttachmentList" parameterType="SysAttachment" resultMap="SysAttachmentResult">
+        <include refid="selectSysAttachmentVo"/>
+        <where>  
+            <if test="sourceDocId != null "> and source_doc_id = #{sourceDocId}</if>
+            <if test="sourceDocType != null  and sourceDocType != ''"> and source_doc_type = #{sourceDocType}</if>
+            <if test="fileUrl != null  and fileUrl != ''"> and file_url = #{fileUrl}</if>
+            <if test="basePath != null  and basePath != ''"> and base_path = #{basePath}</if>
+            <if test="fileName != null  and fileName != ''"> and file_name like concat('%', #{fileName}, '%')</if>
+            <if test="orignalName != null  and orignalName != ''"> and orignal_name like concat('%', #{orignalName}, '%')</if>
+            <if test="fileType != null  and fileType != ''"> and file_type = #{fileType}</if>
+            <if test="fileSize != null "> and file_size = #{fileSize}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysAttachmentByAttachmentId" parameterType="Long" resultMap="SysAttachmentResult">
+        <include refid="selectSysAttachmentVo"/>
+        where attachment_id = #{attachmentId}
+    </select>
+        
+    <insert id="insertSysAttachment" parameterType="SysAttachment" useGeneratedKeys="true" keyProperty="attachmentId">
+        insert into sys_attachment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sourceDocId != null">source_doc_id,</if>
+            <if test="sourceDocType != null">source_doc_type,</if>
+            <if test="fileUrl != null and fileUrl != ''">file_url,</if>
+            <if test="basePath != null">base_path,</if>
+            <if test="fileName != null">file_name,</if>
+            <if test="orignalName != null">orignal_name,</if>
+            <if test="fileType != null">file_type,</if>
+            <if test="fileSize != null">file_size,</if>
+            <if test="remark != null">remark,</if>
+            <if test="attr1 != null">attr1,</if>
+            <if test="attr2 != null">attr2,</if>
+            <if test="attr3 != null">attr3,</if>
+            <if test="attr4 != null">attr4,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="sourceDocId != null">#{sourceDocId},</if>
+            <if test="sourceDocType != null">#{sourceDocType},</if>
+            <if test="fileUrl != null and fileUrl != ''">#{fileUrl},</if>
+            <if test="basePath != null">#{basePath},</if>
+            <if test="fileName != null">#{fileName},</if>
+            <if test="orignalName != null">#{orignalName},</if>
+            <if test="fileType != null">#{fileType},</if>
+            <if test="fileSize != null">#{fileSize},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="attr1 != null">#{attr1},</if>
+            <if test="attr2 != null">#{attr2},</if>
+            <if test="attr3 != null">#{attr3},</if>
+            <if test="attr4 != null">#{attr4},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysAttachment" parameterType="SysAttachment">
+        update sys_attachment
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="sourceDocId != null">source_doc_id = #{sourceDocId},</if>
+            <if test="sourceDocType != null">source_doc_type = #{sourceDocType},</if>
+            <if test="fileUrl != null and fileUrl != ''">file_url = #{fileUrl},</if>
+            <if test="basePath != null">base_path = #{basePath},</if>
+            <if test="fileName != null">file_name = #{fileName},</if>
+            <if test="orignalName != null">orignal_name = #{orignalName},</if>
+            <if test="fileType != null">file_type = #{fileType},</if>
+            <if test="fileSize != null">file_size = #{fileSize},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="attr1 != null">attr1 = #{attr1},</if>
+            <if test="attr2 != null">attr2 = #{attr2},</if>
+            <if test="attr3 != null">attr3 = #{attr3},</if>
+            <if test="attr4 != null">attr4 = #{attr4},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where attachment_id = #{attachmentId}
+    </update>
+
+    <delete id="deleteSysAttachmentByAttachmentId" parameterType="Long">
+        delete from sys_attachment where attachment_id = #{attachmentId}
+    </delete>
+
+    <delete id="deleteSysAttachmentByAttachmentIds" parameterType="String">
+        delete from sys_attachment where attachment_id in 
+        <foreach item="attachmentId" collection="array" open="(" separator="," close=")">
+            #{attachmentId}
+        </foreach>
+    </delete>
+</mapper>
