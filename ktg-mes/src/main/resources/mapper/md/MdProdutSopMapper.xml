@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ktg.mes.md.mapper.MdProdutSopMapper">
+    
+    <resultMap type="MdProdutSop" id="MdProdutSopResult">
+        <result property="sopId"    column="sop_id"    />
+        <result property="itemId"    column="item_id"    />
+        <result property="orderNum"    column="order_num"    />
+        <result property="processId"    column="process_id"    />
+        <result property="processCode"    column="process_code"    />
+        <result property="processName"    column="process_name"    />
+        <result property="sopTitle"    column="sop_title"    />
+        <result property="sopDescription"    column="sop_description"    />
+        <result property="sopUrl"    column="sop_url"    />
+        <result property="remark"    column="remark"    />
+        <result property="attr1"    column="attr1"    />
+        <result property="attr2"    column="attr2"    />
+        <result property="attr3"    column="attr3"    />
+        <result property="attr4"    column="attr4"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectMdProdutSopVo">
+        select sop_id, item_id, order_num, process_id, process_code, process_name, sop_title, sop_description, sop_url, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from md_produt_sop
+    </sql>
+
+    <select id="selectMdProdutSopList" parameterType="MdProdutSop" resultMap="MdProdutSopResult">
+        <include refid="selectMdProdutSopVo"/>
+        <where>  
+            <if test="itemId != null "> and item_id = #{itemId}</if>
+            <if test="orderNum != null "> and order_num = #{orderNum}</if>
+            <if test="processId != null "> and process_id = #{processId}</if>
+            <if test="processCode != null  and processCode != ''"> and process_code = #{processCode}</if>
+            <if test="processName != null  and processName != ''"> and process_name like concat('%', #{processName}, '%')</if>
+            <if test="sopTitle != null  and sopTitle != ''"> and sop_title = #{sopTitle}</if>
+            <if test="sopDescription != null  and sopDescription != ''"> and sop_description = #{sopDescription}</if>
+            <if test="sopUrl != null  and sopUrl != ''"> and sop_url = #{sopUrl}</if>
+        </where>
+    </select>
+    
+    <select id="selectMdProdutSopBySopId" parameterType="Long" resultMap="MdProdutSopResult">
+        <include refid="selectMdProdutSopVo"/>
+        where sop_id = #{sopId}
+    </select>
+        
+    <insert id="insertMdProdutSop" parameterType="MdProdutSop" useGeneratedKeys="true" keyProperty="sopId">
+        insert into md_produt_sop
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="itemId != null">item_id,</if>
+            <if test="orderNum != null">order_num,</if>
+            <if test="processId != null">process_id,</if>
+            <if test="processCode != null">process_code,</if>
+            <if test="processName != null">process_name,</if>
+            <if test="sopTitle != null">sop_title,</if>
+            <if test="sopDescription != null">sop_description,</if>
+            <if test="sopUrl != null">sop_url,</if>
+            <if test="remark != null">remark,</if>
+            <if test="attr1 != null">attr1,</if>
+            <if test="attr2 != null">attr2,</if>
+            <if test="attr3 != null">attr3,</if>
+            <if test="attr4 != null">attr4,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="itemId != null">#{itemId},</if>
+            <if test="orderNum != null">#{orderNum},</if>
+            <if test="processId != null">#{processId},</if>
+            <if test="processCode != null">#{processCode},</if>
+            <if test="processName != null">#{processName},</if>
+            <if test="sopTitle != null">#{sopTitle},</if>
+            <if test="sopDescription != null">#{sopDescription},</if>
+            <if test="sopUrl != null">#{sopUrl},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="attr1 != null">#{attr1},</if>
+            <if test="attr2 != null">#{attr2},</if>
+            <if test="attr3 != null">#{attr3},</if>
+            <if test="attr4 != null">#{attr4},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateMdProdutSop" parameterType="MdProdutSop">
+        update md_produt_sop
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="itemId != null">item_id = #{itemId},</if>
+            <if test="orderNum != null">order_num = #{orderNum},</if>
+            <if test="processId != null">process_id = #{processId},</if>
+            <if test="processCode != null">process_code = #{processCode},</if>
+            <if test="processName != null">process_name = #{processName},</if>
+            <if test="sopTitle != null">sop_title = #{sopTitle},</if>
+            <if test="sopDescription != null">sop_description = #{sopDescription},</if>
+            <if test="sopUrl != null">sop_url = #{sopUrl},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="attr1 != null">attr1 = #{attr1},</if>
+            <if test="attr2 != null">attr2 = #{attr2},</if>
+            <if test="attr3 != null">attr3 = #{attr3},</if>
+            <if test="attr4 != null">attr4 = #{attr4},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where sop_id = #{sopId}
+    </update>
+
+    <delete id="deleteMdProdutSopBySopId" parameterType="Long">
+        delete from md_produt_sop where sop_id = #{sopId}
+    </delete>
+
+    <delete id="deleteMdProdutSopBySopIds" parameterType="String">
+        delete from md_produt_sop where sop_id in 
+        <foreach item="sopId" collection="array" open="(" separator="," close=")">
+            #{sopId}
+        </foreach>
+    </delete>
+</mapper>
