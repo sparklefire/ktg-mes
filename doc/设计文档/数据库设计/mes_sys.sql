@@ -81,3 +81,32 @@ create table sys_auto_code_result (
   update_time       datetime                                   comment '更新时间',
   primary key (code_id)
 ) engine=innodb auto_increment=200 comment = '编码生成记录表';
+
+
+-- ----------------------------
+-- 4、附件表
+-- ----------------------------
+drop table if exists sys_attachment;
+create table sys_attachment (
+  attachment_id     bigint(20)      not null auto_increment    comment '附件ID',
+  source_doc_id     bigint(20)                                 comment '关联的业务单据ID',
+  source_doc_type   varchar(64)                                comment '业务单据类型',
+  file_url          varchar(255)    not null                   comment '访问URL',
+  base_path         varchar(64)                                comment '域名',
+  file_name         varchar(255)                               comment '文件名',
+  orignal_name      varchar(255)                               comment '原来的文件名',
+  file_type         varchar(64)                                comment '文件类型',
+  file_size         double(12,2)                               comment '文件大小', 
+  remark            varchar(500)    default ''                 comment '备注',
+  attr1             varchar(64)     default null               comment '预留字段1',
+  attr2             varchar(255)     default null              comment '预留字段2',
+  attr3             int(11)         default 0                  comment '预留字段3',
+  attr4             int(11)         default 0                  comment '预留字段4',
+  create_by         varchar(64)     default ''                 comment '创建者',
+  create_time 	    datetime                                   comment '创建时间',
+  update_by         varchar(64)     default ''                 comment '更新者',
+  update_time       datetime                                   comment '更新时间',
+  primary key (attachment_id)
+) engine=innodb auto_increment=200 comment = '附件表';
+
+

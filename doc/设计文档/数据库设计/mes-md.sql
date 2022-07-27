@@ -307,3 +307,28 @@ create table md_workstation_tool (
 ) engine=innodb auto_increment=200 comment = '工装夹具资源表';
 
 
+-- ----------------------------
+-- 12、产品SOP表
+-- ----------------------------
+drop table if exists md_product_sop;
+create table md_produt_sop (
+  sop_id                 bigint(20)      not null auto_increment      comment '记录ID',
+  item_id                bigint(20)      not null                     comment '物料产品ID',
+  order_num              int(4)                                       comment '排列顺序',
+  process_id             bigint(20)                                   comment '对应的工序',
+  process_code           varchar(64)                                  comment '工序编号',
+  process_name           varchar(255)                                 comment '工序名称',
+  sop_title               varchar(255)                                comment '标题',
+  sop_description        varchar(500)                                 comment '详细描述',
+  sop_url                varchar(255)                                 comment '图片地址',
+  remark                 varchar(500)    default ''                   comment '备注',
+  attr1                  varchar(64)     default null                 comment '预留字段1',
+  attr2                  varchar(255)     default null                comment '预留字段2',
+  attr3                  int(11)         default 0                    comment '预留字段3',
+  attr4                  int(11)         default 0                    comment '预留字段4',
+  create_by              varchar(64)     default ''                   comment '创建者',
+  create_time 	         datetime                                     comment '创建时间',
+  update_by              varchar(64)     default ''                   comment '更新者',
+  update_time            datetime                                     comment '更新时间',
+  primary key (sop_id)
+) engine=innodb auto_increment=200 comment = '产品SOP表';

@@ -230,7 +230,7 @@ create table pro_task (
   end_time                       datetime                                   comment '完成生产时间',
   color_code                     char(7)         default '#00AEF3'          comment '甘特图显示颜色',
   request_date                   datetime                                   comment '需求日期',
-  stauts                         varchar(64)     default 'NORMARL'          comment '生产状态',
+  status                         varchar(64)     default 'NORMARL'          comment '生产状态',
   remark                         varchar(500)    default ''                 comment '备注',
   attr1                          varchar(64)     default null               comment '预留字段1',
   attr2                          varchar(255)    default null               comment '预留字段2',
