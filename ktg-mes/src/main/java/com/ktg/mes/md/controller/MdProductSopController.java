@@ -16,8 +16,8 @@ import com.ktg.common.annotation.Log;
 import com.ktg.common.core.controller.BaseController;
 import com.ktg.common.core.domain.AjaxResult;
 import com.ktg.common.enums.BusinessType;
-import com.ktg.mes.md.domain.MdProdutSop;
-import com.ktg.mes.md.service.IMdProdutSopService;
+import com.ktg.mes.md.domain.MdProductSop;
+import com.ktg.mes.md.service.IMdProductSopService;
 import com.ktg.common.utils.poi.ExcelUtil;
 import com.ktg.common.core.page.TableDataInfo;
 
@@ -29,20 +29,20 @@ import com.ktg.common.core.page.TableDataInfo;
  */
 @RestController
 @RequestMapping("/mes/md/sop")
-public class MdProdutSopController extends BaseController
+public class MdProductSopController extends BaseController
 {
     @Autowired
-    private IMdProdutSopService mdProdutSopService;
+    private IMdProductSopService mdProductSopService;
 
     /**
      * 查询产品SOP列表
      */
     @PreAuthorize("@ss.hasPermi('mes:md:sop:list')")
     @GetMapping("/list")
-    public TableDataInfo list(MdProdutSop mdProdutSop)
+    public TableDataInfo list(MdProductSop mdProdutSop)
     {
         startPage();
-        List<MdProdutSop> list = mdProdutSopService.selectMdProdutSopList(mdProdutSop);
+        List<MdProductSop> list = mdProductSopService.selectMdProductSopList(mdProdutSop);
         return getDataTable(list);
     }
 
@@ -52,10 +52,10 @@ public class MdProdutSopController extends BaseController
     @PreAuthorize("@ss.hasPermi('mes:md:sop:export')")
     @Log(title = "产品SOP", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
-    public void export(HttpServletResponse response, MdProdutSop mdProdutSop)
+    public void export(HttpServletResponse response, MdProductSop mdProdutSop)
     {
-        List<MdProdutSop> list = mdProdutSopService.selectMdProdutSopList(mdProdutSop);
-        ExcelUtil<MdProdutSop> util = new ExcelUtil<MdProdutSop>(MdProdutSop.class);
+        List<MdProductSop> list = mdProductSopService.selectMdProductSopList(mdProdutSop);
+        ExcelUtil<MdProductSop> util = new ExcelUtil<MdProductSop>(MdProductSop.class);
         util.exportExcel(response, list, "产品SOP数据");
     }
 
@@ -66,7 +66,7 @@ public class MdProdutSopController extends BaseController
     @GetMapping(value = "/{sopId}")
     public AjaxResult getInfo(@PathVariable("sopId") Long sopId)
     {
-        return AjaxResult.success(mdProdutSopService.selectMdProdutSopBySopId(sopId));
+        return AjaxResult.success(mdProductSopService.selectMdProductSopBySopId(sopId));
     }
 
     /**
@@ -75,9 +75,9 @@ public class MdProdutSopController extends BaseController
     @PreAuthorize("@ss.hasPermi('mes:md:sop:add')")
     @Log(title = "产品SOP", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@RequestBody MdProdutSop mdProdutSop)
+    public AjaxResult add(@RequestBody MdProductSop mdProdutSop)
     {
-        return toAjax(mdProdutSopService.insertMdProdutSop(mdProdutSop));
+        return toAjax(mdProductSopService.insertMdProductSop(mdProdutSop));
     }
 
     /**
@@ -86,9 +86,9 @@ public class MdProdutSopController extends BaseController
     @PreAuthorize("@ss.hasPermi('mes:md:sop:edit')")
     @Log(title = "产品SOP", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@RequestBody MdProdutSop mdProdutSop)
+    public AjaxResult edit(@RequestBody MdProductSop mdProdutSop)
     {
-        return toAjax(mdProdutSopService.updateMdProdutSop(mdProdutSop));
+        return toAjax(mdProductSopService.updateMdProductSop(mdProdutSop));
     }
 
     /**
@@ -99,6 +99,6 @@ public class MdProdutSopController extends BaseController
 	@DeleteMapping("/{sopIds}")
     public AjaxResult remove(@PathVariable Long[] sopIds)
     {
-        return toAjax(mdProdutSopService.deleteMdProdutSopBySopIds(sopIds));
+        return toAjax(mdProductSopService.deleteMdProductSopBySopIds(sopIds));
     }
 }

@@ -4,9 +4,9 @@ import java.util.List;
 import com.ktg.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.ktg.mes.md.mapper.MdProdutSopMapper;
-import com.ktg.mes.md.domain.MdProdutSop;
-import com.ktg.mes.md.service.IMdProdutSopService;
+import com.ktg.mes.md.mapper.MdProductSopMapper;
+import com.ktg.mes.md.domain.MdProductSop;
+import com.ktg.mes.md.service.IMdProductSopService;
 
 /**
  * 产品SOPService业务层处理
@@ -15,10 +15,10 @@ import com.ktg.mes.md.service.IMdProdutSopService;
  * @date 2022-07-26
  */
 @Service
-public class MdProdutSopServiceImpl implements IMdProdutSopService 
+public class MdProductSopServiceImpl implements IMdProductSopService
 {
     @Autowired
-    private MdProdutSopMapper mdProdutSopMapper;
+    private MdProductSopMapper mdProductSopMapper;
 
     /**
      * 查询产品SOP
@@ -27,9 +27,9 @@ public class MdProdutSopServiceImpl implements IMdProdutSopService
      * @return 产品SOP
      */
     @Override
-    public MdProdutSop selectMdProdutSopBySopId(Long sopId)
+    public MdProductSop selectMdProductSopBySopId(Long sopId)
     {
-        return mdProdutSopMapper.selectMdProdutSopBySopId(sopId);
+        return mdProductSopMapper.selectMdProductSopBySopId(sopId);
     }
 
     /**
@@ -39,9 +39,9 @@ public class MdProdutSopServiceImpl implements IMdProdutSopService
      * @return 产品SOP
      */
     @Override
-    public List<MdProdutSop> selectMdProdutSopList(MdProdutSop mdProdutSop)
+    public List<MdProductSop> selectMdProductSopList(MdProductSop mdProdutSop)
     {
-        return mdProdutSopMapper.selectMdProdutSopList(mdProdutSop);
+        return mdProductSopMapper.selectMdProductSopList(mdProdutSop);
     }
 
     /**
@@ -51,10 +51,10 @@ public class MdProdutSopServiceImpl implements IMdProdutSopService
      * @return 结果
      */
     @Override
-    public int insertMdProdutSop(MdProdutSop mdProdutSop)
+    public int insertMdProductSop(MdProductSop mdProdutSop)
     {
         mdProdutSop.setCreateTime(DateUtils.getNowDate());
-        return mdProdutSopMapper.insertMdProdutSop(mdProdutSop);
+        return mdProductSopMapper.insertMdProductSop(mdProdutSop);
     }
 
     /**
@@ -64,10 +64,10 @@ public class MdProdutSopServiceImpl implements IMdProdutSopService
      * @return 结果
      */
     @Override
-    public int updateMdProdutSop(MdProdutSop mdProdutSop)
+    public int updateMdProductSop(MdProductSop mdProdutSop)
     {
         mdProdutSop.setUpdateTime(DateUtils.getNowDate());
-        return mdProdutSopMapper.updateMdProdutSop(mdProdutSop);
+        return mdProductSopMapper.updateMdProductSop(mdProdutSop);
     }
 
     /**
@@ -77,9 +77,9 @@ public class MdProdutSopServiceImpl implements IMdProdutSopService
      * @return 结果
      */
     @Override
-    public int deleteMdProdutSopBySopIds(Long[] sopIds)
+    public int deleteMdProductSopBySopIds(Long[] sopIds)
     {
-        return mdProdutSopMapper.deleteMdProdutSopBySopIds(sopIds);
+        return mdProductSopMapper.deleteMdProductSopBySopIds(sopIds);
     }
 
     /**
@@ -89,8 +89,8 @@ public class MdProdutSopServiceImpl implements IMdProdutSopService
      * @return 结果
      */
     @Override
-    public int deleteMdProdutSopBySopId(Long sopId)
+    public int deleteMdProductSopBySopId(Long sopId)
     {
-        return mdProdutSopMapper.deleteMdProdutSopBySopId(sopId);
+        return mdProductSopMapper.deleteMdProductSopBySopId(sopId);
     }
 }

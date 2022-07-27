@@ -7,7 +7,9 @@ import com.ktg.common.core.controller.BaseController;
 import com.ktg.common.core.domain.AjaxResult;
 import com.ktg.common.enums.BusinessType;
 import com.ktg.common.utils.StringUtils;
+import com.ktg.mes.md.domain.MdProductSop;
 import com.ktg.mes.md.domain.MdWorkstation;
+import com.ktg.mes.md.service.IMdProductSopService;
 import com.ktg.mes.md.service.IMdWorkstationService;
 import com.ktg.mes.pro.domain.ProTask;
 import com.ktg.mes.pro.domain.ProTaskIssue;
@@ -47,6 +49,20 @@ public class ProTaskIssueMobController extends BaseController {
 
     @Autowired
     private IWmIssueLineService wmIssueLineService;
+
+    @Autowired
+    private IMdProductSopService mdProductSopService;
+
+    /**
+     * 获取当前产品的SOP
+     * @param mdProdutSop
+     * @return
+     */
+    @GetMapping("getSopList")
+    public AjaxResult getSopList(MdProductSop mdProdutSop){
+        List<MdProductSop> list = mdProductSopService.selectMdProductSopList(mdProdutSop);
+        return AjaxResult.success(list);
+    }
 
     /**
      * 查询当前工作站、当前任务的投料清单

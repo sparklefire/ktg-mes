@@ -11,7 +11,7 @@ import com.ktg.common.core.domain.BaseEntity;
  * @author yinjinlu
  * @date 2022-07-26
  */
-public class MdProdutSop extends BaseEntity
+public class MdProductSop extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
 

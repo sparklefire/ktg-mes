@@ -1,7 +1,7 @@
 package com.ktg.mes.md.mapper;
 
 import java.util.List;
-import com.ktg.mes.md.domain.MdProdutSop;
+import com.ktg.mes.md.domain.MdProductSop;
 
 /**
  * 产品SOPMapper接口
@@ -9,7 +9,7 @@ import com.ktg.mes.md.domain.MdProdutSop;
  * @author yinjinlu
  * @date 2022-07-26
  */
-public interface MdProdutSopMapper 
+public interface MdProductSopMapper
 {
     /**
      * 查询产品SOP
@@ -17,31 +17,31 @@ public interface MdProdutSopMapper
      * @param sopId 产品SOP主键
      * @return 产品SOP
      */
-    public MdProdutSop selectMdProdutSopBySopId(Long sopId);
+    public MdProductSop selectMdProductSopBySopId(Long sopId);
 
     /**
      * 查询产品SOP列表
      * 
-     * @param mdProdutSop 产品SOP
+     * @param mdProductSop 产品SOP
      * @return 产品SOP集合
      */
-    public List<MdProdutSop> selectMdProdutSopList(MdProdutSop mdProdutSop);
+    public List<MdProductSop> selectMdProductSopList(MdProductSop mdProductSop);
 
     /**
      * 新增产品SOP
      * 
-     * @param mdProdutSop 产品SOP
+     * @param mdProductSop 产品SOP
      * @return 结果
      */
-    public int insertMdProdutSop(MdProdutSop mdProdutSop);
+    public int insertMdProductSop(MdProductSop mdProductSop);
 
     /**
      * 修改产品SOP
      * 
-     * @param mdProdutSop 产品SOP
+     * @param mdProductSop 产品SOP
      * @return 结果
      */
-    public int updateMdProdutSop(MdProdutSop mdProdutSop);
+    public int updateMdProductSop(MdProductSop mdProductSop);
 
     /**
      * 删除产品SOP
@@ -49,7 +49,7 @@ public interface MdProdutSopMapper
      * @param sopId 产品SOP主键
      * @return 结果
      */
-    public int deleteMdProdutSopBySopId(Long sopId);
+    public int deleteMdProductSopBySopId(Long sopId);
 
     /**
      * 批量删除产品SOP
@@ -57,5 +57,5 @@ public interface MdProdutSopMapper
      * @param sopIds 需要删除的数据主键集合
      * @return 结果
      */
-    public int deleteMdProdutSopBySopIds(Long[] sopIds);
+    public int deleteMdProductSopBySopIds(Long[] sopIds);
 }
