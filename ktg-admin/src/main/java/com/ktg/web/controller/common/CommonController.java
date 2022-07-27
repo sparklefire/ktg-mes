@@ -161,4 +161,20 @@ public class CommonController
             log.error("下载文件失败", e);
         }
     }
+
+    @PostMapping("/uploadMinio")
+    public AjaxResult uploadFileMinio(MultipartFile file) throws Exception{
+        try{
+            String fileName = FileUploadUtils.uploadMinio(file);
+            AjaxResult rt = AjaxResult.success();
+            rt.put("url",fileName);
+            rt.put("fileName",fileName);
+            rt.put("newFileName",FileUtils.getName(fileName));
+            rt.put("originalFileName",file.getOriginalFilename());
+            return rt;
+        }catch (Exception e){
+            return AjaxResult.error(e.getMessage());
+        }
+    }
+
 }
