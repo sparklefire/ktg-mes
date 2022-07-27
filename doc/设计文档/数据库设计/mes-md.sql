@@ -311,7 +311,7 @@ create table md_workstation_tool (
 -- 12、产品SOP表
 -- ----------------------------
 drop table if exists md_product_sop;
-create table md_produt_sop (
+create table md_product_sop (
   sop_id                 bigint(20)      not null auto_increment      comment '记录ID',
   item_id                bigint(20)      not null                     comment '物料产品ID',
   order_num              int(4)                                       comment '排列顺序',
