@@ -25,6 +25,10 @@
 
 触控屏端地址：https://gitee.com/kutangguo/ktg-mes-pad
 
+PC端在线体验地址： [http://www.029tec.com](http://www.029tec.com/)
+
+当前开发进度请参考doc->开发进度->进度甘特图.xlsx
+
 欢迎交流沟通：
 
 QQ：411641505
@@ -32,6 +36,8 @@ QQ：411641505
 ### 系统架构
 
 当前版本基于RuoYi前后端分离版本开发。详情请参照：https://gitee.com/y_project/RuoYi-Vue
+
+触控屏端请参考Uniapp相关文档
 
 ### 功能简介
 
