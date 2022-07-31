@@ -47,7 +47,11 @@
             <groupId>com.ktg</groupId>
             <artifactId>ktg-framework</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-models</artifactId>
+            <version>1.6.2</version>
+        </dependency>
     </dependencies>
 
 </project>
