@@ -391,3 +391,34 @@ create table wm_issue_line (
 
 
 
+
+
+
+-- ----------------------------
+-- 12、条码清单表
+-- ----------------------------
+drop table if exists wm_barcode;
+create table wm_barcode (
+  barcode_id            bigint(20)      not null auto_increment     comment '条码ID',
+  barcode_formart       varchar(64)     not null                    comment '条码格式',
+  barcode_type          varchar(64)     not null                    comment '条码类型',
+  barcode_content       varchar(255)    not null                    comment '产品物料ID',
+  url                   varchar(255)                                comment '条码地址',
+  enable_flag           char(1)         default 'Y'                 comment '是否生效',
+  remark                varchar(500)    default ''                  comment '备注',
+  attr1                 varchar(64)     default null                comment '预留字段1',
+  attr2                 varchar(255)    default null                comment '预留字段2',
+  attr3                 int(11)         default 0                   comment '预留字段3',
+  attr4                 int(11)         default 0                   comment '预留字段4',
+  create_by             varchar(64)     default ''                  comment '创建者',
+  create_time 	        datetime                                    comment '创建时间',
+  update_by             varchar(64)     default ''                  comment '更新者',
+  update_time           datetime                                    comment '更新时间',
+  primary key (barcode_id)
+) engine=innodb auto_increment=200 comment = '条码清单表';
+
+
+
+
+
+
