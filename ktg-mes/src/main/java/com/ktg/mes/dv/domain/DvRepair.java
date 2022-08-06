@@ -75,9 +75,13 @@ public class DvRepair extends BaseEntity
     @Excel(name = "维修人员")
     private String acceptedBy;
 
+    private String acceptName;
+
     /** 验收人员 */
     @Excel(name = "验收人员")
     private String confirmBy;
+
+    private String confirmName;
 
     /** 单据状态 */
     @Excel(name = "单据状态")
@@ -235,7 +239,23 @@ public class DvRepair extends BaseEntity
         this.status = status;
     }
 
-    public String getStatus() 
+    public String getAcceptName() {
+        return acceptName;
+    }
+
+    public void setAcceptName(String acceptName) {
+        this.acceptName = acceptName;
+    }
+
+    public String getConfirmName() {
+        return confirmName;
+    }
+
+    public void setConfirmName(String confirmName) {
+        this.confirmName = confirmName;
+    }
+
+    public String getStatus()
     {
         return status;
     }
