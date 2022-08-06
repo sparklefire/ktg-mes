@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ktg.mes.dv.mapper.DvRepairMapper">
+    
+    <resultMap type="DvRepair" id="DvRepairResult">
+        <result property="repairId"    column="repair_id"    />
+        <result property="repairCode"    column="repair_code"    />
+        <result property="repairName"    column="repair_name"    />
+        <result property="machineryId"    column="machinery_id"    />
+        <result property="machineryCode"    column="machinery_code"    />
+        <result property="machineryName"    column="machinery_name"    />
+        <result property="machineryBrand"    column="machinery_brand"    />
+        <result property="machinerySpec"    column="machinery_spec"    />
+        <result property="machineryTypeId"    column="machinery_type_id"    />
+        <result property="requireDate"    column="require_date"    />
+        <result property="finishDate"    column="finish_date"    />
+        <result property="confirmDate"    column="confirm_date"    />
+        <result property="repairResult"    column="repair_result"    />
+        <result property="acceptedBy"    column="accepted_by"    />
+        <result property="confirmBy"    column="confirm_by"    />
+        <result property="status"    column="status"    />
+        <result property="remark"    column="remark"    />
+        <result property="attr1"    column="attr1"    />
+        <result property="attr2"    column="attr2"    />
+        <result property="attr3"    column="attr3"    />
+        <result property="attr4"    column="attr4"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectDvRepairVo">
+        select repair_id, repair_code, repair_name, machinery_id, machinery_code, machinery_name, machinery_brand, machinery_spec, machinery_type_id, require_date, finish_date, confirm_date, repair_result, accepted_by, confirm_by, status, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from dv_repair
+    </sql>
+
+    <select id="selectDvRepairList" parameterType="DvRepair" resultMap="DvRepairResult">
+        <include refid="selectDvRepairVo"/>
+        <where>  
+            <if test="repairCode != null  and repairCode != ''"> and repair_code = #{repairCode}</if>
+            <if test="repairName != null  and repairName != ''"> and repair_name like concat('%', #{repairName}, '%')</if>
+            <if test="machineryId != null "> and machinery_id = #{machineryId}</if>
+            <if test="machineryCode != null  and machineryCode != ''"> and machinery_code = #{machineryCode}</if>
+            <if test="machineryName != null  and machineryName != ''"> and machinery_name like concat('%', #{machineryName}, '%')</if>
+            <if test="machineryBrand != null  and machineryBrand != ''"> and machinery_brand = #{machineryBrand}</if>
+            <if test="machinerySpec != null  and machinerySpec != ''"> and machinery_spec = #{machinerySpec}</if>
+            <if test="machineryTypeId != null "> and machinery_type_id = #{machineryTypeId}</if>
+            <if test="requireDate != null "> and require_date = #{requireDate}</if>
+            <if test="finishDate != null "> and finish_date = #{finishDate}</if>
+            <if test="confirmDate != null "> and confirm_date = #{confirmDate}</if>
+            <if test="repairResult != null  and repairResult != ''"> and repair_result = #{repairResult}</if>
+            <if test="acceptedBy != null  and acceptedBy != ''"> and accepted_by = #{acceptedBy}</if>
+            <if test="confirmBy != null  and confirmBy != ''"> and confirm_by = #{confirmBy}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+        </where>
+    </select>
+    
+    <select id="selectDvRepairByRepairId" parameterType="Long" resultMap="DvRepairResult">
+        <include refid="selectDvRepairVo"/>
+        where repair_id = #{repairId}
+    </select>
+
+    <select id="checkCodeUnique" parameterType="DvRepair" resultMap="DvRepairResult">
+        <include refid="selectDvRepairVo"/>
+        where repair_code = #{repairCode} limit 1
+    </select>
+
+    <insert id="insertDvRepair" parameterType="DvRepair" useGeneratedKeys="true" keyProperty="repairId">
+        insert into dv_repair
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="repairCode != null and repairCode != ''">repair_code,</if>
+            <if test="repairName != null">repair_name,</if>
+            <if test="machineryId != null">machinery_id,</if>
+            <if test="machineryCode != null and machineryCode != ''">machinery_code,</if>
+            <if test="machineryName != null and machineryName != ''">machinery_name,</if>
+            <if test="machineryBrand != null">machinery_brand,</if>
+            <if test="machinerySpec != null">machinery_spec,</if>
+            <if test="machineryTypeId != null">machinery_type_id,</if>
+            <if test="requireDate != null">require_date,</if>
+            <if test="finishDate != null">finish_date,</if>
+            <if test="confirmDate != null">confirm_date,</if>
+            <if test="repairResult != null">repair_result,</if>
+            <if test="acceptedBy != null">accepted_by,</if>
+            <if test="confirmBy != null">confirm_by,</if>
+            <if test="status != null">status,</if>
+            <if test="remark != null">remark,</if>
+            <if test="attr1 != null">attr1,</if>
+            <if test="attr2 != null">attr2,</if>
+            <if test="attr3 != null">attr3,</if>
+            <if test="attr4 != null">attr4,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="repairCode != null and repairCode != ''">#{repairCode},</if>
+            <if test="repairName != null">#{repairName},</if>
+            <if test="machineryId != null">#{machineryId},</if>
+            <if test="machineryCode != null and machineryCode != ''">#{machineryCode},</if>
+            <if test="machineryName != null and machineryName != ''">#{machineryName},</if>
+            <if test="machineryBrand != null">#{machineryBrand},</if>
+            <if test="machinerySpec != null">#{machinerySpec},</if>
+            <if test="machineryTypeId != null">#{machineryTypeId},</if>
+            <if test="requireDate != null">#{requireDate},</if>
+            <if test="finishDate != null">#{finishDate},</if>
+            <if test="confirmDate != null">#{confirmDate},</if>
+            <if test="repairResult != null">#{repairResult},</if>
+            <if test="acceptedBy != null">#{acceptedBy},</if>
+            <if test="confirmBy != null">#{confirmBy},</if>
+            <if test="status != null">#{status},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="attr1 != null">#{attr1},</if>
+            <if test="attr2 != null">#{attr2},</if>
+            <if test="attr3 != null">#{attr3},</if>
+            <if test="attr4 != null">#{attr4},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateDvRepair" parameterType="DvRepair">
+        update dv_repair
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="repairCode != null and repairCode != ''">repair_code = #{repairCode},</if>
+            <if test="repairName != null">repair_name = #{repairName},</if>
+            <if test="machineryId != null">machinery_id = #{machineryId},</if>
+            <if test="machineryCode != null and machineryCode != ''">machinery_code = #{machineryCode},</if>
+            <if test="machineryName != null and machineryName != ''">machinery_name = #{machineryName},</if>
+            <if test="machineryBrand != null">machinery_brand = #{machineryBrand},</if>
+            <if test="machinerySpec != null">machinery_spec = #{machinerySpec},</if>
+            <if test="machineryTypeId != null">machinery_type_id = #{machineryTypeId},</if>
+            <if test="requireDate != null">require_date = #{requireDate},</if>
+            <if test="finishDate != null">finish_date = #{finishDate},</if>
+            <if test="confirmDate != null">confirm_date = #{confirmDate},</if>
+            <if test="repairResult != null">repair_result = #{repairResult},</if>
+            <if test="acceptedBy != null">accepted_by = #{acceptedBy},</if>
+            <if test="confirmBy != null">confirm_by = #{confirmBy},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="attr1 != null">attr1 = #{attr1},</if>
+            <if test="attr2 != null">attr2 = #{attr2},</if>
+            <if test="attr3 != null">attr3 = #{attr3},</if>
+            <if test="attr4 != null">attr4 = #{attr4},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where repair_id = #{repairId}
+    </update>
+
+    <delete id="deleteDvRepairByRepairId" parameterType="Long">
+        delete from dv_repair where repair_id = #{repairId}
+    </delete>
+
+    <delete id="deleteDvRepairByRepairIds" parameterType="String">
+        delete from dv_repair where repair_id in 
+        <foreach item="repairId" collection="array" open="(" separator="," close=")">
+            #{repairId}
+        </foreach>
+    </delete>
+</mapper>
