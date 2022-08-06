@@ -156,3 +156,70 @@ create table dv_check_subject (
   update_time                 datetime                                   comment '更新时间',
   primary key (record_id)
 ) engine=innodb auto_increment=200 comment = '点检项目表';
+
+
+
+-- ----------------------------
+-- 7、设备维修单
+-- ----------------------------
+drop table if exists dv_repair;
+create table dv_repair (
+  repair_id                   bigint(20)      not null auto_increment    comment '维修单ID',    
+  repair_code                 varchar(64)     not null                   comment '维修单编号',
+  repair_name                 varchar(255)                               comment '维修单名称',
+  machinery_id                bigint(20)      not null                   comment '设备ID',
+  machinery_code              varchar(64)     not null                   comment '设备编码',
+  machinery_name              varchar(255)    not null                   comment '设备名称',
+  machinery_brand             varchar(255)                               comment '品牌',
+  machinery_spec              varchar(255)                               comment '规格型号',
+  machinery_type_id           bigint(20)      not null                   comment '设备类型ID',
+  require_date                datetime                                   comment '报修日期',
+  finish_date                 datetime                                   comment '维修完成日期',
+  confirm_date                datetime                                   comment '验收日期',
+  repair_result               varchar(64)                                comment '维修结果',
+  accepted_by                 varchar(64)                                comment '维修人员',  
+  confirm_by                  varchar(64)                                comment '验收人员',
+  status                      varchar(64)     default 'PREPARE'          comment '单据状态',  
+  remark                      varchar(500)    default ''                 comment '备注',
+  attr1                       varchar(64)     default null               comment '预留字段1',
+  attr2                       varchar(255)    default null               comment '预留字段2',
+  attr3                       int(11)         default 0                  comment '预留字段3',
+  attr4                       int(11)         default 0                  comment '预留字段4',
+  create_by                   varchar(64)     default ''                 comment '创建者',
+  create_time 	              datetime                                   comment '创建时间',
+  update_by                   varchar(64)     default ''                 comment '更新者',
+  update_time                 datetime                                   comment '更新时间',
+  primary key (repair_id)
+) engine=innodb auto_increment=200 comment = '设备维修单';
+
+
+
+-- ----------------------------
+-- 7、设备维修单行
+-- ----------------------------
+drop table if exists dv_repair_line;
+create table dv_repair_line (
+  line_id                     bigint(20)      not null auto_increment    comment '行ID',    
+  repair_id                   bigint(20)      not null                   comment '维修单ID',
+  subject_id                  bigint(20)      not null                   comment '项目ID',
+  subject_code                varchar(64)     not null                   comment '项目编码',
+  subject_name                varchar(255)                               comment '项目名称',
+  subject_type                varchar(64)                                comment '项目类型',
+  subject_content             varchar(500)    not null                   comment '项目内容',
+  subject_standard            varchar(255)                               comment '标准',
+  malfunction                 varchar(500)                               comment '故障描述',
+  malfunction_url             varchar(255)                               comment '故障描述资源',
+  repair_des                  varchar(500)                               comment '维修情况',  
+  remark                      varchar(500)    default ''                 comment '备注',
+  attr1                       varchar(64)     default null               comment '预留字段1',
+  attr2                       varchar(255)    default null               comment '预留字段2',
+  attr3                       int(11)         default 0                  comment '预留字段3',
+  attr4                       int(11)         default 0                  comment '预留字段4',
+  create_by                   varchar(64)     default ''                 comment '创建者',
+  create_time 	              datetime                                   comment '创建时间',
+  update_by                   varchar(64)     default ''                 comment '更新者',
+  update_time                 datetime                                   comment '更新时间',
+  primary key (line_id)
+) engine=innodb auto_increment=200 comment = '设备维修单行';
+
+
