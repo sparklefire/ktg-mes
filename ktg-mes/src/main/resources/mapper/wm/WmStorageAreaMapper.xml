@@ -131,7 +131,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
 
     <delete id="deleteByWarehouseId" parameterType="Long">
-        delete from wm_storage_area where warehouse_id = #{warehouseId}
+        delete from wm_storage_area where location_id in ( select location_id from wm_storage_location where warehouse_id = #{warehouseId})
     </delete>
 
     <delete id="deleteByLocationId" parameterType="Long">
