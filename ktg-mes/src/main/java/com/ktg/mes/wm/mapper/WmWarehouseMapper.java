@@ -63,4 +63,5 @@ public interface WmWarehouseMapper
      * @return 结果
      */
     public int deleteWmWarehouseByWarehouseIds(Long[] warehouseIds);
+
 }

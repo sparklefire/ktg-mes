@@ -117,4 +117,9 @@ public class WmStorageLocationServiceImpl implements IWmStorageLocationService
     {
         return wmStorageLocationMapper.deleteWmStorageLocationByLocationId(locationId);
     }
+
+    @Override
+    public int deleteByWarehouseId(Long warehouseId) {
+        return wmStorageLocationMapper.deleteByWarehouseId(warehouseId);
+    }
 }

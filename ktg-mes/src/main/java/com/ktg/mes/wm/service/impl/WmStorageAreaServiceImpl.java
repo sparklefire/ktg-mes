@@ -93,4 +93,14 @@ public class WmStorageAreaServiceImpl implements IWmStorageAreaService
     {
         return wmStorageAreaMapper.deleteWmStorageAreaByAreaId(areaId);
     }
+
+    @Override
+    public int deleteByWarehouseId(Long warehouseId) {
+        return wmStorageAreaMapper.deleteByWarehouseId(warehouseId);
+    }
+
+    @Override
+    public int deleteByLocationId(Long locationId) {
+        return wmStorageAreaMapper.deleteByLocationId(locationId);
+    }
 }

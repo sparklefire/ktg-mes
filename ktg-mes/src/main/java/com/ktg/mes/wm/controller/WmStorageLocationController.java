@@ -4,8 +4,10 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ktg.common.constant.UserConstants;
+import com.ktg.mes.wm.service.IWmStorageAreaService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -35,6 +37,9 @@ public class WmStorageLocationController extends BaseController
 {
     @Autowired
     private IWmStorageLocationService wmStorageLocationService;
+
+    @Autowired
+    private IWmStorageAreaService wmStorageAreaService;
 
     /**
      * 查询库区设置列表
@@ -104,9 +109,14 @@ public class WmStorageLocationController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('mes:wm:location:remove')")
     @Log(title = "库区设置", businessType = BusinessType.DELETE)
+    @Transactional
 	@DeleteMapping("/{locationIds}")
     public AjaxResult remove(@PathVariable Long[] locationIds)
     {
+        for (Long locationId: locationIds
+             ) {
+            wmStorageAreaService.deleteByLocationId(locationId);
+        }
         return toAjax(wmStorageLocationService.deleteWmStorageLocationByLocationIds(locationIds));
     }
 }

@@ -119,4 +119,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{locationId}
         </foreach>
     </delete>
+
+    <delete id="deleteByWarehouseId" parameterType="Long">
+        delete from wm_storage_location where warehouse_id = #{warehouseId}
+    </delete>
 </mapper>

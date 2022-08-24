@@ -4,8 +4,11 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ktg.common.constant.UserConstants;
+import com.ktg.mes.wm.service.IWmStorageAreaService;
+import com.ktg.mes.wm.service.IWmStorageLocationService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -35,6 +38,12 @@ public class WmWarehouseController extends BaseController
 {
     @Autowired
     private IWmWarehouseService wmWarehouseService;
+
+    @Autowired
+    private IWmStorageLocationService wmStorageLocationService;
+
+    @Autowired
+    private IWmStorageAreaService wmStorageAreaService;
 
     /**
      * 查询仓库设置列表
@@ -114,9 +123,16 @@ public class WmWarehouseController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('mes:wm:warehouse:remove')")
     @Log(title = "仓库设置", businessType = BusinessType.DELETE)
+    @Transactional
 	@DeleteMapping("/{warehouseIds}")
     public AjaxResult remove(@PathVariable Long[] warehouseIds)
     {
+        for (Long wahouseId: warehouseIds
+             ) {
+            wmStorageLocationService.deleteByWarehouseId(wahouseId);
+            wmStorageAreaService.deleteByWarehouseId(wahouseId);
+        }
+
         return toAjax(wmWarehouseService.deleteWmWarehouseByWarehouseIds(warehouseIds));
     }
 }

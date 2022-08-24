@@ -58,4 +58,18 @@ public interface IWmStorageAreaService
      * @return 结果
      */
     public int deleteWmStorageAreaByAreaId(Long areaId);
+
+    /**
+     * 根据仓库删除对应的库位
+     * @param warehouseId
+     * @return
+     */
+    public int deleteByWarehouseId(Long warehouseId);
+
+    /**
+     * 根据库区删除对应的库位
+     * @param locationId
+     * @return
+     */
+    public int deleteByLocationId(Long locationId);
 }
