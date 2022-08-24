@@ -5,11 +5,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ktg.common.constant.UserConstants;
 import com.ktg.mes.md.domain.MdWorkshop;
-import com.ktg.mes.md.service.IMdWorkshopService;
+import com.ktg.mes.md.service.*;
 import com.ktg.mes.pro.domain.ProProcess;
 import com.ktg.mes.pro.service.IProProcessService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -23,7 +24,6 @@ import com.ktg.common.core.controller.BaseController;
 import com.ktg.common.core.domain.AjaxResult;
 import com.ktg.common.enums.BusinessType;
 import com.ktg.mes.md.domain.MdWorkstation;
-import com.ktg.mes.md.service.IMdWorkstationService;
 import com.ktg.common.utils.poi.ExcelUtil;
 import com.ktg.common.core.page.TableDataInfo;
 
@@ -39,6 +39,15 @@ public class MdWorkstationController extends BaseController
 {
     @Autowired
     private IMdWorkstationService mdWorkstationService;
+
+    @Autowired
+    private IMdWorkstationMachineService mdWorkstationMachineService;
+
+    @Autowired
+    private IMdWorkstationToolService mdWorkstationToolService;
+
+    @Autowired
+    private IMdWorkstationWorkerService mdWorkstationWorkerService;
 
     @Autowired
     private IProProcessService proProcessService;
@@ -134,9 +143,16 @@ public class MdWorkstationController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('mes:md:workstation:remove')")
     @Log(title = "工作站", businessType = BusinessType.DELETE)
+    @Transactional
 	@DeleteMapping("/{workstationIds}")
     public AjaxResult remove(@PathVariable Long[] workstationIds)
     {
+        for (Long workstationId: workstationIds
+             ) {
+            mdWorkstationMachineService.deleteByWorkstationId(workstationId);
+            mdWorkstationToolService.deleteByWorkstationId(workstationId);
+            mdWorkstationWorkerService.deleteByWorkstationId(workstationId);
+        }
         return toAjax(mdWorkstationService.deleteMdWorkstationByWorkstationIds(workstationIds));
     }
 }

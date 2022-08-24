@@ -60,4 +60,11 @@ public interface MdWorkstationMachineMapper
      * @return 结果
      */
     public int deleteMdWorkstationMachineByRecordIds(Long[] recordIds);
+
+    /**
+     * 根据工作站ID删除对应的设备列表
+     * @param workstationId
+     * @return
+     */
+    public int deleteByWorkstationId(Long workstationId);
 }

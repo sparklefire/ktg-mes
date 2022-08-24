@@ -65,4 +65,11 @@ public interface IMdWorkstationToolService
      * @return 结果
      */
     public int deleteMdWorkstationToolByRecordId(Long recordId);
+
+    /**
+     * 根据工作站ID删除对应的工装夹具信息
+     * @param workstationId
+     * @return
+     */
+    public int deleteByWorkstationId(Long workstationId);
 }

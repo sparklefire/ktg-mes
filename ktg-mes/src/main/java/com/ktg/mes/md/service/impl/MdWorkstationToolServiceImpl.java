@@ -18,7 +18,7 @@ import com.ktg.mes.md.service.IMdWorkstationToolService;
  * @date 2022-05-12
  */
 @Service
-public class MdWorkstationToolServiceImpl implements IMdWorkstationToolService 
+public class MdWorkstationToolServiceImpl implements IMdWorkstationToolService
 {
     @Autowired
     private MdWorkstationToolMapper mdWorkstationToolMapper;
@@ -105,5 +105,10 @@ public class MdWorkstationToolServiceImpl implements IMdWorkstationToolService
     public int deleteMdWorkstationToolByRecordId(Long recordId)
     {
         return mdWorkstationToolMapper.deleteMdWorkstationToolByRecordId(recordId);
+    }
+
+    @Override
+    public int deleteByWorkstationId(Long workstationId) {
+        return mdWorkstationToolMapper.deleteByWorkstationId(workstationId);
     }
 }

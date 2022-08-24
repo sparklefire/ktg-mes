@@ -65,4 +65,11 @@ public interface IMdWorkstationWorkerService
      * @return 结果
      */
     public int deleteMdWorkstationWorkerByRecordId(Long recordId);
+
+    /**
+     * 根据工作站ID删除对应的人员信息
+     * @param workstationId
+     * @return
+     */
+    public int deleteByWorkstationId(Long workstationId);
 }

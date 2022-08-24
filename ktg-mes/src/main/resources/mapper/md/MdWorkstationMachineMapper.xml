@@ -114,4 +114,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{recordId}
         </foreach>
     </delete>
+
+    <delete id="deleteByWorkstationId" parameterType="Long">
+        delete from md_workstation_machine where workstation_id = #{workstationId}
+    </delete>
 </mapper>

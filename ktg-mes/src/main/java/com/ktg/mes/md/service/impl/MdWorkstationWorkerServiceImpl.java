@@ -106,4 +106,9 @@ public class MdWorkstationWorkerServiceImpl implements IMdWorkstationWorkerServi
     {
         return mdWorkstationWorkerMapper.deleteMdWorkstationWorkerByRecordId(recordId);
     }
+
+    @Override
+    public int deleteByWorkstationId(Long workstationId) {
+        return mdWorkstationWorkerMapper.deleteByWorkstationId(workstationId);
+    }
 }

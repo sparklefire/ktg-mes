@@ -61,4 +61,11 @@ public interface MdWorkstationWorkerMapper
      * @return 结果
      */
     public int deleteMdWorkstationWorkerByRecordIds(Long[] recordIds);
+
+    /**
+     * 根据工作站ID删除对应的人员信息
+     * @param workstationId
+     * @return
+     */
+    public int deleteByWorkstationId(Long workstationId);
 }
