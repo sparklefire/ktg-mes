@@ -27,6 +27,14 @@ public interface IQcIpqcService
      */
     public List<QcIpqc> selectQcIpqcList(QcIpqc qcIpqc);
 
+
+    /**
+     * 检查检测编码是否唯一
+     * @param qcIpqc
+     * @return
+     */
+    public String checkIpqcCodeUnique(QcIpqc qcIpqc);
+
     /**
      * 新增过程检验单
      * 

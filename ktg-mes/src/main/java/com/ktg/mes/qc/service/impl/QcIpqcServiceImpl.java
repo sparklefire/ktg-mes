@@ -1,7 +1,10 @@
 package com.ktg.mes.qc.service.impl;
 
 import java.util.List;
+
+import com.ktg.common.constant.UserConstants;
 import com.ktg.common.utils.DateUtils;
+import com.ktg.common.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ktg.mes.qc.mapper.QcIpqcMapper;
@@ -42,6 +45,16 @@ public class QcIpqcServiceImpl implements IQcIpqcService
     public List<QcIpqc> selectQcIpqcList(QcIpqc qcIpqc)
     {
         return qcIpqcMapper.selectQcIpqcList(qcIpqc);
+    }
+
+    @Override
+    public String checkIpqcCodeUnique(QcIpqc qcIpqc) {
+        QcIpqc ipqc = qcIpqcMapper.checkIpqcCodeUnique(qcIpqc);
+        Long ipqcId = qcIpqc.getIpqcId()==null?-1:qcIpqc.getIpqcId();
+        if(StringUtils.isNotNull(ipqc) && ipqc.getIpqcId().longValue() != ipqcId.longValue()){
+            return UserConstants.NOT_UNIQUE;
+        }
+        return UserConstants.UNIQUE;
     }
 
     /**

@@ -99,6 +99,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectQcIpqcVo"/>
         where ipqc_id = #{ipqcId}
     </select>
+
+    <select id="checkIpqcCodeUnique" parameterType="QcIpqc" resultMap="QcIpqcResult">
+        select * from qc_ipqc where ipqc_code = #{ipqcCode}
+    </select>
         
     <insert id="insertQcIpqc" parameterType="QcIpqc" useGeneratedKeys="true" keyProperty="ipqcId">
         insert into qc_ipqc

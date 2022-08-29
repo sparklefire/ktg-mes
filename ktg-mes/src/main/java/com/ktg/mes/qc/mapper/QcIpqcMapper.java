@@ -28,6 +28,13 @@ public interface QcIpqcMapper
     public List<QcIpqc> selectQcIpqcList(QcIpqc qcIpqc);
 
     /**
+     * 验证检测编码是否唯一
+     * @param qcIpqc
+     * @return
+     */
+    public QcIpqc checkIpqcCodeUnique(QcIpqc qcIpqc);
+
+    /**
      * 新增过程检验单
      * 
      * @param qcIpqc 过程检验单

@@ -2,6 +2,8 @@ package com.ktg.mes.qc.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ktg.common.constant.UserConstants;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -77,6 +79,10 @@ public class QcIpqcController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody QcIpqc qcIpqc)
     {
+        if(UserConstants.NOT_UNIQUE.equals(qcIpqcService.checkIpqcCodeUnique(qcIpqc))){
+            return AjaxResult.error("检测单编码已存在！");
+        }
+
         return toAjax(qcIpqcService.insertQcIpqc(qcIpqc));
     }
 
@@ -88,6 +94,9 @@ public class QcIpqcController extends BaseController
     @PutMapping
     public AjaxResult edit(@RequestBody QcIpqc qcIpqc)
     {
+        if(UserConstants.NOT_UNIQUE.equals(qcIpqcService.checkIpqcCodeUnique(qcIpqc))){
+            return AjaxResult.error("检测单编码已存在！");
+        }
         return toAjax(qcIpqcService.updateQcIpqc(qcIpqc));
     }
 
