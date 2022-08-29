@@ -5,6 +5,8 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ktg.common.annotation.Excel;
 import com.ktg.common.core.domain.BaseEntity;
 
+import java.util.Arrays;
+
 /**
  * 检测模板对象 qc_template
  * 
@@ -34,6 +36,11 @@ public class QcTemplate extends BaseEntity
      * 用来传递检测种类参数
      */
     private String[] qcTypesParam;
+
+    /**
+     * 物料ID
+     */
+    private Long itemId;
 
     /** 是否启用 */
     @Excel(name = "是否启用")
@@ -105,7 +112,16 @@ public class QcTemplate extends BaseEntity
     {
         return enableFlag;
     }
-    public void setAttr1(String attr1) 
+
+    public Long getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(Long itemId) {
+        this.itemId = itemId;
+    }
+
+    public void setAttr1(String attr1)
     {
         this.attr1 = attr1;
     }
@@ -144,21 +160,18 @@ public class QcTemplate extends BaseEntity
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("templateId", getTemplateId())
-            .append("templateCode", getTemplateCode())
-            .append("templateName", getTemplateName())
-            .append("qcTypes", getQcTypes())
-            .append("enableFlag", getEnableFlag())
-            .append("remark", getRemark())
-            .append("attr1", getAttr1())
-            .append("attr2", getAttr2())
-            .append("attr3", getAttr3())
-            .append("attr4", getAttr4())
-            .append("createBy", getCreateBy())
-            .append("createTime", getCreateTime())
-            .append("updateBy", getUpdateBy())
-            .append("updateTime", getUpdateTime())
-            .toString();
+        return "QcTemplate{" +
+                "templateId=" + templateId +
+                ", templateCode='" + templateCode + '\'' +
+                ", templateName='" + templateName + '\'' +
+                ", qcTypes='" + qcTypes + '\'' +
+                ", qcTypesParam=" + Arrays.toString(qcTypesParam) +
+                ", itemId=" + itemId +
+                ", enableFlag='" + enableFlag + '\'' +
+                ", attr1='" + attr1 + '\'' +
+                ", attr2='" + attr2 + '\'' +
+                ", attr3=" + attr3 +
+                ", attr4=" + attr4 +
+                '}';
     }
 }

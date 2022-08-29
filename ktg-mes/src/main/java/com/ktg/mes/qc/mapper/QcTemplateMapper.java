@@ -28,6 +28,13 @@ public interface QcTemplateMapper
     public List<QcTemplate> selectQcTemplateList(QcTemplate qcTemplate);
 
 
+    /**
+     * 根据检测类型和产品查找对应的检测模板
+     * @param qcTemplate
+     */
+    public QcTemplate selectQcTemplateByProductAndQcType(QcTemplate qcTemplate);
+
+
     public QcTemplate checkTemplateCodeUnique(QcTemplate qcTemplate);
 
     /**

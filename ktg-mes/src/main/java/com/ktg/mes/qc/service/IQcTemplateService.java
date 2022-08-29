@@ -28,6 +28,12 @@ public interface IQcTemplateService
     public List<QcTemplate> selectQcTemplateList(QcTemplate qcTemplate);
 
     /**
+     * 根据检测类型和产品查找对应的检测模板
+     * @param qcTemplate
+     */
+    public QcTemplate selectQcTemplateByProductAndQcType(QcTemplate qcTemplate);
+
+    /**
      * 检测模板编号是否唯一
      * @param qcTemplate
      * @return

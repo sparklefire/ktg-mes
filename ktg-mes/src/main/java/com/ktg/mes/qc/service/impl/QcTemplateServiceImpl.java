@@ -48,6 +48,11 @@ public class QcTemplateServiceImpl implements IQcTemplateService
     }
 
     @Override
+    public QcTemplate selectQcTemplateByProductAndQcType(QcTemplate qcTemplate) {
+        return qcTemplateMapper.selectQcTemplateByProductAndQcType(qcTemplate);
+    }
+
+    @Override
     public String checkTemplateCodeUnique(QcTemplate qcTemplate) {
         QcTemplate template = qcTemplateMapper.checkTemplateCodeUnique(qcTemplate);
         Long templateId = qcTemplate.getTemplateId()==null?-1L:qcTemplate.getTemplateId();

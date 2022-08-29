@@ -4,6 +4,11 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ktg.common.constant.UserConstants;
+import com.ktg.common.utils.StringUtils;
+import com.ktg.mes.pro.domain.ProWorkorder;
+import com.ktg.mes.pro.service.IProWorkorderService;
+import com.ktg.mes.qc.domain.QcTemplate;
+import com.ktg.mes.qc.service.IQcTemplateService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +40,12 @@ public class QcIpqcController extends BaseController
 {
     @Autowired
     private IQcIpqcService qcIpqcService;
+
+    @Autowired
+    private IProWorkorderService proWorkorderService;
+
+    @Autowired
+    private IQcTemplateService qcTemplateService;
 
     /**
      * 查询过程检验单列表
@@ -81,6 +92,28 @@ public class QcIpqcController extends BaseController
     {
         if(UserConstants.NOT_UNIQUE.equals(qcIpqcService.checkIpqcCodeUnique(qcIpqc))){
             return AjaxResult.error("检测单编码已存在！");
+        }
+
+        //根据工单获取产品信息
+        ProWorkorder workorder = proWorkorderService.selectProWorkorderByWorkorderId(qcIpqc.getWorkorderId());
+        qcIpqc.setWorkorderId(workorder.getWorkorderId());
+        qcIpqc.setWorkorderCode(workorder.getWorkorderCode());
+        qcIpqc.setWorkorderName(workorder.getWorkorderName());
+        qcIpqc.setItemId(workorder.getProductId());
+        qcIpqc.setItemCode(workorder.getProductCode());
+        qcIpqc.setItemName(workorder.getProductName());
+        qcIpqc.setSpecification(workorder.getProductSpc());
+        qcIpqc.setUnitOfMeasure(workorder.getUnitOfMeasure());
+
+        //根据产品和检测类型获取检测模板
+        QcTemplate param = new QcTemplate();
+        param.setQcTypes(qcIpqc.getIpqcType());
+        param.setItemId(workorder.getProductId());
+        QcTemplate template = qcTemplateService.selectQcTemplateByProductAndQcType(param);
+        if(StringUtils.isNotNull(template)){
+            qcIpqc.setTemplateId(template.getTemplateId());
+        }else{
+            return AjaxResult.error("当前工单生产的产品未配置此类型的检验模板！");
         }
 
         return toAjax(qcIpqcService.insertQcIpqc(qcIpqc));
