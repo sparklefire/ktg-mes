@@ -1,0 +1,61 @@
+package com.ktg.mes.qc.mapper;
+
+import java.util.List;
+import com.ktg.mes.qc.domain.QcIpqc;
+
+/**
+ * 过程检验单Mapper接口
+ * 
+ * @author yinjinlu
+ * @date 2022-08-29
+ */
+public interface QcIpqcMapper 
+{
+    /**
+     * 查询过程检验单
+     * 
+     * @param ipqcId 过程检验单主键
+     * @return 过程检验单
+     */
+    public QcIpqc selectQcIpqcByIpqcId(Long ipqcId);
+
+    /**
+     * 查询过程检验单列表
+     * 
+     * @param qcIpqc 过程检验单
+     * @return 过程检验单集合
+     */
+    public List<QcIpqc> selectQcIpqcList(QcIpqc qcIpqc);
+
+    /**
+     * 新增过程检验单
+     * 
+     * @param qcIpqc 过程检验单
+     * @return 结果
+     */
+    public int insertQcIpqc(QcIpqc qcIpqc);
+
+    /**
+     * 修改过程检验单
+     * 
+     * @param qcIpqc 过程检验单
+     * @return 结果
+     */
+    public int updateQcIpqc(QcIpqc qcIpqc);
+
+    /**
+     * 删除过程检验单
+     * 
+     * @param ipqcId 过程检验单主键
+     * @return 结果
+     */
+    public int deleteQcIpqcByIpqcId(Long ipqcId);
+
+    /**
+     * 批量删除过程检验单
+     * 
+     * @param ipqcIds 需要删除的数据主键集合
+     * @return 结果
+     */
+    public int deleteQcIpqcByIpqcIds(Long[] ipqcIds);
+}
