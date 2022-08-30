@@ -216,13 +216,14 @@ create table qc_iqc_line (
 
 
 -- ----------------------------
--- 8、来料检验单缺陷记录表
+-- 8、检验单缺陷记录表
 -- ----------------------------
-drop table if exists qc_iqc_defect;
-create table qc_iqc_defect (
+drop table if exists qc_defect_record;
+create table qc_defect_record (
   record_id                   bigint(20)      not null auto_increment    comment '缺陷ID',
-  iqc_id                      bigint(20)      not null                   comment '来料检验单ID',
-  line_id                     bigint(20)      not null                   comment '来料检验单行ID',
+  qc_type                     varchar(64)     not null                   comment '检验单类型',
+  qc_id                       bigint(20)      not null                   comment '检验单ID',
+  line_id                     bigint(20)      not null                   comment '检验单行ID',
   defect_name                 varchar(500)    not null                   comment '缺陷描述',  
   defect_level                varchar(64)     not null                   comment '缺陷等级',
   defect_quantity             int(11)         default 1                  comment '缺陷数量',
@@ -236,7 +237,7 @@ create table qc_iqc_defect (
   update_by                   varchar(64)     default ''                 comment '更新者',
   update_time                 datetime                                   comment '更新时间',
   primary key (record_id)
-) engine=innodb auto_increment=200 comment = '来料检验单缺陷记录表';
+) engine=innodb auto_increment=200 comment = '检验单缺陷记录表';
 
 
 
@@ -333,11 +334,8 @@ create table qc_ipqc_line (
 ) engine=innodb auto_increment=200 comment = '过程检验单行表';
 
 
-
-
-
 -- ----------------------------
--- 6、来料检验单表
+-- 12、出货检验单表
 -- ----------------------------
 drop table if exists qc_oqc;
 create table qc_oqc (
@@ -387,7 +385,7 @@ create table qc_oqc (
 
 
 -- ----------------------------
--- 10、过程检验单行表
+-- 13、出货检验单行表
 -- ----------------------------
 drop table if exists qc_oqc_line;
 create table qc_oqc_line (
@@ -417,4 +415,7 @@ create table qc_oqc_line (
   update_time                 datetime                                   comment '更新时间',
   primary key (line_id)
 ) engine=innodb auto_increment=200 comment = '出货检验单行表';
+
+
+
 
