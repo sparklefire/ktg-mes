@@ -93,4 +93,9 @@ public class QcDefectRecordServiceImpl implements IQcDefectRecordService
     {
         return qcDefectRecordMapper.deleteQcDefectRecordByRecordId(recordId);
     }
+
+    @Override
+    public int deleteByQcIdAndType(QcDefectRecord qcDefectRecord) {
+        return qcDefectRecordMapper.deleteByQcIdAndType(qcDefectRecord);
+    }
 }

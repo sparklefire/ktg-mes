@@ -58,4 +58,11 @@ public interface QcDefectRecordMapper
      * @return 结果
      */
     public int deleteQcDefectRecordByRecordIds(Long[] recordIds);
+
+    /**
+     * 根据检测单ID和对应的类型删除
+     * @param qcDefectRecord
+     * @return
+     */
+    public int deleteByQcIdAndType(QcDefectRecord qcDefectRecord);
 }

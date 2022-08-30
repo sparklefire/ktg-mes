@@ -1,15 +1,16 @@
 package com.ktg.mes.qc.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
+import cn.hutool.core.collection.CollUtil;
 import com.ktg.common.constant.UserConstants;
 import com.ktg.common.utils.StringUtils;
 import com.ktg.mes.pro.domain.ProWorkorder;
 import com.ktg.mes.pro.service.IProWorkorderService;
-import com.ktg.mes.qc.domain.QcTemplate;
-import com.ktg.mes.qc.service.IQcIpqcLineService;
-import com.ktg.mes.qc.service.IQcTemplateService;
+import com.ktg.mes.qc.domain.*;
+import com.ktg.mes.qc.service.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,8 +26,6 @@ import com.ktg.common.annotation.Log;
 import com.ktg.common.core.controller.BaseController;
 import com.ktg.common.core.domain.AjaxResult;
 import com.ktg.common.enums.BusinessType;
-import com.ktg.mes.qc.domain.QcIpqc;
-import com.ktg.mes.qc.service.IQcIpqcService;
 import com.ktg.common.utils.poi.ExcelUtil;
 import com.ktg.common.core.page.TableDataInfo;
 
@@ -47,10 +46,16 @@ public class QcIpqcController extends BaseController
     private IProWorkorderService proWorkorderService;
 
     @Autowired
+    private IQcTemplateIndexService qcTemplateIndexService;
+
+    @Autowired
     private IQcTemplateService qcTemplateService;
 
     @Autowired
     private IQcIpqcLineService qcIpqcLineService;
+
+    @Autowired
+    private IQcDefectRecordService qcDefectRecordService;
 
     /**
      * 查询过程检验单列表
@@ -121,6 +126,9 @@ public class QcIpqcController extends BaseController
             return AjaxResult.error("当前工单生产的产品未配置此类型的检验模板！");
         }
 
+        //生成行信息
+        generateLine(qcIpqc);
+
         return toAjax(qcIpqcService.insertQcIpqc(qcIpqc));
     }
 
@@ -135,6 +143,37 @@ public class QcIpqcController extends BaseController
         if(UserConstants.NOT_UNIQUE.equals(qcIpqcService.checkIpqcCodeUnique(qcIpqc))){
             return AjaxResult.error("检测单编码已存在！");
         }
+
+        //根据工单获取产品信息
+        ProWorkorder workorder = proWorkorderService.selectProWorkorderByWorkorderId(qcIpqc.getWorkorderId());
+        qcIpqc.setWorkorderId(workorder.getWorkorderId());
+        qcIpqc.setWorkorderCode(workorder.getWorkorderCode());
+        qcIpqc.setWorkorderName(workorder.getWorkorderName());
+        qcIpqc.setItemId(workorder.getProductId());
+        qcIpqc.setItemCode(workorder.getProductCode());
+        qcIpqc.setItemName(workorder.getProductName());
+        qcIpqc.setSpecification(workorder.getProductSpc());
+        qcIpqc.setUnitOfMeasure(workorder.getUnitOfMeasure());
+
+        //根据产品和检测类型获取检测模板
+        QcTemplate param = new QcTemplate();
+        param.setQcTypes(qcIpqc.getIpqcType());
+        param.setItemId(workorder.getProductId());
+        QcTemplate template = qcTemplateService.selectQcTemplateByProductAndQcType(param);
+        if(StringUtils.isNotNull(template)){
+            qcIpqc.setTemplateId(template.getTemplateId());
+        }else{
+            return AjaxResult.error("当前工单生产的产品未配置此类型的检验模板！");
+        }
+
+        //删除行信息、删除缺陷记录信息、重新生成行信息
+        qcIpqcLineService.deleteByIpqcId(qcIpqc.getIpqcId());
+        QcDefectRecord p2 = new QcDefectRecord();
+        p2.setQcId(qcIpqc.getIpqcId());
+        p2.setQcType(UserConstants.QC_TYPE_IPQC);
+        qcDefectRecordService.deleteByQcIdAndType(p2);
+        generateLine(qcIpqc);
+
         return toAjax(qcIpqcService.updateQcIpqc(qcIpqc));
     }
 
@@ -149,9 +188,45 @@ public class QcIpqcController extends BaseController
     {
         for (Long ipqcId: ipqcIds
              ) {
-            qcIpqcLineService.deleteByIpqcId(ipqcId);
+            qcIpqcLineService.deleteByIpqcId(ipqcId); //删除对应的行信息
+            QcDefectRecord p2 = new QcDefectRecord();
+            p2.setQcId(ipqcId);
+            p2.setQcType(UserConstants.QC_TYPE_IPQC);
+            qcDefectRecordService.deleteByQcIdAndType(p2);//删除对应的缺陷记录
         }
 
         return toAjax(qcIpqcService.deleteQcIpqcByIpqcIds(ipqcIds));
+    }
+
+
+    /**
+     * 根据头信息生成行信息
+     * @param iqc
+     */
+    private void generateLine(QcIpqc iqc){
+        QcTemplateIndex param = new QcTemplateIndex();
+        param.setTemplateId(iqc.getTemplateId());
+        List<QcTemplateIndex > indexs = qcTemplateIndexService.selectQcTemplateIndexList(param);
+        if(CollUtil.isNotEmpty(indexs)){
+            for (QcTemplateIndex index:indexs
+            ) {
+                QcIpqcLine line = new QcIpqcLine();
+                line.setIpqcId(iqc.getIpqcId());
+                line.setIndexId(index.getIndexId());
+                line.setIndexCode(index.getIndexCode());
+                line.setIndexName(index.getIndexName());
+                line.setIndexType(index.getIndexType());
+                line.setQcTool(index.getQcTool());
+                line.setCheckMethod(index.getCheckMethod());
+                line.setStanderVal(index.getStanderVal());
+                line.setUnitOfMeasure(index.getUnitOfMeasure());
+                line.setThresholdMax(index.getThresholdMax());
+                line.setThresholdMin(index.getThresholdMin());
+                line.setCrQuantity(new BigDecimal(0L));
+                line.setMajQuantity(new BigDecimal(0L));
+                line.setMajQuantity(new BigDecimal(0L));
+                qcIpqcLineService.insertQcIpqcLine(line);
+            }
+        }
     }
 }

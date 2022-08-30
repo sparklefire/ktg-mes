@@ -58,4 +58,11 @@ public interface IQcDefectRecordService
      * @return 结果
      */
     public int deleteQcDefectRecordByRecordId(Long recordId);
+
+    /**
+     * 根据检测单ID和对应的类型删除
+     * @param qcDefectRecord
+     * @return
+     */
+    public int deleteByQcIdAndType(QcDefectRecord qcDefectRecord);
 }

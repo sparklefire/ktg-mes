@@ -158,4 +158,11 @@ public class UserConstants
     public static final String TASK_ISSUE_DOC_TYPE_ISSUE="ISSUE"; //领料单
     public static final String TASK_ISSUE_DOC_TYPE_TRANS="TRANS"; //流转单
 
+    /**
+     * 检测单类型，这里的类型是大类
+     * 首检、末检等等是过程检验中的子分类
+     */
+    public static final String QC_TYPE_IQC = "IQC"; //来料检验单
+    public static final String QC_TYPE_IPQC = "IPQC"; //过程检验单
+    public static final String QC_TYPE_OQC = "OQC"; //出货检验
 }
