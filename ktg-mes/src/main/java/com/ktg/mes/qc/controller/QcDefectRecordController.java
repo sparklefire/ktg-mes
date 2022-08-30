@@ -2,8 +2,17 @@ package com.ktg.mes.qc.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import cn.hutool.core.collection.CollUtil;
+import com.ktg.common.constant.UserConstants;
+import com.ktg.common.utils.StringUtils;
+import com.ktg.mes.qc.domain.QcIqcDefect;
+import com.ktg.mes.qc.domain.ValidList;
+import com.ktg.mes.qc.service.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -17,7 +26,6 @@ import com.ktg.common.core.controller.BaseController;
 import com.ktg.common.core.domain.AjaxResult;
 import com.ktg.common.enums.BusinessType;
 import com.ktg.mes.qc.domain.QcDefectRecord;
-import com.ktg.mes.qc.service.IQcDefectRecordService;
 import com.ktg.common.utils.poi.ExcelUtil;
 import com.ktg.common.core.page.TableDataInfo;
 
@@ -33,6 +41,20 @@ public class QcDefectRecordController extends BaseController
 {
     @Autowired
     private IQcDefectRecordService qcDefectRecordService;
+
+    @Autowired
+    private IQcIqcLineService qcIqcLineService;
+
+    @Autowired
+    private IQcIqcService qcIqcService;
+
+    @Autowired
+    private IQcIpqcLineService qcIpqcLineService;
+
+    @Autowired
+    private IQcIpqcService qcIpqcService;
+
+
 
     /**
      * 查询检验单缺陷记录列表
@@ -81,14 +103,49 @@ public class QcDefectRecordController extends BaseController
     }
 
     /**
-     * 修改检验单缺陷记录
+     * 修改来料检验单缺陷记录
      */
     @PreAuthorize("@ss.hasPermi('mes:qc:defectrecord:edit')")
     @Log(title = "检验单缺陷记录", businessType = BusinessType.UPDATE)
+    @Transactional
     @PutMapping
-    public AjaxResult edit(@RequestBody QcDefectRecord qcDefectRecord)
-    {
-        return toAjax(qcDefectRecordService.updateQcDefectRecord(qcDefectRecord));
+    public AjaxResult updateList(@Validated @RequestBody ValidList<QcDefectRecord> defects){
+        Long qcId = -1L;
+        String qcType = "";
+        Long lineId = -1L;
+        if(CollUtil.isNotEmpty(defects)){
+            for (QcDefectRecord defect: defects
+            ) {
+                if(StringUtils.isNotNull(defect.getRecordId())){
+                    qcDefectRecordService.updateQcDefectRecord(defect);
+                }else {
+                    qcDefectRecordService.insertQcDefectRecord(defect);
+                }
+                qcId = defect.getQcId();
+                qcType = defect.getQcType();
+                lineId = defect.getLineId();
+            }
+
+            if(UserConstants.QC_TYPE_IQC.equals(qcType)){
+                //更新来料检验单行上的cr,maj,min数量
+                qcIqcLineService.updateCrMajMinQuantity(qcId,lineId);
+                //更新来料检验单头上的cr,maj,min数量和比例
+                qcIqcService.updateCrMajMinQuaAndRate(qcId);
+
+            }else if(UserConstants.QC_TYPE_IPQC.equals(qcType)){
+                //更新过程检验单行上的cr,maj,min数量
+                qcIpqcLineService.updateCrMajMinQuantity(qcId,lineId);
+                //更新过程检验单头上的cr,maj,min数量和比例
+                qcIpqcService.updateCrMajMinQuaAndRate(qcId);
+            }else {
+                //更新出货检验单行上的cr,maj,min数量
+
+                //更新出货检验单头上的cr,maj,min数量和比例
+
+            }
+
+        }
+        return AjaxResult.success();
     }
 
     /**

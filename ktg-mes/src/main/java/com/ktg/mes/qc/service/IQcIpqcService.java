@@ -52,6 +52,13 @@ public interface IQcIpqcService
     public int updateQcIpqc(QcIpqc qcIpqc);
 
     /**
+     * 更新头上的cr、maj、min数量
+     * @param qcId
+     * @return
+     */
+    public int updateCrMajMinQuaAndRate(Long qcId);
+
+    /**
      * 批量删除过程检验单
      * 
      * @param ipqcIds 需要删除的过程检验单主键集合

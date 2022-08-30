@@ -70,6 +70,12 @@ public class QcIpqcLineServiceImpl implements IQcIpqcLineService
         return qcIpqcLineMapper.updateQcIpqcLine(qcIpqcLine);
     }
 
+    @Override
+    public int updateCrMajMinQuantity(Long qcId, Long lineId) {
+        //TODO:
+        return 0;
+    }
+
     /**
      * 批量删除过程检验单行
      * 
