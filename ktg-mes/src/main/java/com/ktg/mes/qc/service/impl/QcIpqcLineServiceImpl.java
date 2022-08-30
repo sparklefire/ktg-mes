@@ -93,4 +93,9 @@ public class QcIpqcLineServiceImpl implements IQcIpqcLineService
     {
         return qcIpqcLineMapper.deleteQcIpqcLineByLineId(lineId);
     }
+
+    @Override
+    public int deleteByIpqcId(Long ipqcId) {
+        return qcIpqcLineMapper.deleteByIpqcId(ipqcId);
+    }
 }

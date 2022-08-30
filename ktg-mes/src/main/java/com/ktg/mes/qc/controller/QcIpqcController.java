@@ -8,9 +8,11 @@ import com.ktg.common.utils.StringUtils;
 import com.ktg.mes.pro.domain.ProWorkorder;
 import com.ktg.mes.pro.service.IProWorkorderService;
 import com.ktg.mes.qc.domain.QcTemplate;
+import com.ktg.mes.qc.service.IQcIpqcLineService;
 import com.ktg.mes.qc.service.IQcTemplateService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -46,6 +48,9 @@ public class QcIpqcController extends BaseController
 
     @Autowired
     private IQcTemplateService qcTemplateService;
+
+    @Autowired
+    private IQcIpqcLineService qcIpqcLineService;
 
     /**
      * 查询过程检验单列表
@@ -138,9 +143,15 @@ public class QcIpqcController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('mes:qc:ipqc:remove')")
     @Log(title = "过程检验单", businessType = BusinessType.DELETE)
+    @Transactional
 	@DeleteMapping("/{ipqcIds}")
     public AjaxResult remove(@PathVariable Long[] ipqcIds)
     {
+        for (Long ipqcId: ipqcIds
+             ) {
+            qcIpqcLineService.deleteByIpqcId(ipqcId);
+        }
+
         return toAjax(qcIpqcService.deleteQcIpqcByIpqcIds(ipqcIds));
     }
 }

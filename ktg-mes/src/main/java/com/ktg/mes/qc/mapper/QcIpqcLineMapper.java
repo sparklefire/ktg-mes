@@ -58,4 +58,11 @@ public interface QcIpqcLineMapper
      * @return 结果
      */
     public int deleteQcIpqcLineByLineIds(Long[] lineIds);
+
+    /***
+     * 根据检验单头ID删除所有行信息
+     * @param ipqcId
+     * @return
+     */
+    public int deleteByIpqcId(Long ipqcId);
 }

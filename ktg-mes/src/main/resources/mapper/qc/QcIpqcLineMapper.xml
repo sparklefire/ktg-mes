@@ -154,4 +154,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{lineId}
         </foreach>
     </delete>
+
+    <delete id="deleteByIpqcId" parameterType="Long">
+        delete from qc_ipqc_line where ipqc_id = #{ipqcId}
+    </delete>
+
 </mapper>
