@@ -144,6 +144,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where line_id = #{lineId}
     </update>
 
+    <update id="updateCrMajMinQuantity" parameterType="QcIpqcLine">
+        UPDATE qc_ipqc_line a
+            INNER JOIN (
+            SELECT SUM(CASE WHEN defect_level = 'CR' THEN defect_quantity ELSE 0 END ) AS cr_quantity,
+            SUM(CASE WHEN defect_level = 'MAJ' THEN defect_quantity ELSE 0 END) AS maj_quantity,
+            SUM(CASE WHEN defect_level = 'MIN' THEN defect_quantity ELSE 0 END) AS min_quantity,
+            qid.`qc_id` as 'ipqc_id',
+            qid.`line_id`
+            FROM qc_defect_record qid
+            WHERE qid.qc_id = #{ipqcId}
+            AND qid.line_id = #{lineId}
+            and qid.qc_type = 'IPQC'
+            GROUP BY qid.qc_id,qid.line_id
+            )b
+        ON a.ipqc_id = b.ipqc_id AND a.line_id = b.line_id
+            SET a.cr_quantity=b.cr_quantity,a.maj_quantity=b.maj_quantity,a.min_quantity=b.min_quantity
+        WHERE a.ipqc_id = #{ipqcId}
+          AND a.line_id = #{lineId}
+    </update>
+
     <delete id="deleteQcIpqcLineByLineId" parameterType="Long">
         delete from qc_ipqc_line where line_id = #{lineId}
     </delete>

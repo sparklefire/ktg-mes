@@ -72,7 +72,9 @@ public class QcIpqcLineServiceImpl implements IQcIpqcLineService
 
     @Override
     public int updateCrMajMinQuantity(Long qcId, Long lineId) {
-        //TODO:
+
+
+
         return 0;
     }
 

@@ -85,8 +85,7 @@ public class QcIpqcServiceImpl implements IQcIpqcService
 
     @Override
     public int updateCrMajMinQuaAndRate(Long qcId) {
-        //TODO:
-        return 0;
+        return qcIpqcMapper.updateCrMajMinQuaAndRate(qcId);
     }
 
     /**

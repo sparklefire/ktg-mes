@@ -51,6 +51,13 @@ public interface QcIpqcMapper
     public int updateQcIpqc(QcIpqc qcIpqc);
 
     /**
+     * 根据缺陷记录更新头上的缺陷数量和缺陷率
+     * @param ipqcId
+     * @return
+     */
+    public int updateCrMajMinQuaAndRate(Long ipqcId);
+
+    /**
      * 删除过程检验单
      * 
      * @param ipqcId 过程检验单主键

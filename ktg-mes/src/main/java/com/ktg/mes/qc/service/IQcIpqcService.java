@@ -59,6 +59,13 @@ public interface IQcIpqcService
     public int updateCrMajMinQuaAndRate(Long qcId);
 
     /**
+     * 根据缺陷记录更新头上的缺陷数量和缺陷率
+     * @param qcIpqc
+     * @return
+     */
+    public int updateCrMajMinQuaAndRate(QcIpqc qcIpqc);
+
+    /**
      * 批量删除过程检验单
      * 
      * @param ipqcIds 需要删除的过程检验单主键集合
