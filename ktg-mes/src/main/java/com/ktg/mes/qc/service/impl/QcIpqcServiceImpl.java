@@ -88,6 +88,7 @@ public class QcIpqcServiceImpl implements IQcIpqcService
         return qcIpqcMapper.updateCrMajMinQuaAndRate(qcId);
     }
 
+
     /**
      * 批量删除过程检验单
      * 

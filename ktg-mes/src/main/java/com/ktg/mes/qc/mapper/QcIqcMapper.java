@@ -45,6 +45,11 @@ public interface QcIqcMapper
      */
     public int updateQcIqc(QcIqc qcIqc);
 
+    /**
+     * 根据缺陷记录更新头上的缺陷数量和比率
+     * @param iqcId
+     * @return
+     */
     public int updateCrMajMinQuaAndRate(Long iqcId);
 
     /**

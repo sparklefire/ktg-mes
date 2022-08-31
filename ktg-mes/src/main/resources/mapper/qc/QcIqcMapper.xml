@@ -182,22 +182,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <update id="updateCrMajMinQuaAndRate" parameterType="Long">
         UPDATE qc_iqc a
-           INNER JOIN (
-
+            INNER JOIN (
             SELECT SUM(CASE WHEN defect_level = 'CR' THEN defect_quantity ELSE 0 END ) AS cr_quantity,
-               SUM(CASE WHEN defect_level = 'MAJ' THEN defect_quantity ELSE 0 END) AS maj_quantity,
-               SUM(CASE WHEN defect_level = 'MIN' THEN defect_quantity ELSE 0 END) AS min_quantity,
-               qid.`iqc_id`
-            FROM qc_iqc_defect qid
-            WHERE qid.iqc_id = #{iqc_id}
-            GROUP BY qid.iqc_id
-           ) b
+            SUM(CASE WHEN defect_level = 'MAJ' THEN defect_quantity ELSE 0 END) AS maj_quantity,
+            SUM(CASE WHEN defect_level = 'MIN' THEN defect_quantity ELSE 0 END) AS min_quantity,
+            qid.`qc_id` as 'iqc_id'
+            FROM qc_defect_record qid
+            WHERE qid.qc_id = #{iqcId}
+            and qc_type = 'IQC'
+            GROUP BY qid.qc_id
+            ) b
         ON a.`iqc_id` = b.iqc_id
-        SET a.cr_quantity=b.cr_quantity,a.maj_quantity=b.maj_quantity,a.min_quantity=b.min_quantity,
-            a.`cr_rate`= ROUND(b.cr_quantity/a.`quantity_check`*100,2),
-            a.`maj_rate`= ROUND(b.maj_quantity/a.`quantity_check`*100,2),
-            a.`min_rate`= ROUND(b.min_quantity/a.`quantity_check`*100,2)
-        WHERE a.iqc_id = #{iqc_id}
+            SET a.cr_quantity=b.cr_quantity,a.maj_quantity=b.maj_quantity,a.min_quantity=b.min_quantity,
+                a.`cr_rate`= ROUND(b.cr_quantity/a.`quantity_check`*100,2),
+                a.`maj_rate`= ROUND(b.maj_quantity/a.`quantity_check`*100,2),
+                a.`min_rate`= ROUND(b.min_quantity/a.`quantity_check`*100,2)
+        WHERE a.iqc_id = #{iqcId}
     </update>
 
 
