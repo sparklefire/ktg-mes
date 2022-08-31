@@ -97,6 +97,7 @@ public class QcIpqcController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('mes:qc:ipqc:add')")
     @Log(title = "过程检验单", businessType = BusinessType.INSERT)
+    @Transactional
     @PostMapping
     public AjaxResult add(@RequestBody QcIpqc qcIpqc)
     {
@@ -126,10 +127,15 @@ public class QcIpqcController extends BaseController
             return AjaxResult.error("当前工单生产的产品未配置此类型的检验模板！");
         }
 
+        //先保存
+        qcIpqcService.insertQcIpqc(qcIpqc);
+
         //生成行信息
         generateLine(qcIpqc);
 
-        return toAjax(qcIpqcService.insertQcIpqc(qcIpqc));
+        //将ID返回
+        Long ipqcId = qcIpqc.getIpqcId();
+        return AjaxResult.success(ipqcId);
     }
 
     /**
@@ -137,6 +143,7 @@ public class QcIpqcController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('mes:qc:ipqc:edit')")
     @Log(title = "过程检验单", businessType = BusinessType.UPDATE)
+    @Transactional
     @PutMapping
     public AjaxResult edit(@RequestBody QcIpqc qcIpqc)
     {
@@ -165,14 +172,6 @@ public class QcIpqcController extends BaseController
         }else{
             return AjaxResult.error("当前工单生产的产品未配置此类型的检验模板！");
         }
-
-        //删除行信息、删除缺陷记录信息、重新生成行信息
-        qcIpqcLineService.deleteByIpqcId(qcIpqc.getIpqcId());
-        QcDefectRecord p2 = new QcDefectRecord();
-        p2.setQcId(qcIpqc.getIpqcId());
-        p2.setQcType(UserConstants.QC_TYPE_IPQC);
-        qcDefectRecordService.deleteByQcIdAndType(p2);
-        generateLine(qcIpqc);
 
         return toAjax(qcIpqcService.updateQcIpqc(qcIpqc));
     }

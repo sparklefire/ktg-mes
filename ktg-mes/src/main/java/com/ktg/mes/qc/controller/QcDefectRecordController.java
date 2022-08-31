@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletResponse;
 import cn.hutool.core.collection.CollUtil;
 import com.ktg.common.constant.UserConstants;
 import com.ktg.common.utils.StringUtils;
-import com.ktg.mes.qc.domain.QcIqcDefect;
 import com.ktg.mes.qc.domain.ValidList;
 import com.ktg.mes.qc.service.*;
 import org.springframework.security.access.prepost.PreAuthorize;
