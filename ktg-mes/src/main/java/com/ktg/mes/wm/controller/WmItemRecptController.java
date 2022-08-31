@@ -225,6 +225,11 @@ public class WmItemRecptController extends BaseController
         for (Long id:
                 recptIds
              ) {
+            WmItemRecpt itemRecpt = wmItemRecptService.selectWmItemRecptByRecptId(id);
+            if(!UserConstants.ORDER_STATUS_PREPARE.equals(itemRecpt.getStatus())){
+                return AjaxResult.error("只能删除草稿状态的单据!");
+            }
+
             wmItemRecptLineService.deleteByRecptId(id);
         }
 

@@ -120,6 +120,11 @@ public class WmRtVendorController extends BaseController
     {
         for (Long rtId:rtIds
              ) {
+            WmRtVendor rtVendor = wmRtVendorService.selectWmRtVendorByRtId(rtId);
+            if(!UserConstants.ORDER_STATUS_PREPARE.equals(rtVendor.getStatus())){
+                return AjaxResult.error("只能删除草稿状态的单据!");
+            }
+
             wmRtVendorLineService.deleteByRtId(rtId);
         }
         return toAjax(wmRtVendorService.deleteWmRtVendorByRtIds(rtIds));
