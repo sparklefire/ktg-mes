@@ -187,6 +187,11 @@ public class QcIpqcController extends BaseController
     {
         for (Long ipqcId: ipqcIds
              ) {
+            QcIpqc ipqc = qcIpqcService.selectQcIpqcByIpqcId(ipqcId);
+            if(!UserConstants.ORDER_STATUS_PREPARE.equals(ipqc.getStatus())){
+                return AjaxResult.error("只能删除草稿状态的单据!");
+            }
+
             qcIpqcLineService.deleteByIpqcId(ipqcId); //删除对应的行信息
             QcDefectRecord p2 = new QcDefectRecord();
             p2.setQcId(ipqcId);

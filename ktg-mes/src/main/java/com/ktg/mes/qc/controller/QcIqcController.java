@@ -151,6 +151,10 @@ public class QcIqcController extends BaseController
     {
         for (Long iqcId:iqcIds
              ) {
+            QcIqc iqc = qcIqcService.selectQcIqcByIqcId(iqcId);
+            if(!UserConstants.ORDER_STATUS_PREPARE.equals(iqc.getStatus())){
+                return AjaxResult.error("只能删除草稿状态单据！");
+            }
             qcIqcLineService.deleteByIqcId(iqcId);
             QcDefectRecord p2 = new QcDefectRecord();
             p2.setQcId(iqcId);
