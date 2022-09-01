@@ -23,7 +23,7 @@
 
 - 触控屏端地址：https://gitee.com/kutangguo/ktg-mes-pad
 
-- PC端在线体验地址： [http://www.029tec.com](http://www.029tec.com/)
+- PC端在线体验地址： [http://www.029tec.com](http://www.029tec.com/)  <font color='red'>【请不要修改账户密码，以免影响其他人体验】</font>
 
 - 当前开发进度请参考doc->开发进度->进度甘特图.xlsx
 
