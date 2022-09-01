@@ -51,6 +51,13 @@ public interface QcOqcMapper
     public int updateQcOqc(QcOqc qcOqc);
 
     /**
+     * 根据缺陷记录更新头上的缺陷数量和缺陷比率
+     * @param oqc
+     * @return
+     */
+    public int updateCrMajMinQuaAndRate(Long oqc);
+
+    /**
      * 删除出货检验单
      * 
      * @param oqcId 出货检验单主键

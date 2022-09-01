@@ -44,6 +44,13 @@ public interface QcOqcLineMapper
     public int updateQcOqcLine(QcOqcLine qcOqcLine);
 
     /**
+     * 根据缺陷记录更新行上的缺陷数量
+     * @param qcOqcLine
+     * @return
+     */
+    public int updateCrMajMinQuantity(QcOqcLine qcOqcLine);
+
+    /**
      * 删除出货检验单行
      * 
      * @param lineId 出货检验单行主键

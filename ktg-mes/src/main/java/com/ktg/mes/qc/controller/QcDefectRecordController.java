@@ -53,6 +53,11 @@ public class QcDefectRecordController extends BaseController
     @Autowired
     private IQcIpqcService qcIpqcService;
 
+    @Autowired
+    private IQcOqcService qcOqcService;
+
+    @Autowired
+    private IQcOqcLineService qcOqcLineService;
 
 
     /**
@@ -138,9 +143,9 @@ public class QcDefectRecordController extends BaseController
                 qcIpqcService.updateCrMajMinQuaAndRate(qcId);
             }else {
                 //更新出货检验单行上的cr,maj,min数量
-
+                qcOqcLineService.updateCrMajMinQuantity(qcId,lineId);
                 //更新出货检验单头上的cr,maj,min数量和比例
-
+                qcOqcService.updateCrMajMinQuaAndRate(qcId);
             }
 
         }

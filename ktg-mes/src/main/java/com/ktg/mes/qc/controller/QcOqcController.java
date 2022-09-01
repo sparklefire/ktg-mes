@@ -1,10 +1,15 @@
 package com.ktg.mes.qc.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
+import cn.hutool.core.collection.CollUtil;
 import com.ktg.common.constant.UserConstants;
+import com.ktg.mes.qc.domain.*;
 import com.ktg.mes.qc.service.IQcOqcLineService;
+import com.ktg.mes.qc.service.IQcTemplateIndexService;
+import com.ktg.mes.qc.service.IQcTemplateProductService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +25,6 @@ import com.ktg.common.annotation.Log;
 import com.ktg.common.core.controller.BaseController;
 import com.ktg.common.core.domain.AjaxResult;
 import com.ktg.common.enums.BusinessType;
-import com.ktg.mes.qc.domain.QcOqc;
 import com.ktg.mes.qc.service.IQcOqcService;
 import com.ktg.common.utils.poi.ExcelUtil;
 import com.ktg.common.core.page.TableDataInfo;
@@ -40,6 +44,12 @@ public class QcOqcController extends BaseController
 
     @Autowired
     private IQcOqcLineService qcOqcLineService;
+
+    @Autowired
+    private IQcTemplateProductService qcTemplateProductService;
+
+    @Autowired
+    private IQcTemplateIndexService qcTemplateIndexService;
 
     /**
      * 查询出货检验单列表
@@ -87,7 +97,24 @@ public class QcOqcController extends BaseController
         if(UserConstants.NOT_UNIQUE.equals(qcOqcService.checkOqcCodeUnique(qcOqc))){
             return AjaxResult.error("出货单编号已存在!");
         }
-        return toAjax(qcOqcService.insertQcOqc(qcOqc));
+        //自动获取对应的检测模板
+        QcTemplateProduct param = new QcTemplateProduct();
+        param.setItemId(qcOqc.getItemId());
+        List<QcTemplateProduct> templates = qcTemplateProductService.selectQcTemplateProductList(param);
+        if(CollUtil.isNotEmpty(templates)){
+            qcOqc.setTemplateId(templates.get(0).getTemplateId());
+        }else{
+            return AjaxResult.error("当前产品未配置检测模板！");
+        }
+        //设置检测人
+        qcOqc.setInspector(getUsername());
+        //先保存单据
+        qcOqcService.insertQcOqc(qcOqc);
+        //生成行信息
+        generateLine(qcOqc);
+
+        Long oqcId = qcOqc.getOqcId();
+        return AjaxResult.success(oqcId);
     }
 
     /**
@@ -123,5 +150,36 @@ public class QcOqcController extends BaseController
         }
 
         return toAjax(qcOqcService.deleteQcOqcByOqcIds(oqcIds));
+    }
+
+    /**
+     * 根据头信息生成行信息
+     * @param oqc
+     */
+    private void generateLine(QcOqc oqc){
+        QcTemplateIndex param = new QcTemplateIndex();
+        param.setTemplateId(oqc.getTemplateId());
+        List<QcTemplateIndex> indexs = qcTemplateIndexService.selectQcTemplateIndexList(param);
+        if(CollUtil.isNotEmpty(indexs)){
+            for (QcTemplateIndex index:indexs
+            ) {
+                QcOqcLine line = new QcOqcLine();
+                line.setOqcId(oqc.getOqcId());
+                line.setIndexId(index.getIndexId());
+                line.setIndexCode(index.getIndexCode());
+                line.setIndexName(index.getIndexName());
+                line.setIndexType(index.getIndexType());
+                line.setQcTool(index.getQcTool());
+                line.setCheckMethod(index.getCheckMethod());
+                line.setStanderVal(index.getStanderVal());
+                line.setUnitOfMeasure(index.getUnitOfMeasure());
+                line.setThresholdMax(index.getThresholdMax());
+                line.setThresholdMin(index.getThresholdMin());
+                line.setCrQuantity(new BigDecimal(0L));
+                line.setMajQuantity(new BigDecimal(0L));
+                line.setMajQuantity(new BigDecimal(0L));
+                qcOqcLineService.insertQcOqcLine(line);
+            }
+        }
     }
 }

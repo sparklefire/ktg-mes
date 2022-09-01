@@ -52,6 +52,13 @@ public interface IQcOqcService
     public int updateQcOqc(QcOqc qcOqc);
 
     /**
+     * 根据缺陷记录更新头上的缺陷数量和缺陷比率
+     * @param oqcId
+     * @return
+     */
+    public int updateCrMajMinQuaAndRate(Long oqcId);
+
+    /**
      * 批量删除出货检验单
      * 
      * @param oqcIds 需要删除的出货检验单主键集合

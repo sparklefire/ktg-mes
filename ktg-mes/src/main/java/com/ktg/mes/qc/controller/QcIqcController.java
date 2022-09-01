@@ -125,19 +125,8 @@ public class QcIqcController extends BaseController
         if(UserConstants.NOT_UNIQUE.equals(qcIqcService.checkIqcCodeUnique(qcIqc))){
             return AjaxResult.error("单据编号已存在！");
         }
-        QcTemplateProduct param = new QcTemplateProduct();
-        param.setItemId(qcIqc.getItemId());
-        List<QcTemplateProduct> templates = qcTemplateProductService.selectQcTemplateProductList(param);
-        if(CollUtil.isNotEmpty(templates)){
-            qcIqc.setTemplateId(templates.get(0).getTemplateId());
-        }else{
-            return AjaxResult.error("当前产品未配置检测模板！");
-        }
 
-        int ret = qcIqcService.updateQcIqc(qcIqc);
-
-        generateLine(qcIqc);
-        return toAjax(ret);
+        return toAjax(qcIqcService.updateQcIqc(qcIqc));
     }
 
     /**

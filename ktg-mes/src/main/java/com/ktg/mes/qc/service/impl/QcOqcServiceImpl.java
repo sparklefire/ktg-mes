@@ -83,6 +83,11 @@ public class QcOqcServiceImpl implements IQcOqcService
         return qcOqcMapper.updateQcOqc(qcOqc);
     }
 
+    @Override
+    public int updateCrMajMinQuaAndRate(Long oqcId) {
+        return qcOqcMapper.updateCrMajMinQuaAndRate(oqcId);
+    }
+
     /**
      * 批量删除出货检验单
      * 

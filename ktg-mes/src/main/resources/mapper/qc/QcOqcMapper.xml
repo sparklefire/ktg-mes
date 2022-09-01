@@ -224,6 +224,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where oqc_id = #{oqcId}
     </update>
 
+
+    <update id="updateCrMajMinQuaAndRate" parameterType="Long">
+        UPDATE qc_oqc a
+            INNER JOIN (
+            SELECT SUM(CASE WHEN defect_level = 'CR' THEN defect_quantity ELSE 0 END ) AS cr_quantity,
+            SUM(CASE WHEN defect_level = 'MAJ' THEN defect_quantity ELSE 0 END) AS maj_quantity,
+            SUM(CASE WHEN defect_level = 'MIN' THEN defect_quantity ELSE 0 END) AS min_quantity,
+            qid.`qc_id` as 'oqc_id'
+            FROM qc_defect_record qid
+            WHERE qid.qc_id = #{oqcId}
+            and qc_type = 'OQC'
+            GROUP BY qid.qc_id
+            ) b
+        ON a.`oqc_id` = b.oqc_id
+            SET a.cr_quantity=b.cr_quantity,a.maj_quantity=b.maj_quantity,a.min_quantity=b.min_quantity,
+                a.`cr_rate`= ROUND(b.cr_quantity/a.`quantity_check`*100,2),
+                a.`maj_rate`= ROUND(b.maj_quantity/a.`quantity_check`*100,2),
+                a.`min_rate`= ROUND(b.min_quantity/a.`quantity_check`*100,2)
+        WHERE a.oqc_id = #{oqcId}
+    </update>
+
     <delete id="deleteQcOqcByOqcId" parameterType="Long">
         delete from qc_oqc where oqc_id = #{oqcId}
     </delete>
