@@ -4,8 +4,10 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ktg.common.constant.UserConstants;
+import com.ktg.mes.qc.service.IQcOqcLineService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -35,6 +37,9 @@ public class QcOqcController extends BaseController
 {
     @Autowired
     private IQcOqcService qcOqcService;
+
+    @Autowired
+    private IQcOqcLineService qcOqcLineService;
 
     /**
      * 查询出货检验单列表
@@ -104,9 +109,19 @@ public class QcOqcController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('mes:qc:oqc:remove')")
     @Log(title = "出货检验单", businessType = BusinessType.DELETE)
+    @Transactional
 	@DeleteMapping("/{oqcIds}")
     public AjaxResult remove(@PathVariable Long[] oqcIds)
     {
+        for (Long oqcId: oqcIds
+             ) {
+            QcOqc oqc = qcOqcService.selectQcOqcByOqcId(oqcId);
+            if(!UserConstants.ORDER_STATUS_PREPARE.equals(oqc.getStatus())){
+                return AjaxResult.error("只能删除状态为草稿的单据!");
+            }
+            qcOqcLineService.deleteByOqcId(oqcId);
+        }
+
         return toAjax(qcOqcService.deleteQcOqcByOqcIds(oqcIds));
     }
 }
