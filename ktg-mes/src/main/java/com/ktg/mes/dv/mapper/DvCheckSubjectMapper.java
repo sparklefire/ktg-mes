@@ -61,4 +61,11 @@ public interface DvCheckSubjectMapper
      * @return 结果
      */
     public int deleteDvCheckSubjectByRecordIds(Long[] recordIds);
+
+    /**
+     * 根据计划ID删除对应的计划项目
+     * @param planId
+     * @return
+     */
+    public int deleteByPlanId(Long planId);
 }

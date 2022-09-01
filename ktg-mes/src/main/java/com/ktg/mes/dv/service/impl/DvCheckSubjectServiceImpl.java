@@ -108,4 +108,9 @@ public class DvCheckSubjectServiceImpl implements IDvCheckSubjectService
     {
         return dvCheckSubjectMapper.deleteDvCheckSubjectByRecordId(recordId);
     }
+
+    @Override
+    public int deleteByPlanId(Long planId) {
+        return dvCheckSubjectMapper.deleteByPlanId(planId);
+    }
 }

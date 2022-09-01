@@ -11,6 +11,7 @@ import com.ktg.mes.dv.service.IDvCheckMachineryService;
 import com.ktg.mes.dv.service.IDvCheckSubjectService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -124,6 +125,7 @@ public class DvCheckPlanController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('mes:dv:checkplan:remove')")
     @Log(title = "设备点检计划头", businessType = BusinessType.DELETE)
+    @Transactional
 	@DeleteMapping("/{planIds}")
     public AjaxResult remove(@PathVariable Long[] planIds)
     {
@@ -133,6 +135,9 @@ public class DvCheckPlanController extends BaseController
             if(!UserConstants.ORDER_STATUS_PREPARE.equals(plan.getStatus())){
                 return AjaxResult.error("只能删除草稿状态单据！");
             }
+
+            dvCheckMachineryService.deleteByPlanId(planId);
+            dvCheckSubjectService.deleteByPlanId(planId);
         }
 
 
