@@ -60,4 +60,11 @@ public interface IDvCheckMachineryService
      * @return 结果
      */
     public int deleteDvCheckMachineryByRecordId(Long recordId);
+
+    /**
+     * 根据计划头ID删除对应的设备列表
+     * @param planId
+     * @return
+     */
+    public int deleteByPlanId(Long planId);
 }

@@ -106,4 +106,9 @@ public class DvCheckMachineryServiceImpl implements IDvCheckMachineryService
     {
         return dvCheckMachineryMapper.deleteDvCheckMachineryByRecordId(recordId);
     }
+
+    @Override
+    public int deleteByPlanId(Long planId) {
+        return dvCheckMachineryMapper.deleteByPlanId(planId);
+    }
 }

@@ -45,8 +45,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
     <select id="checkMachineryUnique" parameterType="DvCheckMachinery" resultMap="DvCheckMachineryResult">
-        <include refid="selectDvCheckMachineryVo"/>
-        where machinery_id = #{machineryId} and plan_type = #{planType} limit 1
+        select record_id, cm.plan_id, machinery_id, machinery_code, machinery_name, machinery_brand, machinery_spec, cm.remark, cm.attr1, cm.attr2, cm.attr3, cm.attr4, cm.create_by, cm.create_time, cm.update_by, cm.update_time
+        from dv_check_machinery cm
+                 left join dv_check_plan cp
+                           on cm.plan_id = cp.plan_id
+        where cm.machinery_id = #{machineryId} and cp.plan_type = (
+            select plan_type
+            from dv_check_plan
+            where plan_id = #{planId}
+        )  limit 1
     </select>
         
     <insert id="insertDvCheckMachinery" parameterType="DvCheckMachinery" useGeneratedKeys="true" keyProperty="recordId">
@@ -119,4 +126,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{recordId}
         </foreach>
     </delete>
+
+    <delete id="deleteByPlanId" parameterType="Long">
+        delete from dv_check_machinery where plan_id = #{planId}
+    </delete>
+
 </mapper>
