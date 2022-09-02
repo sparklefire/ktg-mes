@@ -51,7 +51,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectWmBarcodeVo"/>
         where barcode_id = #{barcodeId}
     </select>
-        
+
+    <select id="checkBarcodeUnique" parameterType="WmBarcode">
+        <include refid="selectWmBarcodeVo"/>
+        where bussiness_id = #{bussinessId} and barcode_type = #{barcodeType}
+    </select>
+
     <insert id="insertWmBarcode" parameterType="WmBarcode" useGeneratedKeys="true" keyProperty="barcodeId">
         insert into wm_barcode
         <trim prefix="(" suffix=")" suffixOverrides=",">

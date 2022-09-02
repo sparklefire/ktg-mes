@@ -1,12 +1,22 @@
 package com.ktg.mes.wm.service.impl;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+
+import com.ktg.common.constant.UserConstants;
+import com.ktg.common.core.domain.AjaxResult;
 import com.ktg.common.utils.DateUtils;
+import com.ktg.common.utils.StringUtils;
+import com.ktg.common.utils.barcode.BarcodeUtil;
+import com.ktg.common.utils.file.FileUploadUtils;
+import com.ktg.common.utils.file.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ktg.mes.wm.mapper.WmBarcodeMapper;
 import com.ktg.mes.wm.domain.WmBarcode;
 import com.ktg.mes.wm.service.IWmBarcodeService;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 条码清单Service业务层处理
@@ -42,6 +52,16 @@ public class WmBarcodeServiceImpl implements IWmBarcodeService
     public List<WmBarcode> selectWmBarcodeList(WmBarcode wmBarcode)
     {
         return wmBarcodeMapper.selectWmBarcodeList(wmBarcode);
+    }
+
+    @Override
+    public String checkBarcodeUnique(WmBarcode wmBarcode) {
+        WmBarcode barcode = wmBarcodeMapper.checkBarcodeUnique(wmBarcode);
+        Long barcodeId = wmBarcode.getBarcodeId()==null?-1L:wmBarcode.getBarcodeId();
+        if(StringUtils.isNotNull(barcode) && barcode.getBarcodeId().longValue() != barcodeId.longValue()){
+            return UserConstants.NOT_UNIQUE;
+        }
+        return UserConstants.UNIQUE;
     }
 
     /**
@@ -93,4 +113,20 @@ public class WmBarcodeServiceImpl implements IWmBarcodeService
     {
         return wmBarcodeMapper.deleteWmBarcodeByBarcodeId(barcodeId);
     }
+
+    @Override
+    public String generateBarcode(WmBarcode wmBarcode) {
+        File buf = BarcodeUtil.generateFile(wmBarcode.getBarcodeContent(),"./tmp/barcode/"+wmBarcode.getBarcodeContent()+".png");
+        MultipartFile file = FileUtils.getMultipartFile(buf);
+        String fileName = null;
+        try {
+            fileName = FileUploadUtils.uploadMinio(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return fileName;
+    }
+
+
 }

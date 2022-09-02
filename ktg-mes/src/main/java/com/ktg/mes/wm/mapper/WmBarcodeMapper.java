@@ -28,6 +28,13 @@ public interface WmBarcodeMapper
     public List<WmBarcode> selectWmBarcodeList(WmBarcode wmBarcode);
 
     /**
+     * 检查当前条码类型下，对应的业务是否已经生成了条码
+     * @param wmBarcode
+     * @return
+     */
+    public WmBarcode checkBarcodeUnique(WmBarcode wmBarcode);
+
+    /**
      * 新增条码清单
      * 
      * @param wmBarcode 条码清单

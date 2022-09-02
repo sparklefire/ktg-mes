@@ -2,6 +2,8 @@ package com.ktg.mes.wm.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ktg.common.constant.UserConstants;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -77,6 +79,12 @@ public class WmBarcodeController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody WmBarcode wmBarcode)
     {
+        if(UserConstants.NOT_UNIQUE.equals(wmBarcodeService.checkBarcodeUnique(wmBarcode))){
+            return AjaxResult.error("当前业务内容的条码已存在!");
+        }
+
+        String path =wmBarcodeService.generateBarcode(wmBarcode);
+        wmBarcode.setBarcodeUrl(path);
         return toAjax(wmBarcodeService.insertWmBarcode(wmBarcode));
     }
 
@@ -88,6 +96,11 @@ public class WmBarcodeController extends BaseController
     @PutMapping
     public AjaxResult edit(@RequestBody WmBarcode wmBarcode)
     {
+        if(UserConstants.NOT_UNIQUE.equals(wmBarcodeService.checkBarcodeUnique(wmBarcode))){
+            return AjaxResult.error("当前业务内容的条码已存在!");
+        }
+        String path =wmBarcodeService.generateBarcode(wmBarcode);
+        wmBarcode.setBarcodeUrl(path);
         return toAjax(wmBarcodeService.updateWmBarcode(wmBarcode));
     }
 

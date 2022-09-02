@@ -27,6 +27,14 @@ public interface IWmBarcodeService
      */
     public List<WmBarcode> selectWmBarcodeList(WmBarcode wmBarcode);
 
+
+    /**
+     * 根据条码类型和业务内容ID判断条码是否已存在
+     * @param wmBarcode
+     * @return
+     */
+    public String checkBarcodeUnique(WmBarcode wmBarcode);
+
     /**
      * 新增条码清单
      * 
@@ -58,4 +66,12 @@ public interface IWmBarcodeService
      * @return 结果
      */
     public int deleteWmBarcodeByBarcodeId(Long barcodeId);
+
+    /**
+     * 根据条码记录生成实际的条码，返回对应的url地址
+     * @param wmBarcode
+     * @return
+     */
+    public String generateBarcode(WmBarcode wmBarcode);
+
 }

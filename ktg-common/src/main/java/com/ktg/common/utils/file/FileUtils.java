@@ -1,22 +1,22 @@
 package com.ktg.common.utils.file;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import com.ktg.common.config.RuoYiConfig;
 import com.ktg.common.utils.DateUtils;
 import com.ktg.common.utils.StringUtils;
 import com.ktg.common.utils.uuid.IdUtils;
+import org.springframework.http.MediaType;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 /**
  * 文件处理工具类
@@ -271,5 +271,21 @@ public class FileUtils
         int lastWindowsPos = fileName.lastIndexOf('\\');
         int index = Math.max(lastUnixPos, lastWindowsPos);
         return fileName.substring(index + 1);
+    }
+
+    public static MultipartFile getMultipartFile(File file) {
+        FileItem item = new DiskFileItemFactory().createItem("file"
+                , MediaType.MULTIPART_FORM_DATA_VALUE
+                , true
+                , file.getName());
+        try (InputStream input = new FileInputStream(file);
+             OutputStream os = item.getOutputStream()) {
+            // 流转移
+            IOUtils.copy(input, os);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Invalid file: " + e, e);
+        }
+
+        return new CommonsMultipartFile(item);
     }
 }
