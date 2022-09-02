@@ -30,9 +30,19 @@ public class WmBarcode extends BaseEntity
     @Excel(name = "产品物料ID")
     private String barcodeContent;
 
+    private Long bussinessId;
+
+    /** 业务编码 */
+    @Excel(name = "业务编码")
+    private String bussinessCode;
+
+    /** 业务名称 */
+    @Excel(name = "业务编码")
+    private String bussinessName;
+
     /** 条码地址 */
     @Excel(name = "条码地址")
-    private String url;
+    private String barcodeUrl;
 
     /** 是否生效 */
     @Excel(name = "是否生效")
@@ -90,16 +100,40 @@ public class WmBarcode extends BaseEntity
     {
         return barcodeContent;
     }
-    public void setUrl(String url) 
-    {
-        this.url = url;
+
+    public Long getBussinessId() {
+        return bussinessId;
     }
 
-    public String getUrl() 
-    {
-        return url;
+    public void setBussinessId(Long bussinessId) {
+        this.bussinessId = bussinessId;
     }
-    public void setEnableFlag(String enableFlag) 
+
+    public String getBussinessCode() {
+        return bussinessCode;
+    }
+
+    public void setBussinessCode(String bussinessCode) {
+        this.bussinessCode = bussinessCode;
+    }
+
+    public String getBussinessName() {
+        return bussinessName;
+    }
+
+    public void setBussinessName(String bussinessName) {
+        this.bussinessName = bussinessName;
+    }
+
+    public String getBarcodeUrl() {
+        return barcodeUrl;
+    }
+
+    public void setBarcodeUrl(String barcodeUrl) {
+        this.barcodeUrl = barcodeUrl;
+    }
+
+    public void setEnableFlag(String enableFlag)
     {
         this.enableFlag = enableFlag;
     }
@@ -147,22 +181,20 @@ public class WmBarcode extends BaseEntity
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("barcodeId", getBarcodeId())
-            .append("barcodeFormart", getBarcodeFormart())
-            .append("barcodeType", getBarcodeType())
-            .append("barcodeContent", getBarcodeContent())
-            .append("url", getUrl())
-            .append("enableFlag", getEnableFlag())
-            .append("remark", getRemark())
-            .append("attr1", getAttr1())
-            .append("attr2", getAttr2())
-            .append("attr3", getAttr3())
-            .append("attr4", getAttr4())
-            .append("createBy", getCreateBy())
-            .append("createTime", getCreateTime())
-            .append("updateBy", getUpdateBy())
-            .append("updateTime", getUpdateTime())
-            .toString();
+        return "WmBarcode{" +
+                "barcodeId=" + barcodeId +
+                ", barcodeFormart='" + barcodeFormart + '\'' +
+                ", barcodeType='" + barcodeType + '\'' +
+                ", barcodeContent='" + barcodeContent + '\'' +
+                ", bussinessId=" + bussinessId +
+                ", bussinessCode='" + bussinessCode + '\'' +
+                ", bussinessName='" + bussinessName + '\'' +
+                ", barcodeUrl='" + barcodeUrl + '\'' +
+                ", enableFlag='" + enableFlag + '\'' +
+                ", attr1='" + attr1 + '\'' +
+                ", attr2='" + attr2 + '\'' +
+                ", attr3=" + attr3 +
+                ", attr4=" + attr4 +
+                '}';
     }
 }

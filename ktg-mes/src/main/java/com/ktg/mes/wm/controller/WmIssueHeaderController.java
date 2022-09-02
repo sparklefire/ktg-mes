@@ -5,11 +5,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import cn.hutool.core.collection.CollUtil;
 import com.ktg.common.constant.UserConstants;
-import com.ktg.mes.wm.domain.WmIssueLine;
+import com.ktg.common.utils.StringUtils;
+import com.ktg.mes.wm.domain.*;
 import com.ktg.mes.wm.domain.tx.IssueTxBean;
-import com.ktg.mes.wm.service.IStorageCoreService;
-import com.ktg.mes.wm.service.IWmIssueLineService;
-import com.ktg.mes.wm.service.IWmStorageAreaService;
+import com.ktg.mes.wm.service.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,8 +24,6 @@ import com.ktg.common.annotation.Log;
 import com.ktg.common.core.controller.BaseController;
 import com.ktg.common.core.domain.AjaxResult;
 import com.ktg.common.enums.BusinessType;
-import com.ktg.mes.wm.domain.WmIssueHeader;
-import com.ktg.mes.wm.service.IWmIssueHeaderService;
 import com.ktg.common.utils.poi.ExcelUtil;
 import com.ktg.common.core.page.TableDataInfo;
 
@@ -48,6 +45,15 @@ public class WmIssueHeaderController extends BaseController
 
     @Autowired
     private IStorageCoreService storageCoreService;
+
+    @Autowired
+    private IWmWarehouseService wmWarehouseService;
+
+    @Autowired
+    private IWmStorageLocationService wmStorageLocationService;
+
+    @Autowired
+    private IWmStorageAreaService wmStorageAreaService;
 
     /**
      * 查询生产领料单头列表
@@ -95,6 +101,26 @@ public class WmIssueHeaderController extends BaseController
         if(UserConstants.NOT_UNIQUE.equals(wmIssueHeaderService.checkIssueCodeUnique(wmIssueHeader))){
             return AjaxResult.error("领料单编号已存在");
         }
+        //根据领料单头上的仓库、库区、库位ID设置对应的编号和名称
+        if(StringUtils.isNotNull(wmIssueHeader.getWarehouseId())){
+            WmWarehouse warehouse = wmWarehouseService.selectWmWarehouseByWarehouseId(wmIssueHeader.getWarehouseId());
+            wmIssueHeader.setWarehouseCode(warehouse.getWarehouseCode());
+            wmIssueHeader.setWarehouseName(warehouse.getWarehouseName());
+        }
+
+        if(StringUtils.isNotNull(wmIssueHeader.getLocationId())){
+            WmStorageLocation location = wmStorageLocationService.selectWmStorageLocationByLocationId(wmIssueHeader.getLocationId());
+            wmIssueHeader.setLocationCode(location.getLocationCode());
+            wmIssueHeader.setLocationName(location.getLocationName());
+        }
+
+        if(StringUtils.isNotNull(wmIssueHeader.getAreaId())){
+            WmStorageArea area = wmStorageAreaService.selectWmStorageAreaByAreaId(wmIssueHeader.getAreaId());
+            wmIssueHeader.setAreaCode(area.getAreaCode());
+            wmIssueHeader.setAreaName(area.getAreaName());
+        }
+
+
         return toAjax(wmIssueHeaderService.insertWmIssueHeader(wmIssueHeader));
     }
 
@@ -108,6 +134,25 @@ public class WmIssueHeaderController extends BaseController
     {
         if(UserConstants.NOT_UNIQUE.equals(wmIssueHeaderService.checkIssueCodeUnique(wmIssueHeader))){
             return AjaxResult.error("领料单编号已存在");
+        }
+
+        //根据领料单头上的仓库、库区、库位ID设置对应的编号和名称
+        if(StringUtils.isNotNull(wmIssueHeader.getWarehouseId())){
+            WmWarehouse warehouse = wmWarehouseService.selectWmWarehouseByWarehouseId(wmIssueHeader.getWarehouseId());
+            wmIssueHeader.setWarehouseCode(warehouse.getWarehouseCode());
+            wmIssueHeader.setWarehouseName(warehouse.getWarehouseName());
+        }
+
+        if(StringUtils.isNotNull(wmIssueHeader.getLocationId())){
+            WmStorageLocation location = wmStorageLocationService.selectWmStorageLocationByLocationId(wmIssueHeader.getLocationId());
+            wmIssueHeader.setLocationCode(location.getLocationCode());
+            wmIssueHeader.setLocationName(location.getLocationName());
+        }
+
+        if(StringUtils.isNotNull(wmIssueHeader.getAreaId())){
+            WmStorageArea area = wmStorageAreaService.selectWmStorageAreaByAreaId(wmIssueHeader.getAreaId());
+            wmIssueHeader.setAreaCode(area.getAreaCode());
+            wmIssueHeader.setAreaName(area.getAreaName());
         }
         return toAjax(wmIssueHeaderService.updateWmIssueHeader(wmIssueHeader));
     }

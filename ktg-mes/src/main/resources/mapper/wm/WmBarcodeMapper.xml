@@ -9,7 +9,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="barcodeFormart"    column="barcode_formart"    />
         <result property="barcodeType"    column="barcode_type"    />
         <result property="barcodeContent"    column="barcode_content"    />
-        <result property="url"    column="url"    />
+        <result property="bussinessId" column="bussiness_id"></result>
+        <result property="bussinessCode" column="bussiness_code"></result>
+        <result property="bussinessName" column="bussiness_name"></result>
+        <result property="barcodeUrl"    column="barcode_url"    />
         <result property="enableFlag"    column="enable_flag"    />
         <result property="remark"    column="remark"    />
         <result property="attr1"    column="attr1"    />
@@ -23,7 +26,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectWmBarcodeVo">
-        select barcode_id, barcode_formart, barcode_type, barcode_content, url, enable_flag, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from wm_barcode
+        select barcode_id, barcode_formart, barcode_type, barcode_content,bussiness_id,bussiness_code,bussiness_name, barcode_url, enable_flag, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from wm_barcode
     </sql>
 
     <select id="selectWmBarcodeList" parameterType="WmBarcode" resultMap="WmBarcodeResult">
@@ -32,7 +35,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="barcodeFormart != null  and barcodeFormart != ''"> and barcode_formart = #{barcodeFormart}</if>
             <if test="barcodeType != null  and barcodeType != ''"> and barcode_type = #{barcodeType}</if>
             <if test="barcodeContent != null  and barcodeContent != ''"> and barcode_content = #{barcodeContent}</if>
-            <if test="url != null  and url != ''"> and url = #{url}</if>
+            <if test="bussinessId != null"> and bussiness_id = #{bussinessId}</if>
+            <if test="bussinessCode != null and bussinessCode !=''"> and bussiness_code = #{bussinessCode}</if>
+            <if test="bussinessName != null and bussinessName !=''"> and bussiness_name = #{bussinessName}</if>
+            <if test="barcodeUrl != null  and barcodeUrl != ''"> and barcode_url = #{barcodeUrl}</if>
             <if test="enableFlag != null  and enableFlag != ''"> and enable_flag = #{enableFlag}</if>
             <if test="attr1 != null  and attr1 != ''"> and attr1 = #{attr1}</if>
             <if test="attr2 != null  and attr2 != ''"> and attr2 = #{attr2}</if>
@@ -52,7 +58,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="barcodeFormart != null and barcodeFormart != ''">barcode_formart,</if>
             <if test="barcodeType != null and barcodeType != ''">barcode_type,</if>
             <if test="barcodeContent != null and barcodeContent != ''">barcode_content,</if>
-            <if test="url != null">url,</if>
+            <if test="bussinessId != null"> bussiness_id,</if>
+            <if test="bussinessCode != null and bussinessCode !=''">bussiness_code,</if>
+            <if test="bussinessName != null and bussinessName !=''">bussiness_name,</if>
+            <if test="barcodeUrl != null  and barcodeUrl != ''">barcode_url,</if>
             <if test="enableFlag != null">enable_flag,</if>
             <if test="remark != null">remark,</if>
             <if test="attr1 != null">attr1,</if>
@@ -68,7 +77,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="barcodeFormart != null and barcodeFormart != ''">#{barcodeFormart},</if>
             <if test="barcodeType != null and barcodeType != ''">#{barcodeType},</if>
             <if test="barcodeContent != null and barcodeContent != ''">#{barcodeContent},</if>
-            <if test="url != null">#{url},</if>
+            <if test="bussinessId != null"> #{bussinessId},</if>
+            <if test="bussinessCode != null and bussinessCode !=''">#{bussinessCode},</if>
+            <if test="bussinessName != null and bussinessName !=''">#{bussinessName},</if>
+            <if test="barcodeUrl != null  and barcodeUrl != ''">#{barcodeUrl},</if>
             <if test="enableFlag != null">#{enableFlag},</if>
             <if test="remark != null">#{remark},</if>
             <if test="attr1 != null">#{attr1},</if>
@@ -88,7 +100,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="barcodeFormart != null and barcodeFormart != ''">barcode_formart = #{barcodeFormart},</if>
             <if test="barcodeType != null and barcodeType != ''">barcode_type = #{barcodeType},</if>
             <if test="barcodeContent != null and barcodeContent != ''">barcode_content = #{barcodeContent},</if>
-            <if test="url != null">url = #{url},</if>
+            <if test="bussinessId != null">bussiness_id = #{bussinessId}</if>
+            <if test="bussinessCode != null and bussinessCode !=''">bussiness_code = #{bussinessCode},</if>
+            <if test="bussinessName != null and bussinessName !=''">bussiness_name = #{bussinessName},</if>
+            <if test="barcodeUrl != null  and barcodeUrl != ''">barcode_url = #{barcodeUrl},</if>
             <if test="enableFlag != null">enable_flag = #{enableFlag},</if>
             <if test="remark != null">remark = #{remark},</if>
             <if test="attr1 != null">attr1 = #{attr1},</if>
