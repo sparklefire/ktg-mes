@@ -108,6 +108,8 @@ Android端：
 
 - 质量
 
+  ![](https://gitee.com/kutangguo/ktg-mes/raw/master/doc/%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/%E5%8E%9F%E5%9E%8B%E8%AE%BE%E8%AE%A1/%E6%88%AA%E5%9B%BE/%E8%A7%A6%E6%8E%A7%E5%B1%8F-%E8%B4%A8%E9%87%8F%E7%AE%A1%E7%90%86.png)
+
 - 工序
 
 - 设备
