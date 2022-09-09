@@ -119,6 +119,9 @@ public class WmTransactionServiceImpl implements IWmTransactionService
                 stock.setVendorName(transaction.getVendorName());
                 stock.setVendorNick(transaction.getVendorNick());
             }
+            //使用库存事务日期初始化入库日期
+            //一般在入库的时候才会涉及到materialStock的新增，出库的时候都是出的现有库存
+            stock.setRecptDate(transaction.getTransactionDate());
             stock.setExpireDate(transaction.getExpireDate());
         }
     }

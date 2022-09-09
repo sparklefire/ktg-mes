@@ -5,6 +5,7 @@ import java.util.List;
 import com.ktg.common.constant.UserConstants;
 import com.ktg.common.utils.DateUtils;
 import com.ktg.common.utils.StringUtils;
+import com.ktg.mes.qc.domain.QcMobParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ktg.mes.qc.mapper.QcTemplateMapper;
@@ -50,6 +51,11 @@ public class QcTemplateServiceImpl implements IQcTemplateService
     @Override
     public QcTemplate selectQcTemplateByProductAndQcType(QcTemplate qcTemplate) {
         return qcTemplateMapper.selectQcTemplateByProductAndQcType(qcTemplate);
+    }
+
+    @Override
+    public QcTemplate findTemplateByProductIdAndQcType(QcMobParam param) {
+        return qcTemplateMapper.findTemplateByProductIdAndQcType(param);
     }
 
     @Override

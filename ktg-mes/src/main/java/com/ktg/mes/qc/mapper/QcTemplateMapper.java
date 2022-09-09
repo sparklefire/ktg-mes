@@ -1,6 +1,8 @@
 package com.ktg.mes.qc.mapper;
 
 import java.util.List;
+
+import com.ktg.mes.qc.domain.QcMobParam;
 import com.ktg.mes.qc.domain.QcTemplate;
 
 /**
@@ -33,6 +35,14 @@ public interface QcTemplateMapper
      * @param qcTemplate
      */
     public QcTemplate selectQcTemplateByProductAndQcType(QcTemplate qcTemplate);
+
+
+    /**
+     * 根据物料/产品和检验类型查询对应的检测模板
+     * @param param
+     * @return
+     */
+    public QcTemplate findTemplateByProductIdAndQcType(QcMobParam param);
 
 
     public QcTemplate checkTemplateCodeUnique(QcTemplate qcTemplate);

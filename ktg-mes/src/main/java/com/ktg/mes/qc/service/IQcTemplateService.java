@@ -1,6 +1,8 @@
 package com.ktg.mes.qc.service;
 
 import java.util.List;
+
+import com.ktg.mes.qc.domain.QcMobParam;
 import com.ktg.mes.qc.domain.QcTemplate;
 
 /**
@@ -32,6 +34,13 @@ public interface IQcTemplateService
      * @param qcTemplate
      */
     public QcTemplate selectQcTemplateByProductAndQcType(QcTemplate qcTemplate);
+
+    /**
+     * 根据物料/产品和检验类型查询对应的检测模板
+     * @param param
+     * @return
+     */
+    public QcTemplate findTemplateByProductIdAndQcType(QcMobParam param);
 
     /**
      * 检测模板编号是否唯一

@@ -53,6 +53,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         limit 1;
     </select>
 
+    <select id="findTemplateByProductIdAndQcType" parameterType="QcMobParam" resultMap="QcTemplateResult">
+        select t.*
+        from  qc_template t
+                  left join qc_template_product p
+                            on t.template_id = p.template_id
+        where p.item_id = #{itemId}
+          and t.qc_types like concat('%',#{qcType},'%')
+        limit 1
+    </select>
+
     <insert id="insertQcTemplate" parameterType="QcTemplate" useGeneratedKeys="true" keyProperty="templateId">
         insert into qc_template
         <trim prefix="(" suffix=")" suffixOverrides=",">

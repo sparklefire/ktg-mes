@@ -106,6 +106,11 @@ public class WmMaterialStock extends BaseEntity
     private BigDecimal quantityOnhand;
 
     /** 库存有效期 */
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    @Excel(name = "入库时间", width = 30, dateFormat = "yyyy-MM-dd hh:mm:ss")
+    private Date recptDate;
+
+    /** 库存有效期 */
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Excel(name = "库存有效期", width = 30, dateFormat = "yyyy-MM-dd")
     private Date expireDate;
@@ -324,7 +329,16 @@ public class WmMaterialStock extends BaseEntity
     {
         return quantityOnhand;
     }
-    public void setExpireDate(Date expireDate) 
+
+    public Date getRecptDate() {
+        return recptDate;
+    }
+
+    public void setRecptDate(Date recptDate) {
+        this.recptDate = recptDate;
+    }
+
+    public void setExpireDate(Date expireDate)
     {
         this.expireDate = expireDate;
     }
@@ -395,6 +409,7 @@ public class WmMaterialStock extends BaseEntity
             .append("vendorName", getVendorName())
             .append("vendorNick", getVendorNick())
             .append("quantityOnhand", getQuantityOnhand())
+                .append("recptDate",getRecptDate())
             .append("expireDate", getExpireDate())
             .append("attr1", getAttr1())
             .append("attr2", getAttr2())
