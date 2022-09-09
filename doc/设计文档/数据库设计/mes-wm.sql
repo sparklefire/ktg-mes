@@ -21,6 +21,8 @@ create table wm_warehouse (
   primary key (warehouse_id)
 ) engine=innodb auto_increment=200 comment = '仓库表';
 
+--初始化一个虚拟的线边库
+insert into wm_warehouse (warehouse_code,warehouse_name,location,area,charge) values('XBK_VIRTUAL','线边库-虚拟',null,-1,null);
 
 -- ----------------------------
 -- 2、库区表
@@ -45,6 +47,8 @@ create table wm_storage_location (
   primary key (location_id)
 ) engine=innodb auto_increment=200 comment = '库区表';
 
+--初始化一个虚拟的线边库库区
+insert into wm_storage_location (location_code,location_name,warehouse_id,area,area_flag) values('XBKKQ_VIRTUAL','线边库库区-虚拟',200,-1,'Y');
 
 -- ----------------------------
 -- 3、库位表
@@ -72,6 +76,10 @@ create table wm_storage_area (
   update_time           datetime                                    comment '更新时间',
   primary key (area_id)
 ) engine=innodb auto_increment=200 comment = '库位表';
+
+
+--初始化一个虚拟的线边库库位
+insert into wm_storage_area (area_code,area_name,location_id,area,enable_flag) values('XBKKW_VIRTUAL','线边库库位-虚拟',200,-1,'Y');
 
 
 -- ----------------------------
@@ -229,6 +237,7 @@ create table wm_material_stock (
   vendor_name           varchar(255)                                comment '供应商名称',
   vendor_nick           varchar(64)                                 comment '供应商简称',
   quantity_onhand       double(12,2)                                comment '在库数量',
+  recpt_date            datetime                                    comment '入库时间',
   expire_date           datetime                                    comment '库存有效期',
   attr1                 varchar(64)     default null                comment '预留字段1',
   attr2                 varchar(255)    default null                comment '预留字段2',
