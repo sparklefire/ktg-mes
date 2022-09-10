@@ -42,6 +42,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where location_id = #{locationId}
     </select>
 
+    <select id="selectWmStorageLocationByLocationCode" parameterType="String" resultMap="WmStorageLocationResult">
+        <include refid="selectWmStorageLocationVo"/>
+        where location_code = #{locationCode} limit 1
+    </select>
+
     <select id="checkLocationCodeUnique" parameterType="WmStorageLocation" resultMap="WmStorageLocationResult">
         <include refid="selectWmStorageLocationVo"/>
         where location_code = #{locationCode} and warehouse_id = #{warehouseId} limit 1

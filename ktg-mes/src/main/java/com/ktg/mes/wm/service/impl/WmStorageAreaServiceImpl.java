@@ -32,6 +32,11 @@ public class WmStorageAreaServiceImpl implements IWmStorageAreaService
         return wmStorageAreaMapper.selectWmStorageAreaByAreaId(areaId);
     }
 
+    @Override
+    public WmStorageArea selectWmStorageAreaByAreaCode(String areaCode) {
+        return wmStorageAreaMapper.selectWmStorageAreaByAreaCode(areaCode);
+    }
+
     /**
      * 查询库位设置列表
      * 

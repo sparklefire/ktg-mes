@@ -20,6 +20,13 @@ public interface IWmWarehouseService
     public WmWarehouse selectWmWarehouseByWarehouseId(Long warehouseId);
 
     /**
+     * 根据编码查询仓库
+     * @param warehouseCdoe
+     * @return
+     */
+    public WmWarehouse selectWmWarehouseByWarehouseCode(String warehouseCdoe);
+
+    /**
      * 查询仓库设置列表
      * 
      * @param wmWarehouse 仓库设置

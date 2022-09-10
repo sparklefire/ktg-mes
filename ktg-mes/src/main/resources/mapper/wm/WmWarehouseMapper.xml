@@ -75,6 +75,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where warehouse_id = #{warehouseId}
     </select>
 
+    <select id="selectWmWarehouseByWarehouseCode" parameterType="String" resultMap="WmWarehouseResult">
+        <include refid="selectWmWarehouseVo"/>
+        where warehouse_code = #{warehouseCode} limit 1
+    </select>
+
     <select id="checkWarehouseCodeUnique" parameterType="WmWarehouse" resultMap="WmWarehouseResult">
         <include refid="selectWmWarehouseVo"/>
         where warehouse_code = #{warehouseCode} limit 1

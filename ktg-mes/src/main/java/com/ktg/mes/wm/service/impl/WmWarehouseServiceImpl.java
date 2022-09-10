@@ -36,6 +36,11 @@ public class WmWarehouseServiceImpl implements IWmWarehouseService
         return wmWarehouseMapper.selectWmWarehouseByWarehouseId(warehouseId);
     }
 
+    @Override
+    public WmWarehouse selectWmWarehouseByWarehouseCode(String warehouseCdoe) {
+        return wmWarehouseMapper.selectWmWarehouseByWarehouseCode(warehouseCdoe);
+    }
+
     /**
      * 查询仓库设置列表
      * 

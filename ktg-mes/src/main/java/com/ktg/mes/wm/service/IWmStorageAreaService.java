@@ -19,6 +19,14 @@ public interface IWmStorageAreaService
      */
     public WmStorageArea selectWmStorageAreaByAreaId(Long areaId);
 
+
+    /**
+     * 根据库位编码查询库位
+     * @param areaCode
+     * @return
+     */
+    public WmStorageArea selectWmStorageAreaByAreaCode(String areaCode);
+
     /**
      * 查询库位设置列表
      * 

@@ -36,6 +36,11 @@ public class WmStorageLocationServiceImpl implements IWmStorageLocationService
         return wmStorageLocationMapper.selectWmStorageLocationByLocationId(locationId);
     }
 
+    @Override
+    public WmStorageLocation selectWmStorageLocationByLocationCode(String locationCode) {
+        return wmStorageLocationMapper.selectWmStorageLocationByLocationCode(locationCode);
+    }
+
     /**
      * 查询库区设置列表
      * 

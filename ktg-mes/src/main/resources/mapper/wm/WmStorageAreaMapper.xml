@@ -49,6 +49,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectWmStorageAreaVo"/>
         where area_id = #{areaId}
     </select>
+
+    <select id="selectWmStorageAreaByAreaCode" parameterType="String" resultMap="WmStorageAreaResult">
+        <include refid="selectWmStorageAreaVo"/>
+        where area_code = #{areaCode}
+    </select>
         
     <insert id="insertWmStorageArea" parameterType="WmStorageArea" useGeneratedKeys="true" keyProperty="areaId">
         insert into wm_storage_area

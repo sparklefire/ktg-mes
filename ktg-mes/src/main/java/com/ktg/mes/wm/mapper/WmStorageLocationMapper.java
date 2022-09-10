@@ -20,6 +20,13 @@ public interface WmStorageLocationMapper
     public WmStorageLocation selectWmStorageLocationByLocationId(Long locationId);
 
     /**
+     * 根据库区编码查询库区
+     * @param locationCode
+     * @return
+     */
+    public WmStorageLocation selectWmStorageLocationByLocationCode(String locationCode);
+
+    /**
      * 查询库区设置列表
      * 
      * @param wmStorageLocation 库区设置
