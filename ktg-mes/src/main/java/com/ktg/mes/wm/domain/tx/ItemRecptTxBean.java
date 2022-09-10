@@ -83,6 +83,10 @@ public class ItemRecptTxBean extends BaseEntity {
     /** 事务数量 */
     private BigDecimal transactionQuantity;
 
+    /** 入库日期 */
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    private Date recptDate;
+
     /** 库存有效期 */
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date expireDate;
@@ -280,6 +284,14 @@ public class ItemRecptTxBean extends BaseEntity {
         this.transactionQuantity = transactionQuantity;
     }
 
+    public Date getRecptDate() {
+        return recptDate;
+    }
+
+    public void setRecptDate(Date recptDate) {
+        this.recptDate = recptDate;
+    }
+
     public Date getExpireDate() {
         return expireDate;
     }
@@ -315,6 +327,7 @@ public class ItemRecptTxBean extends BaseEntity {
                 ", sourceDocCode='" + sourceDocCode + '\'' +
                 ", sourceDocLineId=" + sourceDocLineId +
                 ", transactionQuantity=" + transactionQuantity +
+                ", recptDate=" + recptDate +
                 ", expireDate=" + expireDate +
                 '}';
     }

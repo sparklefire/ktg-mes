@@ -42,16 +42,6 @@ public class StorageCoreServiceImpl implements IStorageCoreService {
             transaction.setTransactionFlag(1); //库存增加
             transaction.setTransactionDate(new Date());
             wmTransactionService.processTransaction(transaction);
-//            transaction.setItemId(line.getItemId());
-//            transaction.setItemCode(line.getItemCode());
-//            transaction.setItemName(line.getItemName());
-//            transaction.setSpecification(line.getSpecification());
-//            transaction.setUnitOfMeasure(line.getUnitOfMeasure());
-//            transaction.setBatchCode(line.getBatchCode());
-//            transaction.setWarehouseId(line.getWarehouseId());
-//            transaction.setWarehouseCode(line.getWarehouseCode());
-//            transaction.setWarehouseName(line.getWarehouseName());
-//            transaction.setLocationId(line.getLocationId());
         }
 
     }

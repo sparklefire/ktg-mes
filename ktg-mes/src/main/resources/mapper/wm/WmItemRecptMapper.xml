@@ -62,6 +62,7 @@
         <result property="sourceDocCode" column="source_doc_code"></result>
         <result property="sourceDocLineId" column="source_doc_line_id"></result>
         <result property="transactionQuantity" column="transaction_quantity"></result>
+        <result property="recptDate" column="recpt_date"></result>
         <result property="expireDate" column="expire_date"></result>
         <result property="createBy"    column="create_by"    />
         <result property="createTime"    column="create_time"    />
@@ -116,7 +117,7 @@
             irl.`warehouse_id`,irl.`warehouse_code`,irl.`warehouse_name`,irl.`location_id`,irl.`location_code`,irl.`location_name`,irl.`area_id`,irl.`area_code`,irl.`area_name`,
             ir.`vendor_id`,ir.`vendor_code`,ir.`vendor_name`,ir.`vendor_nick`,
             'IR' AS source_doc_type,ir.`recpt_id` AS source_doc_id,ir.`recpt_code` AS source_doc_code,irl.`line_id` AS source_doc_line_id,
-            irl.`quantity_recived` AS transaction_quantity,irl.`expire_date`,
+            irl.`quantity_recived` AS transaction_quantity,ir.recpt_date, irl.`expire_date`,
             ir.`create_by`,ir.`create_time`,ir.`update_by`,ir.`update_time`
         FROM wm_item_recpt ir
            LEFT JOIN wm_item_recpt_line irl
