@@ -147,10 +147,13 @@ public class MdWorkstationController extends BaseController
             location = wmStorageLocationService.selectWmStorageLocationByLocationCode(UserConstants.VIRTUAL_WS);
             area = wmStorageAreaService.selectWmStorageAreaByAreaCode(UserConstants.VIRTUAL_WA);
         }
+        mdWorkstation.setWarehouseId(warehouse.getWarehouseId());
         mdWorkstation.setWarehouseCode(warehouse.getWarehouseCode());
         mdWorkstation.setWorkstationName(warehouse.getWarehouseName());
+        mdWorkstation.setLocationId(location.getLocationId());
         mdWorkstation.setLocationCode(location.getLocationCode());
         mdWorkstation.setLocationName(location.getLocationName());
+        mdWorkstation.setAreaId(area.getAreaId());
         mdWorkstation.setAreaCode(area.getAreaCode());
         mdWorkstation.setAreaName(area.getAreaName());
 

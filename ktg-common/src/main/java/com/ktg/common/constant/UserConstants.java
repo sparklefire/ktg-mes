@@ -165,4 +165,12 @@ public class UserConstants
     public static final String QC_TYPE_IQC = "IQC"; //来料检验单
     public static final String QC_TYPE_IPQC = "IPQC"; //过程检验单
     public static final String QC_TYPE_OQC = "OQC"; //出货检验
+
+    /**
+     * 默认线边库对应的仓库、库区、库位编码
+     */
+    public static  final String VIRTUAL_WH ="XBK_VIRTUAL";
+    public static  final String VIRTUAL_WS ="XBKKQ_VIRTUAL";
+    public static  final String VIRTUAL_WA ="XBKKW_VIRTUAL";
+
 }

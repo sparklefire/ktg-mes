@@ -81,4 +81,10 @@ public interface IWmWarehouseService
      * @return 结果
      */
     public int deleteWmWarehouseByWarehouseId(Long warehouseId);
+
+    /**
+     * 初始化虚拟的线边库
+     * @return
+     */
+    public WmWarehouse initVirtualWarehouse();
 }
