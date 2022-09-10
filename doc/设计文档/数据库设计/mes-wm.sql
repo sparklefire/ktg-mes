@@ -34,7 +34,7 @@ create table wm_storage_location (
   location_name         varchar(255)    not null                    comment '库区名称',
   warehouse_id          bigint(20)      not null                    comment '仓库ID',
   area                  double(12,2)                                comment '面积',
-  area_flag             char(1)         default 'N'                 comment '是否开启库位管理',
+  area_flag             char(1)         default 'Y'                 comment '是否开启库位管理',
   remark                varchar(500)    default ''                  comment '备注',
   attr1                 varchar(64)     default null                comment '预留字段1',
   attr2                 varchar(255)    default null                comment '预留字段2',
