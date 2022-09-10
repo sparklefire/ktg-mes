@@ -4,10 +4,17 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ktg.common.constant.UserConstants;
+import com.ktg.common.utils.StringUtils;
 import com.ktg.mes.md.domain.MdWorkshop;
 import com.ktg.mes.md.service.*;
 import com.ktg.mes.pro.domain.ProProcess;
 import com.ktg.mes.pro.service.IProProcessService;
+import com.ktg.mes.wm.domain.WmStorageArea;
+import com.ktg.mes.wm.domain.WmStorageLocation;
+import com.ktg.mes.wm.domain.WmWarehouse;
+import com.ktg.mes.wm.service.IWmStorageAreaService;
+import com.ktg.mes.wm.service.IWmStorageLocationService;
+import com.ktg.mes.wm.service.IWmWarehouseService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -54,6 +61,15 @@ public class MdWorkstationController extends BaseController
 
     @Autowired
     private IMdWorkshopService mdWorkshopService;
+
+    @Autowired
+    private IWmWarehouseService wmWarehouseService;
+
+    @Autowired
+    private IWmStorageLocationService wmStorageLocationService;
+
+    @Autowired
+    private IWmStorageAreaService wmStorageAreaService;
 
     /**
      * 查询工作站列表
@@ -111,6 +127,33 @@ public class MdWorkstationController extends BaseController
         MdWorkshop workshop = mdWorkshopService.selectMdWorkshopByWorkshopId(mdWorkstation.getWorkshopId());
         mdWorkstation.setWorkshopCode(workshop.getWorkshopCode());
         mdWorkstation.setWorkshopName(workshop.getWorkshopName());
+
+        //线边库的设置
+        WmWarehouse warehouse = null;
+        WmStorageLocation location = null;
+        WmStorageArea area = null;
+        if(StringUtils.isNotNull(mdWorkstation.getWarehouseId())){
+            //如果有指定线边库
+            warehouse = wmWarehouseService.selectWmWarehouseByWarehouseId(mdWorkstation.getWarehouseId());
+            location = wmStorageLocationService.selectWmStorageLocationByLocationId(mdWorkstation.getLocationId());
+            area = wmStorageAreaService.selectWmStorageAreaByAreaId(mdWorkstation.getAreaId());
+        }else {
+            //设置默认的线边库
+            warehouse = wmWarehouseService.selectWmWarehouseByWarehouseCode(UserConstants.VIRTUAL_WH);
+            if(StringUtils.isNull(warehouse)){
+                //如果没有找到默认的线边库，则进行一次初始化
+                warehouse = wmWarehouseService.initVirtualWarehouse();
+            }
+            location = wmStorageLocationService.selectWmStorageLocationByLocationCode(UserConstants.VIRTUAL_WS);
+            area = wmStorageAreaService.selectWmStorageAreaByAreaCode(UserConstants.VIRTUAL_WA);
+        }
+        mdWorkstation.setWarehouseCode(warehouse.getWarehouseCode());
+        mdWorkstation.setWorkstationName(warehouse.getWarehouseName());
+        mdWorkstation.setLocationCode(location.getLocationCode());
+        mdWorkstation.setLocationName(location.getLocationName());
+        mdWorkstation.setAreaCode(area.getAreaCode());
+        mdWorkstation.setAreaName(area.getAreaName());
+
         return toAjax(mdWorkstationService.insertMdWorkstation(mdWorkstation));
     }
 
@@ -135,6 +178,33 @@ public class MdWorkstationController extends BaseController
         MdWorkshop workshop = mdWorkshopService.selectMdWorkshopByWorkshopId(mdWorkstation.getWorkshopId());
         mdWorkstation.setWorkshopCode(workshop.getWorkshopCode());
         mdWorkstation.setWorkshopName(workshop.getWorkshopName());
+
+        //线边库的设置
+        WmWarehouse warehouse = null;
+        WmStorageLocation location = null;
+        WmStorageArea area = null;
+        if(StringUtils.isNotNull(mdWorkstation.getWarehouseId())){
+            //如果有指定线边库
+            warehouse = wmWarehouseService.selectWmWarehouseByWarehouseId(mdWorkstation.getWarehouseId());
+            location = wmStorageLocationService.selectWmStorageLocationByLocationId(mdWorkstation.getLocationId());
+            area = wmStorageAreaService.selectWmStorageAreaByAreaId(mdWorkstation.getAreaId());
+        }else {
+            //设置默认的线边库
+            warehouse = wmWarehouseService.selectWmWarehouseByWarehouseCode(UserConstants.VIRTUAL_WH);
+            if(StringUtils.isNull(warehouse)){
+                //如果没有找到默认的线边库，则进行一次初始化
+                warehouse = wmWarehouseService.initVirtualWarehouse();
+            }
+            location = wmStorageLocationService.selectWmStorageLocationByLocationCode(UserConstants.VIRTUAL_WS);
+            area = wmStorageAreaService.selectWmStorageAreaByAreaCode(UserConstants.VIRTUAL_WA);
+        }
+        mdWorkstation.setWarehouseCode(warehouse.getWarehouseCode());
+        mdWorkstation.setWorkstationName(warehouse.getWarehouseName());
+        mdWorkstation.setLocationCode(location.getLocationCode());
+        mdWorkstation.setLocationName(location.getLocationName());
+        mdWorkstation.setAreaCode(area.getAreaCode());
+        mdWorkstation.setAreaName(area.getAreaName());
+
         return toAjax(mdWorkstationService.updateMdWorkstation(mdWorkstation));
     }
 
