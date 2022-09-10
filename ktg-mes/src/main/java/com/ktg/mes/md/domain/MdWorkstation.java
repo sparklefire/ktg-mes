@@ -54,6 +54,42 @@ public class MdWorkstation extends BaseEntity
     @Excel(name = "工序名称")
     private String processName;
 
+    /** 线边库ID */
+    @Excel(name = "仓库ID")
+    private Long warehouseId;
+
+    /** 线边库编码 */
+    @Excel(name = "仓库编码")
+    private String warehouseCode;
+
+    /** 线边库名称 */
+    @Excel(name = "仓库名称")
+    private String warehouseName;
+
+    /** 库区ID */
+    @Excel(name = "库区ID")
+    private Long locationId;
+
+    /** 库区编码 */
+    @Excel(name = "库区编码")
+    private String locationCode;
+
+    /** 库区名称 */
+    @Excel(name = "库区名称")
+    private String locationName;
+
+    /** 库位ID */
+    @Excel(name = "库位ID")
+    private Long areaId;
+
+    /** 库位编码 */
+    @Excel(name = "库位编码")
+    private String areaCode;
+
+    /** 库位名称 */
+    @Excel(name = "库位名称")
+    private String areaName;
+
     /** 是否启用 */
     @Excel(name = "是否启用")
     private String enableFlag;

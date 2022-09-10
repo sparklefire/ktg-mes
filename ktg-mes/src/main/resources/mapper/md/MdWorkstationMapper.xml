@@ -15,6 +15,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="processId"    column="process_id"    />
         <result property="processCode"    column="process_code"    />
         <result property="processName"    column="process_name"    />
+        <result property="warehouseId"    column="warehouse_id"    />
+        <result property="warehouseCode"    column="warehouse_code"    />
+        <result property="warehouseName"    column="warehouse_name"    />
+        <result property="locationId"    column="location_id"    />
+        <result property="locationCode"    column="location_code"    />
+        <result property="locationName"    column="location_name"    />
+        <result property="areaId"    column="area_id"    />
+        <result property="areaCode"    column="area_code"    />
+        <result property="areaName"    column="area_name"    />
         <result property="enableFlag"    column="enable_flag"    />
         <result property="remark"    column="remark"    />
         <result property="attr1"    column="attr1"    />
@@ -28,7 +37,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectMdWorkstationVo">
-        select workstation_id, workstation_code, workstation_name, workstation_address, workshop_id, workshop_code, workshop_name, process_id, process_code, process_name, enable_flag, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from md_workstation
+        select workstation_id, workstation_code, workstation_name, workstation_address, workshop_id, workshop_code, workshop_name, process_id, process_code, process_name,warehouse_id, warehouse_code, warehouse_name, location_id, location_code, location_name, area_id, area_code, area_name, enable_flag, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from md_workstation
     </sql>
 
     <select id="selectMdWorkstationList" parameterType="MdWorkstation" resultMap="MdWorkstationResult">
@@ -43,6 +52,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="processId != null "> and process_id = #{processId}</if>
             <if test="processCode != null  and processCode != ''"> and process_code = #{processCode}</if>
             <if test="processName != null  and processName != ''"> and process_name like concat('%', #{processName}, '%')</if>
+            <if test="warehouseId != null "> and warehouse_id = #{warehouseId}</if>
+            <if test="warehouseCode != null  and warehouseCode != ''"> and warehouse_code = #{warehouseCode}</if>
+            <if test="warehouseName != null  and warehouseName != ''"> and warehouse_name like concat('%', #{warehouseName}, '%')</if>
+            <if test="locationId != null "> and location_id = #{locationId}</if>
+            <if test="locationCode != null  and locationCode != ''"> and location_code = #{locationCode}</if>
+            <if test="locationName != null  and locationName != ''"> and location_name like concat('%', #{locationName}, '%')</if>
+            <if test="areaId != null "> and area_id = #{areaId}</if>
+            <if test="areaCode != null  and areaCode != ''"> and area_code = #{areaCode}</if>
+            <if test="areaName != null  and areaName != ''"> and area_name like concat('%', #{areaName}, '%')</if>
             <if test="enableFlag != null  and enableFlag != ''"> and enable_flag = #{enableFlag}</if>
         </where>
     </select>
@@ -74,6 +92,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="processId != null">process_id,</if>
             <if test="processCode != null">process_code,</if>
             <if test="processName != null">process_name,</if>
+            <if test="warehouseId != null">warehouse_id,</if>
+            <if test="warehouseCode != null">warehouse_code,</if>
+            <if test="warehouseName != null">warehouse_name,</if>
+            <if test="locationId != null">location_id,</if>
+            <if test="locationCode != null">location_code,</if>
+            <if test="locationName != null">location_name,</if>
+            <if test="areaId != null">area_id,</if>
+            <if test="areaCode != null">area_code,</if>
+            <if test="areaName != null">area_name,</if>
             <if test="enableFlag != null and enableFlag != ''">enable_flag,</if>
             <if test="remark != null">remark,</if>
             <if test="attr1 != null">attr1,</if>
@@ -95,6 +122,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="processId != null">#{processId},</if>
             <if test="processCode != null">#{processCode},</if>
             <if test="processName != null">#{processName},</if>
+            <if test="warehouseId != null">#{warehouseId},</if>
+            <if test="warehouseCode != null">#{warehouseCode},</if>
+            <if test="warehouseName != null">#{warehouseName},</if>
+            <if test="locationId != null">#{locationId},</if>
+            <if test="locationCode != null">#{locationCode},</if>
+            <if test="locationName != null">#{locationName},</if>
+            <if test="areaId != null">#{areaId},</if>
+            <if test="areaCode != null">#{areaCode},</if>
+            <if test="areaName != null">#{areaName},</if>
             <if test="enableFlag != null and enableFlag != ''">#{enableFlag},</if>
             <if test="remark != null">#{remark},</if>
             <if test="attr1 != null">#{attr1},</if>
@@ -120,6 +156,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="processId != null">process_id = #{processId},</if>
             <if test="processCode != null">process_code = #{processCode},</if>
             <if test="processName != null">process_name = #{processName},</if>
+            <if test="warehouseId != null">warehouse_id = #{warehouseId},</if>
+            <if test="warehouseCode != null">warehouse_code = #{warehouseCode},</if>
+            <if test="warehouseName != null">warehouse_name = #{warehouseName},</if>
+            <if test="locationId != null">location_id = #{locationId},</if>
+            <if test="locationCode != null">location_code = #{locationCode},</if>
+            <if test="locationName != null">location_name = #{locationName},</if>
+            <if test="areaId != null">area_id = #{areaId},</if>
+            <if test="areaCode != null">area_code = #{areaCode},</if>
+            <if test="areaName != null">area_name = #{areaName},</if>
             <if test="enableFlag != null and enableFlag != ''">enable_flag = #{enableFlag},</if>
             <if test="remark != null">remark = #{remark},</if>
             <if test="attr1 != null">attr1 = #{attr1},</if>
