@@ -5,6 +5,8 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ktg.common.annotation.Excel;
 import com.ktg.common.core.domain.BaseEntity;
 
+import java.math.BigDecimal;
+
 /**
  * 产品制程物料BOM对象 pro_route_product_bom
  * 
@@ -52,7 +54,7 @@ public class ProRouteProductBom extends BaseEntity
 
     /** 用料比例 */
     @Excel(name = "用料比例")
-    private Long quantity;
+    private BigDecimal quantity;
 
     /** 预留字段1 */
     private String attr1;
@@ -147,12 +149,12 @@ public class ProRouteProductBom extends BaseEntity
     {
         return unitOfMeasure;
     }
-    public void setQuantity(Long quantity) 
+    public void setQuantity(BigDecimal quantity)
     {
         this.quantity = quantity;
     }
 
-    public Long getQuantity() 
+    public BigDecimal getQuantity()
     {
         return quantity;
     }
