@@ -86,4 +86,11 @@ public interface IProRouteProcessService
      * @return 结果
      */
     public int deleteProRouteProcessByRecordId(Long recordId);
+
+    /**
+     * 根据工艺路线ID删除所有工序配置
+     * @param routeId
+     * @return
+     */
+    public int deleteByRouteId(Long routeId);
 }

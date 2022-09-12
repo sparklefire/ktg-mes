@@ -66,4 +66,18 @@ public interface IProRouteProductBomService
      * @return 结果
      */
     public int deleteProRouteProductBomByRecordId(Long recordId);
+
+    /**
+     * 根据工艺路线ID删除所有产品BOM设置
+     * @param routeId
+     * @return
+     */
+    public int deleteByRouteId(Long routeId);
+
+    /**
+     * 根据工艺路线ID和产品ID删除BOM设置
+     * @param proRouteProductBom
+     * @return
+     */
+    public int deleteByRouteIdAndProductId(ProRouteProductBom proRouteProductBom);
 }

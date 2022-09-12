@@ -106,4 +106,14 @@ public class ProRouteProductBomServiceImpl implements IProRouteProductBomService
     {
         return proRouteProductBomMapper.deleteProRouteProductBomByRecordId(recordId);
     }
+
+    @Override
+    public int deleteByRouteId(Long routeId) {
+        return proRouteProductBomMapper.deleteByRouteId(routeId);
+    }
+
+    @Override
+    public int deleteByRouteIdAndProductId(ProRouteProductBom proRouteProductBom) {
+        return proRouteProductBomMapper.deleteByRouteIdAndProductId(proRouteProductBom);
+    }
 }

@@ -136,4 +136,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{recordId}
         </foreach>
     </delete>
+
+    <delete id="deleteByRouteId" parameterType="Long">
+        delete from pro_route_product_bom where route_id = #{routeId}
+    </delete>
+
+    <delete id="deleteByRouteIdAndProductId" parameterType="ProRouteProductBom">
+        delete from pro_route_product_bom where route_id = #{routeId} and product_id = #{productId}
+    </delete>
 </mapper>

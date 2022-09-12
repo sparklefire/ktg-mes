@@ -60,4 +60,11 @@ public interface ProRouteProductMapper
      * @return 结果
      */
     public int deleteProRouteProductByRecordIds(Long[] recordIds);
+
+    /**
+     * 根据工艺路线ID删除对应的产品配置
+     * @param routeId
+     * @return
+     */
+    public int deleteByRouteId(Long routeId);
 }

@@ -106,4 +106,9 @@ public class ProRouteProductServiceImpl implements IProRouteProductService
     {
         return proRouteProductMapper.deleteProRouteProductByRecordId(recordId);
     }
+
+    @Override
+    public int deleteByRouteId(Long routeId) {
+        return proRouteProductMapper.deleteByRouteId(routeId);
+    }
 }

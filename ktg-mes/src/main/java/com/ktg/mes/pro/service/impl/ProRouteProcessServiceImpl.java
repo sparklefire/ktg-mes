@@ -126,4 +126,9 @@ public class ProRouteProcessServiceImpl implements IProRouteProcessService
     {
         return proRouteProcessMapper.deleteProRouteProcessByRecordId(recordId);
     }
+
+    @Override
+    public int deleteByRouteId(Long routeId) {
+        return proRouteProcessMapper.deleteByRouteId(routeId);
+    }
 }

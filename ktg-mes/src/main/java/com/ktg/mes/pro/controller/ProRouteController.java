@@ -5,8 +5,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ktg.common.constant.UserConstants;
 import com.ktg.common.utils.StringUtils;
+import com.ktg.mes.pro.service.IProRouteProcessService;
+import com.ktg.mes.pro.service.IProRouteProductBomService;
+import com.ktg.mes.pro.service.IProRouteProductService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -36,6 +40,15 @@ public class ProRouteController extends BaseController
 {
     @Autowired
     private IProRouteService proRouteService;
+
+    @Autowired
+    private IProRouteProcessService proRouteProcessService;
+
+    @Autowired
+    private IProRouteProductService proRouteProductService;
+
+    @Autowired
+    private IProRouteProductBomService proRouteProductBomService;
 
     /**
      * 查询工艺路线列表
@@ -105,9 +118,16 @@ public class ProRouteController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('mes:pro:proroute:remove')")
     @Log(title = "工艺路线", businessType = BusinessType.DELETE)
+    @Transactional
 	@DeleteMapping("/{routeIds}")
     public AjaxResult remove(@PathVariable Long[] routeIds)
     {
+        for (Long routeId:routeIds
+             ) {
+            proRouteProcessService.deleteByRouteId(routeId);
+            proRouteProductService.deleteByRouteId(routeId);
+            proRouteProductBomService.deleteByRouteId(routeId);
+        }
         return toAjax(proRouteService.deleteProRouteByRouteIds(routeIds));
     }
 }

@@ -5,8 +5,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import cn.hutool.core.collection.CollUtil;
 import com.ktg.common.constant.UserConstants;
+import com.ktg.mes.pro.domain.ProRouteProductBom;
+import com.ktg.mes.pro.service.IProRouteProductBomService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -36,6 +39,9 @@ public class ProRouteProductController extends BaseController
 {
     @Autowired
     private IProRouteProductService proRouteProductService;
+
+    @Autowired
+    private IProRouteProductBomService proRouteProductBomService;
 
     /**
      * 查询产品制程列表
@@ -127,9 +133,19 @@ public class ProRouteProductController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('mes:pro:routeproduct:remove')")
     @Log(title = "产品制程", businessType = BusinessType.DELETE)
+    @Transactional
 	@DeleteMapping("/{recordIds}")
     public AjaxResult remove(@PathVariable Long[] recordIds)
     {
+        for (Long recordId:recordIds
+             ) {
+            ProRouteProduct product = proRouteProductService.selectProRouteProductByRecordId(recordId);
+            ProRouteProductBom bom = new ProRouteProductBom();
+            bom.setRouteId(product.getRouteId());
+            bom.setProductId(product.getItemId());
+            proRouteProductBomService.deleteByRouteIdAndProductId(bom);
+        }
+
         return toAjax(proRouteProductService.deleteProRouteProductByRecordIds(recordIds));
     }
 }
