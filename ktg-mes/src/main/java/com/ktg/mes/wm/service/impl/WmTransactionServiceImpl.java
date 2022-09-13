@@ -121,7 +121,12 @@ public class WmTransactionServiceImpl implements IWmTransactionService
             }
             //使用库存事务日期初始化入库日期
             //一般在入库的时候才会涉及到materialStock的新增，出库的时候都是出的现有库存
-            stock.setRecptDate(transaction.getRecptDate());
+            if(StringUtils.isNotNull(transaction.getRecptDate())){
+                stock.setRecptDate(transaction.getRecptDate());
+            }else{
+                stock.setRecptDate(new Date());
+            }
+
             //使用库存事务上的生产工单初始化库存记录上的生产工单，以支持某些情况下库存需要标记生产工单的情况
             if(StringUtils.isNotNull(transaction.getWorkorderId())){
                 stock.setWorkorderId(transaction.getWorkorderId());
