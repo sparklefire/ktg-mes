@@ -143,6 +143,17 @@ public class WmTransaction extends BaseEntity
     @Excel(name = "ERP账期", width = 30, dateFormat = "yyyy-MM-dd")
     private Date erpDate;
 
+    /**
+     * 生产工单ID
+     */
+    private Long workorderId;
+
+    /**
+     * 生产工单编号
+     */
+    @Excel(name = "生产工单编号")
+    private String workorderCode;
+
     /** 入库日期 */
     @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     @Excel(name = "入库日期", width = 30, dateFormat = "yyyy-MM-dd hh:mm:ss")
@@ -449,6 +460,22 @@ public class WmTransaction extends BaseEntity
         return erpDate;
     }
 
+    public Long getWorkorderId() {
+        return workorderId;
+    }
+
+    public void setWorkorderId(Long workorderId) {
+        this.workorderId = workorderId;
+    }
+
+    public String getWorkorderCode() {
+        return workorderCode;
+    }
+
+    public void setWorkorderCode(String workorderCode) {
+        this.workorderCode = workorderCode;
+    }
+
     public Date getRecptDate() {
         return recptDate;
     }
@@ -537,6 +564,8 @@ public class WmTransaction extends BaseEntity
                 ", transactionDate=" + transactionDate +
                 ", relatedTransactionId=" + relatedTransactionId +
                 ", erpDate=" + erpDate +
+                ", workorderId=" + workorderId +
+                ", workorderCode='" + workorderCode + '\'' +
                 ", recptDate=" + recptDate +
                 ", expireDate=" + expireDate +
                 ", attr1='" + attr1 + '\'' +

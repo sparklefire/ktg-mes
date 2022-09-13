@@ -105,6 +105,15 @@ public class WmMaterialStock extends BaseEntity
     @Excel(name = "在库数量")
     private BigDecimal quantityOnhand;
 
+    /**
+     * 生产工单ID
+     */
+    private Long workorderId;
+
+    /** 生产工单编号 */
+    @Excel(name = "生产工单编号")
+    private String workorderCode;
+
     /** 库存有效期 */
     @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     @Excel(name = "入库时间", width = 30, dateFormat = "yyyy-MM-dd hh:mm:ss")
@@ -338,6 +347,22 @@ public class WmMaterialStock extends BaseEntity
         this.recptDate = recptDate;
     }
 
+    public Long getWorkorderId() {
+        return workorderId;
+    }
+
+    public void setWorkorderId(Long workorderId) {
+        this.workorderId = workorderId;
+    }
+
+    public String getWorkorderCode() {
+        return workorderCode;
+    }
+
+    public void setWorkorderCode(String workorderCode) {
+        this.workorderCode = workorderCode;
+    }
+
     public void setExpireDate(Date expireDate)
     {
         this.expireDate = expireDate;
@@ -386,39 +411,37 @@ public class WmMaterialStock extends BaseEntity
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("materialStockId", getMaterialStockId())
-            .append("itemTypeId", getItemTypeId())
-            .append("itemId", getItemId())
-            .append("itemCode", getItemCode())
-            .append("itemName", getItemName())
-            .append("specification", getSpecification())
-            .append("unitOfMeasure", getUnitOfMeasure())
-            .append("batchCode", getBatchCode())
-            .append("warehouseId", getWarehouseId())
-            .append("warehouseCode", getWarehouseCode())
-            .append("warehouseName", getWarehouseName())
-            .append("locationId", getLocationId())
-            .append("locationCode", getLocationCode())
-            .append("locationName", getLocationName())
-            .append("areaId", getAreaId())
-            .append("areaCode", getAreaCode())
-            .append("areaName", getAreaName())
-            .append("vendorId", getVendorId())
-            .append("vendorCode", getVendorCode())
-            .append("vendorName", getVendorName())
-            .append("vendorNick", getVendorNick())
-            .append("quantityOnhand", getQuantityOnhand())
-                .append("recptDate",getRecptDate())
-            .append("expireDate", getExpireDate())
-            .append("attr1", getAttr1())
-            .append("attr2", getAttr2())
-            .append("attr3", getAttr3())
-            .append("attr4", getAttr4())
-            .append("createBy", getCreateBy())
-            .append("createTime", getCreateTime())
-            .append("updateBy", getUpdateBy())
-            .append("updateTime", getUpdateTime())
-            .toString();
+        return "WmMaterialStock{" +
+                "materialStockId=" + materialStockId +
+                ", itemTypeId=" + itemTypeId +
+                ", itemId=" + itemId +
+                ", itemCode='" + itemCode + '\'' +
+                ", itemName='" + itemName + '\'' +
+                ", specification='" + specification + '\'' +
+                ", unitOfMeasure='" + unitOfMeasure + '\'' +
+                ", batchCode='" + batchCode + '\'' +
+                ", warehouseId=" + warehouseId +
+                ", warehouseCode='" + warehouseCode + '\'' +
+                ", warehouseName='" + warehouseName + '\'' +
+                ", locationId=" + locationId +
+                ", locationCode='" + locationCode + '\'' +
+                ", locationName='" + locationName + '\'' +
+                ", areaId=" + areaId +
+                ", areaCode='" + areaCode + '\'' +
+                ", areaName='" + areaName + '\'' +
+                ", vendorId=" + vendorId +
+                ", vendorCode='" + vendorCode + '\'' +
+                ", vendorName='" + vendorName + '\'' +
+                ", vendorNick='" + vendorNick + '\'' +
+                ", quantityOnhand=" + quantityOnhand +
+                ", workorderId=" + workorderId +
+                ", workorderCode='" + workorderCode + '\'' +
+                ", recptDate=" + recptDate +
+                ", expireDate=" + expireDate +
+                ", attr1='" + attr1 + '\'' +
+                ", attr2='" + attr2 + '\'' +
+                ", attr3=" + attr3 +
+                ", attr4=" + attr4 +
+                '}';
     }
 }

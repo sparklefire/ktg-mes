@@ -36,6 +36,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="transactionDate"    column="transaction_date"    />
         <result property="relatedTransactionId"    column="related_transaction_id"    />
         <result property="recptDate" column="recpt_date"></result>
+        <result property="workorderId" column="workorder_id"></result>
+        <result property="workorderCode" column="workorder_code"></result>
         <result property="erpDate"    column="erp_date"    />
         <result property="expireDate"    column="expire_date"    />
         <result property="attr1"    column="attr1"    />
@@ -49,7 +51,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectWmTransactionVo">
-        select transaction_id, transaction_type, item_id, item_code, item_name, specification, unit_of_measure, batch_code, warehouse_id, warehouse_code, warehouse_name, location_id, location_code, location_name, area_id, area_code, area_name, vendor_id, vendor_code, vendor_name, vendor_nick, source_doc_type, source_doc_id, source_doc_code, source_doc_line_id, material_stock_id, transaction_flag, transaction_quantity, transaction_date, related_transaction_id, erp_date,recpt_date, expire_date, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from wm_transaction
+        select transaction_id, transaction_type, item_id, item_code, item_name, specification, unit_of_measure, batch_code, warehouse_id, warehouse_code, warehouse_name, location_id, location_code, location_name, area_id, area_code, area_name, vendor_id, vendor_code, vendor_name, vendor_nick, source_doc_type, source_doc_id, source_doc_code, source_doc_line_id, material_stock_id, transaction_flag, transaction_quantity, transaction_date, related_transaction_id, erp_date,workorder_id,workorder_code,recpt_date, expire_date, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from wm_transaction
     </sql>
 
     <select id="selectWmTransactionList" parameterType="WmTransaction" resultMap="WmTransactionResult">
@@ -85,6 +87,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="transactionDate != null "> and transaction_date = #{transactionDate}</if>
             <if test="relatedTransactionId != null "> and related_transaction_id = #{relatedTransactionId}</if>
             <if test="recptDate ！= null"> and recpt_date = #{recptDate}</if>
+            <if test="workorderId !=null">and workorder_id = #{workorderId}</if>
+            <if test="workorderCode !=null">and workorder_code = #{workorderCode}</if>
             <if test="erpDate != null "> and erp_date = #{erpDate}</if>
             <if test="expireDate != null "> and expire_date = #{expireDate}</if>
             <if test="attr1 != null  and attr1 != ''"> and attr1 = #{attr1}</if>
@@ -133,6 +137,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="relatedTransactionId != null">related_transaction_id,</if>
             <if test="erpDate != null">erp_date,</if>
             <if test="recptDate != null">recpt_date,</if>
+            <if test="workorderId !=null">workorder_id,</if>
+            <if test="workorderCode !=null">workorder_code,</if>
             <if test="expireDate != null">expire_date,</if>
             <if test="attr1 != null">attr1,</if>
             <if test="attr2 != null">attr2,</if>
@@ -175,6 +181,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="relatedTransactionId != null">#{relatedTransactionId},</if>
             <if test="erpDate != null">#{erpDate},</if>
             <if test="recptDate != null">#{recptDate},</if>
+            <if test="workorderId !=null">#{workorderId},</if>
+            <if test="workorderCode !=null">#{workorderCode},</if>
             <if test="expireDate != null">#{expireDate},</if>
             <if test="attr1 != null">#{attr1},</if>
             <if test="attr2 != null">#{attr2},</if>
@@ -220,6 +228,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="transactionDate != null">transaction_date = #{transactionDate},</if>
             <if test="relatedTransactionId != null">related_transaction_id = #{relatedTransactionId},</if>
             <if test="erpDate != null">erp_date = #{erpDate},</if>
+            <if test="workorderId !=null">workorder_id = #{workorderId},</if>
+            <if test="workorderCode !=null">workorder_code = #{workorderCode},</if>
             <if test="recptDate != null">recp_date = #{recptDate},</if>
             <if test="expireDate != null">expire_date = #{expireDate},</if>
             <if test="attr1 != null">attr1 = #{attr1},</if>
