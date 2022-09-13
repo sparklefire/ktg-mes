@@ -63,6 +63,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="sourceDocCode" column="source_doc_code"></result>
         <result property="sourceDocLineId" column="source_doc_line_id"></result>
         <result property="transactionQuantity" column="transaction_quantity"></result>
+        <result property="workorderId" column="workorder_id"></result>
+        <result property="workorderCode" column="workorder_code"></result>
         <result property="createBy"    column="create_by"    />
         <result property="createTime"    column="create_time"    />
         <result property="updateBy"    column="update_by"    />
@@ -113,7 +115,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         SELECT irl.material_stock_id, irl.`item_id`,irl.`item_code`,irl.`item_name`,irl.`specification`,irl.`unit_of_measure`,irl.`batch_code`,
                irl.`warehouse_id`,irl.`warehouse_code`,irl.`warehouse_name`,irl.`location_id`,irl.`location_code`,irl.`location_name`,irl.`area_id`,irl.`area_code`,irl.`area_name`,
                'ISSUE' AS source_doc_type,ir.`issue_id` AS source_doc_id,ir.`issue_code` AS source_doc_code,irl.`line_id` AS source_doc_line_id,
-               irl.`quantity_issued` AS transaction_quantity,
+               irl.`quantity_issued` AS transaction_quantity,ir.workorder_id,ir.workorder_code,
                ir.`create_by`,ir.`create_time`,ir.`update_by`,ir.`update_time`
         FROM wm_issue_header ir
                  LEFT JOIN wm_issue_line irl
