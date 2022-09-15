@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ktg.mes.wm.mapper.WmRtIssueMapper">
+    
+    <resultMap type="WmRtIssue" id="WmRtIssueResult">
+        <result property="rtId"    column="rt_id"    />
+        <result property="rtCode"    column="rt_code"    />
+        <result property="rtName"    column="rt_name"    />
+        <result property="workorderId"    column="workorder_id"    />
+        <result property="workorderCode"    column="workorder_code"    />
+        <result property="warehouseId"    column="warehouse_id"    />
+        <result property="warehouseCode"    column="warehouse_code"    />
+        <result property="warehouseName"    column="warehouse_name"    />
+        <result property="locationId"    column="location_id"    />
+        <result property="locationCode"    column="location_code"    />
+        <result property="locationName"    column="location_name"    />
+        <result property="areaId"    column="area_id"    />
+        <result property="areaCode"    column="area_code"    />
+        <result property="areaName"    column="area_name"    />
+        <result property="rtDate"    column="rt_date"    />
+        <result property="status"    column="status"    />
+        <result property="remark"    column="remark"    />
+        <result property="attr1"    column="attr1"    />
+        <result property="attr2"    column="attr2"    />
+        <result property="attr3"    column="attr3"    />
+        <result property="attr4"    column="attr4"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectWmRtIssueVo">
+        select rt_id, rt_code, rt_name, workorder_id, workorder_code, warehouse_id, warehouse_code, warehouse_name, location_id, location_code, location_name, area_id, area_code, area_name, rt_date, status, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from wm_rt_issue
+    </sql>
+
+    <select id="selectWmRtIssueList" parameterType="WmRtIssue" resultMap="WmRtIssueResult">
+        <include refid="selectWmRtIssueVo"/>
+        <where>  
+            <if test="rtCode != null  and rtCode != ''"> and rt_code = #{rtCode}</if>
+            <if test="rtName != null  and rtName != ''"> and rt_name like concat('%', #{rtName}, '%')</if>
+            <if test="workorderId != null "> and workorder_id = #{workorderId}</if>
+            <if test="workorderCode != null  and workorderCode != ''"> and workorder_code = #{workorderCode}</if>
+            <if test="warehouseId != null "> and warehouse_id = #{warehouseId}</if>
+            <if test="warehouseCode != null  and warehouseCode != ''"> and warehouse_code = #{warehouseCode}</if>
+            <if test="warehouseName != null  and warehouseName != ''"> and warehouse_name like concat('%', #{warehouseName}, '%')</if>
+            <if test="locationId != null "> and location_id = #{locationId}</if>
+            <if test="locationCode != null  and locationCode != ''"> and location_code = #{locationCode}</if>
+            <if test="locationName != null  and locationName != ''"> and location_name like concat('%', #{locationName}, '%')</if>
+            <if test="areaId != null "> and area_id = #{areaId}</if>
+            <if test="areaCode != null  and areaCode != ''"> and area_code = #{areaCode}</if>
+            <if test="areaName != null  and areaName != ''"> and area_name like concat('%', #{areaName}, '%')</if>
+            <if test="rtDate != null "> and rt_date = #{rtDate}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+        </where>
+    </select>
+    
+    <select id="selectWmRtIssueByRtId" parameterType="Long" resultMap="WmRtIssueResult">
+        <include refid="selectWmRtIssueVo"/>
+        where rt_id = #{rtId}
+    </select>
+
+    <select id="checkUnique" parameterType="WmRtIssue" resultMap="WmRtIssueResult">
+        <include refid="selectWmRtIssueVo"/>
+        where rt_code = #{rtCode}
+    </select>
+
+    <insert id="insertWmRtIssue" parameterType="WmRtIssue" useGeneratedKeys="true" keyProperty="rtId">
+        insert into wm_rt_issue
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="rtCode != null and rtCode != ''">rt_code,</if>
+            <if test="rtName != null">rt_name,</if>
+            <if test="workorderId != null">workorder_id,</if>
+            <if test="workorderCode != null">workorder_code,</if>
+            <if test="warehouseId != null">warehouse_id,</if>
+            <if test="warehouseCode != null">warehouse_code,</if>
+            <if test="warehouseName != null">warehouse_name,</if>
+            <if test="locationId != null">location_id,</if>
+            <if test="locationCode != null">location_code,</if>
+            <if test="locationName != null">location_name,</if>
+            <if test="areaId != null">area_id,</if>
+            <if test="areaCode != null">area_code,</if>
+            <if test="areaName != null">area_name,</if>
+            <if test="rtDate != null">rt_date,</if>
+            <if test="status != null">status,</if>
+            <if test="remark != null">remark,</if>
+            <if test="attr1 != null">attr1,</if>
+            <if test="attr2 != null">attr2,</if>
+            <if test="attr3 != null">attr3,</if>
+            <if test="attr4 != null">attr4,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="rtCode != null and rtCode != ''">#{rtCode},</if>
+            <if test="rtName != null">#{rtName},</if>
+            <if test="workorderId != null">#{workorderId},</if>
+            <if test="workorderCode != null">#{workorderCode},</if>
+            <if test="warehouseId != null">#{warehouseId},</if>
+            <if test="warehouseCode != null">#{warehouseCode},</if>
+            <if test="warehouseName != null">#{warehouseName},</if>
+            <if test="locationId != null">#{locationId},</if>
+            <if test="locationCode != null">#{locationCode},</if>
+            <if test="locationName != null">#{locationName},</if>
+            <if test="areaId != null">#{areaId},</if>
+            <if test="areaCode != null">#{areaCode},</if>
+            <if test="areaName != null">#{areaName},</if>
+            <if test="rtDate != null">#{rtDate},</if>
+            <if test="status != null">#{status},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="attr1 != null">#{attr1},</if>
+            <if test="attr2 != null">#{attr2},</if>
+            <if test="attr3 != null">#{attr3},</if>
+            <if test="attr4 != null">#{attr4},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateWmRtIssue" parameterType="WmRtIssue">
+        update wm_rt_issue
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="rtCode != null and rtCode != ''">rt_code = #{rtCode},</if>
+            <if test="rtName != null">rt_name = #{rtName},</if>
+            <if test="workorderId != null">workorder_id = #{workorderId},</if>
+            <if test="workorderCode != null">workorder_code = #{workorderCode},</if>
+            <if test="warehouseId != null">warehouse_id = #{warehouseId},</if>
+            <if test="warehouseCode != null">warehouse_code = #{warehouseCode},</if>
+            <if test="warehouseName != null">warehouse_name = #{warehouseName},</if>
+            <if test="locationId != null">location_id = #{locationId},</if>
+            <if test="locationCode != null">location_code = #{locationCode},</if>
+            <if test="locationName != null">location_name = #{locationName},</if>
+            <if test="areaId != null">area_id = #{areaId},</if>
+            <if test="areaCode != null">area_code = #{areaCode},</if>
+            <if test="areaName != null">area_name = #{areaName},</if>
+            <if test="rtDate != null">rt_date = #{rtDate},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="attr1 != null">attr1 = #{attr1},</if>
+            <if test="attr2 != null">attr2 = #{attr2},</if>
+            <if test="attr3 != null">attr3 = #{attr3},</if>
+            <if test="attr4 != null">attr4 = #{attr4},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where rt_id = #{rtId}
+    </update>
+
+    <delete id="deleteWmRtIssueByRtId" parameterType="Long">
+        delete from wm_rt_issue where rt_id = #{rtId}
+    </delete>
+
+    <delete id="deleteWmRtIssueByRtIds" parameterType="String">
+        delete from wm_rt_issue where rt_id in 
+        <foreach item="rtId" collection="array" open="(" separator="," close=")">
+            #{rtId}
+        </foreach>
+    </delete>
+</mapper>
