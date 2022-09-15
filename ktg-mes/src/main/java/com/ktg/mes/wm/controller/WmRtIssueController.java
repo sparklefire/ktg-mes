@@ -4,8 +4,10 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ktg.common.constant.UserConstants;
+import com.ktg.mes.wm.service.IWmRtIssueLineService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -35,6 +37,9 @@ public class WmRtIssueController extends BaseController
 {
     @Autowired
     private IWmRtIssueService wmRtIssueService;
+
+    @Autowired
+    private IWmRtIssueLineService wmRtIssueLineService;
 
     /**
      * 查询生产退料单头列表
@@ -104,9 +109,14 @@ public class WmRtIssueController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('mes:wm:rtissue:remove')")
     @Log(title = "生产退料单头", businessType = BusinessType.DELETE)
+    @Transactional
 	@DeleteMapping("/{rtIds}")
     public AjaxResult remove(@PathVariable Long[] rtIds)
     {
+        for (Long rtId: rtIds
+        ) {
+            wmRtIssueLineService.deleteByRtId(rtId);
+        }
         return toAjax(wmRtIssueService.deleteWmRtIssueByRtIds(rtIds));
     }
 }
