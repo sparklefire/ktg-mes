@@ -4,7 +4,11 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ktg.common.constant.UserConstants;
-import com.ktg.mes.wm.service.IWmRtIssueLineService;
+import com.ktg.common.utils.StringUtils;
+import com.ktg.mes.wm.domain.WmStorageArea;
+import com.ktg.mes.wm.domain.WmStorageLocation;
+import com.ktg.mes.wm.domain.WmWarehouse;
+import com.ktg.mes.wm.service.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +25,6 @@ import com.ktg.common.core.controller.BaseController;
 import com.ktg.common.core.domain.AjaxResult;
 import com.ktg.common.enums.BusinessType;
 import com.ktg.mes.wm.domain.WmRtIssue;
-import com.ktg.mes.wm.service.IWmRtIssueService;
 import com.ktg.common.utils.poi.ExcelUtil;
 import com.ktg.common.core.page.TableDataInfo;
 
@@ -40,6 +43,18 @@ public class WmRtIssueController extends BaseController
 
     @Autowired
     private IWmRtIssueLineService wmRtIssueLineService;
+
+    @Autowired
+    private IWmWarehouseService wmWarehouseService;
+
+    @Autowired
+    private IWmStorageLocationService wmStorageLocationService;
+
+    @Autowired
+    private IWmStorageAreaService wmStorageAreaService;
+
+    @Autowired
+    private IStorageCoreService storageCoreService;
 
     /**
      * 查询生产退料单头列表
@@ -87,6 +102,22 @@ public class WmRtIssueController extends BaseController
         if(UserConstants.NOT_UNIQUE.equals(wmRtIssueService.checkUnique(wmRtIssue))){
             return AjaxResult.error("退料单编号已存在");
         }
+
+        if(StringUtils.isNotNull(wmRtIssue.getWarehouseId())){
+            WmWarehouse warehouse = wmWarehouseService.selectWmWarehouseByWarehouseId(wmRtIssue.getWarehouseId());
+            wmRtIssue.setWarehouseCode(warehouse.getWarehouseCode());
+            wmRtIssue.setWarehouseName(warehouse.getWarehouseName());
+        }
+        if(StringUtils.isNotNull(wmRtIssue.getLocationId())){
+            WmStorageLocation location = wmStorageLocationService.selectWmStorageLocationByLocationId(wmRtIssue.getLocationId());
+            wmRtIssue.setLocationCode(location.getLocationCode());
+            wmRtIssue.setLocationName(location.getLocationName());
+        }
+        if(StringUtils.isNotNull(wmRtIssue.getAreaId())){
+            WmStorageArea area = wmStorageAreaService.selectWmStorageAreaByAreaId(wmRtIssue.getAreaId());
+            wmRtIssue.setAreaCode(area.getAreaCode());
+            wmRtIssue.setAreaName(area.getAreaName());
+        }
         return toAjax(wmRtIssueService.insertWmRtIssue(wmRtIssue));
     }
 
@@ -100,6 +131,22 @@ public class WmRtIssueController extends BaseController
     {
         if(UserConstants.NOT_UNIQUE.equals(wmRtIssueService.checkUnique(wmRtIssue))){
             return AjaxResult.error("退料单编号已存在");
+        }
+
+        if(StringUtils.isNotNull(wmRtIssue.getWarehouseId())){
+            WmWarehouse warehouse = wmWarehouseService.selectWmWarehouseByWarehouseId(wmRtIssue.getWarehouseId());
+            wmRtIssue.setWarehouseCode(warehouse.getWarehouseCode());
+            wmRtIssue.setWarehouseName(warehouse.getWarehouseName());
+        }
+        if(StringUtils.isNotNull(wmRtIssue.getLocationId())){
+            WmStorageLocation location = wmStorageLocationService.selectWmStorageLocationByLocationId(wmRtIssue.getLocationId());
+            wmRtIssue.setLocationCode(location.getLocationCode());
+            wmRtIssue.setLocationName(location.getLocationName());
+        }
+        if(StringUtils.isNotNull(wmRtIssue.getAreaId())){
+            WmStorageArea area = wmStorageAreaService.selectWmStorageAreaByAreaId(wmRtIssue.getAreaId());
+            wmRtIssue.setAreaCode(area.getAreaCode());
+            wmRtIssue.setAreaName(area.getAreaName());
         }
         return toAjax(wmRtIssueService.updateWmRtIssue(wmRtIssue));
     }
