@@ -396,6 +396,88 @@ create table wm_issue_line (
 
 
 
+
+
+-- ----------------------------
+-- 10、生产退料单头表
+-- ----------------------------
+drop table if exists wm_rt_issue;
+create table wm_rt_issue (
+  rt_id                 bigint(20)      not null auto_increment     comment '退料单ID',
+  rt_code               varchar(64)     not null                    comment '退料单编号',
+  rt_name               varchar(255)                                comment '退料单名称', 
+  workorder_id          bigint(20)                                  comment '生产工单ID',
+  workorder_code        varchar(64)                                 comment '生产工单编码', 
+  warehouse_id          bigint(20)                                  comment '仓库ID',
+  warehouse_code        varchar(64)                                 comment '仓库编码',
+  warehouse_name        varchar(255)                                comment '仓库名称',
+  location_id           bigint(20)                                  comment '库区ID',
+  location_code         varchar(64)                                 comment '库区编码',
+  location_name         varchar(255)                                comment '库区名称',
+  area_id               bigint(20)                                  comment '库位ID',
+  area_code             varchar(64)                                 comment '库位编码',
+  area_name             varchar(255)                                comment '库位名称', 
+  rt_date               datetime                                    comment '退料日期',
+  status                varchar(64)     default 'PREPARE'           comment '单据状态',  
+  remark                varchar(500)    default ''                  comment '备注',
+  attr1                 varchar(64)     default null                comment '预留字段1',
+  attr2                 varchar(255)    default null                comment '预留字段2',
+  attr3                 int(11)         default 0                   comment '预留字段3',
+  attr4                 int(11)         default 0                   comment '预留字段4',
+  create_by             varchar(64)     default ''                  comment '创建者',
+  create_time 	        datetime                                    comment '创建时间',
+  update_by             varchar(64)     default ''                  comment '更新者',
+  update_time           datetime                                    comment '更新时间',
+  primary key (rt_id)
+) engine=innodb auto_increment=200 comment = '生产退料单头表';
+
+
+
+-- ----------------------------
+-- 11、生产领料单行表
+-- ----------------------------
+drop table if exists wm_rt_issue_line;
+create table wm_rt_issue_line (
+  line_id               bigint(20)      not null auto_increment     comment '行ID',
+  rt_id              bigint(20)                                     comment '退料单ID',
+  material_stock_id     bigint(20)                                  comment '库存ID',
+  item_id               bigint(20)      not null                    comment '产品物料ID',
+  item_code             varchar(64)                                 comment '产品物料编码',
+  item_name             varchar(255)                                comment '产品物料名称',
+  specification         varchar(500)                                comment '规格型号',
+  unit_of_measure       varchar(64)                                 comment '单位',
+  quantity_rt           double(12,2)    not null                    comment '退料数量',
+  batch_code            varchar(255)                                comment '领料批次号',
+  warehouse_id          bigint(20)                                  comment '仓库ID',
+  warehouse_code        varchar(64)                                 comment '仓库编码',
+  warehouse_name        varchar(255)                                comment '仓库名称',
+  location_id           bigint(20)                                  comment '库区ID',
+  location_code         varchar(64)                                 comment '库区编码',
+  location_name         varchar(255)                                comment '库区名称',
+  area_id               bigint(20)                                  comment '库位ID',
+  area_code             varchar(64)                                 comment '库位编码',
+  area_name             varchar(255)                                comment '库位名称',   
+  remark                varchar(500)    default ''                  comment '备注',
+  attr1                 varchar(64)     default null                comment '预留字段1',
+  attr2                 varchar(255)    default null                comment '预留字段2',
+  attr3                 int(11)         default 0                   comment '预留字段3',
+  attr4                 int(11)         default 0                   comment '预留字段4',
+  create_by             varchar(64)     default ''                  comment '创建者',
+  create_time 	        datetime                                    comment '创建时间',
+  update_by             varchar(64)     default ''                  comment '更新者',
+  update_time           datetime                                    comment '更新时间',
+  primary key (line_id)
+) engine=innodb auto_increment=200 comment = '生产退料单行表';
+
+
+
+
+
+
+
+
+
+
 -- ----------------------------
 -- 8、产品入库单表（入线边库）
 -- ----------------------------
