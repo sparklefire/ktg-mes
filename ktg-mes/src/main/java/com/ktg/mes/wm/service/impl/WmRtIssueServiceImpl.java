@@ -5,6 +5,7 @@ import java.util.List;
 import com.ktg.common.constant.UserConstants;
 import com.ktg.common.utils.DateUtils;
 import com.ktg.common.utils.StringUtils;
+import com.ktg.mes.wm.domain.tx.RtIssueTxBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ktg.mes.wm.mapper.WmRtIssueMapper;
@@ -105,5 +106,10 @@ public class WmRtIssueServiceImpl implements IWmRtIssueService
     public int deleteWmRtIssueByRtId(Long rtId)
     {
         return wmRtIssueMapper.deleteWmRtIssueByRtId(rtId);
+    }
+
+    @Override
+    public List<RtIssueTxBean> getTxBeans(Long rtId) {
+        return wmRtIssueMapper.getTxBeans(rtId);
     }
 }

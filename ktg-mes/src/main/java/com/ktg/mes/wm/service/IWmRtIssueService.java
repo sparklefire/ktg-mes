@@ -2,6 +2,7 @@ package com.ktg.mes.wm.service;
 
 import java.util.List;
 import com.ktg.mes.wm.domain.WmRtIssue;
+import com.ktg.mes.wm.domain.tx.RtIssueTxBean;
 
 /**
  * 生产退料单头Service接口
@@ -65,4 +66,12 @@ public interface IWmRtIssueService
      * @return 结果
      */
     public int deleteWmRtIssueByRtId(Long rtId);
+
+    /**
+     *
+     * @param rtId
+     * @return
+     */
+    public List<RtIssueTxBean> getTxBeans(Long rtId);
+
 }

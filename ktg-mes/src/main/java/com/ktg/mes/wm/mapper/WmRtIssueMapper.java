@@ -2,6 +2,7 @@ package com.ktg.mes.wm.mapper;
 
 import java.util.List;
 import com.ktg.mes.wm.domain.WmRtIssue;
+import com.ktg.mes.wm.domain.tx.RtIssueTxBean;
 
 /**
  * 生产退料单头Mapper接口
@@ -26,6 +27,13 @@ public interface WmRtIssueMapper
      * @return 生产退料单头集合
      */
     public List<WmRtIssue> selectWmRtIssueList(WmRtIssue wmRtIssue);
+
+    /**
+     *
+     * @param rtId
+     * @return
+     */
+    public List<RtIssueTxBean> getTxBeans(Long rtId);
 
     /**
      * 检查编号是否重复

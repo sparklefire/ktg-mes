@@ -3,11 +3,11 @@ package com.ktg.mes.wm.controller;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
+import cn.hutool.core.collection.CollUtil;
 import com.ktg.common.constant.UserConstants;
 import com.ktg.common.utils.StringUtils;
-import com.ktg.mes.wm.domain.WmStorageArea;
-import com.ktg.mes.wm.domain.WmStorageLocation;
-import com.ktg.mes.wm.domain.WmWarehouse;
+import com.ktg.mes.wm.domain.*;
+import com.ktg.mes.wm.domain.tx.RtIssueTxBean;
 import com.ktg.mes.wm.service.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,6 @@ import com.ktg.common.annotation.Log;
 import com.ktg.common.core.controller.BaseController;
 import com.ktg.common.core.domain.AjaxResult;
 import com.ktg.common.enums.BusinessType;
-import com.ktg.mes.wm.domain.WmRtIssue;
 import com.ktg.common.utils.poi.ExcelUtil;
 import com.ktg.common.core.page.TableDataInfo;
 
@@ -43,6 +42,7 @@ public class WmRtIssueController extends BaseController
 
     @Autowired
     private IWmRtIssueLineService wmRtIssueLineService;
+
 
     @Autowired
     private IWmWarehouseService wmWarehouseService;
@@ -166,4 +166,32 @@ public class WmRtIssueController extends BaseController
         }
         return toAjax(wmRtIssueService.deleteWmRtIssueByRtIds(rtIds));
     }
+
+    /**
+     * 执行退料
+     * @param rtId
+     * @return
+     */
+    @PreAuthorize("@ss.hasPermi('mes:wm:rtissue:edit')")
+    @Log(title = "生产退料单头", businessType = BusinessType.UPDATE)
+    @Transactional
+    @PutMapping("/{rtId}")
+    public AjaxResult execute(@PathVariable Long rtId){
+        WmRtIssue rtIssue = wmRtIssueService.selectWmRtIssueByRtId(rtId);
+        WmRtIssueLine param = new WmRtIssueLine();
+        param.setRtId(rtId);
+        List<WmRtIssueLine> lines = wmRtIssueLineService.selectWmRtIssueLineList(param);
+        if(CollUtil.isEmpty(lines)){
+            return AjaxResult.error("请选择要退料的物资");
+        }
+
+        List<RtIssueTxBean> beans = wmRtIssueService.getTxBeans(rtId);
+
+
+
+        rtIssue.setStatus(UserConstants.ORDER_STATUS_FINISHED);
+        wmRtIssueService.updateWmRtIssue(rtIssue);
+        return AjaxResult.success();
+    }
+
 }

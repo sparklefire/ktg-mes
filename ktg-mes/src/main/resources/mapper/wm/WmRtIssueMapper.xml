@@ -32,6 +32,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="updateTime"    column="update_time"    />
     </resultMap>
 
+    <resultMap type="RtIssueTxBean"  id="RtIssueTxBeanResult">
+        <result property="materialStockId" column="material_stock_id"></result>
+        <result property="itemId" column="item_id"></result>
+        <result property="itemCode" column="item_code"></result>
+        <result property="itemName" column="item_name"></result>
+        <result property="specification" column="specification"></result>
+        <result property="unitOfMeasure" column="unit_of_measure"></result>
+        <result property="batchCode" column="batch_code"></result>
+        <result property="warehouseId" column="warehouse_id"></result>
+        <result property="warehouseCode" column="warehouse_code"></result>
+        <result property="warehouseName" column="warehouse_name"></result>
+        <result property="locationId" column="location_id"></result>
+        <result property="locationCode" column="location_code"></result>
+        <result property="locationName" column="location_name"></result>
+        <result property="areaId" column="area_id"></result>
+        <result property="areaCode" column="area_code"></result>
+        <result property="areaName" column="area_name"></result>
+        <result property="sourceDocType" column="source_doc_type"></result>
+        <result property="sourceDocId" column="source_doc_id"></result>
+        <result property="sourceDocCode" column="source_doc_code"></result>
+        <result property="sourceDocLineId" column="source_doc_line_id"></result>
+        <result property="transactionQuantity" column="transaction_quantity"></result>
+        <result property="recptDate" column="recpt_date"></result>
+    </resultMap>
+
     <sql id="selectWmRtIssueVo">
         select rt_id, rt_code, rt_name, workorder_id, workorder_code, warehouse_id, warehouse_code, warehouse_name, location_id, location_code, location_name, area_id, area_code, area_name, rt_date, status, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from wm_rt_issue
     </sql>
@@ -65,6 +90,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="checkUnique" parameterType="WmRtIssue" resultMap="WmRtIssueResult">
         <include refid="selectWmRtIssueVo"/>
         where rt_code = #{rtCode}
+    </select>
+
+    <select id="getTxBeans" parameterType="Long" resultMap="RtIssueTxBeanResult">
+        SELECT irl.material_stock_id,
+               irl.`item_id`,
+               irl.`item_code`,
+               irl.`item_name`,
+               irl.`specification`,
+               irl.`unit_of_measure`,
+               irl.`batch_code`,
+               irl.`warehouse_id`,irl.`warehouse_code`,irl.`warehouse_name`,
+               irl.`location_id`,irl.`location_code`,irl.`location_name`,
+               irl.`area_id`,irl.`area_code`,irl.`area_name`,
+               'RTISSUE' AS source_doc_type,ir.`rt_id` AS source_doc_id,
+               ir.`rt_code` AS source_doc_code,
+               irl.`line_id` AS source_doc_line_id,
+               irl.quantity_rt AS transaction_quantity,
+               ir.rt_date as recptDate
+        FROM wm_rt_issue ir
+                 LEFT JOIN wm_rt_issue_line irl
+                           ON ir.rt_id = irl.rt_id
+        WHERE ir.rt_id = #{rtId}
     </select>
 
     <insert id="insertWmRtIssue" parameterType="WmRtIssue" useGeneratedKeys="true" keyProperty="rtId">
