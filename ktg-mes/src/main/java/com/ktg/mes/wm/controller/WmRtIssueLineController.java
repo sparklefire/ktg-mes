@@ -2,6 +2,14 @@ package com.ktg.mes.wm.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ktg.common.utils.StringUtils;
+import com.ktg.mes.wm.domain.WmStorageArea;
+import com.ktg.mes.wm.domain.WmStorageLocation;
+import com.ktg.mes.wm.domain.WmWarehouse;
+import com.ktg.mes.wm.service.IWmStorageAreaService;
+import com.ktg.mes.wm.service.IWmStorageLocationService;
+import com.ktg.mes.wm.service.IWmWarehouseService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +41,15 @@ public class WmRtIssueLineController extends BaseController
 {
     @Autowired
     private IWmRtIssueLineService wmRtIssueLineService;
+
+    @Autowired
+    private IWmWarehouseService wmWarehouseService;
+
+    @Autowired
+    private IWmStorageLocationService wmStorageLocationService;
+
+    @Autowired
+    private IWmStorageAreaService wmStorageAreaService;
 
     /**
      * 查询生产退料单行列表
@@ -77,6 +94,21 @@ public class WmRtIssueLineController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody WmRtIssueLine wmRtIssueLine)
     {
+        if(StringUtils.isNotNull(wmRtIssueLine.getWarehouseId())){
+            WmWarehouse warehouse = wmWarehouseService.selectWmWarehouseByWarehouseId(wmRtIssueLine.getWarehouseId());
+            wmRtIssueLine.setWarehouseCode(warehouse.getWarehouseCode());
+            wmRtIssueLine.setWarehouseName(warehouse.getWarehouseName());
+        }
+        if(StringUtils.isNotNull(wmRtIssueLine.getLocationId())){
+            WmStorageLocation location = wmStorageLocationService.selectWmStorageLocationByLocationId(wmRtIssueLine.getLocationId());
+            wmRtIssueLine.setLocationCode(location.getLocationCode());
+            wmRtIssueLine.setLocationName(location.getLocationName());
+        }
+        if(StringUtils.isNotNull(wmRtIssueLine.getAreaId())){
+            WmStorageArea area = wmStorageAreaService.selectWmStorageAreaByAreaId(wmRtIssueLine.getAreaId());
+            wmRtIssueLine.setAreaCode(area.getAreaCode());
+            wmRtIssueLine.setAreaName(area.getAreaName());
+        }
         return toAjax(wmRtIssueLineService.insertWmRtIssueLine(wmRtIssueLine));
     }
 
@@ -88,6 +120,21 @@ public class WmRtIssueLineController extends BaseController
     @PutMapping
     public AjaxResult edit(@RequestBody WmRtIssueLine wmRtIssueLine)
     {
+        if(StringUtils.isNotNull(wmRtIssueLine.getWarehouseId())){
+            WmWarehouse warehouse = wmWarehouseService.selectWmWarehouseByWarehouseId(wmRtIssueLine.getWarehouseId());
+            wmRtIssueLine.setWarehouseCode(warehouse.getWarehouseCode());
+            wmRtIssueLine.setWarehouseName(warehouse.getWarehouseName());
+        }
+        if(StringUtils.isNotNull(wmRtIssueLine.getLocationId())){
+            WmStorageLocation location = wmStorageLocationService.selectWmStorageLocationByLocationId(wmRtIssueLine.getLocationId());
+            wmRtIssueLine.setLocationCode(location.getLocationCode());
+            wmRtIssueLine.setLocationName(location.getLocationName());
+        }
+        if(StringUtils.isNotNull(wmRtIssueLine.getAreaId())){
+            WmStorageArea area = wmStorageAreaService.selectWmStorageAreaByAreaId(wmRtIssueLine.getAreaId());
+            wmRtIssueLine.setAreaCode(area.getAreaCode());
+            wmRtIssueLine.setAreaName(area.getAreaName());
+        }
         return toAjax(wmRtIssueLineService.updateWmRtIssueLine(wmRtIssueLine));
     }
 
@@ -99,7 +146,6 @@ public class WmRtIssueLineController extends BaseController
 	@DeleteMapping("/{lineIds}")
     public AjaxResult remove(@PathVariable Long[] lineIds)
     {
-
         return toAjax(wmRtIssueLineService.deleteWmRtIssueLineByLineIds(lineIds));
     }
 }
