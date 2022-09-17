@@ -103,6 +103,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                irl.`warehouse_id`,irl.`warehouse_code`,irl.`warehouse_name`,
                irl.`location_id`,irl.`location_code`,irl.`location_name`,
                irl.`area_id`,irl.`area_code`,irl.`area_name`,
+               ms.vendor_id as vendorId,ms.vendor_code as vendorCode,ms.vendor_name as vendorName,ms.vendor_nick as vendorNick,
                'RTISSUE' AS source_doc_type,ir.`rt_id` AS source_doc_id,
                ir.`rt_code` AS source_doc_code,
                irl.`line_id` AS source_doc_line_id,
@@ -111,6 +112,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         FROM wm_rt_issue ir
                  LEFT JOIN wm_rt_issue_line irl
                            ON ir.rt_id = irl.rt_id
+                 left join wm_material_stock ms
+                           on irl.material_stock_id = ms.material_stock_id
         WHERE ir.rt_id = #{rtId}
     </select>
 

@@ -57,6 +57,18 @@ public class RtIssueTxBean extends BaseEntity {
     /** 库位名称 */
     private String areaName;
 
+    /** 供应商ID */
+    private Long vendorId;
+
+    /** 供应商编号 */
+    private String vendorCode;
+
+    /** 供应商名称 */
+    private String vendorName;
+
+    /** 供应商简称 */
+    private String vendorNick;
+
     /** 单据类型 */
     private String sourceDocType;
 
@@ -204,6 +216,38 @@ public class RtIssueTxBean extends BaseEntity {
         this.areaName = areaName;
     }
 
+    public Long getVendorId() {
+        return vendorId;
+    }
+
+    public void setVendorId(Long vendorId) {
+        this.vendorId = vendorId;
+    }
+
+    public String getVendorCode() {
+        return vendorCode;
+    }
+
+    public void setVendorCode(String vendorCode) {
+        this.vendorCode = vendorCode;
+    }
+
+    public String getVendorName() {
+        return vendorName;
+    }
+
+    public void setVendorName(String vendorName) {
+        this.vendorName = vendorName;
+    }
+
+    public String getVendorNick() {
+        return vendorNick;
+    }
+
+    public void setVendorNick(String vendorNick) {
+        this.vendorNick = vendorNick;
+    }
+
     public String getSourceDocType() {
         return sourceDocType;
     }
@@ -271,6 +315,10 @@ public class RtIssueTxBean extends BaseEntity {
                 ", areaId=" + areaId +
                 ", areaCode='" + areaCode + '\'' +
                 ", areaName='" + areaName + '\'' +
+                ", vendorId=" + vendorId +
+                ", vendorCode='" + vendorCode + '\'' +
+                ", vendorName='" + vendorName + '\'' +
+                ", vendorNick='" + vendorNick + '\'' +
                 ", sourceDocType='" + sourceDocType + '\'' +
                 ", sourceDocId=" + sourceDocId +
                 ", sourceDocCode='" + sourceDocCode + '\'' +

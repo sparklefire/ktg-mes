@@ -146,6 +146,7 @@ public class StorageCoreServiceImpl implements IStorageCoreService {
             transaction_in.setMaterialStockId(null);
             //设置入库相关联的出库事务ID
             transaction_in.setRelatedTransactionId(transaction_out.getTransactionId());
+
             wmTransactionService.processTransaction(transaction_in);
         }
     }
