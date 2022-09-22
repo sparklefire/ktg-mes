@@ -4,8 +4,10 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ktg.common.constant.UserConstants;
+import com.ktg.mes.wm.service.IWmProductRecptLineService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -35,6 +37,9 @@ public class WmProductRecptController extends BaseController
 {
     @Autowired
     private IWmProductRecptService wmProductRecptService;
+
+    @Autowired
+    private IWmProductRecptLineService wmProductRecptLineService;
 
     /**
      * 查询产品入库录列表
@@ -104,9 +109,14 @@ public class WmProductRecptController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('mes:wm:productrecpt:remove')")
     @Log(title = "产品入库录", businessType = BusinessType.DELETE)
+    @Transactional
 	@DeleteMapping("/{recptIds}")
     public AjaxResult remove(@PathVariable Long[] recptIds)
     {
+        for (Long recptId: recptIds
+             ) {
+            wmProductRecptLineService.deleteByRecptId(recptId)
+        }
         return toAjax(wmProductRecptService.deleteWmProductRecptByRecptIds(recptIds));
     }
 }
