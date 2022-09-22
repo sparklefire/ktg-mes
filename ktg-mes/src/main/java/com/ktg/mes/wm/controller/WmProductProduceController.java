@@ -2,8 +2,11 @@ package com.ktg.mes.wm.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ktg.mes.wm.service.IWmProductProduceLineService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -34,6 +37,8 @@ public class WmProductProduceController extends BaseController
     @Autowired
     private IWmProductProduceService wmProductProduceService;
 
+    @Autowired
+    private IWmProductProduceLineService wmProductProduceLineService;
     /**
      * 查询产品产出记录列表
      */
@@ -96,9 +101,14 @@ public class WmProductProduceController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('mes:wm:productproduce:remove')")
     @Log(title = "产品产出记录", businessType = BusinessType.DELETE)
+    @Transactional
 	@DeleteMapping("/{recordIds}")
     public AjaxResult remove(@PathVariable Long[] recordIds)
     {
+        for (Long recordId: recordIds
+             ) {
+            wmProductProduceLineService.deleteByRecordId(recordId);
+        }
         return toAjax(wmProductProduceService.deleteWmProductProduceByRecordIds(recordIds));
     }
 }
