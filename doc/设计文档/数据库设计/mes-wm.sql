@@ -655,8 +655,8 @@ create table wm_product_recpt (
 -- ----------------------------
 -- 13、产品入库记录表行表
 -- ----------------------------
-drop table if exists wm_product_produce_line;
-create table wm_product_produce_line (
+drop table if exists wm_product_recpt_line;
+create table wm_product_recpt_line (
   line_id               bigint(20)      not null auto_increment     comment '行ID',
   recpt_id              bigint(20)                                  comment '入库记录ID',
   material_stock_id     bigint(20)                                  comment '库存记录ID',

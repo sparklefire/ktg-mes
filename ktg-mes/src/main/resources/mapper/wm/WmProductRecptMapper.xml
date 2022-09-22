@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ktg.mes.wm.mapper.WmProductRecptMapper">
+    
+    <resultMap type="WmProductRecpt" id="WmProductRecptResult">
+        <result property="recptId"    column="recpt_id"    />
+        <result property="recptCode"    column="recpt_code"    />
+        <result property="recptName"    column="recpt_name"    />
+        <result property="workorderId"    column="workorder_id"    />
+        <result property="workorderCode"    column="workorder_code"    />
+        <result property="workorderName"    column="workorder_name"    />
+        <result property="warehouseId"    column="warehouse_id"    />
+        <result property="warehouseCode"    column="warehouse_code"    />
+        <result property="warehouseName"    column="warehouse_name"    />
+        <result property="locationId"    column="location_id"    />
+        <result property="locationCode"    column="location_code"    />
+        <result property="locationName"    column="location_name"    />
+        <result property="areaId"    column="area_id"    />
+        <result property="areaCode"    column="area_code"    />
+        <result property="areaName"    column="area_name"    />
+        <result property="recptDate"    column="recpt_date"    />
+        <result property="status"    column="status"    />
+        <result property="remark"    column="remark"    />
+        <result property="attr1"    column="attr1"    />
+        <result property="attr2"    column="attr2"    />
+        <result property="attr3"    column="attr3"    />
+        <result property="attr4"    column="attr4"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectWmProductRecptVo">
+        select recpt_id, recpt_code, recpt_name, workorder_id, workorder_code, workorder_name, warehouse_id, warehouse_code, warehouse_name, location_id, location_code, location_name, area_id, area_code, area_name, recpt_date, status, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from wm_product_recpt
+    </sql>
+
+    <select id="selectWmProductRecptList" parameterType="WmProductRecpt" resultMap="WmProductRecptResult">
+        <include refid="selectWmProductRecptVo"/>
+        <where>  
+            <if test="recptCode != null  and recptCode != ''"> and recpt_code = #{recptCode}</if>
+            <if test="recptName != null  and recptName != ''"> and recpt_name like concat('%', #{recptName}, '%')</if>
+            <if test="workorderId != null "> and workorder_id = #{workorderId}</if>
+            <if test="workorderCode != null  and workorderCode != ''"> and workorder_code = #{workorderCode}</if>
+            <if test="workorderName != null  and workorderName != ''"> and workorder_name like concat('%', #{workorderName}, '%')</if>
+            <if test="warehouseId != null "> and warehouse_id = #{warehouseId}</if>
+            <if test="warehouseCode != null  and warehouseCode != ''"> and warehouse_code = #{warehouseCode}</if>
+            <if test="warehouseName != null  and warehouseName != ''"> and warehouse_name like concat('%', #{warehouseName}, '%')</if>
+            <if test="locationId != null "> and location_id = #{locationId}</if>
+            <if test="locationCode != null  and locationCode != ''"> and location_code = #{locationCode}</if>
+            <if test="locationName != null  and locationName != ''"> and location_name like concat('%', #{locationName}, '%')</if>
+            <if test="areaId != null "> and area_id = #{areaId}</if>
+            <if test="areaCode != null  and areaCode != ''"> and area_code = #{areaCode}</if>
+            <if test="areaName != null  and areaName != ''"> and area_name like concat('%', #{areaName}, '%')</if>
+            <if test="recptDate != null "> and recpt_date = #{recptDate}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+        </where>
+    </select>
+    
+    <select id="selectWmProductRecptByRecptId" parameterType="Long" resultMap="WmProductRecptResult">
+        <include refid="selectWmProductRecptVo"/>
+        where recpt_id = #{recptId}
+    </select>
+
+    <select id="checkUnique" parameterType="WmProductRecpt" resultMap="WmProductRecptResult">
+        <include refid="selectWmProductRecptVo"/>
+        where recpt_code = #{recptCode}
+    </select>
+
+    <insert id="insertWmProductRecpt" parameterType="WmProductRecpt" useGeneratedKeys="true" keyProperty="recptId">
+        insert into wm_product_recpt
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="recptCode != null and recptCode != ''">recpt_code,</if>
+            <if test="recptName != null">recpt_name,</if>
+            <if test="workorderId != null">workorder_id,</if>
+            <if test="workorderCode != null">workorder_code,</if>
+            <if test="workorderName != null">workorder_name,</if>
+            <if test="warehouseId != null">warehouse_id,</if>
+            <if test="warehouseCode != null">warehouse_code,</if>
+            <if test="warehouseName != null">warehouse_name,</if>
+            <if test="locationId != null">location_id,</if>
+            <if test="locationCode != null">location_code,</if>
+            <if test="locationName != null">location_name,</if>
+            <if test="areaId != null">area_id,</if>
+            <if test="areaCode != null">area_code,</if>
+            <if test="areaName != null">area_name,</if>
+            <if test="recptDate != null">recpt_date,</if>
+            <if test="status != null">status,</if>
+            <if test="remark != null">remark,</if>
+            <if test="attr1 != null">attr1,</if>
+            <if test="attr2 != null">attr2,</if>
+            <if test="attr3 != null">attr3,</if>
+            <if test="attr4 != null">attr4,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="recptCode != null and recptCode != ''">#{recptCode},</if>
+            <if test="recptName != null">#{recptName},</if>
+            <if test="workorderId != null">#{workorderId},</if>
+            <if test="workorderCode != null">#{workorderCode},</if>
+            <if test="workorderName != null">#{workorderName},</if>
+            <if test="warehouseId != null">#{warehouseId},</if>
+            <if test="warehouseCode != null">#{warehouseCode},</if>
+            <if test="warehouseName != null">#{warehouseName},</if>
+            <if test="locationId != null">#{locationId},</if>
+            <if test="locationCode != null">#{locationCode},</if>
+            <if test="locationName != null">#{locationName},</if>
+            <if test="areaId != null">#{areaId},</if>
+            <if test="areaCode != null">#{areaCode},</if>
+            <if test="areaName != null">#{areaName},</if>
+            <if test="recptDate != null">#{recptDate},</if>
+            <if test="status != null">#{status},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="attr1 != null">#{attr1},</if>
+            <if test="attr2 != null">#{attr2},</if>
+            <if test="attr3 != null">#{attr3},</if>
+            <if test="attr4 != null">#{attr4},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateWmProductRecpt" parameterType="WmProductRecpt">
+        update wm_product_recpt
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="recptCode != null and recptCode != ''">recpt_code = #{recptCode},</if>
+            <if test="recptName != null">recpt_name = #{recptName},</if>
+            <if test="workorderId != null">workorder_id = #{workorderId},</if>
+            <if test="workorderCode != null">workorder_code = #{workorderCode},</if>
+            <if test="workorderName != null">workorder_name = #{workorderName},</if>
+            <if test="warehouseId != null">warehouse_id = #{warehouseId},</if>
+            <if test="warehouseCode != null">warehouse_code = #{warehouseCode},</if>
+            <if test="warehouseName != null">warehouse_name = #{warehouseName},</if>
+            <if test="locationId != null">location_id = #{locationId},</if>
+            <if test="locationCode != null">location_code = #{locationCode},</if>
+            <if test="locationName != null">location_name = #{locationName},</if>
+            <if test="areaId != null">area_id = #{areaId},</if>
+            <if test="areaCode != null">area_code = #{areaCode},</if>
+            <if test="areaName != null">area_name = #{areaName},</if>
+            <if test="recptDate != null">recpt_date = #{recptDate},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="attr1 != null">attr1 = #{attr1},</if>
+            <if test="attr2 != null">attr2 = #{attr2},</if>
+            <if test="attr3 != null">attr3 = #{attr3},</if>
+            <if test="attr4 != null">attr4 = #{attr4},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where recpt_id = #{recptId}
+    </update>
+
+    <delete id="deleteWmProductRecptByRecptId" parameterType="Long">
+        delete from wm_product_recpt where recpt_id = #{recptId}
+    </delete>
+
+    <delete id="deleteWmProductRecptByRecptIds" parameterType="String">
+        delete from wm_product_recpt where recpt_id in 
+        <foreach item="recptId" collection="array" open="(" separator="," close=")">
+            #{recptId}
+        </foreach>
+    </delete>
+</mapper>
