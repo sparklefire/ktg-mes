@@ -115,7 +115,7 @@ public class WmProductRecptController extends BaseController
     {
         for (Long recptId: recptIds
              ) {
-            wmProductRecptLineService.deleteByRecptId(recptId)
+            wmProductRecptLineService.deleteByRecptId(recptId);
         }
         return toAjax(wmProductRecptService.deleteWmProductRecptByRecptIds(recptIds));
     }
