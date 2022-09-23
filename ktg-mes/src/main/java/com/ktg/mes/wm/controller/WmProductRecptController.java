@@ -4,7 +4,11 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ktg.common.constant.UserConstants;
-import com.ktg.mes.wm.service.IWmProductRecptLineService;
+import com.ktg.common.utils.StringUtils;
+import com.ktg.mes.wm.domain.WmStorageArea;
+import com.ktg.mes.wm.domain.WmStorageLocation;
+import com.ktg.mes.wm.domain.WmWarehouse;
+import com.ktg.mes.wm.service.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +25,6 @@ import com.ktg.common.core.controller.BaseController;
 import com.ktg.common.core.domain.AjaxResult;
 import com.ktg.common.enums.BusinessType;
 import com.ktg.mes.wm.domain.WmProductRecpt;
-import com.ktg.mes.wm.service.IWmProductRecptService;
 import com.ktg.common.utils.poi.ExcelUtil;
 import com.ktg.common.core.page.TableDataInfo;
 
@@ -40,6 +43,15 @@ public class WmProductRecptController extends BaseController
 
     @Autowired
     private IWmProductRecptLineService wmProductRecptLineService;
+
+    @Autowired
+    private IWmWarehouseService wmWarehouseService;
+
+    @Autowired
+    private IWmStorageLocationService wmStorageLocationService;
+
+    @Autowired
+    private IWmStorageAreaService wmStorageAreaService;
 
     /**
      * 查询产品入库录列表
@@ -87,6 +99,23 @@ public class WmProductRecptController extends BaseController
         if(UserConstants.NOT_UNIQUE.equals(wmProductRecptService.checkUnique(wmProductRecpt))){
             return AjaxResult.error("入库单编号已存在！");
         }
+
+        if(StringUtils.isNotNull(wmProductRecpt.getWarehouseId())){
+            WmWarehouse warehouse = wmWarehouseService.selectWmWarehouseByWarehouseId(wmProductRecpt.getWarehouseId());
+            wmProductRecpt.setWarehouseCode(warehouse.getWarehouseCode());
+            wmProductRecpt.setWarehouseName(warehouse.getWarehouseName());
+        }
+        if(StringUtils.isNotNull(wmProductRecpt.getLocationId())){
+            WmStorageLocation location = wmStorageLocationService.selectWmStorageLocationByLocationId(wmProductRecpt.getLocationId());
+            wmProductRecpt.setLocationCode(location.getLocationCode());
+            wmProductRecpt.setLocationName(location.getLocationName());
+        }
+        if(StringUtils.isNotNull(wmProductRecpt.getAreaId())){
+            WmStorageArea area = wmStorageAreaService.selectWmStorageAreaByAreaId(wmProductRecpt.getAreaId());
+            wmProductRecpt.setAreaCode(area.getAreaCode());
+            wmProductRecpt.setAreaName(area.getAreaName());
+        }
+
         return toAjax(wmProductRecptService.insertWmProductRecpt(wmProductRecpt));
     }
 
@@ -101,6 +130,24 @@ public class WmProductRecptController extends BaseController
         if(UserConstants.NOT_UNIQUE.equals(wmProductRecptService.checkUnique(wmProductRecpt))){
             return AjaxResult.error("入库单编号已存在！");
         }
+
+
+        if(StringUtils.isNotNull(wmProductRecpt.getWarehouseId())){
+            WmWarehouse warehouse = wmWarehouseService.selectWmWarehouseByWarehouseId(wmProductRecpt.getWarehouseId());
+            wmProductRecpt.setWarehouseCode(warehouse.getWarehouseCode());
+            wmProductRecpt.setWarehouseName(warehouse.getWarehouseName());
+        }
+        if(StringUtils.isNotNull(wmProductRecpt.getLocationId())){
+            WmStorageLocation location = wmStorageLocationService.selectWmStorageLocationByLocationId(wmProductRecpt.getLocationId());
+            wmProductRecpt.setLocationCode(location.getLocationCode());
+            wmProductRecpt.setLocationName(location.getLocationName());
+        }
+        if(StringUtils.isNotNull(wmProductRecpt.getAreaId())){
+            WmStorageArea area = wmStorageAreaService.selectWmStorageAreaByAreaId(wmProductRecpt.getAreaId());
+            wmProductRecpt.setAreaCode(area.getAreaCode());
+            wmProductRecpt.setAreaName(area.getAreaName());
+        }
+
         return toAjax(wmProductRecptService.updateWmProductRecpt(wmProductRecpt));
     }
 
