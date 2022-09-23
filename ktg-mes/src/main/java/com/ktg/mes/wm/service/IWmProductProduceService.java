@@ -2,6 +2,7 @@ package com.ktg.mes.wm.service;
 
 import java.util.List;
 import com.ktg.mes.wm.domain.WmProductProduce;
+import com.ktg.mes.wm.domain.tx.ProductRecptTxBean;
 
 /**
  * 产品产出记录Service接口
@@ -58,4 +59,7 @@ public interface IWmProductProduceService
      * @return 结果
      */
     public int deleteWmProductProduceByRecordId(Long recordId);
+
+
+
 }

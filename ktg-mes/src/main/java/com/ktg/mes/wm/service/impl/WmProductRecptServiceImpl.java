@@ -5,6 +5,7 @@ import java.util.List;
 import com.ktg.common.constant.UserConstants;
 import com.ktg.common.utils.DateUtils;
 import com.ktg.common.utils.StringUtils;
+import com.ktg.mes.wm.domain.tx.ProductRecptTxBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ktg.mes.wm.mapper.WmProductRecptMapper;
@@ -106,4 +107,11 @@ public class WmProductRecptServiceImpl implements IWmProductRecptService
     {
         return wmProductRecptMapper.deleteWmProductRecptByRecptId(recptId);
     }
+
+    @Override
+    public List<ProductRecptTxBean> getTxBean(Long recptId) {
+        return wmProductRecptMapper.getTxBean(recptId);
+    }
+
+
 }

@@ -3,11 +3,10 @@ package com.ktg.mes.wm.controller;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
+import cn.hutool.core.collection.CollUtil;
 import com.ktg.common.constant.UserConstants;
 import com.ktg.common.utils.StringUtils;
-import com.ktg.mes.wm.domain.WmStorageArea;
-import com.ktg.mes.wm.domain.WmStorageLocation;
-import com.ktg.mes.wm.domain.WmWarehouse;
+import com.ktg.mes.wm.domain.*;
 import com.ktg.mes.wm.service.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +23,6 @@ import com.ktg.common.annotation.Log;
 import com.ktg.common.core.controller.BaseController;
 import com.ktg.common.core.domain.AjaxResult;
 import com.ktg.common.enums.BusinessType;
-import com.ktg.mes.wm.domain.WmProductRecpt;
 import com.ktg.common.utils.poi.ExcelUtil;
 import com.ktg.common.core.page.TableDataInfo;
 
@@ -69,7 +67,7 @@ public class WmProductRecptController extends BaseController
      * 导出产品入库录列表
      */
     @PreAuthorize("@ss.hasPermi('mes:wm:productrecpt:export')")
-    @Log(title = "产品入库录", businessType = BusinessType.EXPORT)
+    @Log(title = "产品入库记录", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, WmProductRecpt wmProductRecpt)
     {
@@ -92,7 +90,7 @@ public class WmProductRecptController extends BaseController
      * 新增产品入库录
      */
     @PreAuthorize("@ss.hasPermi('mes:wm:productrecpt:add')")
-    @Log(title = "产品入库录", businessType = BusinessType.INSERT)
+    @Log(title = "产品入库记录", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody WmProductRecpt wmProductRecpt)
     {
@@ -123,7 +121,7 @@ public class WmProductRecptController extends BaseController
      * 修改产品入库录
      */
     @PreAuthorize("@ss.hasPermi('mes:wm:productrecpt:edit')")
-    @Log(title = "产品入库录", businessType = BusinessType.UPDATE)
+    @Log(title = "产品入库记录", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody WmProductRecpt wmProductRecpt)
     {
@@ -155,7 +153,7 @@ public class WmProductRecptController extends BaseController
      * 删除产品入库录
      */
     @PreAuthorize("@ss.hasPermi('mes:wm:productrecpt:remove')")
-    @Log(title = "产品入库录", businessType = BusinessType.DELETE)
+    @Log(title = "产品入库记录", businessType = BusinessType.DELETE)
     @Transactional
 	@DeleteMapping("/{recptIds}")
     public AjaxResult remove(@PathVariable Long[] recptIds)
@@ -166,4 +164,28 @@ public class WmProductRecptController extends BaseController
         }
         return toAjax(wmProductRecptService.deleteWmProductRecptByRecptIds(recptIds));
     }
+
+    /**
+     * 执行入库
+     * @return
+     */
+    @PreAuthorize("@ss.hasPermi('mes:wm:productrecpt:edit')")
+    @Log(title = "产品入库记录", businessType = BusinessType.UPDATE)
+    @Transactional
+    @PutMapping("/{issueId}")
+    public AjaxResult execute(@PathVariable Long recptId){
+        WmProductRecpt recpt = wmProductRecptService.selectWmProductRecptByRecptId(recptId);
+
+        WmProductRecptLine param = new WmProductRecptLine();
+        param.setRecptId(recptId);
+        List<WmProductRecptLine> lines = wmProductRecptLineService.selectWmProductRecptLineList(param);
+        if(CollUtil.isEmpty(lines)){
+            return AjaxResult.error("请添加要入库的产品");
+        }
+
+
+
+        return AjaxResult.success();
+    }
+
 }
