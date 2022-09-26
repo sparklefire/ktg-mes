@@ -187,6 +187,8 @@ public class WmRtIssueController extends BaseController
 
         List<RtIssueTxBean> beans = wmRtIssueService.getTxBeans(rtId);
 
+        //执行生产退料
+        storageCoreService.processRtIssue(beans);
 
 
         rtIssue.setStatus(UserConstants.ORDER_STATUS_FINISHED);
