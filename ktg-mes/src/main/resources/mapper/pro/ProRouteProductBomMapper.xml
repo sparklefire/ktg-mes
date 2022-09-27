@@ -52,7 +52,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="checkUnique" parameterType="ProRouteProductBom" resultMap="ProRouteProductBomResult">
         <include refid="selectProRouteProductBomVo"/>
-        where route_id = #{routeId}
+        where item_id = #{itemId}
         and process_id = #{processId}
         and product_id = #{productId}
     </select>

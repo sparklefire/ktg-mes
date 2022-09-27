@@ -149,7 +149,7 @@ public class MdWorkstationController extends BaseController
         }
         mdWorkstation.setWarehouseId(warehouse.getWarehouseId());
         mdWorkstation.setWarehouseCode(warehouse.getWarehouseCode());
-        mdWorkstation.setWorkstationName(warehouse.getWarehouseName());
+        mdWorkstation.setWarehouseName(warehouse.getWarehouseName());
         mdWorkstation.setLocationId(location.getLocationId());
         mdWorkstation.setLocationCode(location.getLocationCode());
         mdWorkstation.setLocationName(location.getLocationName());
@@ -202,7 +202,7 @@ public class MdWorkstationController extends BaseController
             area = wmStorageAreaService.selectWmStorageAreaByAreaCode(UserConstants.VIRTUAL_WA);
         }
         mdWorkstation.setWarehouseCode(warehouse.getWarehouseCode());
-        mdWorkstation.setWorkstationName(warehouse.getWarehouseName());
+        mdWorkstation.setWarehouseName(warehouse.getWarehouseName());
         mdWorkstation.setLocationCode(location.getLocationCode());
         mdWorkstation.setLocationName(location.getLocationName());
         mdWorkstation.setAreaCode(area.getAreaCode());
