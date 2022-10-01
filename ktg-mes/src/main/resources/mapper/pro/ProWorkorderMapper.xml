@@ -15,6 +15,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="productName"    column="product_name"    />
         <result property="productSpc"    column="product_spc"    />
         <result property="unitOfMeasure"    column="unit_of_measure"    />
+        <result property="batchCode" column="batch_code"></result>
         <result property="quantity"    column="quantity"    />
         <result property="quantityProduced"    column="quantity_produced"    />
         <result property="quantityChanged"    column="quantity_changed"    />
@@ -38,7 +39,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectProWorkorderVo">
-        select workorder_id, workorder_code, workorder_name, order_source, source_code, product_id, product_code, product_name, product_spc, unit_of_measure, quantity, client_id, client_code, client_name, request_date, parent_id, ancestors, status, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from pro_workorder
+        select workorder_id, workorder_code, workorder_name, order_source, source_code, product_id, product_code, product_name, product_spc, unit_of_measure,batch_code, quantity, client_id, client_code, client_name, request_date, parent_id, ancestors, status, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from pro_workorder
     </sql>
 
     <select id="selectProWorkorderList" parameterType="ProWorkorder" resultMap="ProWorkorderResult">
@@ -53,6 +54,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="productName != null  and productName != ''"> and product_name like concat('%', #{productName}, '%')</if>
             <if test="productSpc != null  and productSpc != ''"> and product_spc = #{productSpc}</if>
             <if test="unitOfMeasure != null  and unitOfMeasure != ''"> and unit_of_measure = #{unitOfMeasure}</if>
+            <if test="batchCode !=null and batchCode !=''" >and batch_code = #{batchCode}</if>
             <if test="quantity != null "> and quantity = #{quantity}</if>
             <if test="quantityProduced != null "> and quantity_produced = #{quantityProduced}</if>
             <if test="quantityChanged != null "> and quantity_changed = #{quantityChanged}</if>
@@ -89,6 +91,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="productName != null and productName != ''">product_name,</if>
             <if test="productSpc != null">product_spc,</if>
             <if test="unitOfMeasure != null and unitOfMeasure != ''">unit_of_measure,</if>
+            <if test="batchCode !=null and batchCode !=''" >batch_code,</if>
             <if test="quantity != null">quantity,</if>
             <if test="quantityProduced != null">quantity_produced,</if>
             <if test="quantityChanged != null">quantity_changed,</if>
@@ -120,6 +123,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="productName != null and productName != ''">#{productName},</if>
             <if test="productSpc != null">#{productSpc},</if>
             <if test="unitOfMeasure != null and unitOfMeasure != ''">#{unitOfMeasure},</if>
+            <if test="batchCode !=null and batchCode !=''" >#{batchCode},</if>
             <if test="quantity != null">#{quantity},</if>
             <if test="quantityProduced != null">#{quantityProduced},</if>
             <if test="quantityChanged != null">#{quantityChanged},</if>
@@ -155,6 +159,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="productName != null and productName != ''">product_name = #{productName},</if>
             <if test="productSpc != null">product_spc = #{productSpc},</if>
             <if test="unitOfMeasure != null and unitOfMeasure != ''">unit_of_measure = #{unitOfMeasure},</if>
+            <if test="batchCode !=null and batchCode !=''" >batch_code = #{batchCode},</if>
             <if test="quantity != null">quantity = #{quantity},</if>
             <if test="quantityProduced != null">quantity_produced = #{quantityProduced},</if>
             <if test="quantityChanged != null">quantity_changed = #{quantityChanged},</if>

@@ -57,6 +57,10 @@ public class ProWorkorder extends TreeEntity
     @Excel(name = "单位")
     private String unitOfMeasure;
 
+    /** 批次号 */
+    @Excel(name = "批次号")
+    private String batchCode;
+
     /** 生产数量 */
     @Excel(name = "生产数量")
     private BigDecimal quantity;
@@ -264,7 +268,15 @@ public class ProWorkorder extends TreeEntity
         this.requestDate = requestDate;
     }
 
-    public Date getRequestDate() 
+    public String getBatchCode() {
+        return batchCode;
+    }
+
+    public void setBatchCode(String batchCode) {
+        this.batchCode = batchCode;
+    }
+
+    public Date getRequestDate()
     {
         return requestDate;
     }
@@ -314,39 +326,34 @@ public class ProWorkorder extends TreeEntity
         return attr4;
     }
 
+
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("workorderId", getWorkorderId())
-            .append("workorderCode", getWorkorderCode())
-            .append("workorderName", getWorkorderName())
-            .append("orderSource", getOrderSource())
-            .append("sourceCode", getSourceCode())
-            .append("productId", getProductId())
-            .append("productCode", getProductCode())
-            .append("productName", getProductName())
-            .append("productSpc", getProductSpc())
-            .append("unitOfMeasure", getUnitOfMeasure())
-            .append("quantity", getQuantity())
-            .append("quantityProduced", getQuantityProduced())
-            .append("quantityChanged", getQuantityChanged())
-            .append("quantityScheduled", getQuantityScheduled())
-            .append("clientId", getClientId())
-            .append("clientCode", getClientCode())
-            .append("clientName", getClientName())
-            .append("requestDate", getRequestDate())
-            .append("parentId", getParentId())
-            .append("ancestors", getAncestors())
-            .append("status", getStatus())
-            .append("remark", getRemark())
-            .append("attr1", getAttr1())
-            .append("attr2", getAttr2())
-            .append("attr3", getAttr3())
-            .append("attr4", getAttr4())
-            .append("createBy", getCreateBy())
-            .append("createTime", getCreateTime())
-            .append("updateBy", getUpdateBy())
-            .append("updateTime", getUpdateTime())
-            .toString();
+        return "ProWorkorder{" +
+                "workorderId=" + workorderId +
+                ", workorderCode='" + workorderCode + '\'' +
+                ", workorderName='" + workorderName + '\'' +
+                ", orderSource='" + orderSource + '\'' +
+                ", sourceCode='" + sourceCode + '\'' +
+                ", productId=" + productId +
+                ", productCode='" + productCode + '\'' +
+                ", productName='" + productName + '\'' +
+                ", productSpc='" + productSpc + '\'' +
+                ", unitOfMeasure='" + unitOfMeasure + '\'' +
+                ", batchCode='" + batchCode + '\'' +
+                ", quantity=" + quantity +
+                ", quantityProduced=" + quantityProduced +
+                ", quantityChanged=" + quantityChanged +
+                ", quantityScheduled=" + quantityScheduled +
+                ", clientId=" + clientId +
+                ", clientCode='" + clientCode + '\'' +
+                ", clientName='" + clientName + '\'' +
+                ", requestDate=" + requestDate +
+                ", status='" + status + '\'' +
+                ", attr1='" + attr1 + '\'' +
+                ", attr2='" + attr2 + '\'' +
+                ", attr3=" + attr3 +
+                ", attr4=" + attr4 +
+                '}';
     }
 }

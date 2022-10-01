@@ -52,7 +52,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where barcode_id = #{barcodeId}
     </select>
 
-    <select id="checkBarcodeUnique" parameterType="WmBarcode">
+    <select id="checkBarcodeUnique" parameterType="WmBarcode" resultMap="WmBarcodeResult">
         <include refid="selectWmBarcodeVo"/>
         where bussiness_id = #{bussinessId} and barcode_type = #{barcodeType}
     </select>
