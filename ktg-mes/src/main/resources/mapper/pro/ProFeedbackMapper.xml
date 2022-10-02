@@ -14,6 +14,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="workorderName"    column="workorder_name"    />
         <result property="taskId"    column="task_id"    />
         <result property="taskCode"    column="task_code"    />
+        <result property="itemId"    column="item_id"    />
+        <result property="itemCode"    column="item_code"    />
+        <result property="itemName"    column="item_name"    />
+        <result property="specification"    column="specification"    />
         <result property="quantity"    column="quantity"    />
         <result property="quantityFeedback"    column="quantity_feedback"    />
         <result property="quantityQualified"    column="quantity_qualified"    />
@@ -22,6 +26,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="nickName"    column="nick_name"    />
         <result property="feedbackChannel"    column="feedback_channel"    />
         <result property="feedbackTime"    column="feedback_time"    />
+        <result property="recordUser"    column="record_user"    />
+        <result property="status"    column="status"    />
         <result property="remark"    column="remark"    />
         <result property="attr1"    column="attr1"    />
         <result property="attr2"    column="attr2"    />
@@ -34,7 +40,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectProFeedbackVo">
-        select record_id, workstation_id, workstation_code, workstation_name, workorder_id, workorder_code, workorder_name, task_id, task_code, quantity, quantity_feedback, quantity_qualified, quantity_unquanlified, user_name, nick_name, feedback_channel, feedback_time, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from pro_feedback
+        select record_id, workstation_id, workstation_code, workstation_name, workorder_id, workorder_code, workorder_name, task_id, task_code,item_id,item_code,item_name,specification,unit_of_measure, quantity, quantity_feedback, quantity_qualified, quantity_unquanlified, user_name, nick_name, feedback_channel, feedback_time,record_user,status, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from pro_feedback
     </sql>
 
     <select id="selectProFeedbackList" parameterType="ProFeedback" resultMap="ProFeedbackResult">
@@ -48,6 +54,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="workorderName != null  and workorderName != ''"> and workorder_name like concat('%', #{workorderName}, '%')</if>
             <if test="taskId != null "> and task_id = #{taskId}</if>
             <if test="taskCode != null  and taskCode != ''"> and task_code = #{taskCode}</if>
+            <if test="itemId != null "> and item_id = #{itemId}</if>
+            <if test="itemCode != null  and itemCode != ''"> and item_code = #{itemCode}</if>
+            <if test="itemName != null  and itemName != ''"> and item_name like concat('%', #{itemName}, '%')</if>
+            <if test="specification != null  and specification != ''"> and specification = #{specification}</if>
+            <if test="unitOfMeasure != null  and unitOfMeasure != ''"> and unit_of_measure = #{unitOfMeasure}</if>
             <if test="quantity != null "> and quantity = #{quantity}</if>
             <if test="quantityFeedback != null "> and quantity_feedback = #{quantityFeedback}</if>
             <if test="quantityQualified != null "> and quantity_qualified = #{quantityQualified}</if>
@@ -56,6 +67,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="nickName != null  and nickName != ''"> and nick_name like concat('%', #{nickName}, '%')</if>
             <if test="feedbackChannel != null  and feedbackChannel != ''"> and feedback_channel = #{feedbackChannel}</if>
             <if test="feedbackTime != null "> and feedback_time = #{feedbackTime}</if>
+            <if test="recordUser != null "> and record_user = #{recordUser}</if>
+            <if test="status != null "> and status = #{status}</if>
         </where>
     </select>
     
@@ -75,6 +88,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="workorderName != null">workorder_name,</if>
             <if test="taskId != null">task_id,</if>
             <if test="taskCode != null">task_code,</if>
+            <if test="itemId != null">item_id,</if>
+            <if test="itemCode != null and itemCode != ''">item_code,</if>
+            <if test="itemName != null and itemName != ''">item_name,</if>
+            <if test="specification != null">specification,</if>
+            <if test="unitOfMeasure != null and unitOfMeasure != ''">unit_of_measure,</if>
             <if test="quantity != null">quantity,</if>
             <if test="quantityFeedback != null">quantity_feedback,</if>
             <if test="quantityQualified != null">quantity_qualified,</if>
@@ -83,6 +101,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="nickName != null">nick_name,</if>
             <if test="feedbackChannel != null">feedback_channel,</if>
             <if test="feedbackTime != null">feedback_time,</if>
+            <if test="recordUser != null">record_user,</if>
+            <if test="status != null">status,</if>
             <if test="remark != null">remark,</if>
             <if test="attr1 != null">attr1,</if>
             <if test="attr2 != null">attr2,</if>
@@ -102,6 +122,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="workorderName != null">#{workorderName},</if>
             <if test="taskId != null">#{taskId},</if>
             <if test="taskCode != null">#{taskCode},</if>
+            <if test="itemId != null">#{itemId},</if>
+            <if test="itemCode != null and itemCode != ''">#{itemCode},</if>
+            <if test="itemName != null and itemName != ''">#{itemName},</if>
+            <if test="specification != null">#{specification},</if>
+            <if test="unitOfMeasure != null and unitOfMeasure != ''">#{unitOfMeasure},</if>
             <if test="quantity != null">#{quantity},</if>
             <if test="quantityFeedback != null">#{quantityFeedback},</if>
             <if test="quantityQualified != null">#{quantityQualified},</if>
@@ -110,6 +135,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="nickName != null">#{nickName},</if>
             <if test="feedbackChannel != null">#{feedbackChannel},</if>
             <if test="feedbackTime != null">#{feedbackTime},</if>
+            <if test="recordUser != null">#{recordUser},</if>
+            <if test="status != null">#{status},</if>
             <if test="remark != null">#{remark},</if>
             <if test="attr1 != null">#{attr1},</if>
             <if test="attr2 != null">#{attr2},</if>
@@ -133,6 +160,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="workorderName != null">workorder_name = #{workorderName},</if>
             <if test="taskId != null">task_id = #{taskId},</if>
             <if test="taskCode != null">task_code = #{taskCode},</if>
+            <if test="itemId != null">item_id = #{itemId},</if>
+            <if test="itemCode != null and itemCode != ''">item_code = #{itemCode},</if>
+            <if test="itemName != null and itemName != ''">item_name = #{itemName},</if>
+            <if test="specification != null">specification = #{specification},</if>
+            <if test="unitOfMeasure != null and unitOfMeasure != ''">unit_of_measure = #{unitOfMeasure},</if>
             <if test="quantity != null">quantity = #{quantity},</if>
             <if test="quantityFeedback != null">quantity_feedback = #{quantityFeedback},</if>
             <if test="quantityQualified != null">quantity_qualified = #{quantityQualified},</if>
@@ -141,6 +173,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="nickName != null">nick_name = #{nickName},</if>
             <if test="feedbackChannel != null">feedback_channel = #{feedbackChannel},</if>
             <if test="feedbackTime != null">feedback_time = #{feedbackTime},</if>
+            <if test="recordUser != null">record_user = #{recordUser},</if>
+            <if test="status != null">status = #{status},</if>
             <if test="remark != null">remark = #{remark},</if>
             <if test="attr1 != null">attr1 = #{attr1},</if>
             <if test="attr2 != null">attr2 = #{attr2},</if>

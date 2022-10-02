@@ -21,6 +21,9 @@ public class ProFeedback extends BaseEntity
     /** 记录ID */
     private Long recordId;
 
+    /** 报工类型*/
+    private String feedbackType;
+
     /** 工作站ID */
     @Excel(name = "工作站ID")
     private Long workstationId;
@@ -52,6 +55,27 @@ public class ProFeedback extends BaseEntity
     /** 生产任务编号 */
     @Excel(name = "生产任务编号")
     private String taskCode;
+
+    /** 产品物料ID */
+    @Excel(name = "产品物料ID")
+    private Long itemId;
+
+    /** 产品物料编码 */
+    @Excel(name = "产品物料编码")
+    private String itemCode;
+
+    /** 产品物料名称 */
+    @Excel(name = "产品物料名称")
+    private String itemName;
+
+    /** 规格型号 */
+    @Excel(name = "规格型号")
+    private String specification;
+
+    /** 单位 */
+    @Excel(name = "单位")
+    private String unitOfMeasure;
+
 
     /** 排产数量 */
     @Excel(name = "排产数量")
@@ -85,6 +109,14 @@ public class ProFeedback extends BaseEntity
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Excel(name = "报工时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date feedbackTime;
+
+    /** 录入人员 */
+    @Excel(name = "录入人员")
+    private String recordUser;
+
+    /** 状态 */
+    @Excel(name = "状态")
+    private String status;
 
     /** 预留字段1 */
     private String attr1;
@@ -288,35 +320,102 @@ public class ProFeedback extends BaseEntity
         return attr4;
     }
 
+    public String getFeedbackType() {
+        return feedbackType;
+    }
+
+    public void setFeedbackType(String feedbackType) {
+        this.feedbackType = feedbackType;
+    }
+
+    public Long getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(Long itemId) {
+        this.itemId = itemId;
+    }
+
+    public String getItemCode() {
+        return itemCode;
+    }
+
+    public void setItemCode(String itemCode) {
+        this.itemCode = itemCode;
+    }
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
+    public String getSpecification() {
+        return specification;
+    }
+
+    public void setSpecification(String specification) {
+        this.specification = specification;
+    }
+
+    public String getUnitOfMeasure() {
+        return unitOfMeasure;
+    }
+
+    public void setUnitOfMeasure(String unitOfMeasure) {
+        this.unitOfMeasure = unitOfMeasure;
+    }
+
+    public String getRecordUser() {
+        return recordUser;
+    }
+
+    public void setRecordUser(String recordUser) {
+        this.recordUser = recordUser;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("recordId", getRecordId())
-            .append("workstationId", getWorkstationId())
-            .append("workstationCode", getWorkstationCode())
-            .append("workstationName", getWorkstationName())
-            .append("workorderId", getWorkorderId())
-            .append("workorderCode", getWorkorderCode())
-            .append("workorderName", getWorkorderName())
-            .append("taskId", getTaskId())
-            .append("taskCode", getTaskCode())
-            .append("quantity", getQuantity())
-            .append("quantityFeedback", getQuantityFeedback())
-            .append("quantityQualified", getQuantityQualified())
-            .append("quantityUnquanlified", getQuantityUnquanlified())
-            .append("userName", getUserName())
-            .append("nickName", getNickName())
-            .append("feedbackChannel", getFeedbackChannel())
-            .append("feedbackTime", getFeedbackTime())
-            .append("remark", getRemark())
-            .append("attr1", getAttr1())
-            .append("attr2", getAttr2())
-            .append("attr3", getAttr3())
-            .append("attr4", getAttr4())
-            .append("createBy", getCreateBy())
-            .append("createTime", getCreateTime())
-            .append("updateBy", getUpdateBy())
-            .append("updateTime", getUpdateTime())
-            .toString();
+        return "ProFeedback{" +
+                "recordId=" + recordId +
+                ", feedbackType='" + feedbackType + '\'' +
+                ", workstationId=" + workstationId +
+                ", workstationCode='" + workstationCode + '\'' +
+                ", workstationName='" + workstationName + '\'' +
+                ", workorderId=" + workorderId +
+                ", workorderCode='" + workorderCode + '\'' +
+                ", workorderName='" + workorderName + '\'' +
+                ", taskId=" + taskId +
+                ", taskCode='" + taskCode + '\'' +
+                ", itemId=" + itemId +
+                ", itemCode='" + itemCode + '\'' +
+                ", itemName='" + itemName + '\'' +
+                ", specification='" + specification + '\'' +
+                ", unitOfMeasure='" + unitOfMeasure + '\'' +
+                ", quantity=" + quantity +
+                ", quantityFeedback=" + quantityFeedback +
+                ", quantityQualified=" + quantityQualified +
+                ", quantityUnquanlified=" + quantityUnquanlified +
+                ", userName='" + userName + '\'' +
+                ", nickName='" + nickName + '\'' +
+                ", feedbackChannel='" + feedbackChannel + '\'' +
+                ", feedbackTime=" + feedbackTime +
+                ", recordUser='" + recordUser + '\'' +
+                ", status='" + status + '\'' +
+                ", attr1='" + attr1 + '\'' +
+                ", attr2='" + attr2 + '\'' +
+                ", attr3=" + attr3 +
+                ", attr4=" + attr4 +
+                '}';
     }
 }

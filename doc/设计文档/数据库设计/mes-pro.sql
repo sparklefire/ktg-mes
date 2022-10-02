@@ -280,6 +280,7 @@ create table pro_task (
 drop table if exists pro_feedback;
 create table pro_feedback (
   record_id                      bigint(20)      not null auto_increment    comment '记录ID',
+  feedback_type                  varchar(64)     not null                   comment '报工类型',
   workstation_id                 bigint(20)      not null                   comment '工作站ID',
   workstation_code               varchar(64)                                comment '工作站编号',
   workstation_name               varchar(255)                               comment '工作站名称',
@@ -288,6 +289,10 @@ create table pro_feedback (
   workorder_name                 varchar(255)                               comment '生产工单名称',
   task_id                        bigint(20)                                 comment '生产任务ID',
   task_code                      varchar(64)                                comment '生产任务编号',
+  item_id                        bigint(20)      not null                   comment '产品物料ID',
+  item_code                      varchar(64)     not null                   comment '产品物料编码',
+  item_name                      varchar(255)    not null                   comment '产品物料名称',
+  specification                  varchar(500)                               comment '规格型号',
   quantity                       double(14,2)                               comment '排产数量',
   quantity_feedback              double(14,2)                               comment '本次报工数量',
   quantity_qualified             double(14,2)                               comment '合格品数量',
@@ -296,6 +301,8 @@ create table pro_feedback (
   nick_name                      varchar(64)                                comment '昵称',
   feedback_channel               varchar(64)                                comment '报工途径',
   feedback_time                  datetime                                   comment '报工时间',
+  record_user                    varchar(64)                                comment '记录人',
+  status                         varchar(64)     default 'PREPARE'          comment '状态',
   remark                         varchar(500)    default ''                 comment '备注',
   attr1                          varchar(64)     default null               comment '预留字段1',
   attr2                          varchar(255)    default null               comment '预留字段2',
