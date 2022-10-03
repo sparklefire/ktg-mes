@@ -110,9 +110,13 @@ public class ProFeedback extends BaseEntity
     @Excel(name = "报工时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date feedbackTime;
 
-    /** 录入人员 */
-    @Excel(name = "录入人员")
+    /** 审批人员 */
+    @Excel(name = "审批人员")
     private String recordUser;
+
+    /** 审批人员名称 */
+    @Excel(name = "审批人员名称")
+    private String recordNick;
 
     /** 状态 */
     @Excel(name = "状态")
@@ -384,6 +388,14 @@ public class ProFeedback extends BaseEntity
         this.status = status;
     }
 
+    public String getRecordNick() {
+        return recordNick;
+    }
+
+    public void setRecordNick(String recordNick) {
+        this.recordNick = recordNick;
+    }
+
     @Override
     public String toString() {
         return "ProFeedback{" +
@@ -411,6 +423,7 @@ public class ProFeedback extends BaseEntity
                 ", feedbackChannel='" + feedbackChannel + '\'' +
                 ", feedbackTime=" + feedbackTime +
                 ", recordUser='" + recordUser + '\'' +
+                ", recordNick='" + recordNick + '\'' +
                 ", status='" + status + '\'' +
                 ", attr1='" + attr1 + '\'' +
                 ", attr2='" + attr2 + '\'' +
