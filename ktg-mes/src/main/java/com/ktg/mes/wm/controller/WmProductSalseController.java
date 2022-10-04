@@ -1,0 +1,104 @@
+package com.ktg.mes.wm.controller;
+
+import java.util.List;
+import javax.servlet.http.HttpServletResponse;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import com.ktg.common.annotation.Log;
+import com.ktg.common.core.controller.BaseController;
+import com.ktg.common.core.domain.AjaxResult;
+import com.ktg.common.enums.BusinessType;
+import com.ktg.mes.wm.domain.WmProductSalse;
+import com.ktg.mes.wm.service.IWmProductSalseService;
+import com.ktg.common.utils.poi.ExcelUtil;
+import com.ktg.common.core.page.TableDataInfo;
+
+/**
+ * 销售出库单Controller
+ * 
+ * @author yinjinlu
+ * @date 2022-10-04
+ */
+@RestController
+@RequestMapping("/mes/wm/productsalse")
+public class WmProductSalseController extends BaseController
+{
+    @Autowired
+    private IWmProductSalseService wmProductSalseService;
+
+    /**
+     * 查询销售出库单列表
+     */
+    @PreAuthorize("@ss.hasPermi('mes:wm:productsalse:list')")
+    @GetMapping("/list")
+    public TableDataInfo list(WmProductSalse wmProductSalse)
+    {
+        startPage();
+        List<WmProductSalse> list = wmProductSalseService.selectWmProductSalseList(wmProductSalse);
+        return getDataTable(list);
+    }
+
+    /**
+     * 导出销售出库单列表
+     */
+    @PreAuthorize("@ss.hasPermi('mes:wm:productsalse:export')")
+    @Log(title = "销售出库单", businessType = BusinessType.EXPORT)
+    @PostMapping("/export")
+    public void export(HttpServletResponse response, WmProductSalse wmProductSalse)
+    {
+        List<WmProductSalse> list = wmProductSalseService.selectWmProductSalseList(wmProductSalse);
+        ExcelUtil<WmProductSalse> util = new ExcelUtil<WmProductSalse>(WmProductSalse.class);
+        util.exportExcel(response, list, "销售出库单数据");
+    }
+
+    /**
+     * 获取销售出库单详细信息
+     */
+    @PreAuthorize("@ss.hasPermi('mes:wm:productsalse:query')")
+    @GetMapping(value = "/{salseId}")
+    public AjaxResult getInfo(@PathVariable("salseId") Long salseId)
+    {
+        return AjaxResult.success(wmProductSalseService.selectWmProductSalseBySalseId(salseId));
+    }
+
+    /**
+     * 新增销售出库单
+     */
+    @PreAuthorize("@ss.hasPermi('mes:wm:productsalse:add')")
+    @Log(title = "销售出库单", businessType = BusinessType.INSERT)
+    @PostMapping
+    public AjaxResult add(@RequestBody WmProductSalse wmProductSalse)
+    {
+        return toAjax(wmProductSalseService.insertWmProductSalse(wmProductSalse));
+    }
+
+    /**
+     * 修改销售出库单
+     */
+    @PreAuthorize("@ss.hasPermi('mes:wm:productsalse:edit')")
+    @Log(title = "销售出库单", businessType = BusinessType.UPDATE)
+    @PutMapping
+    public AjaxResult edit(@RequestBody WmProductSalse wmProductSalse)
+    {
+        return toAjax(wmProductSalseService.updateWmProductSalse(wmProductSalse));
+    }
+
+    /**
+     * 删除销售出库单
+     */
+    @PreAuthorize("@ss.hasPermi('mes:wm:productsalse:remove')")
+    @Log(title = "销售出库单", businessType = BusinessType.DELETE)
+	@DeleteMapping("/{salseIds}")
+    public AjaxResult remove(@PathVariable Long[] salseIds)
+    {
+        return toAjax(wmProductSalseService.deleteWmProductSalseBySalseIds(salseIds));
+    }
+}
