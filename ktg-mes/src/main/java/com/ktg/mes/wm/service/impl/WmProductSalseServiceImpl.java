@@ -107,4 +107,6 @@ public class WmProductSalseServiceImpl implements IWmProductSalseService
     {
         return wmProductSalseMapper.deleteWmProductSalseBySalseId(salseId);
     }
+
+
 }

@@ -11,6 +11,7 @@ import com.ktg.mes.wm.domain.WmWarehouse;
 import com.ktg.mes.wm.service.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -39,6 +40,9 @@ public class WmProductSalseController extends BaseController
 {
     @Autowired
     private IWmProductSalseService wmProductSalseService;
+
+    @Autowired
+    private IWmProductSalseLineService wmProductSalseLineService;
 
     @Autowired
     private IWmWarehouseService wmWarehouseService;
@@ -150,9 +154,14 @@ public class WmProductSalseController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('mes:wm:productsalse:remove')")
     @Log(title = "销售出库单", businessType = BusinessType.DELETE)
+    @Transactional
 	@DeleteMapping("/{salseIds}")
     public AjaxResult remove(@PathVariable Long[] salseIds)
     {
+        for (Long salseId: salseIds
+             ) {
+            wmProductSalseLineService.deleteBySalseId(salseId);
+        }
         return toAjax(wmProductSalseService.deleteWmProductSalseBySalseIds(salseIds));
     }
 }
