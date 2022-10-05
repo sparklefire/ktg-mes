@@ -72,7 +72,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where salse_id = #{salseId}
     </select>
 
-    <select id="checkUnique" parameterMap="WmProductSalse" resultMap="WmProductSalseResult">
+    <select id="checkUnique" parameterType="WmProductSalse" resultMap="WmProductSalseResult">
         <include refid="selectWmProductSalseVo"/>
         where salse_code = #{salseCode}
     </select>

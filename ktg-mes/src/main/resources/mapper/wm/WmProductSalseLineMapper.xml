@@ -175,7 +175,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </foreach>
     </delete>
 
-    <delete id="deleteBySalseId" parameterMap="Long">
+    <delete id="deleteBySalseId" parameterType="Long">
         delete from wm_product_salse_line where salse_id = #{salseId}
     </delete>
 </mapper>
