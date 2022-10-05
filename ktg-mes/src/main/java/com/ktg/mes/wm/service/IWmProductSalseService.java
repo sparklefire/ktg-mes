@@ -28,6 +28,13 @@ public interface IWmProductSalseService
     public List<WmProductSalse> selectWmProductSalseList(WmProductSalse wmProductSalse);
 
     /**
+     * 检查编号唯一性
+     * @param wmProductSalse
+     * @return
+     */
+    public String checkUnique(WmProductSalse wmProductSalse);
+
+    /**
      * 新增销售出库单
      * 
      * @param wmProductSalse 销售出库单

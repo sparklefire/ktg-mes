@@ -71,7 +71,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectWmProductSalseVo"/>
         where salse_id = #{salseId}
     </select>
-        
+
+    <select id="checkUnique" parameterMap="WmProductSalse" resultMap="WmProductSalseResult">
+        <include refid="selectWmProductSalseVo"/>
+        where salse_code = #{salseCode}
+    </select>
+
     <insert id="insertWmProductSalse" parameterType="WmProductSalse" useGeneratedKeys="true" keyProperty="salseId">
         insert into wm_product_salse
         <trim prefix="(" suffix=")" suffixOverrides=",">
