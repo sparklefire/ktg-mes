@@ -690,6 +690,83 @@ create table wm_product_recpt_line (
 
 
 
+
+-- ----------------------------
+-- 14、产品销售出库单表
+-- ----------------------------
+drop table if exists wm_product_salse;
+create table wm_product_salse (
+  salse_id              bigint(20)      not null auto_increment     comment '出库单ID',
+  salse_code            varchar(64)     not null                    comment '出库单编号',
+  salse_name            varchar(255)    not null                    comment '出库单名称',
+  oqc_id                bigint(20)                                  comment '出货检验单ID',
+  oqc_code              varchar(64)                                 comment '出货检验单编号',  
+  so_code               varchar(64)                                 comment '销售订单编号',  
+  client_id             bigint(20)                                  comment '客户ID',
+  client_code           varchar(64)                                 comment '客户编码',
+  client_name           varchar(255)                                comment '客户名称',
+  client_nick           varchar(255)                                comment '客户简称',
+  warehouse_id          bigint(20)                                  comment '仓库ID',
+  warehouse_code        varchar(64)                                 comment '仓库编码',
+  warehouse_name        varchar(255)                                comment '仓库名称',
+  location_id           bigint(20)                                  comment '库区ID',
+  location_code         varchar(64)                                 comment '库区编码',
+  location_name         varchar(255)                                comment '库区名称',
+  area_id               bigint(20)                                  comment '库位ID',
+  area_code             varchar(64)                                 comment '库位编码',
+  area_name             varchar(255)                                comment '库位名称', 
+  salse_date            datetime                                    comment '出库日期',
+  status                varchar(64)     default 'PREPARE'           comment '单据状态',  
+  remark                varchar(500)    default ''                  comment '备注',
+  attr1                 varchar(64)     default null                comment '预留字段1',
+  attr2                 varchar(255)    default null                comment '预留字段2',
+  attr3                 int(11)         default 0                   comment '预留字段3',
+  attr4                 int(11)         default 0                   comment '预留字段4',
+  create_by             varchar(64)     default ''                  comment '创建者',
+  create_time           datetime                                    comment '创建时间',
+  update_by             varchar(64)     default ''                  comment '更新者',
+  update_time           datetime                                    comment '更新时间',
+  primary key (salse_id)
+) engine=innodb auto_increment=200 comment = '销售出库单表';
+
+
+-- ----------------------------
+-- 15、产品销售出库行表
+-- ----------------------------
+drop table if exists wm_product_salse_line;
+create table wm_product_salse_line (
+  line_id               bigint(20)      not null auto_increment     comment '行ID',
+  salse_id              bigint(20)                                  comment '出库记录ID',
+  material_stock_id     bigint(20)                                  comment '库存记录ID',
+  item_id               bigint(20)      not null                    comment '产品物料ID',
+  item_code             varchar(64)                                 comment '产品物料编码',
+  item_name             varchar(255)                                comment '产品物料名称',
+  specification         varchar(500)                                comment '规格型号',
+  unit_of_measure       varchar(64)                                 comment '单位',
+  quantity_salse        double(12,2)    not null                    comment '出库数量',
+  batch_code            varchar(255)                                comment '批次号',
+  warehouse_id          bigint(20)                                  comment '仓库ID',
+  warehouse_code        varchar(64)                                 comment '仓库编码',
+  warehouse_name        varchar(255)                                comment '仓库名称',
+  location_id           bigint(20)                                  comment '库区ID',
+  location_code         varchar(64)                                 comment '库区编码',
+  location_name         varchar(255)                                comment '库区名称',
+  area_id               bigint(20)                                  comment '库位ID',
+  area_code             varchar(64)                                 comment '库位编码',
+  area_name             varchar(255)                                comment '库位名称',   
+  remark                varchar(500)    default ''                  comment '备注',
+  attr1                 varchar(64)     default null                comment '预留字段1',
+  attr2                 varchar(255)    default null                comment '预留字段2',
+  attr3                 int(11)         default 0                   comment '预留字段3',
+  attr4                 int(11)         default 0                   comment '预留字段4',
+  create_by             varchar(64)     default ''                  comment '创建者',
+  create_time           datetime                                    comment '创建时间',
+  update_by             varchar(64)     default ''                  comment '更新者',
+  update_time           datetime                                    comment '更新时间',
+  primary key (line_id)
+) engine=innodb auto_increment=200 comment = '产品销售出库行表';
+
+
 -- ----------------------------
 -- 12、条码清单表
 -- ----------------------------
