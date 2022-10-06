@@ -2,6 +2,7 @@ package com.ktg.mes.wm.mapper;
 
 import java.util.List;
 import com.ktg.mes.wm.domain.WmProductSalse;
+import com.ktg.mes.wm.domain.tx.ProductSalseTxBean;
 
 /**
  * 销售出库单Mapper接口
@@ -65,4 +66,11 @@ public interface WmProductSalseMapper
      * @return 结果
      */
     public int deleteWmProductSalseBySalseIds(Long[] salseIds);
+
+    /**
+     * 获取产品销售出库事务Bean
+     * @param salseId
+     * @return
+     */
+    public List<ProductSalseTxBean> getTxBeans(Long salseId);
 }

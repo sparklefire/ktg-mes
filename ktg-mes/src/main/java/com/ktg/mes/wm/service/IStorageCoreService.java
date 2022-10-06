@@ -1,10 +1,7 @@
 package com.ktg.mes.wm.service;
 
 import com.ktg.mes.wm.domain.WmItemRecptLine;
-import com.ktg.mes.wm.domain.tx.IssueTxBean;
-import com.ktg.mes.wm.domain.tx.ItemRecptTxBean;
-import com.ktg.mes.wm.domain.tx.RtIssueTxBean;
-import com.ktg.mes.wm.domain.tx.RtVendorTxBean;
+import com.ktg.mes.wm.domain.tx.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,5 +32,17 @@ public interface IStorageCoreService {
      * @param lines
      */
     public void processRtIssue(List<RtIssueTxBean> lines);
+
+    /**
+     * 处理产品入库
+     * @param lines
+     */
+    public void processProductRecpt(List<ProductRecptTxBean> lines);
+
+    /**
+     * 处理产品销售出库
+     * @param lines
+     */
+    public void processProductSalse(List<ProductSalseTxBean> lines);
 
 }

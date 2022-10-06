@@ -1,13 +1,14 @@
 package com.ktg.mes.wm.controller;
 
+import java.util.Collection;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
+import cn.hutool.core.collection.CollectionUtil;
 import com.ktg.common.constant.UserConstants;
 import com.ktg.common.utils.StringUtils;
-import com.ktg.mes.wm.domain.WmStorageArea;
-import com.ktg.mes.wm.domain.WmStorageLocation;
-import com.ktg.mes.wm.domain.WmWarehouse;
+import com.ktg.mes.wm.domain.*;
+import com.ktg.mes.wm.domain.tx.ProductSalseTxBean;
 import com.ktg.mes.wm.service.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,6 @@ import com.ktg.common.annotation.Log;
 import com.ktg.common.core.controller.BaseController;
 import com.ktg.common.core.domain.AjaxResult;
 import com.ktg.common.enums.BusinessType;
-import com.ktg.mes.wm.domain.WmProductSalse;
 import com.ktg.common.utils.poi.ExcelUtil;
 import com.ktg.common.core.page.TableDataInfo;
 
@@ -163,5 +163,31 @@ public class WmProductSalseController extends BaseController
             wmProductSalseLineService.deleteBySalseId(salseId);
         }
         return toAjax(wmProductSalseService.deleteWmProductSalseBySalseIds(salseIds));
+    }
+
+    /**
+     * 执行出库
+     * @return
+     */
+    @PreAuthorize("@ss.hasPermi('mes:wm:productsalse:edit')")
+    @Log(title = "销售出库单", businessType = BusinessType.UPDATE)
+    @Transactional
+    @PutMapping("/{salseId}")
+    public AjaxResult execute(@PathVariable Long salseId){
+        WmProductSalse salse = wmProductSalseService.selectWmProductSalseBySalseId(salseId);
+
+        WmProductSalseLine param = new WmProductSalseLine();
+        param.setSalseId(salseId);
+        List<WmProductSalseLine> lines = wmProductSalseLineService.selectWmProductSalseLineList(param);
+        if(CollectionUtil.isEmpty(lines)){
+            return AjaxResult.error("出库物资不能为空");
+        }
+
+        List<ProductSalseTxBean> beans = wmProductSalseService.getTxBeans(salseId);
+        storageCoreService.processProductSalse(beans);
+
+        salse.setStatus(UserConstants.ORDER_STATUS_FINISHED);
+        wmProductSalseService.updateWmProductSalse(salse);
+        return AjaxResult.success();
     }
 }

@@ -2,6 +2,7 @@ package com.ktg.mes.wm.service;
 
 import java.util.List;
 import com.ktg.mes.wm.domain.WmProductSalse;
+import com.ktg.mes.wm.domain.tx.ProductSalseTxBean;
 
 /**
  * 销售出库单Service接口
@@ -26,6 +27,14 @@ public interface IWmProductSalseService
      * @return 销售出库单集合
      */
     public List<WmProductSalse> selectWmProductSalseList(WmProductSalse wmProductSalse);
+
+
+    /**
+     * 获取产品销售出库事务Bean
+     * @param salseId
+     * @return
+     */
+    public List<ProductSalseTxBean> getTxBeans(Long salseId);
 
     /**
      * 检查编号唯一性

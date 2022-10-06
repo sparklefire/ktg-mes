@@ -5,6 +5,7 @@ import java.util.List;
 import com.ktg.common.constant.UserConstants;
 import com.ktg.common.utils.DateUtils;
 import com.ktg.common.utils.StringUtils;
+import com.ktg.mes.wm.domain.tx.ProductSalseTxBean;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,6 +47,11 @@ public class WmProductSalseServiceImpl implements IWmProductSalseService
     public List<WmProductSalse> selectWmProductSalseList(WmProductSalse wmProductSalse)
     {
         return wmProductSalseMapper.selectWmProductSalseList(wmProductSalse);
+    }
+
+    @Override
+    public List<ProductSalseTxBean> getTxBeans(Long salseId) {
+        return wmProductSalseMapper.getTxBeans(salseId);
     }
 
     @Override

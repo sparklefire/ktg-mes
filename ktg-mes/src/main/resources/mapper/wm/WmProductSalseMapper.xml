@@ -37,6 +37,41 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="updateTime"    column="update_time"    />
     </resultMap>
 
+
+    <resultMap id="ProductSalseTxBeanResult" type="ProductSalseTxBean">
+        <result property="materialStockId" column="material_stock_id"></result>
+        <result property="itemId" column="item_id"></result>
+        <result property="itemCode" column="item_code"></result>
+        <result property="itemName" column="item_name"></result>
+        <result property="specification" column="specification"></result>
+        <result property="unitOfMeasure" column="unit_of_measure"></result>
+        <result property="batchCode" column="batch_code"></result>
+        <result property="warehouseId" column="warehouse_id"></result>
+        <result property="warehouseCode" column="warehouse_code"></result>
+        <result property="warehouseName" column="warehouse_name"></result>
+        <result property="locationId" column="location_id"></result>
+        <result property="locationCode" column="location_code"></result>
+        <result property="locationName" column="location_name"></result>
+        <result property="areaId" column="area_id"></result>
+        <result property="areaCode" column="area_code"></result>
+        <result property="areaName" column="area_name"></result>
+        <result property="clientId" column="client_id"></result>
+        <result property="clientCode" column="client_code"></result>
+        <result property="clientName" column="client_name"></result>
+        <result property="clientNick" column="client_nick"></result>
+        <result property="sourceDocType" column="source_doc_type"></result>
+        <result property="sourceDocId" column="source_doc_id"></result>
+        <result property="sourceDocCode" column="source_doc_code"></result>
+        <result property="sourceDocLineId" column="source_doc_line_id"></result>
+        <result property="transactionQuantity" column="transaction_quantity"></result>
+        <result property="workorderId" column="workorder_id"></result>
+        <result property="workorderCode" column="workorder_code"></result>
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
     <sql id="selectWmProductSalseVo">
         select salse_id, salse_code, salse_name, oqc_id, oqc_code, so_code, client_id, client_code, client_name, client_nick, warehouse_id, warehouse_code, warehouse_name, location_id, location_code, location_name, area_id, area_code, area_name, salse_date, status, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from wm_product_salse
     </sql>
@@ -75,6 +110,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="checkUnique" parameterType="WmProductSalse" resultMap="WmProductSalseResult">
         <include refid="selectWmProductSalseVo"/>
         where salse_code = #{salseCode}
+    </select>
+
+    <select id="getTxBeans" parameterType="Long" resultMap="ProductSalseTxBeanResult">
+        SELECT irl.material_stock_id, irl.`item_id`,irl.`item_code`,irl.`item_name`,irl.`specification`,irl.`unit_of_measure`,irl.`batch_code`,
+               irl.`warehouse_id`,irl.`warehouse_code`,irl.`warehouse_name`,irl.`location_id`,irl.`location_code`,irl.`location_name`,
+               irl.`area_id`,irl.`area_code`,irl.`area_name`,
+               'PSALSE' AS source_doc_type,ir.`salse_id` AS source_doc_id,ir.`salse_code` AS source_doc_code,irl.`line_id` AS source_doc_line_id,
+               irl.`quantity_salse` AS transaction_quantity,
+               ir.`create_by`,ir.`create_time`,ir.`update_by`,ir.`update_time`
+        FROM wm_product_salse ir
+                 LEFT JOIN wm_product_salse_line irl
+                           ON ir.salse_id = irl.`salse_id`
+        WHERE ir.`salse_id` = #{salseId}
     </select>
 
     <insert id="insertWmProductSalse" parameterType="WmProductSalse" useGeneratedKeys="true" keyProperty="salseId">
