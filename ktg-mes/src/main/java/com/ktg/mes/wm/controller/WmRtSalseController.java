@@ -4,8 +4,14 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ktg.common.constant.UserConstants;
+import com.ktg.common.utils.StringUtils;
+import com.ktg.mes.wm.domain.WmStorageArea;
+import com.ktg.mes.wm.domain.WmStorageLocation;
+import com.ktg.mes.wm.domain.WmWarehouse;
+import com.ktg.mes.wm.service.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -19,7 +25,6 @@ import com.ktg.common.core.controller.BaseController;
 import com.ktg.common.core.domain.AjaxResult;
 import com.ktg.common.enums.BusinessType;
 import com.ktg.mes.wm.domain.WmRtSalse;
-import com.ktg.mes.wm.service.IWmRtSalseService;
 import com.ktg.common.utils.poi.ExcelUtil;
 import com.ktg.common.core.page.TableDataInfo;
 
@@ -35,6 +40,21 @@ public class WmRtSalseController extends BaseController
 {
     @Autowired
     private IWmRtSalseService wmRtSalseService;
+
+    @Autowired
+    private IWmRtSalseLineService wmRtSalseLineService;
+
+    @Autowired
+    private IWmWarehouseService wmWarehouseService;
+
+    @Autowired
+    private IWmStorageLocationService wmStorageLocationService;
+
+    @Autowired
+    private IWmStorageAreaService wmStorageAreaService;
+
+    @Autowired
+    private IStorageCoreService storageCoreService;
 
     /**
      * 查询产品销售退货单列表
@@ -82,6 +102,22 @@ public class WmRtSalseController extends BaseController
         if(UserConstants.NOT_UNIQUE.equals(wmRtSalseService.checkUnique(wmRtSalse))){
             return AjaxResult.error("退货单号已存在!");
         }
+
+        if(StringUtils.isNotNull(wmRtSalse.getWarehouseId())){
+            WmWarehouse warehouse = wmWarehouseService.selectWmWarehouseByWarehouseId(wmRtSalse.getWarehouseId());
+            wmRtSalse.setWarehouseCode(warehouse.getWarehouseCode());
+            wmRtSalse.setWarehouseName(warehouse.getWarehouseName());
+        }
+        if(StringUtils.isNotNull(wmRtSalse.getLocationId())){
+            WmStorageLocation location = wmStorageLocationService.selectWmStorageLocationByLocationId(wmRtSalse.getLocationId());
+            wmRtSalse.setLocationCode(location.getLocationCode());
+            wmRtSalse.setLocationName(location.getLocationName());
+        }
+        if(StringUtils.isNotNull(wmRtSalse.getAreaId())){
+            WmStorageArea area = wmStorageAreaService.selectWmStorageAreaByAreaId(wmRtSalse.getAreaId());
+            wmRtSalse.setAreaCode(area.getAreaCode());
+            wmRtSalse.setAreaName(area.getAreaName());
+        }
         return toAjax(wmRtSalseService.insertWmRtSalse(wmRtSalse));
     }
 
@@ -96,6 +132,22 @@ public class WmRtSalseController extends BaseController
         if(UserConstants.NOT_UNIQUE.equals(wmRtSalseService.checkUnique(wmRtSalse))){
             return AjaxResult.error("退货单号已存在!");
         }
+
+        if(StringUtils.isNotNull(wmRtSalse.getWarehouseId())){
+            WmWarehouse warehouse = wmWarehouseService.selectWmWarehouseByWarehouseId(wmRtSalse.getWarehouseId());
+            wmRtSalse.setWarehouseCode(warehouse.getWarehouseCode());
+            wmRtSalse.setWarehouseName(warehouse.getWarehouseName());
+        }
+        if(StringUtils.isNotNull(wmRtSalse.getLocationId())){
+            WmStorageLocation location = wmStorageLocationService.selectWmStorageLocationByLocationId(wmRtSalse.getLocationId());
+            wmRtSalse.setLocationCode(location.getLocationCode());
+            wmRtSalse.setLocationName(location.getLocationName());
+        }
+        if(StringUtils.isNotNull(wmRtSalse.getAreaId())){
+            WmStorageArea area = wmStorageAreaService.selectWmStorageAreaByAreaId(wmRtSalse.getAreaId());
+            wmRtSalse.setAreaCode(area.getAreaCode());
+            wmRtSalse.setAreaName(area.getAreaName());
+        }
         return toAjax(wmRtSalseService.updateWmRtSalse(wmRtSalse));
     }
 
@@ -104,9 +156,15 @@ public class WmRtSalseController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('mes:wm:rtsalse:remove')")
     @Log(title = "产品销售退货单", businessType = BusinessType.DELETE)
+    @Transactional
 	@DeleteMapping("/{rtIds}")
     public AjaxResult remove(@PathVariable Long[] rtIds)
     {
+        for (Long rtId: rtIds
+             ) {
+            wmRtSalseLineService.deleteByRtId(rtId);
+        }
+
         return toAjax(wmRtSalseService.deleteWmRtSalseByRtIds(rtIds));
     }
 }
