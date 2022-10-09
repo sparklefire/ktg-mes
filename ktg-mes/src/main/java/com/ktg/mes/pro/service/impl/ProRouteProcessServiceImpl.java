@@ -68,6 +68,16 @@ public class ProRouteProcessServiceImpl implements IProRouteProcessService
     }
 
     @Override
+    public String checkUpdateFlagUnique(ProRouteProcess proRouteProcess) {
+        ProRouteProcess process = proRouteProcessMapper.checkUpdateFlagUnique(proRouteProcess);
+        Long recordId = proRouteProcess.getRecordId()==null?-1L:proRouteProcess.getRecordId();
+        if(StringUtils.isNotNull(process) && process.getRecordId().longValue() != recordId.longValue()){
+            return UserConstants.NOT_UNIQUE;
+        }
+        return UserConstants.UNIQUE;
+    }
+
+    @Override
     public ProRouteProcess findPreProcess(ProRouteProcess proRouteProcess) {
         return proRouteProcessMapper.findPreProcess(proRouteProcess);
     }

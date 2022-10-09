@@ -42,6 +42,13 @@ public interface IProRouteProcessService
     public String checkProcessExists(ProRouteProcess proRouteProcess);
 
     /**
+     * 检查当前工艺路线中是否已经有某个工序配置了update_flag=Y
+     * @param proRouteProcess
+     * @return
+     */
+    public String checkUpdateFlagUnique(ProRouteProcess proRouteProcess);
+
+    /**
      * 查找上一个工序
      * @param proRouteProcess
      * @return

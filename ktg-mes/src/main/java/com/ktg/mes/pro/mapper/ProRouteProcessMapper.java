@@ -30,6 +30,7 @@ public interface ProRouteProcessMapper
 
     public ProRouteProcess checkOrderNumExists(ProRouteProcess proRouteProcess);
     public ProRouteProcess checkProcessExists(ProRouteProcess proRouteProcess);
+    public ProRouteProcess checkUpdateFlagUnique(ProRouteProcess proRouteProcess);
 
     public ProRouteProcess findPreProcess(ProRouteProcess proRouteProcess);
 

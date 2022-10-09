@@ -66,6 +66,9 @@ public class ProRouteProcess extends BaseEntity
     @Excel(name = "甘特图显示颜色")
     private String colorCode;
 
+    /** 是否更新生产工单进度 */
+    private String updateFlag;
+
     /** 预留字段1 */
     private String attr1;
 
@@ -195,6 +198,7 @@ public class ProRouteProcess extends BaseEntity
     {
         return colorCode;
     }
+
     public void setAttr1(String attr1) 
     {
         this.attr1 = attr1;
@@ -209,7 +213,15 @@ public class ProRouteProcess extends BaseEntity
         this.attr2 = attr2;
     }
 
-    public String getAttr2() 
+    public String getUpdateFlag() {
+        return updateFlag;
+    }
+
+    public void setUpdateFlag(String updateFlag) {
+        this.updateFlag = updateFlag;
+    }
+
+    public String getAttr2()
     {
         return attr2;
     }
@@ -234,29 +246,25 @@ public class ProRouteProcess extends BaseEntity
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("recordId", getRecordId())
-            .append("routeId", getRouteId())
-            .append("processId", getProcessId())
-            .append("processCode", getProcessCode())
-            .append("processName", getProcessName())
-            .append("orderNum", getOrderNum())
-            .append("nextProcessId", getNextProcessId())
-            .append("nextProcessCode", getNextProcessCode())
-            .append("nextProcessName", getNextProcessName())
-            .append("linkType", getLinkType())
-            .append("defaultPreTime", getDefaultPreTime())
-            .append("defaultSufTime", getDefaultSufTime())
-            .append("colorCode", getColorCode())
-            .append("remark", getRemark())
-            .append("attr1", getAttr1())
-            .append("attr2", getAttr2())
-            .append("attr3", getAttr3())
-            .append("attr4", getAttr4())
-            .append("createBy", getCreateBy())
-            .append("createTime", getCreateTime())
-            .append("updateBy", getUpdateBy())
-            .append("updateTime", getUpdateTime())
-            .toString();
+        return "ProRouteProcess{" +
+                "recordId=" + recordId +
+                ", routeId=" + routeId +
+                ", processId=" + processId +
+                ", processCode='" + processCode + '\'' +
+                ", processName='" + processName + '\'' +
+                ", orderNum=" + orderNum +
+                ", nextProcessId=" + nextProcessId +
+                ", nextProcessCode='" + nextProcessCode + '\'' +
+                ", nextProcessName='" + nextProcessName + '\'' +
+                ", linkType='" + linkType + '\'' +
+                ", defaultPreTime=" + defaultPreTime +
+                ", defaultSufTime=" + defaultSufTime +
+                ", colorCode='" + colorCode + '\'' +
+                ", updateFlag='" + updateFlag + '\'' +
+                ", attr1='" + attr1 + '\'' +
+                ", attr2='" + attr2 + '\'' +
+                ", attr3=" + attr3 +
+                ", attr4=" + attr4 +
+                '}';
     }
 }
