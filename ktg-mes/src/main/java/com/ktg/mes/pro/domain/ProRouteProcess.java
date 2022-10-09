@@ -66,8 +66,8 @@ public class ProRouteProcess extends BaseEntity
     @Excel(name = "甘特图显示颜色")
     private String colorCode;
 
-    /** 是否更新生产工单进度 */
-    private String updateFlag;
+    /** 是否关键工序 */
+    private String keyFlag;
 
     /** 预留字段1 */
     private String attr1;
@@ -185,7 +185,15 @@ public class ProRouteProcess extends BaseEntity
         this.defaultSufTime = defaultSufTime;
     }
 
-    public Long getDefaultSufTime() 
+    public String getKeyFlag() {
+        return keyFlag;
+    }
+
+    public void setKeyFlag(String keyFlag) {
+        this.keyFlag = keyFlag;
+    }
+
+    public Long getDefaultSufTime()
     {
         return defaultSufTime;
     }
@@ -213,13 +221,7 @@ public class ProRouteProcess extends BaseEntity
         this.attr2 = attr2;
     }
 
-    public String getUpdateFlag() {
-        return updateFlag;
-    }
 
-    public void setUpdateFlag(String updateFlag) {
-        this.updateFlag = updateFlag;
-    }
 
     public String getAttr2()
     {
@@ -260,7 +262,7 @@ public class ProRouteProcess extends BaseEntity
                 ", defaultPreTime=" + defaultPreTime +
                 ", defaultSufTime=" + defaultSufTime +
                 ", colorCode='" + colorCode + '\'' +
-                ", updateFlag='" + updateFlag + '\'' +
+                ", keyFlag='" + keyFlag + '\'' +
                 ", attr1='" + attr1 + '\'' +
                 ", attr2='" + attr2 + '\'' +
                 ", attr3=" + attr3 +

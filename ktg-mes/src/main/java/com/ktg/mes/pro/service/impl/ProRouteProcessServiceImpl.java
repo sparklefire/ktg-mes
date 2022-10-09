@@ -1,14 +1,21 @@
 package com.ktg.mes.pro.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+import cn.hutool.core.collection.CollectionUtil;
 import com.ktg.common.constant.UserConstants;
 import com.ktg.common.utils.DateUtils;
 import com.ktg.common.utils.StringUtils;
+import com.ktg.mes.md.domain.MdWorkstation;
+import com.ktg.mes.md.mapper.MdWorkstationMapper;
+import com.ktg.mes.pro.domain.*;
+import com.ktg.mes.pro.mapper.ProRouteMapper;
+import com.ktg.mes.pro.mapper.ProRouteProductMapper;
+import com.ktg.mes.pro.mapper.ProWorkorderMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ktg.mes.pro.mapper.ProRouteProcessMapper;
-import com.ktg.mes.pro.domain.ProRouteProcess;
 import com.ktg.mes.pro.service.IProRouteProcessService;
 
 /**
@@ -21,7 +28,17 @@ import com.ktg.mes.pro.service.IProRouteProcessService;
 public class ProRouteProcessServiceImpl implements IProRouteProcessService 
 {
     @Autowired
+    private ProRouteMapper proRouteMapper;
+
+    @Autowired
     private ProRouteProcessMapper proRouteProcessMapper;
+
+
+    @Autowired
+    private ProRouteProductMapper proRouteProductMapper;
+
+    @Autowired
+    private MdWorkstationMapper mdWorkstationMapper;
 
     /**
      * 查询工艺组成
@@ -75,6 +92,36 @@ public class ProRouteProcessServiceImpl implements IProRouteProcessService
             return UserConstants.NOT_UNIQUE;
         }
         return UserConstants.UNIQUE;
+    }
+
+    @Override
+    public boolean checkKeyProcess(ProFeedback feedback) {
+        //根据当前生产的产品获取对应的工艺路线
+        Long routeId =-1L,processId = -1L;
+        ProRouteProduct param = new ProRouteProduct();
+        param.setItemId(feedback.getItemId());
+        List<ProRouteProduct> products = proRouteProductMapper.selectProRouteProductList(param);
+        if(!CollectionUtil.isNotEmpty(products)){
+            products = products.stream().filter(item -> proRouteMapper.selectProRouteByRouteId(item.getRouteId()).getEnableFlag()==UserConstants.YES).collect(Collectors.toList());
+            if (CollectionUtil.isNotEmpty(products)){
+                routeId = products.get(0).getRouteId();
+            }
+        }
+
+        //根据工作站获取工序
+        MdWorkstation workstation = mdWorkstationMapper.selectMdWorkstationByWorkstationId(feedback.getWorkstationId());
+        processId = workstation.getProcessId();
+
+        //再判断当前的工序在此工艺路线中是否是关键工序
+        ProRouteProcess param2 = new ProRouteProcess();
+        param2.setRouteId(routeId);
+        param2.setProcessId(processId);
+        param2.setKeyFlag(UserConstants.YES);
+        List<ProRouteProcess> processes = proRouteProcessMapper.selectProRouteProcessList(param2);
+        if(CollectionUtil.isNotEmpty(processes)){
+            return true;
+        }
+        return false;
     }
 
     @Override
