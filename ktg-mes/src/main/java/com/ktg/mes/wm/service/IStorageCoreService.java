@@ -34,6 +34,18 @@ public interface IStorageCoreService {
     public void processRtIssue(List<RtIssueTxBean> lines);
 
     /**
+     * 处理生产消耗
+     * @param lines
+     */
+    public void processItemConsume(List<ItemConsumeTxBean> lines);
+
+    /**
+     * 处理产品产出
+     * @param lines
+     */
+    public void processProductProduce(List<ProductProductTxBean> lines);
+
+    /**
      * 处理产品入库
      * @param lines
      */

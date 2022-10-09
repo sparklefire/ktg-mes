@@ -48,6 +48,12 @@ public class ProRouteServiceImpl implements IProRouteService
     }
 
     @Override
+    public ProRoute getRouteByProductId(Long itemId) {
+        return proRouteMapper.getRouteByProductId(itemId);
+    }
+
+
+    @Override
     public String checkRouteCodeUnique(ProRoute proRoute) {
         ProRoute route = proRouteMapper.checkRouteCodeUnique(proRoute);
         Long routeId = proRoute.getRouteId()==null?-1L:proRoute.getRouteId();

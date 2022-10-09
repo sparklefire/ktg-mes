@@ -40,6 +40,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where route_id = #{routeId}
     </select>
 
+    <select id="getRouteByProductId" parameterType="Long" resultMap="ProRouteResult">
+        select r.*
+        from pro_route r
+                 left join pro_route_product p
+                           on p.route_id = r.route_id
+        where r.enable_flag = 'Y'
+          and p.item_id = #{itemId}
+    </select>
+
     <select id="checkRouteCodeUnique" parameterType="ProRoute" resultMap="ProRouteResult">
         <include refid="selectProRouteVo"/>
         where route_code = #{routeCode} limit 1

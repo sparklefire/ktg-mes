@@ -1,7 +1,10 @@
 package com.ktg.mes.wm.service;
 
 import java.util.List;
+
+import com.ktg.mes.pro.domain.ProFeedback;
 import com.ktg.mes.wm.domain.WmProductProduce;
+import com.ktg.mes.wm.domain.tx.ProductProductTxBean;
 import com.ktg.mes.wm.domain.tx.ProductRecptTxBean;
 
 /**
@@ -60,6 +63,12 @@ public interface IWmProductProduceService
      */
     public int deleteWmProductProduceByRecordId(Long recordId);
 
+    /**
+     * 根据报工记录生成对应的产品产出记录
+     * @param feedback
+     */
+    public WmProductProduce generateProductProduce(ProFeedback feedback);
 
+    public List<ProductProductTxBean> getTxBeans(Long recordId);
 
 }

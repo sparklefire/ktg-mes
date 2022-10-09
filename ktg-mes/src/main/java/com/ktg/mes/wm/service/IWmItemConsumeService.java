@@ -1,7 +1,10 @@
 package com.ktg.mes.wm.service;
 
 import java.util.List;
+
+import com.ktg.mes.pro.domain.ProFeedback;
 import com.ktg.mes.wm.domain.WmItemConsume;
+import com.ktg.mes.wm.domain.tx.ItemConsumeTxBean;
 
 /**
  * 物料消耗记录Service接口
@@ -58,4 +61,13 @@ public interface IWmItemConsumeService
      * @return 结果
      */
     public int deleteWmItemConsumeByRecordId(Long recordId);
+
+    /**
+     * 根据生产报工单生成物料消耗记录
+     * @param feedback
+     * @return
+     */
+    public WmItemConsume generateItemConsume(ProFeedback feedback);
+
+    public List<ItemConsumeTxBean> getTxBeans(Long recordId);
 }

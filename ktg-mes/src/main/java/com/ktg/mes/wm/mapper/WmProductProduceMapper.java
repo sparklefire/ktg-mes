@@ -2,6 +2,7 @@ package com.ktg.mes.wm.mapper;
 
 import java.util.List;
 import com.ktg.mes.wm.domain.WmProductProduce;
+import com.ktg.mes.wm.domain.tx.ProductProductTxBean;
 
 /**
  * 产品产出记录Mapper接口
@@ -58,4 +59,6 @@ public interface WmProductProduceMapper
      * @return 结果
      */
     public int deleteWmProductProduceByRecordIds(Long[] recordIds);
+
+    public List<ProductProductTxBean> getTxBeans(Long recordId);
 }

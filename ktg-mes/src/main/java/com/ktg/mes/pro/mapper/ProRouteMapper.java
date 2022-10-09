@@ -27,6 +27,13 @@ public interface ProRouteMapper
      */
     public List<ProRoute> selectProRouteList(ProRoute proRoute);
 
+    /**
+     * 根据物料查找生效的工艺路线
+     * @param itemId
+     * @return
+     */
+    public ProRoute getRouteByProductId(Long itemId);
+
     public ProRoute checkRouteCodeUnique(ProRoute proRoute);
 
     /**

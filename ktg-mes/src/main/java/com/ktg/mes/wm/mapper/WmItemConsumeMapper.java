@@ -2,6 +2,7 @@ package com.ktg.mes.wm.mapper;
 
 import java.util.List;
 import com.ktg.mes.wm.domain.WmItemConsume;
+import com.ktg.mes.wm.domain.tx.ItemConsumeTxBean;
 
 /**
  * 物料消耗记录Mapper接口
@@ -58,4 +59,6 @@ public interface WmItemConsumeMapper
      * @return 结果
      */
     public int deleteWmItemConsumeByRecordIds(Long[] recordIds);
+
+    public List<ItemConsumeTxBean> getTxBeans(Long recordId);
 }

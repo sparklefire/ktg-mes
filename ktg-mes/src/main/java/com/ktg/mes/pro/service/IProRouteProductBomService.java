@@ -1,7 +1,10 @@
 package com.ktg.mes.pro.service;
 
 import java.util.List;
+
+import com.ktg.mes.pro.domain.ProFeedback;
 import com.ktg.mes.pro.domain.ProRouteProductBom;
+import com.ktg.mes.wm.domain.WmItemConsume;
 
 /**
  * 产品制程物料BOMService接口
@@ -80,4 +83,6 @@ public interface IProRouteProductBomService
      * @return
      */
     public int deleteByRouteIdAndProductId(ProRouteProductBom proRouteProductBom);
+
+
 }

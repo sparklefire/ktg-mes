@@ -154,7 +154,7 @@ create table pro_route_process (
   default_pre_time               int(11)         default 0                  comment '准备时间',
   default_suf_time               int(11)         default 0                  comment '等待时间',
   color_code                     char(7)         default '#00AEF3'          comment '甘特图显示颜色',
-  update_flag                    varchar(64)     default 'N'                comment '更新工单',
+  key_flag                       varchar(64)     default 'N'                comment '关键工序',
   remark                         varchar(500)    default ''                 comment '备注',
   attr1                          varchar(64)     default null               comment '预留字段1',
   attr2                          varchar(255)    default null               comment '预留字段2',

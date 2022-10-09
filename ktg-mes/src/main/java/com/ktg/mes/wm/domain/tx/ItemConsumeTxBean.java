@@ -66,6 +66,18 @@ public class ItemConsumeTxBean extends BaseEntity {
     /** 单据行ID */
     private Long sourceDocLineId;
 
+
+    /** 事务数量 */
+    private BigDecimal transactionQuantity;
+
+    /** 生产工单ID **/
+    private Long workorderId;
+
+
+    /** 生产工单编号 **/
+    private String workorderCode;
+
+
     public Long getMaterialStockId() {
         return materialStockId;
     }
@@ -250,12 +262,6 @@ public class ItemConsumeTxBean extends BaseEntity {
         this.workorderCode = workorderCode;
     }
 
-    /** 事务数量 */
-    private BigDecimal transactionQuantity;
-
-    /** 生产工单ID **/
-    private Long workorderId;
-
     @Override
     public String toString() {
         return "ItemConsumeTxBean{" +
@@ -284,9 +290,6 @@ public class ItemConsumeTxBean extends BaseEntity {
                 ", workorderCode='" + workorderCode + '\'' +
                 '}';
     }
-
-    /** 生产工单编号 **/
-    private String workorderCode;
 
 
 

@@ -4,11 +4,19 @@ import java.math.BigDecimal;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ktg.mes.pro.domain.ProFeedback;
-import com.ktg.mes.pro.domain.ProTask;
+import com.ktg.common.constant.UserConstants;
+import com.ktg.common.utils.StringUtils;
+import com.ktg.mes.pro.domain.*;
+import com.ktg.mes.pro.service.IProRouteProcessService;
 import com.ktg.mes.pro.service.IProTaskService;
 import com.ktg.mes.pro.service.IProWorkorderService;
+import com.ktg.mes.wm.domain.WmItemConsume;
+import com.ktg.mes.wm.domain.WmProductProduce;
+import com.ktg.mes.wm.domain.tx.ItemConsumeTxBean;
+import com.ktg.mes.wm.domain.tx.ProductProductTxBean;
 import com.ktg.mes.wm.service.IStorageCoreService;
+import com.ktg.mes.wm.service.IWmItemConsumeService;
+import com.ktg.mes.wm.service.IWmProductProduceService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,7 +53,16 @@ public class ProFeedbackController extends BaseController
     private IProTaskService proTaskService;
 
     @Autowired
+    private IProRouteProcessService proRouteProcessService;
+
+    @Autowired
     private IProWorkorderService proWorkorderService;
+
+    @Autowired
+    private IWmItemConsumeService wmItemConsumeService;
+
+    @Autowired
+    private IWmProductProduceService wmProductProduceService;
 
     @Autowired
     private IStorageCoreService storageCoreService;
@@ -133,7 +150,7 @@ public class ProFeedbackController extends BaseController
     public AjaxResult execute(@PathVariable("recordId") Long recordId){
 
         ProFeedback feedback= proFeedbackService.selectProFeedbackByRecordId(recordId);
-
+        ProWorkorder workorder = proWorkorderService.selectProWorkorderByWorkorderId(feedback.getWorkorderId());
         //更新生产任务的生产数量
         ProTask task = proTaskService.selectProTaskByTaskId(feedback.getTaskId());
         BigDecimal quantityProduced,quantityQuanlify,quantityUnquanlify;
@@ -145,10 +162,49 @@ public class ProFeedbackController extends BaseController
         task.setQuantityUnquanlify(quantityUnquanlify.add(feedback.getQuantityUnquanlified()));
         proTaskService.updateProTask(task);
 
-        //如果是最后一道工序，则更新当前工单的已生产数量
+        //如果是关键工序，则更新当前工单的已生产数量，进行产品产出动作
+        if(proRouteProcessService.checkKeyProcess(feedback)){
+            //更新生产工单的生产数量
+            workorder.setQuantityProduced(workorder.getQuantityProduced().add(feedback.getQuantityFeedback()));
+            proWorkorderService.updateProWorkorder(workorder);
 
+            //生成产品产出记录单
+            WmProductProduce productRecord = wmProductProduceService.generateProductProduce(feedback);
+            //执行产品产出入线边库
+            executeProductProduce(productRecord);
+        }
+
+        //根据当前工序的物料BOM配置，进行物料消耗
+        //先生成消耗单
+        WmItemConsume itemConsume = wmItemConsumeService.generateItemConsume(feedback);
+        if(StringUtils.isNotNull(itemConsume)){
+            //再执行库存消耗动作
+            executeItemConsume(itemConsume);
+        }
 
         return AjaxResult.success();
+    }
+
+    /**
+     * 执行产品产出入线边库动作
+     * @param record
+     */
+    private void executeProductProduce(WmProductProduce record){
+        List<ProductProductTxBean> beans = wmProductProduceService.getTxBeans(record.getRecordId());
+        storageCoreService.processProductProduce(beans);
+        record.setStatus(UserConstants.ORDER_STATUS_FINISHED);
+        wmProductProduceService.updateWmProductProduce(record);
+    }
+
+    /**
+     * 执行物料消耗库存动作
+     * @param record
+     */
+    private void executeItemConsume(WmItemConsume record){
+        List<ItemConsumeTxBean> beans = wmItemConsumeService.getTxBeans(record.getRecordId());
+        storageCoreService.processItemConsume(beans);
+        record.setStatus(UserConstants.ORDER_STATUS_FINISHED);
+        wmItemConsumeService.updateWmItemConsume(record);
     }
 
 }
