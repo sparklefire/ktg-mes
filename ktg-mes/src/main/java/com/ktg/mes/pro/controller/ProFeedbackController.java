@@ -1,11 +1,17 @@
 package com.ktg.mes.pro.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ktg.mes.pro.domain.ProFeedback;
+import com.ktg.mes.pro.domain.ProTask;
+import com.ktg.mes.pro.service.IProTaskService;
+import com.ktg.mes.pro.service.IProWorkorderService;
+import com.ktg.mes.wm.service.IStorageCoreService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -34,6 +40,15 @@ public class ProFeedbackController extends BaseController
 {
     @Autowired
     private IProFeedbackService proFeedbackService;
+
+    @Autowired
+    private IProTaskService proTaskService;
+
+    @Autowired
+    private IProWorkorderService proWorkorderService;
+
+    @Autowired
+    private IStorageCoreService storageCoreService;
 
     /**
      * 查询生产报工记录列表
@@ -102,4 +117,38 @@ public class ProFeedbackController extends BaseController
     {
         return toAjax(proFeedbackService.deleteProFeedbackByRecordIds(recordIds));
     }
+
+    /**
+     * 执行报工
+     * 1.更新生产任务和生产工单的进度
+     * 2.物料消耗
+     * 3.产品产出
+     * @param recordId
+     * @return
+     */
+    @PreAuthorize("@ss.hasPermi('mes:pro:feedback:edit')")
+    @Log(title = "生产报工执行", businessType = BusinessType.UPDATE)
+    @Transactional
+    @PutMapping("/{recordId}")
+    public AjaxResult execute(@PathVariable("recordId") Long recordId){
+
+        ProFeedback feedback= proFeedbackService.selectProFeedbackByRecordId(recordId);
+
+        //更新生产任务的生产数量
+        ProTask task = proTaskService.selectProTaskByTaskId(feedback.getTaskId());
+        BigDecimal quantityProduced,quantityQuanlify,quantityUnquanlify;
+        quantityQuanlify = task.getQuantityQuanlify()==null? new BigDecimal(0):task.getQuantityQuanlify();
+        quantityUnquanlify = task.getQuantityUnquanlify() ==null? new BigDecimal(0):task.getQuantityUnquanlify();
+        quantityProduced = task.getQuantityProduced()==null? new BigDecimal(0):task.getQuantityProduced();
+        task.setQuantityProduced(quantityProduced.add(feedback.getQuantityFeedback()));
+        task.setQuantityQuanlify(quantityQuanlify.add(feedback.getQuantityQualified()));
+        task.setQuantityUnquanlify(quantityUnquanlify.add(feedback.getQuantityUnquanlified()));
+        proTaskService.updateProTask(task);
+
+        //如果是最后一道工序，则更新当前工单的已生产数量
+
+
+        return AjaxResult.success();
+    }
+
 }

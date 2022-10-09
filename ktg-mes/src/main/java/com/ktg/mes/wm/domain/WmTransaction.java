@@ -164,6 +164,12 @@ public class WmTransaction extends BaseEntity
     @Excel(name = "库存有效期", width = 30, dateFormat = "yyyy-MM-dd")
     private Date expireDate;
 
+    /**
+     * 是否检查库存量
+     * 如果设置为True则库存不允许为负
+     */
+    private boolean storageCheckFlag;
+
     /** 预留字段1 */
     @Excel(name = "预留字段1")
     private String attr1;
@@ -530,6 +536,14 @@ public class WmTransaction extends BaseEntity
         return attr4;
     }
 
+    public boolean isStorageCheckFlag() {
+        return storageCheckFlag;
+    }
+
+    public void setStorageCheckFlag(boolean storageCheckFlag) {
+        this.storageCheckFlag = storageCheckFlag;
+    }
+
     @Override
     public String toString() {
         return "WmTransaction{" +
@@ -568,6 +582,7 @@ public class WmTransaction extends BaseEntity
                 ", workorderCode='" + workorderCode + '\'' +
                 ", recptDate=" + recptDate +
                 ", expireDate=" + expireDate +
+                ", storageCheckFlag=" + storageCheckFlag +
                 ", attr1='" + attr1 + '\'' +
                 ", attr2='" + attr2 + '\'' +
                 ", attr3=" + attr3 +

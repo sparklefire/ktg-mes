@@ -48,7 +48,7 @@ public class WmTransactionServiceImpl implements IWmTransactionService
         if(StringUtils.isNotNull(ms)){
             //MS已存在
             BigDecimal resultQuantity =ms.getQuantityOnhand().add(quantity);
-            if(resultQuantity.compareTo(new BigDecimal(0))<0){
+            if(wmTransaction.isStorageCheckFlag() && resultQuantity.compareTo(new BigDecimal(0))<0){
                 throw new BussinessException("库存数量不足！");
             }
             stock.setQuantityOnhand(resultQuantity);

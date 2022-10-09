@@ -33,7 +33,7 @@ public class StorageCoreServiceImpl implements IStorageCoreService {
     private IWmStorageAreaService wmStorageAreaService;
 
     /**
-     * 处理入库单行
+     * 采购入库
      * @param lines
      */
     @Override
@@ -182,6 +182,76 @@ public class StorageCoreServiceImpl implements IStorageCoreService {
     }
 
     /**
+     * 库存消耗
+     *
+     */
+    public void processItemConsume(List<ItemConsumeTxBean> lines){
+        if(CollUtil.isEmpty(lines)){
+            throw new BussinessException("没有需要处理的原料消耗单行");
+        }
+        String transactionType = UserConstants.TRANSACTION_TYPE_ITEM_CONSUME;
+        for(int i=0;i<lines.size();i++){
+            ItemConsumeTxBean line = lines.get(i);
+            WmTransaction transaction = new WmTransaction();
+            transaction.setTransactionType(transactionType);
+            BeanUtils.copyBeanProp(transaction,line);
+            transaction.setTransactionFlag(-1); //库存减少
+            transaction.setStorageCheckFlag(false);//库存可以为负
+            transaction.setTransactionDate(new Date());
+
+            WmWarehouse warehouse = wmWarehouseService.selectWmWarehouseByWarehouseCode(UserConstants.VIRTUAL_WH);
+            transaction.setWarehouseId(warehouse.getWarehouseId());
+            transaction.setWarehouseCode(warehouse.getWarehouseCode());
+            transaction.setWarehouseName(warehouse.getWarehouseName());
+            WmStorageLocation location = wmStorageLocationService.selectWmStorageLocationByLocationCode(UserConstants.VIRTUAL_WS);
+            transaction.setLocationId(location.getLocationId());
+            transaction.setLocationCode(location.getLocationCode());
+            transaction.setLocationName(location.getLocationName());
+            WmStorageArea area = wmStorageAreaService.selectWmStorageAreaByAreaCode(UserConstants.VIRTUAL_WA);
+            transaction.setAreaId(area.getAreaId());
+            transaction.setAreaCode(area.getAreaCode());
+            transaction.setAreaName(area.getAreaName());
+
+            wmTransactionService.processTransaction(transaction);
+        }
+    }
+
+    /**
+     * 产品产出
+     *
+     */
+    public void processProductProduce(List<ProductProductTxBean> lines){
+        if(CollUtil.isEmpty(lines)){
+            throw new BussinessException("没有需要处理的产品产出单行");
+        }
+        String transactionType = UserConstants.TRANSACTION_TYPE_PRODUCT_PRODUCE;
+        for(int i=0;i<lines.size();i++){
+            ProductProductTxBean line = lines.get(i);
+            WmTransaction transaction = new WmTransaction();
+            transaction.setTransactionType(transactionType);
+            BeanUtils.copyBeanProp(transaction,line);
+            transaction.setTransactionFlag(1); //库存增加
+            transaction.setTransactionDate(new Date());
+
+            WmWarehouse warehouse = wmWarehouseService.selectWmWarehouseByWarehouseCode(UserConstants.VIRTUAL_WH);
+            transaction.setWarehouseId(warehouse.getWarehouseId());
+            transaction.setWarehouseCode(warehouse.getWarehouseCode());
+            transaction.setWarehouseName(warehouse.getWarehouseName());
+            WmStorageLocation location = wmStorageLocationService.selectWmStorageLocationByLocationCode(UserConstants.VIRTUAL_WS);
+            transaction.setLocationId(location.getLocationId());
+            transaction.setLocationCode(location.getLocationCode());
+            transaction.setLocationName(location.getLocationName());
+            WmStorageArea area = wmStorageAreaService.selectWmStorageAreaByAreaCode(UserConstants.VIRTUAL_WA);
+            transaction.setAreaId(area.getAreaId());
+            transaction.setAreaCode(area.getAreaCode());
+            transaction.setAreaName(area.getAreaName());
+
+            wmTransactionService.processTransaction(transaction);
+        }
+    }
+
+
+    /**
      * 产品入库
      * @param lines
      */
@@ -216,6 +286,7 @@ public class StorageCoreServiceImpl implements IStorageCoreService {
             transaction_out.setAreaName(area.getAreaName());
 
             transaction_out.setTransactionFlag(-1);//库存减少
+            transaction_out.setStorageCheckFlag(false); //针对未及时报工的情况，允许线边库的库存临时为负
             wmTransactionService.processTransaction(transaction_out);
 
             //构造一条目的库存增加的事务
