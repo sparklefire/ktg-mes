@@ -900,6 +900,7 @@ create table wm_package (
   weight_unit           varchar(64)                                 comment '重量单位',
   inspector             varchar(64)                                 comment '检查员用户名',
   inspector_name        varchar(64)                                 comment '检查员名称',
+  status                varchar(64)     default 'PREPARE'           comment '状态',
   enable_flag           char(1)         default 'Y'                 comment '是否生效',
   remark                varchar(500)    default ''                  comment '备注',
   attr1                 varchar(64)     default null                comment '预留字段1',

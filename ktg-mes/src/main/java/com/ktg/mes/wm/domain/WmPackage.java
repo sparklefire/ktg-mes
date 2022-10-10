@@ -114,6 +114,9 @@ public class WmPackage extends BaseEntity
     @Excel(name = "是否生效")
     private String enableFlag;
 
+    /** 状态  */
+    private String status;
+
     /** 预留字段1 */
     private String attr1;
 
@@ -342,7 +345,16 @@ public class WmPackage extends BaseEntity
     {
         return enableFlag;
     }
-    public void setAttr1(String attr1) 
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setAttr1(String attr1)
     {
         this.attr1 = attr1;
     }
@@ -381,40 +393,36 @@ public class WmPackage extends BaseEntity
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("packageId", getPackageId())
-            .append("parentId", getParentId())
-            .append("ancestors", getAncestors())
-            .append("packageCode", getPackageCode())
-            .append("barcodeId", getBarcodeId())
-            .append("barcodeContent", getBarcodeContent())
-            .append("barcodeUrl", getBarcodeUrl())
-            .append("packageDate", getPackageDate())
-            .append("soCode", getSoCode())
-            .append("invoiceCode", getInvoiceCode())
-            .append("clientId", getClientId())
-            .append("clientCode", getClientCode())
-            .append("clientName", getClientName())
-            .append("clientNick", getClientNick())
-            .append("packageLength", getPackageLength())
-            .append("packageWidth", getPackageWidth())
-            .append("packageHeight", getPackageHeight())
-            .append("sizeUnit", getSizeUnit())
-            .append("netWeight", getNetWeight())
-            .append("crossWeight", getCrossWeight())
-            .append("weightUnit", getWeightUnit())
-            .append("inspector", getInspector())
-            .append("inspectorName", getInspectorName())
-            .append("enableFlag", getEnableFlag())
-            .append("remark", getRemark())
-            .append("attr1", getAttr1())
-            .append("attr2", getAttr2())
-            .append("attr3", getAttr3())
-            .append("attr4", getAttr4())
-            .append("createBy", getCreateBy())
-            .append("createTime", getCreateTime())
-            .append("updateBy", getUpdateBy())
-            .append("updateTime", getUpdateTime())
-            .toString();
+        return "WmPackage{" +
+                "packageId=" + packageId +
+                ", parentId=" + parentId +
+                ", ancestors='" + ancestors + '\'' +
+                ", packageCode='" + packageCode + '\'' +
+                ", barcodeId=" + barcodeId +
+                ", barcodeContent='" + barcodeContent + '\'' +
+                ", barcodeUrl='" + barcodeUrl + '\'' +
+                ", packageDate=" + packageDate +
+                ", soCode='" + soCode + '\'' +
+                ", invoiceCode='" + invoiceCode + '\'' +
+                ", clientId=" + clientId +
+                ", clientCode='" + clientCode + '\'' +
+                ", clientName='" + clientName + '\'' +
+                ", clientNick='" + clientNick + '\'' +
+                ", packageLength=" + packageLength +
+                ", packageWidth=" + packageWidth +
+                ", packageHeight=" + packageHeight +
+                ", sizeUnit='" + sizeUnit + '\'' +
+                ", netWeight=" + netWeight +
+                ", crossWeight=" + crossWeight +
+                ", weightUnit='" + weightUnit + '\'' +
+                ", inspector='" + inspector + '\'' +
+                ", inspectorName='" + inspectorName + '\'' +
+                ", enableFlag='" + enableFlag + '\'' +
+                ", status='" + status + '\'' +
+                ", attr1='" + attr1 + '\'' +
+                ", attr2='" + attr2 + '\'' +
+                ", attr3=" + attr3 +
+                ", attr4=" + attr4 +
+                '}';
     }
 }

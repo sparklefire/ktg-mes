@@ -28,6 +28,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="weightUnit"    column="weight_unit"    />
         <result property="inspector"    column="inspector"    />
         <result property="inspectorName"    column="inspector_name"    />
+        <result property="status" column="status"></result>
         <result property="enableFlag"    column="enable_flag"    />
         <result property="remark"    column="remark"    />
         <result property="attr1"    column="attr1"    />
@@ -41,7 +42,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectWmPackageVo">
-        select package_id, parent_id, ancestors, package_code, barcode_id, barcode_content, barcode_url, package_date, so_code, invoice_code, client_id, client_code, client_name, client_nick, package_length, package_width, package_height, size_unit, net_weight, cross_weight, weight_unit, inspector, inspector_name, enable_flag, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from wm_package
+        select package_id, parent_id, ancestors, package_code, barcode_id, barcode_content, barcode_url, package_date, so_code, invoice_code, client_id, client_code, client_name, client_nick, package_length, package_width, package_height, size_unit, net_weight, cross_weight, weight_unit, inspector, inspector_name, enable_flag, status,remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from wm_package
     </sql>
 
     <select id="selectWmPackageList" parameterType="WmPackage" resultMap="WmPackageResult">
@@ -70,6 +71,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="inspector != null  and inspector != ''"> and inspector = #{inspector}</if>
             <if test="inspectorName != null  and inspectorName != ''"> and inspector_name like concat('%', #{inspectorName}, '%')</if>
             <if test="enableFlag != null  and enableFlag != ''"> and enable_flag = #{enableFlag}</if>
+            <if test="status !=null and status !=''"> and status = #{status}</if>
+
         </where>
     </select>
     
@@ -109,6 +112,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="inspector != null">inspector,</if>
             <if test="inspectorName != null">inspector_name,</if>
             <if test="enableFlag != null">enable_flag,</if>
+            <if test="status !=null">status,</if>
             <if test="remark != null">remark,</if>
             <if test="attr1 != null">attr1,</if>
             <if test="attr2 != null">attr2,</if>
@@ -143,6 +147,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="inspector != null">#{inspector},</if>
             <if test="inspectorName != null">#{inspectorName},</if>
             <if test="enableFlag != null">#{enableFlag},</if>
+            <if test="status !=null">#{status},</if>
             <if test="remark != null">#{remark},</if>
             <if test="attr1 != null">#{attr1},</if>
             <if test="attr2 != null">#{attr2},</if>
@@ -181,6 +186,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="inspector != null">inspector = #{inspector},</if>
             <if test="inspectorName != null">inspector_name = #{inspectorName},</if>
             <if test="enableFlag != null">enable_flag = #{enableFlag},</if>
+            <if test="status !=null">status = #{status},</if>
             <if test="remark != null">remark = #{remark},</if>
             <if test="attr1 != null">attr1 = #{attr1},</if>
             <if test="attr2 != null">attr2 = #{attr2},</if>
