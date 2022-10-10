@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ktg.mes.wm.mapper.WmPackageMapper">
+    
+    <resultMap type="WmPackage" id="WmPackageResult">
+        <result property="packageId"    column="package_id"    />
+        <result property="parentId"    column="parent_id"    />
+        <result property="ancestors"    column="ancestors"    />
+        <result property="packageCode"    column="package_code"    />
+        <result property="barcodeId"    column="barcode_id"    />
+        <result property="barcodeContent"    column="barcode_content"    />
+        <result property="barcodeUrl"    column="barcode_url"    />
+        <result property="packageDate"    column="package_date"    />
+        <result property="soCode"    column="so_code"    />
+        <result property="invoiceCode"    column="invoice_code"    />
+        <result property="clientId"    column="client_id"    />
+        <result property="clientCode"    column="client_code"    />
+        <result property="clientName"    column="client_name"    />
+        <result property="clientNick"    column="client_nick"    />
+        <result property="packageLength"    column="package_length"    />
+        <result property="packageWidth"    column="package_width"    />
+        <result property="packageHeight"    column="package_height"    />
+        <result property="sizeUnit"    column="size_unit"    />
+        <result property="netWeight"    column="net_weight"    />
+        <result property="crossWeight"    column="cross_weight"    />
+        <result property="weightUnit"    column="weight_unit"    />
+        <result property="inspector"    column="inspector"    />
+        <result property="inspectorName"    column="inspector_name"    />
+        <result property="enableFlag"    column="enable_flag"    />
+        <result property="remark"    column="remark"    />
+        <result property="attr1"    column="attr1"    />
+        <result property="attr2"    column="attr2"    />
+        <result property="attr3"    column="attr3"    />
+        <result property="attr4"    column="attr4"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectWmPackageVo">
+        select package_id, parent_id, ancestors, package_code, barcode_id, barcode_content, barcode_url, package_date, so_code, invoice_code, client_id, client_code, client_name, client_nick, package_length, package_width, package_height, size_unit, net_weight, cross_weight, weight_unit, inspector, inspector_name, enable_flag, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from wm_package
+    </sql>
+
+    <select id="selectWmPackageList" parameterType="WmPackage" resultMap="WmPackageResult">
+        <include refid="selectWmPackageVo"/>
+        <where>  
+            <if test="parentId != null "> and parent_id = #{parentId}</if>
+            <if test="ancestors != null  and ancestors != ''"> and ancestors = #{ancestors}</if>
+            <if test="packageCode != null  and packageCode != ''"> and package_code = #{packageCode}</if>
+            <if test="barcodeId != null "> and barcode_id = #{barcodeId}</if>
+            <if test="barcodeContent != null  and barcodeContent != ''"> and barcode_content = #{barcodeContent}</if>
+            <if test="barcodeUrl != null  and barcodeUrl != ''"> and barcode_url = #{barcodeUrl}</if>
+            <if test="packageDate != null "> and package_date = #{packageDate}</if>
+            <if test="soCode != null  and soCode != ''"> and so_code = #{soCode}</if>
+            <if test="invoiceCode != null  and invoiceCode != ''"> and invoice_code = #{invoiceCode}</if>
+            <if test="clientId != null "> and client_id = #{clientId}</if>
+            <if test="clientCode != null  and clientCode != ''"> and client_code = #{clientCode}</if>
+            <if test="clientName != null  and clientName != ''"> and client_name like concat('%', #{clientName}, '%')</if>
+            <if test="clientNick != null  and clientNick != ''"> and client_nick = #{clientNick}</if>
+            <if test="packageLength != null "> and package_length = #{packageLength}</if>
+            <if test="packageWidth != null "> and package_width = #{packageWidth}</if>
+            <if test="packageHeight != null "> and package_height = #{packageHeight}</if>
+            <if test="sizeUnit != null  and sizeUnit != ''"> and size_unit = #{sizeUnit}</if>
+            <if test="netWeight != null "> and net_weight = #{netWeight}</if>
+            <if test="crossWeight != null "> and cross_weight = #{crossWeight}</if>
+            <if test="weightUnit != null  and weightUnit != ''"> and weight_unit = #{weightUnit}</if>
+            <if test="inspector != null  and inspector != ''"> and inspector = #{inspector}</if>
+            <if test="inspectorName != null  and inspectorName != ''"> and inspector_name like concat('%', #{inspectorName}, '%')</if>
+            <if test="enableFlag != null  and enableFlag != ''"> and enable_flag = #{enableFlag}</if>
+        </where>
+    </select>
+    
+    <select id="selectWmPackageByPackageId" parameterType="Long" resultMap="WmPackageResult">
+        <include refid="selectWmPackageVo"/>
+        where package_id = #{packageId}
+    </select>
+
+    <select id="checkPackgeCodeUnique" parameterType="WmPackage" resultMap="WmPackageResult">
+        <include refid="selectWmPackageVo"/>
+        where package_code = #{packageCode}
+    </select>
+
+    <insert id="insertWmPackage" parameterType="WmPackage" useGeneratedKeys="true" keyProperty="packageId">
+        insert into wm_package
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="parentId != null">parent_id,</if>
+            <if test="ancestors != null and ancestors != ''">ancestors,</if>
+            <if test="packageCode != null">package_code,</if>
+            <if test="barcodeId != null">barcode_id,</if>
+            <if test="barcodeContent != null">barcode_content,</if>
+            <if test="barcodeUrl != null">barcode_url,</if>
+            <if test="packageDate != null">package_date,</if>
+            <if test="soCode != null">so_code,</if>
+            <if test="invoiceCode != null">invoice_code,</if>
+            <if test="clientId != null">client_id,</if>
+            <if test="clientCode != null">client_code,</if>
+            <if test="clientName != null">client_name,</if>
+            <if test="clientNick != null">client_nick,</if>
+            <if test="packageLength != null">package_length,</if>
+            <if test="packageWidth != null">package_width,</if>
+            <if test="packageHeight != null">package_height,</if>
+            <if test="sizeUnit != null">size_unit,</if>
+            <if test="netWeight != null">net_weight,</if>
+            <if test="crossWeight != null">cross_weight,</if>
+            <if test="weightUnit != null">weight_unit,</if>
+            <if test="inspector != null">inspector,</if>
+            <if test="inspectorName != null">inspector_name,</if>
+            <if test="enableFlag != null">enable_flag,</if>
+            <if test="remark != null">remark,</if>
+            <if test="attr1 != null">attr1,</if>
+            <if test="attr2 != null">attr2,</if>
+            <if test="attr3 != null">attr3,</if>
+            <if test="attr4 != null">attr4,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="parentId != null">#{parentId},</if>
+            <if test="ancestors != null and ancestors != ''">#{ancestors},</if>
+            <if test="packageCode != null">#{packageCode},</if>
+            <if test="barcodeId != null">#{barcodeId},</if>
+            <if test="barcodeContent != null">#{barcodeContent},</if>
+            <if test="barcodeUrl != null">#{barcodeUrl},</if>
+            <if test="packageDate != null">#{packageDate},</if>
+            <if test="soCode != null">#{soCode},</if>
+            <if test="invoiceCode != null">#{invoiceCode},</if>
+            <if test="clientId != null">#{clientId},</if>
+            <if test="clientCode != null">#{clientCode},</if>
+            <if test="clientName != null">#{clientName},</if>
+            <if test="clientNick != null">#{clientNick},</if>
+            <if test="packageLength != null">#{packageLength},</if>
+            <if test="packageWidth != null">#{packageWidth},</if>
+            <if test="packageHeight != null">#{packageHeight},</if>
+            <if test="sizeUnit != null">#{sizeUnit},</if>
+            <if test="netWeight != null">#{netWeight},</if>
+            <if test="crossWeight != null">#{crossWeight},</if>
+            <if test="weightUnit != null">#{weightUnit},</if>
+            <if test="inspector != null">#{inspector},</if>
+            <if test="inspectorName != null">#{inspectorName},</if>
+            <if test="enableFlag != null">#{enableFlag},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="attr1 != null">#{attr1},</if>
+            <if test="attr2 != null">#{attr2},</if>
+            <if test="attr3 != null">#{attr3},</if>
+            <if test="attr4 != null">#{attr4},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateWmPackage" parameterType="WmPackage">
+        update wm_package
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="parentId != null">parent_id = #{parentId},</if>
+            <if test="ancestors != null and ancestors != ''">ancestors = #{ancestors},</if>
+            <if test="packageCode != null">package_code = #{packageCode},</if>
+            <if test="barcodeId != null">barcode_id = #{barcodeId},</if>
+            <if test="barcodeContent != null">barcode_content = #{barcodeContent},</if>
+            <if test="barcodeUrl != null">barcode_url = #{barcodeUrl},</if>
+            <if test="packageDate != null">package_date = #{packageDate},</if>
+            <if test="soCode != null">so_code = #{soCode},</if>
+            <if test="invoiceCode != null">invoice_code = #{invoiceCode},</if>
+            <if test="clientId != null">client_id = #{clientId},</if>
+            <if test="clientCode != null">client_code = #{clientCode},</if>
+            <if test="clientName != null">client_name = #{clientName},</if>
+            <if test="clientNick != null">client_nick = #{clientNick},</if>
+            <if test="packageLength != null">package_length = #{packageLength},</if>
+            <if test="packageWidth != null">package_width = #{packageWidth},</if>
+            <if test="packageHeight != null">package_height = #{packageHeight},</if>
+            <if test="sizeUnit != null">size_unit = #{sizeUnit},</if>
+            <if test="netWeight != null">net_weight = #{netWeight},</if>
+            <if test="crossWeight != null">cross_weight = #{crossWeight},</if>
+            <if test="weightUnit != null">weight_unit = #{weightUnit},</if>
+            <if test="inspector != null">inspector = #{inspector},</if>
+            <if test="inspectorName != null">inspector_name = #{inspectorName},</if>
+            <if test="enableFlag != null">enable_flag = #{enableFlag},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="attr1 != null">attr1 = #{attr1},</if>
+            <if test="attr2 != null">attr2 = #{attr2},</if>
+            <if test="attr3 != null">attr3 = #{attr3},</if>
+            <if test="attr4 != null">attr4 = #{attr4},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where package_id = #{packageId}
+    </update>
+
+    <delete id="deleteWmPackageByPackageId" parameterType="Long">
+        delete from wm_package where package_id = #{packageId}
+    </delete>
+
+    <delete id="deleteWmPackageByPackageIds" parameterType="String">
+        delete from wm_package where package_id in 
+        <foreach item="packageId" collection="array" open="(" separator="," close=")">
+            #{packageId}
+        </foreach>
+    </delete>
+</mapper>
