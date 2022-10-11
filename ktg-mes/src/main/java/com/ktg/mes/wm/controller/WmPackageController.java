@@ -4,6 +4,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ktg.common.constant.UserConstants;
+import com.ktg.common.utils.StringUtils;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -82,6 +83,13 @@ public class WmPackageController extends BaseController
         if(UserConstants.NOT_UNIQUE.equals(wmPackageService.checkPackgeCodeUnique(wmPackage))){
             return AjaxResult.error("装箱单编号已存在!");
         }
+        if(wmPackage.getParentId() !=null){
+            WmPackage parentPackage = wmPackageService.selectWmPackageByPackageId(wmPackage.getParentId());
+            if(StringUtils.isNotNull(parentPackage)){
+                wmPackage.setAncestors(parentPackage.getAncestors()+","+parentPackage.getPackageId());
+            }
+        }
+
         return toAjax(wmPackageService.insertWmPackage(wmPackage));
     }
 
@@ -98,6 +106,34 @@ public class WmPackageController extends BaseController
         }
         return toAjax(wmPackageService.updateWmPackage(wmPackage));
     }
+
+    /**
+     * 添加子箱
+     */
+    @PreAuthorize("@ss.hasPermi('mes:wm:package:edit')")
+    @Log(title = "装箱单", businessType = BusinessType.UPDATE)
+    @PutMapping("/addsub")
+    public AjaxResult addSubPackage(@RequestBody WmPackage wmPackage){
+        //不能添加自己
+        if(wmPackage.getPackageId().longValue() == wmPackage.getParentId().longValue()){
+            return AjaxResult.error("不能添加自己为子箱！");
+        }
+
+        //已经有父箱的不能再次添加
+        WmPackage subPackage = wmPackageService.selectWmPackageByPackageId(wmPackage.getPackageId());
+        if(!"0".equals(subPackage.getAncestors())){
+            return AjaxResult.error("当前子箱已经有外箱包装！");
+        }
+
+        //更新当前子箱的父箱列表
+        WmPackage parentPackage = wmPackageService.selectWmPackageByPackageId(wmPackage.getParentId());
+        if(StringUtils.isNotNull(parentPackage)){
+            wmPackage.setAncestors(parentPackage.getAncestors()+","+parentPackage.getPackageId());
+        }
+
+        return toAjax(wmPackageService.updateWmPackage(wmPackage));
+    }
+
 
     /**
      * 删除装箱单

@@ -879,7 +879,7 @@ drop table if exists wm_package;
 create table wm_package (
   package_id            bigint(20)      not null auto_increment     comment '装箱单ID',
   parent_id             bigint(20)      not null default 0          comment '父箱ID',
-  ancestors             varchar(255)    not null                    comment '所有父节点ID',
+  ancestors             varchar(255)    not null default 0          comment '所有父节点ID',
   package_code          varchar(64)                                 comment '装箱单编号',
   barcode_id            bigint(20)                                  comment '条码ID',
   barcode_content       varchar(255)                                comment '条码内容',
