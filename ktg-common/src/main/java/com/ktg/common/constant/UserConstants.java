@@ -184,4 +184,12 @@ public class UserConstants
     public static  final String VIRTUAL_WS ="XBKKQ_VIRTUAL";
     public static  final String VIRTUAL_WA ="XBKKW_VIRTUAL";
 
+    /**
+     * 条码类型
+     */
+    public static final String QR_CODE = "QR_CODE";
+    public static final String EAN_CODE = "EAN_CODE";
+    public static final String UPC_CODE = "UPC_CODE";
+    public static final String CODE39_CODE = "CODE39_CODE";
+
 }

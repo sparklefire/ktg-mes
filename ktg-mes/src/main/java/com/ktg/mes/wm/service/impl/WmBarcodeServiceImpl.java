@@ -116,7 +116,8 @@ public class WmBarcodeServiceImpl implements IWmBarcodeService
 
     @Override
     public String generateBarcode(WmBarcode wmBarcode) {
-        File buf = BarcodeUtil.generateFile(wmBarcode.getBarcodeContent(),"./tmp/barcode/"+wmBarcode.getBarcodeContent()+".png");
+        File buf = BarcodeUtil.generateBarCode(wmBarcode.getBarcodeContent(), wmBarcode.getBarcodeFormart(),
+                "./tmp/barcode/" + wmBarcode.getBarcodeContent() + ".png");
         MultipartFile file = FileUtils.getMultipartFile(buf);
         String fileName = null;
         try {
@@ -124,6 +125,11 @@ public class WmBarcodeServiceImpl implements IWmBarcodeService
         } catch (IOException e) {
             e.printStackTrace();
             return null;
+        }finally{
+            //删除掉临时文件
+            if(buf!=null && buf.exists()){
+                FileUtils.deleteFile(buf.getAbsolutePath());
+            }
         }
         return fileName;
     }
