@@ -144,10 +144,17 @@
             <version>2.0</version>
         </dependency>
 
+        <!-- 二维码 -->
         <dependency>
             <groupId>com.google.zxing</groupId>
             <artifactId>core</artifactId>
             <version>3.3.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.bstek.ureport</groupId>
+            <artifactId>ureport2-console</artifactId>
+            <version>2.2.9</version>
         </dependency>
 
     </dependencies>

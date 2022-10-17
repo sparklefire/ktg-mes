@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ktg.mes.report.mapper.UreportFileMapper">
+
+    <resultMap type="UreportFileEntity" id="ureportFile">
+        <id column="id_" jdbcType="BIGINT" property="id"/>
+        <result column="name_" jdbcType="VARCHAR" property="name"/>
+        <result column="content_" jdbcType="BLOB" property="content"/>
+        <result column="create_time_" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time_" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+
+    <select id="checkExistByName" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select count(*) from ureport_file_tbl where name_ = #{name}
+	</select>
+
+    <select id="queryReportFileList" resultMap="ureportFile">
+		select * from ureport_file_tbl
+	</select>
+
+    <select id="queryUreportFileEntityByName" resultMap="ureportFile">
+		select * from ureport_file_tbl where name_ = #{name}
+	</select>
+
+    <delete id="deleteReportFileByName" parameterType="java.lang.String">
+		delete from ureport_file_tbl where name_ = #{name}
+	</delete>
+
+    <insert id="insertReportFile" parameterType="UreportFileEntity">
+		insert into ureport_file_tbl (name_, content_, create_time_, update_time_) values
+		 (#{name}, #{content}, #{createTime}, #{updateTime})
+	</insert>
+
+
+    <update id="updateReportFile" parameterType="UreportFileEntity">
+		update ureport_file_tbl set
+			name_ = #{name} ,
+			content_ = #{content},
+			create_time_ = #{createTime},
+			update_time_ = #{updateTime}
+		    where  id_ = #{id}
+	</update>
+
+</mapper>
