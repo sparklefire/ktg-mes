@@ -29,9 +29,9 @@
 
 - 第一版售前PPT请查看doc->售前资料->《苦糖果MES系统产品介绍（A4横板）.pptx》
 
-欢迎交流沟通：
+欢迎交流沟通：QQ：411641505
 
-QQ：411641505
+支持作者请Star
 
 ### 系统架构
 
@@ -88,6 +88,8 @@ PC端：
 - 设备管理
 
 - 统计报表
+
+  ![](https://gitee.com/kutangguo/ktg-mes/raw/master/doc/%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/%E5%8E%9F%E5%9E%8B%E8%AE%BE%E8%AE%A1/%E6%88%AA%E5%9B%BE/%E6%8A%A5%E8%A1%A8%E8%AE%BE%E8%AE%A1.png)
 
 - 大屏展示
 
