@@ -58,4 +58,13 @@ public interface IWmBarcodeConfigService
      * @return 结果
      */
     public int deleteWmBarcodeConfigByConfigId(Long configId);
+
+
+    /**
+     * 判断某种类型的业务是否需要自动生成赋码
+     * @param barcodeType
+     * @return
+     */
+    public boolean isAutoGen(String barcodeType);
+
 }

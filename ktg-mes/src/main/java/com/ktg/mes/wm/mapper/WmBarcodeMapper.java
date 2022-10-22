@@ -1,7 +1,8 @@
 package com.ktg.mes.wm.mapper;
 
-import java.util.List;
 import com.ktg.mes.wm.domain.WmBarcode;
+
+import java.util.List;
 
 /**
  * 条码清单Mapper接口

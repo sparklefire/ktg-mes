@@ -1,12 +1,15 @@
 package com.ktg.mes.wm.service.impl;
 
 import java.util.List;
+
+import com.ktg.common.constant.UserConstants;
 import com.ktg.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ktg.mes.wm.mapper.WmBarcodeConfigMapper;
 import com.ktg.mes.wm.domain.WmBarcodeConfig;
 import com.ktg.mes.wm.service.IWmBarcodeConfigService;
+import org.springframework.util.CollectionUtils;
 
 /**
  * 条码配置Service业务层处理
@@ -92,5 +95,21 @@ public class WmBarcodeConfigServiceImpl implements IWmBarcodeConfigService
     public int deleteWmBarcodeConfigByConfigId(Long configId)
     {
         return wmBarcodeConfigMapper.deleteWmBarcodeConfigByConfigId(configId);
+    }
+
+    /**
+     * 判断某种类型的业务是否需要自动生成赋码
+     * @param barcodeType
+     * @return
+     */
+    @Override
+    public boolean isAutoGen(String barcodeType) {
+        WmBarcodeConfig param = new WmBarcodeConfig();
+        param.setBarcodeType(barcodeType);
+        List<WmBarcodeConfig> configs = wmBarcodeConfigMapper.selectWmBarcodeConfigList(param);
+        if(!CollectionUtils.isEmpty(configs)){
+            return configs.get(0).getAutoGenFlag() == UserConstants.YES ?true:false;
+        }
+        return false;
     }
 }

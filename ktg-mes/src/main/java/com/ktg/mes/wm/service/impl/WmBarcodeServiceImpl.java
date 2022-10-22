@@ -1,22 +1,21 @@
 package com.ktg.mes.wm.service.impl;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
-
 import com.ktg.common.constant.UserConstants;
-import com.ktg.common.core.domain.AjaxResult;
 import com.ktg.common.utils.DateUtils;
 import com.ktg.common.utils.StringUtils;
 import com.ktg.common.utils.barcode.BarcodeUtil;
 import com.ktg.common.utils.file.FileUploadUtils;
 import com.ktg.common.utils.file.FileUtils;
+import com.ktg.mes.wm.domain.WmBarcode;
+import com.ktg.mes.wm.mapper.WmBarcodeMapper;
+import com.ktg.mes.wm.service.IWmBarcodeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.ktg.mes.wm.mapper.WmBarcodeMapper;
-import com.ktg.mes.wm.domain.WmBarcode;
-import com.ktg.mes.wm.service.IWmBarcodeService;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
 
 /**
  * 条码清单Service业务层处理
@@ -116,8 +115,8 @@ public class WmBarcodeServiceImpl implements IWmBarcodeService
 
     @Override
     public String generateBarcode(WmBarcode wmBarcode) {
-        File buf = BarcodeUtil.generateBarCode(wmBarcode.getBarcodeContent(), wmBarcode.getBarcodeFormart(),
-                "./tmp/barcode/" + wmBarcode.getBarcodeContent() + ".png");
+		File buf = BarcodeUtil.generateBarCode(wmBarcode.getBarcodeContent(), wmBarcode.getBarcodeFormart(),
+				"./tmp/barcode/" + wmBarcode.getBarcodeContent() + ".png");
         MultipartFile file = FileUtils.getMultipartFile(buf);
         String fileName = null;
         try {
@@ -126,10 +125,10 @@ public class WmBarcodeServiceImpl implements IWmBarcodeService
             e.printStackTrace();
             return null;
         }finally{
-            //删除掉临时文件
-            if(buf!=null && buf.exists()){
-                FileUtils.deleteFile(buf.getAbsolutePath());
-            }
+        	//删除掉临时文件
+        	if(buf!=null && buf.exists()){
+        		FileUtils.deleteFile(buf.getAbsolutePath());
+        	}
         }
         return fileName;
     }
