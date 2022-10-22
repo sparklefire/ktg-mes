@@ -666,6 +666,9 @@ create table wm_product_recpt_line (
   specification         varchar(500)                                comment '规格型号',
   unit_of_measure       varchar(64)                                 comment '单位',
   quantity_recived      double(12,2)    not null                    comment '入库数量',
+  workorder_id          bigint(20)                                  comment '生产工单ID',
+  workorder_code        varchar(64)                                 comment '生产工单编码', 
+  workorder_name        varchar(255)                                comment '生产工单名称',
   batch_code            varchar(255)                                comment '批次号',
   warehouse_id          bigint(20)                                  comment '仓库ID',
   warehouse_code        varchar(64)                                 comment '仓库编码',
@@ -870,6 +873,34 @@ create table wm_barcode (
   update_time           datetime                                    comment '更新时间',
   primary key (barcode_id)
 ) engine=innodb auto_increment=200 comment = '条码清单表';
+
+
+
+
+-- ----------------------------
+-- 18、条码配置
+-- ----------------------------
+drop table if exists wm_barcode_config;
+create table wm_barcode_config (
+  config_id             bigint(20)      not null auto_increment     comment '配置ID',
+  barcode_formart       varchar(64)     not null                    comment '条码格式',
+  barcode_type          varchar(64)     not null                    comment '条码类型',
+  content_formart       varchar(255)    not null                    comment '内容格式',
+  content_example       varchar(255)                                comment '内容样例',
+  auto_gen_flag         char(1)         default 'Y'                 comment '是否自动生成',
+  enable_flag           char(1)         default 'Y'                 comment '是否生效',
+  remark                varchar(500)    default ''                  comment '备注',
+  attr1                 varchar(64)     default null                comment '预留字段1',
+  attr2                 varchar(255)    default null                comment '预留字段2',
+  attr3                 int(11)         default 0                   comment '预留字段3',
+  attr4                 int(11)         default 0                   comment '预留字段4',
+  create_by             varchar(64)     default ''                  comment '创建者',
+  create_time           datetime                                    comment '创建时间',
+  update_by             varchar(64)     default ''                  comment '更新者',
+  update_time           datetime                                    comment '更新时间',
+  primary key (config_id)
+) engine=innodb auto_increment=200 comment = '条码配置';
+
 
 
 -- ----------------------------

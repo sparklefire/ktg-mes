@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ktg.mes.wm.mapper.WmBarcodeConfigMapper">
+    
+    <resultMap type="WmBarcodeConfig" id="WmBarcodeConfigResult">
+        <result property="configId"    column="config_id"    />
+        <result property="barcodeFormart"    column="barcode_formart"    />
+        <result property="barcodeType"    column="barcode_type"    />
+        <result property="contentFormart"    column="content_formart"    />
+        <result property="contentExample"    column="content_example"    />
+        <result property="autoGenFlag"    column="auto_gen_flag"    />
+        <result property="enableFlag"    column="enable_flag"    />
+        <result property="remark"    column="remark"    />
+        <result property="attr1"    column="attr1"    />
+        <result property="attr2"    column="attr2"    />
+        <result property="attr3"    column="attr3"    />
+        <result property="attr4"    column="attr4"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectWmBarcodeConfigVo">
+        select config_id, barcode_formart, barcode_type, content_formart, content_example, auto_gen_flag, enable_flag, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from wm_barcode_config
+    </sql>
+
+    <select id="selectWmBarcodeConfigList" parameterType="WmBarcodeConfig" resultMap="WmBarcodeConfigResult">
+        <include refid="selectWmBarcodeConfigVo"/>
+        <where>  
+            <if test="barcodeFormart != null  and barcodeFormart != ''"> and barcode_formart = #{barcodeFormart}</if>
+            <if test="barcodeType != null  and barcodeType != ''"> and barcode_type = #{barcodeType}</if>
+            <if test="contentFormart != null  and contentFormart != ''"> and content_formart = #{contentFormart}</if>
+            <if test="contentExample != null  and contentExample != ''"> and content_example = #{contentExample}</if>
+            <if test="autoGenFlag != null  and autoGenFlag != ''"> and auto_gen_flag = #{autoGenFlag}</if>
+            <if test="enableFlag != null  and enableFlag != ''"> and enable_flag = #{enableFlag}</if>
+            <if test="attr1 != null  and attr1 != ''"> and attr1 = #{attr1}</if>
+            <if test="attr2 != null  and attr2 != ''"> and attr2 = #{attr2}</if>
+            <if test="attr3 != null "> and attr3 = #{attr3}</if>
+            <if test="attr4 != null "> and attr4 = #{attr4}</if>
+        </where>
+    </select>
+    
+    <select id="selectWmBarcodeConfigByConfigId" parameterType="Long" resultMap="WmBarcodeConfigResult">
+        <include refid="selectWmBarcodeConfigVo"/>
+        where config_id = #{configId}
+    </select>
+        
+    <insert id="insertWmBarcodeConfig" parameterType="WmBarcodeConfig" useGeneratedKeys="true" keyProperty="configId">
+        insert into wm_barcode_config
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="barcodeFormart != null and barcodeFormart != ''">barcode_formart,</if>
+            <if test="barcodeType != null and barcodeType != ''">barcode_type,</if>
+            <if test="contentFormart != null and contentFormart != ''">content_formart,</if>
+            <if test="contentExample != null">content_example,</if>
+            <if test="autoGenFlag != null">auto_gen_flag,</if>
+            <if test="enableFlag != null">enable_flag,</if>
+            <if test="remark != null">remark,</if>
+            <if test="attr1 != null">attr1,</if>
+            <if test="attr2 != null">attr2,</if>
+            <if test="attr3 != null">attr3,</if>
+            <if test="attr4 != null">attr4,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="barcodeFormart != null and barcodeFormart != ''">#{barcodeFormart},</if>
+            <if test="barcodeType != null and barcodeType != ''">#{barcodeType},</if>
+            <if test="contentFormart != null and contentFormart != ''">#{contentFormart},</if>
+            <if test="contentExample != null">#{contentExample},</if>
+            <if test="autoGenFlag != null">#{autoGenFlag},</if>
+            <if test="enableFlag != null">#{enableFlag},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="attr1 != null">#{attr1},</if>
+            <if test="attr2 != null">#{attr2},</if>
+            <if test="attr3 != null">#{attr3},</if>
+            <if test="attr4 != null">#{attr4},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateWmBarcodeConfig" parameterType="WmBarcodeConfig">
+        update wm_barcode_config
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="barcodeFormart != null and barcodeFormart != ''">barcode_formart = #{barcodeFormart},</if>
+            <if test="barcodeType != null and barcodeType != ''">barcode_type = #{barcodeType},</if>
+            <if test="contentFormart != null and contentFormart != ''">content_formart = #{contentFormart},</if>
+            <if test="contentExample != null">content_example = #{contentExample},</if>
+            <if test="autoGenFlag != null">auto_gen_flag = #{autoGenFlag},</if>
+            <if test="enableFlag != null">enable_flag = #{enableFlag},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="attr1 != null">attr1 = #{attr1},</if>
+            <if test="attr2 != null">attr2 = #{attr2},</if>
+            <if test="attr3 != null">attr3 = #{attr3},</if>
+            <if test="attr4 != null">attr4 = #{attr4},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where config_id = #{configId}
+    </update>
+
+    <delete id="deleteWmBarcodeConfigByConfigId" parameterType="Long">
+        delete from wm_barcode_config where config_id = #{configId}
+    </delete>
+
+    <delete id="deleteWmBarcodeConfigByConfigIds" parameterType="String">
+        delete from wm_barcode_config where config_id in 
+        <foreach item="configId" collection="array" open="(" separator="," close=")">
+            #{configId}
+        </foreach>
+    </delete>
+</mapper>
