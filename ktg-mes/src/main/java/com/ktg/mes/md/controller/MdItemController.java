@@ -1,5 +1,6 @@
 package com.ktg.mes.md.controller;
 
+import com.ktg.mes.aspect.BarcodeGen;
 import com.ktg.mes.md.service.IMdItemService;
 import com.ktg.common.annotation.Log;
 import com.ktg.common.constant.UserConstants;
@@ -59,6 +60,7 @@ public class MdItemController extends BaseController {
      */
     @PreAuthorize("@ss.hasPermi('mes:md:mditem:add')")
     @Log(title = "物料管理",businessType = BusinessType.INSERT)
+    @BarcodeGen(barcodeType = UserConstants.BARCODE_TYPE_ITEM)
     @PostMapping
     public AjaxResult add(@Validated @RequestBody MdItem mdItem){
         if(UserConstants.NOT_UNIQUE.equals(mdItemService.checkItemCodeUnique(mdItem))){

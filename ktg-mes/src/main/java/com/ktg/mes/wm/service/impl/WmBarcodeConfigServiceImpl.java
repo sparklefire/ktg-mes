@@ -108,7 +108,7 @@ public class WmBarcodeConfigServiceImpl implements IWmBarcodeConfigService
         param.setBarcodeType(barcodeType);
         List<WmBarcodeConfig> configs = wmBarcodeConfigMapper.selectWmBarcodeConfigList(param);
         if(!CollectionUtils.isEmpty(configs)){
-            return configs.get(0).getAutoGenFlag() == UserConstants.YES ?true:false;
+            return UserConstants.YES.equals(configs.get(0).getAutoGenFlag())?true:false;
         }
         return false;
     }

@@ -185,11 +185,21 @@ public class UserConstants
     public static  final String VIRTUAL_WA ="XBKKW_VIRTUAL";
 
     /**
-     * 条码类型
+     * 条码格式
      */
     public static final String QR_CODE = "QR_CODE";
     public static final String EAN_CODE = "EAN_CODE";
     public static final String UPC_CODE = "UPC_CODE";
     public static final String CODE39_CODE = "CODE39_CODE";
+
+    /**
+     * 条码类型
+     */
+    public static final String BARCODE_TYPE_ITEM = "ITEM";
+    public static final String BARCODE_TYPE_PACKAGE = "PACKAGE";
+    public static final String BARCODE_TYPE_STOCK = "STOCK";
+    public static final String BARCODE_TYPE_MACHINERY = "MACHINERY";
+    public static final String BARCODE_TYPE_WORKSTATION = "WORKSTATION";
+    public static final String BARCODE_TYPE_WAREHOUSE = "WAREHOUSE";
 
 }
