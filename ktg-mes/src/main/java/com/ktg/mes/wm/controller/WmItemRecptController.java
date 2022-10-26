@@ -195,10 +195,6 @@ public class WmItemRecptController extends BaseController
 
         WmItemRecpt recpt = wmItemRecptService.selectWmItemRecptByRecptId(recptId);
 
-        if (!UserConstants.ORDER_STATUS_CONFIRMED.equals(recpt.getStatus())){
-            return AjaxResult.error("请先确认单据");
-        }
-
         //构造Transaction事务，并执行库存更新逻辑
         List<ItemRecptTxBean> beans = wmItemRecptService.getTxBeans(recptId);
 
