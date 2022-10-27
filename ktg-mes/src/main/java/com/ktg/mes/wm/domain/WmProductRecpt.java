@@ -40,6 +40,26 @@ public class WmProductRecpt extends BaseEntity
     @Excel(name = "生产工单名称")
     private String workorderName;
 
+    /** 产品物料ID */
+    @Excel(name = "产品物料ID")
+    private Long itemId;
+
+    /** 产品物料编码 */
+    @Excel(name = "产品物料编码")
+    private String itemCode;
+
+    /** 产品物料名称 */
+    @Excel(name = "产品物料名称")
+    private String itemName;
+
+    /** 规格型号 */
+    @Excel(name = "规格型号")
+    private String specification;
+
+    /** 单位 */
+    @Excel(name = "单位")
+    private String unitOfMeasure;
+
     /** 仓库ID */
     @Excel(name = "仓库ID")
     private Long warehouseId;
@@ -151,7 +171,48 @@ public class WmProductRecpt extends BaseEntity
     {
         return workorderName;
     }
-    public void setWarehouseId(Long warehouseId) 
+
+    public Long getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(Long itemId) {
+        this.itemId = itemId;
+    }
+
+    public String getItemCode() {
+        return itemCode;
+    }
+
+    public void setItemCode(String itemCode) {
+        this.itemCode = itemCode;
+    }
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
+    public String getSpecification() {
+        return specification;
+    }
+
+    public void setSpecification(String specification) {
+        this.specification = specification;
+    }
+
+    public String getUnitOfMeasure() {
+        return unitOfMeasure;
+    }
+
+    public void setUnitOfMeasure(String unitOfMeasure) {
+        this.unitOfMeasure = unitOfMeasure;
+    }
+
+    public void setWarehouseId(Long warehouseId)
     {
         this.warehouseId = warehouseId;
     }
@@ -289,33 +350,33 @@ public class WmProductRecpt extends BaseEntity
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("recptId", getRecptId())
-            .append("recptCode", getRecptCode())
-            .append("recptName", getRecptName())
-            .append("workorderId", getWorkorderId())
-            .append("workorderCode", getWorkorderCode())
-            .append("workorderName", getWorkorderName())
-            .append("warehouseId", getWarehouseId())
-            .append("warehouseCode", getWarehouseCode())
-            .append("warehouseName", getWarehouseName())
-            .append("locationId", getLocationId())
-            .append("locationCode", getLocationCode())
-            .append("locationName", getLocationName())
-            .append("areaId", getAreaId())
-            .append("areaCode", getAreaCode())
-            .append("areaName", getAreaName())
-            .append("recptDate", getRecptDate())
-            .append("status", getStatus())
-            .append("remark", getRemark())
-            .append("attr1", getAttr1())
-            .append("attr2", getAttr2())
-            .append("attr3", getAttr3())
-            .append("attr4", getAttr4())
-            .append("createBy", getCreateBy())
-            .append("createTime", getCreateTime())
-            .append("updateBy", getUpdateBy())
-            .append("updateTime", getUpdateTime())
-            .toString();
+        return "WmProductRecpt{" +
+                "recptId=" + recptId +
+                ", recptCode='" + recptCode + '\'' +
+                ", recptName='" + recptName + '\'' +
+                ", workorderId=" + workorderId +
+                ", workorderCode='" + workorderCode + '\'' +
+                ", workorderName='" + workorderName + '\'' +
+                ", itemId=" + itemId +
+                ", itemCode='" + itemCode + '\'' +
+                ", itemName='" + itemName + '\'' +
+                ", specification='" + specification + '\'' +
+                ", unitOfMeasure='" + unitOfMeasure + '\'' +
+                ", warehouseId=" + warehouseId +
+                ", warehouseCode='" + warehouseCode + '\'' +
+                ", warehouseName='" + warehouseName + '\'' +
+                ", locationId=" + locationId +
+                ", locationCode='" + locationCode + '\'' +
+                ", locationName='" + locationName + '\'' +
+                ", areaId=" + areaId +
+                ", areaCode='" + areaCode + '\'' +
+                ", areaName='" + areaName + '\'' +
+                ", recptDate=" + recptDate +
+                ", status='" + status + '\'' +
+                ", attr1='" + attr1 + '\'' +
+                ", attr2='" + attr2 + '\'' +
+                ", attr3=" + attr3 +
+                ", attr4=" + attr4 +
+                '}';
     }
 }

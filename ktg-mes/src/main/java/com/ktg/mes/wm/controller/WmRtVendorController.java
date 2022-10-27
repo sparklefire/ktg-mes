@@ -140,7 +140,7 @@ public class WmRtVendorController extends BaseController
     public AjaxResult execute(@PathVariable Long rtId){
         //判断单据状态
         WmRtVendor wmRtVendor = wmRtVendorService.selectWmRtVendorByRtId(rtId);
-        
+
         //构造事务Bean
         List<RtVendorTxBean> beans = wmRtVendorService.getTxBeans(rtId);
 
