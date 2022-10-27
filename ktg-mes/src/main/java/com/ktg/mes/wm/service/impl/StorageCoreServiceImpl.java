@@ -328,5 +328,22 @@ public class StorageCoreServiceImpl implements IStorageCoreService {
         }
     }
 
+    @Override
+    public void processRtSalse(List<RtSalseTxBean> lines) {
+        if(CollUtil.isEmpty(lines)){
+            throw new BussinessException("没有需要处理的原料消耗单行");
+        }
+        String transactionType = UserConstants.TRANSACTION_TYPE_PRODUCT_RS;
+        for(int i=0;i<lines.size();i++){
+            RtSalseTxBean bean = lines.get(i);
+            WmTransaction transaction = new WmTransaction();
+            transaction.setTransactionType(transactionType);
+            BeanUtils.copyBeanProp(transaction,bean);
+            transaction.setTransactionFlag(1); //库存增加
+            transaction.setTransactionDate(new Date());
+            wmTransactionService.processTransaction(transaction);
+        }
+    }
+
 
 }

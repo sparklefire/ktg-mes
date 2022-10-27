@@ -5,6 +5,7 @@ import java.util.List;
 import com.ktg.common.constant.UserConstants;
 import com.ktg.common.utils.DateUtils;
 import com.ktg.common.utils.StringUtils;
+import com.ktg.mes.wm.domain.tx.RtSalseTxBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ktg.mes.wm.mapper.WmRtSalseMapper;
@@ -45,6 +46,11 @@ public class WmRtSalseServiceImpl implements IWmRtSalseService
     public List<WmRtSalse> selectWmRtSalseList(WmRtSalse wmRtSalse)
     {
         return wmRtSalseMapper.selectWmRtSalseList(wmRtSalse);
+    }
+
+    @Override
+    public List<RtSalseTxBean> getTxBeans(Long rtId) {
+        return wmRtSalseMapper.getTxBeans(rtId);
     }
 
     @Override

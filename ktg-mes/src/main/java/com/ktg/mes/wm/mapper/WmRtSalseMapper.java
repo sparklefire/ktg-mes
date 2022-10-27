@@ -2,6 +2,7 @@ package com.ktg.mes.wm.mapper;
 
 import java.util.List;
 import com.ktg.mes.wm.domain.WmRtSalse;
+import com.ktg.mes.wm.domain.tx.RtSalseTxBean;
 
 /**
  * 产品销售退货单Mapper接口
@@ -27,6 +28,13 @@ public interface WmRtSalseMapper
      */
     public List<WmRtSalse> selectWmRtSalseList(WmRtSalse wmRtSalse);
 
+
+    /**
+     *
+     * @param rtId
+     * @return
+     */
+    public List<RtSalseTxBean> getTxBeans(Long rtId);
 
     /**
      * 检查编号唯一性

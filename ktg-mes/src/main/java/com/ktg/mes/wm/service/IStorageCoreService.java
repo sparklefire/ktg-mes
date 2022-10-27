@@ -57,4 +57,6 @@ public interface IStorageCoreService {
      */
     public void processProductSalse(List<ProductSalseTxBean> lines);
 
+    public void processRtSalse(List<RtSalseTxBean> lines);
+
 }
