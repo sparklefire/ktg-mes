@@ -5,6 +5,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ktg.common.constant.UserConstants;
 import com.ktg.common.utils.StringUtils;
+import com.ktg.mes.wm.domain.WmBarcode;
+import com.ktg.mes.wm.service.IWmBarcodeService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,6 +38,9 @@ public class WmPackageController extends BaseController
 {
     @Autowired
     private IWmPackageService wmPackageService;
+
+    @Autowired
+    private IWmBarcodeService wmBarcodeService;
 
     /**
      * 查询装箱单列表
@@ -90,7 +95,26 @@ public class WmPackageController extends BaseController
             }
         }
 
-        return toAjax(wmPackageService.insertWmPackage(wmPackage));
+        int ret =wmPackageService.insertWmPackage(wmPackage);
+
+        //装箱单保存成功就自动生成对应的箱条码
+        WmBarcode wmBarcode = new WmBarcode();
+        wmBarcode.setBussinessId(wmPackage.getPackageId());
+        wmBarcode.setBussinessCode(wmPackage.getPackageCode());
+        wmBarcode.setBussinessName(wmPackage.getClientName());
+        wmBarcode.setBarcodeType(UserConstants.BARCODE_TYPE_PACKAGE);//类型设置为箱条码
+        wmBarcode.setBarcodeFormart(UserConstants.QR_CODE);//设置为二维码
+        wmBarcode.setBarcodeContent(""+UserConstants.BARCODE_TYPE_PACKAGE+"-"+wmPackage.getPackageCode());
+        String path =wmBarcodeService.generateBarcode(wmBarcode);
+        wmBarcode.setBarcodeUrl(path);
+        wmBarcodeService.insertWmBarcode(wmBarcode);
+
+        //将条码的URL更新上去
+        wmPackage.setBarcodeId(wmBarcode.getBarcodeId());
+        wmPackage.setBarcodeContent(wmBarcode.getBarcodeContent());
+        wmPackage.setBarcodeUrl(path);
+        wmPackageService.updateWmPackage(wmPackage);
+        return toAjax(ret);
     }
 
     /**
