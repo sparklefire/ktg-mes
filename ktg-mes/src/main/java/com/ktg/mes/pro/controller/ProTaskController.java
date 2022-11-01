@@ -166,6 +166,9 @@ public class ProTaskController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody ProTask proTask)
     {
+        if(proTask.getQuantity().compareTo(BigDecimal.ZERO) !=1){
+            return AjaxResult.error("排产数量必须大于0！");
+        }
 
         //生产工单
         ProWorkorder order = proWorkorderService.selectProWorkorderByWorkorderId(proTask.getWorkorderId());
@@ -191,6 +194,7 @@ public class ProTaskController extends BaseController
         proTask.setTaskName(new StringBuilder().append(proTask.getItemName()).append("【").append(proTask.getQuantity().toString()).append("】").append(proTask.getUnitOfMeasure()).toString());
 
 
+
         return toAjax(proTaskService.insertProTask(proTask));
     }
 
@@ -202,6 +206,9 @@ public class ProTaskController extends BaseController
     @PutMapping
     public AjaxResult edit(@RequestBody ProTask proTask)
     {
+        if(proTask.getQuantity().compareTo(BigDecimal.ZERO) !=1){
+            return AjaxResult.error("排产数量必须大于0！");
+        }
 
         return toAjax(proTaskService.updateProTask(proTask));
     }

@@ -116,11 +116,13 @@ public class ProFeedbackController extends BaseController
     public AjaxResult add(@RequestBody ProFeedback proFeedback)
     {
         MdWorkstation workstation = mdWorkstationService.selectMdWorkstationByWorkstationId(proFeedback.getWorkstationId());
-        proFeedback.setProcessId(workstation.getProcessId());
-        proFeedback.setProcessCode(workstation.getProcessCode());
-        proFeedback.setProcessName(workstation.getProcessName());
-
-        //根据生产工单，工作站，工序 查找对应的生产任务
+        if(StringUtils.isNotNull(workstation)){
+            proFeedback.setProcessId(workstation.getProcessId());
+            proFeedback.setProcessCode(workstation.getProcessCode());
+            proFeedback.setProcessName(workstation.getProcessName());
+        }else {
+            return AjaxResult.error("当前生产任务对应的工作站不存在！");
+        }
 
         return toAjax(proFeedbackService.insertProFeedback(proFeedback));
     }
@@ -161,7 +163,15 @@ public class ProFeedbackController extends BaseController
     @PutMapping("/{recordId}")
     public AjaxResult execute(@PathVariable("recordId") Long recordId){
 
+        if(!StringUtils.isNotNull(recordId)){
+            return AjaxResult.error("请先保存单据");
+        }
+
         ProFeedback feedback= proFeedbackService.selectProFeedbackByRecordId(recordId);
+        if(feedback.getQuantityFeedback().compareTo(BigDecimal.ZERO) !=1){
+            return AjaxResult.error("报工数量必须大于0");
+        }
+
         ProWorkorder workorder = proWorkorderService.selectProWorkorderByWorkorderId(feedback.getWorkorderId());
         //更新生产任务的生产数量
         ProTask task = proTaskService.selectProTaskByTaskId(feedback.getTaskId());
@@ -196,6 +206,9 @@ public class ProFeedbackController extends BaseController
             executeItemConsume(itemConsume);
         }
 
+        //更新报工单的状态
+        feedback.setStatus(UserConstants.ORDER_STATUS_FINISHED);
+        proFeedbackService.updateProFeedback(feedback);
         return AjaxResult.success();
     }
 
