@@ -101,8 +101,8 @@ public class ProRouteProcessServiceImpl implements IProRouteProcessService
         ProRouteProduct param = new ProRouteProduct();
         param.setItemId(feedback.getItemId());
         List<ProRouteProduct> products = proRouteProductMapper.selectProRouteProductList(param);
-        if(!CollectionUtil.isNotEmpty(products)){
-            products = products.stream().filter(item -> proRouteMapper.selectProRouteByRouteId(item.getRouteId()).getEnableFlag()==UserConstants.YES).collect(Collectors.toList());
+        if(CollectionUtil.isNotEmpty(products)){
+            products = products.stream().filter(item -> proRouteMapper.selectProRouteByRouteId(item.getRouteId()).getEnableFlag().equals(UserConstants.YES)).collect(Collectors.toList());
             if (CollectionUtil.isNotEmpty(products)){
                 routeId = products.get(0).getRouteId();
             }

@@ -13,6 +13,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="workorderId"    column="workorder_id"    />
         <result property="workorderCode"    column="workorder_code"    />
         <result property="workorderName"    column="workorder_name"    />
+        <result property="processId"    column="process_id"    />
+        <result property="processCode"    column="process_code"    />
+        <result property="processName"    column="process_name"    />
         <result property="taskId"    column="task_id"    />
         <result property="taskCode"    column="task_code"    />
         <result property="itemId"    column="item_id"    />
@@ -42,7 +45,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectProFeedbackVo">
-        select record_id,feedback_type, workstation_id, workstation_code, workstation_name, workorder_id, workorder_code, workorder_name, task_id, task_code,item_id,item_code,item_name,specification,unit_of_measure, quantity, quantity_feedback, quantity_qualified, quantity_unquanlified, user_name, nick_name, feedback_channel, feedback_time,record_user,record_nick,status, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from pro_feedback
+        select record_id,feedback_type, workstation_id, workstation_code, workstation_name,process_id, process_code, process_name, workorder_id, workorder_code, workorder_name, task_id, task_code,item_id,item_code,item_name,specification,unit_of_measure, quantity, quantity_feedback, quantity_qualified, quantity_unquanlified, user_name, nick_name, feedback_channel, feedback_time,record_user,record_nick,status, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from pro_feedback
     </sql>
 
     <select id="selectProFeedbackList" parameterType="ProFeedback" resultMap="ProFeedbackResult">
@@ -52,6 +55,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="feedbackType !=null "> and feedback_type = #{feedbackType}</if>
             <if test="workstationCode != null  and workstationCode != ''"> and workstation_code = #{workstationCode}</if>
             <if test="workstationName != null  and workstationName != ''"> and workstation_name like concat('%', #{workstationName}, '%')</if>
+            <if test="processId != null "> and process_id = #{processId}</if>
+            <if test="processCode != null  and processCode != ''"> and process_code = #{processCode}</if>
+            <if test="processName != null  and processName != ''"> and process_name like concat('%', #{processName}, '%')</if>
             <if test="workorderId != null "> and workorder_id = #{workorderId}</if>
             <if test="workorderCode != null  and workorderCode != ''"> and workorder_code = #{workorderCode}</if>
             <if test="workorderName != null  and workorderName != ''"> and workorder_name like concat('%', #{workorderName}, '%')</if>
@@ -88,6 +94,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="workstationId != null">workstation_id,</if>
             <if test="workstationCode != null">workstation_code,</if>
             <if test="workstationName != null">workstation_name,</if>
+            <if test="processId != null">process_id,</if>
+            <if test="processCode != null">process_code,</if>
+            <if test="processName != null">process_name,</if>
             <if test="workorderId != null">workorder_id,</if>
             <if test="workorderCode != null">workorder_code,</if>
             <if test="workorderName != null">workorder_name,</if>
@@ -124,6 +133,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="workstationId != null">#{workstationId},</if>
             <if test="workstationCode != null">#{workstationCode},</if>
             <if test="workstationName != null">#{workstationName},</if>
+            <if test="processId != null">#{processId},</if>
+            <if test="processCode != null">#{processCode},</if>
+            <if test="processName != null">#{processName},</if>
             <if test="workorderId != null">#{workorderId},</if>
             <if test="workorderCode != null">#{workorderCode},</if>
             <if test="workorderName != null">#{workorderName},</if>
@@ -164,6 +176,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="workstationId != null">workstation_id = #{workstationId},</if>
             <if test="workstationCode != null">workstation_code = #{workstationCode},</if>
             <if test="workstationName != null">workstation_name = #{workstationName},</if>
+            <if test="processId != null">process_id = #{processId},</if>
+            <if test="processCode != null">process_code = #{processCode},</if>
+            <if test="processName != null">process_name = #{processName},</if>
             <if test="workorderId != null">workorder_id = #{workorderId},</if>
             <if test="workorderCode != null">workorder_code = #{workorderCode},</if>
             <if test="workorderName != null">workorder_name = #{workorderName},</if>

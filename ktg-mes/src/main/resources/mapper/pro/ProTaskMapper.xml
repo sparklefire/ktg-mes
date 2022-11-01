@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ktg.mes.pro.mapper.ProTaskMapper">
-    
+
     <resultMap type="ProTask" id="ProTaskResult">
         <result property="taskId"    column="task_id"    />
         <result property="taskCode"    column="task_code"    />
@@ -24,9 +24,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="unitOfMeasure"    column="unit_of_measure"    />
         <result property="quantity"    column="quantity"    />
         <result property="quantityProduced"    column="quantity_produced"    />
+        <result property="quantityChanged"    column="quantity_changed"    />
+        <result property="status"    column="status"    />
         <result property="quantityQuanlify"    column="quantity_quanlify"    />
         <result property="quantityUnquanlify"    column="quantity_unquanlify"    />
-        <result property="quantityChanged"    column="quantity_changed"    />
         <result property="clientId"    column="client_id"    />
         <result property="clientCode"    column="client_code"    />
         <result property="clientName"    column="client_name"    />
@@ -36,7 +37,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="endTime"    column="end_time"    />
         <result property="colorCode"    column="color_code"    />
         <result property="requestDate"    column="request_date"    />
-        <result property="status"    column="status"    />
         <result property="remark"    column="remark"    />
         <result property="attr1"    column="attr1"    />
         <result property="attr2"    column="attr2"    />
@@ -46,15 +46,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="createTime"    column="create_time"    />
         <result property="updateBy"    column="update_by"    />
         <result property="updateTime"    column="update_time"    />
+
     </resultMap>
 
+
     <sql id="selectProTaskVo">
-        select task_id, task_code, task_name, workorder_id, workorder_code, workorder_name, workstation_id, workstation_code, workstation_name,process_id,process_code,process_name, item_id, item_code, item_name, specification, unit_of_measure, quantity, quantity_produced,quantity_quanlify,quantity_unquanlify, quantity_changed, client_id, client_code, client_name, client_nick, start_time, duration, end_time, color_code, request_date, status, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from pro_task
+        select task_id, task_code, task_name, workorder_id, workorder_code, workorder_name, workstation_id, workstation_code, workstation_name, process_id, process_code, process_name, item_id, item_code, item_name, specification, unit_of_measure, quantity, quantity_produced, quantity_changed, client_id, client_code, client_name, client_nick, start_time, duration, end_time, color_code, request_date, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time, status, quantity_quanlify, quantity_unquanlify from pro_task
     </sql>
 
     <select id="selectProTaskList" parameterType="ProTask" resultMap="ProTaskResult">
         <include refid="selectProTaskVo"/>
-        <where>  
+        <where>
             <if test="taskCode != null  and taskCode != ''"> and task_code = #{taskCode}</if>
             <if test="taskName != null  and taskName != ''"> and task_name like concat('%', #{taskName}, '%')</if>
             <if test="workorderId != null "> and workorder_id = #{workorderId}</if>
@@ -73,8 +75,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="unitOfMeasure != null  and unitOfMeasure != ''"> and unit_of_measure = #{unitOfMeasure}</if>
             <if test="quantity != null "> and quantity = #{quantity}</if>
             <if test="quantityProduced != null "> and quantity_produced = #{quantityProduced}</if>
-            <if test="quantityQuanlify != null "> and quantity_quanlify = #{quantityQuanlify}</if>
-            <if test="quantityUnquanlify != null "> and quantity_unquanlify = #{quantityUnquanlify}</if>
             <if test="quantityChanged != null "> and quantity_changed = #{quantityChanged}</if>
             <if test="clientId != null "> and client_id = #{clientId}</if>
             <if test="clientCode != null  and clientCode != ''"> and client_code = #{clientCode}</if>
@@ -85,8 +85,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="endTime != null "> and end_time = #{endTime}</if>
             <if test="colorCode != null  and colorCode != ''"> and color_code = #{colorCode}</if>
             <if test="requestDate != null "> and request_date = #{requestDate}</if>
-            <if test="status != null "> and status = #{status}</if>
-             order by request_date asc
+            <if test="attr1 != null  and attr1 != ''"> and attr1 = #{attr1}</if>
+            <if test="attr2 != null  and attr2 != ''"> and attr2 = #{attr2}</if>
+            <if test="attr3 != null "> and attr3 = #{attr3}</if>
+            <if test="attr4 != null "> and attr4 = #{attr4}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+            <if test="quantityQuanlify != null "> and quantity_quanlify = #{quantityQuanlify}</if>
+            <if test="quantityUnquanlify != null "> and quantity_unquanlify = #{quantityUnquanlify}</if>
         </where>
     </select>
     

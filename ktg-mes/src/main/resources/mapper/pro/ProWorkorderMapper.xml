@@ -39,7 +39,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectProWorkorderVo">
-        select workorder_id, workorder_code, workorder_name, order_source, source_code, product_id, product_code, product_name, product_spc, unit_of_measure,batch_code, quantity, client_id, client_code, client_name, request_date, parent_id, ancestors, status, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from pro_workorder
+        select workorder_id, workorder_code, workorder_name, order_source, source_code, product_id, product_code, product_name, product_spc, unit_of_measure,batch_code, quantity,quantity_produced, client_id, client_code, client_name, request_date, parent_id, ancestors, status, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from pro_workorder
     </sql>
 
     <select id="selectProWorkorderList" parameterType="ProWorkorder" resultMap="ProWorkorderResult">

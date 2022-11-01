@@ -36,6 +36,17 @@ public class ProFeedback extends BaseEntity
     @Excel(name = "工作站名称")
     private String workstationName;
 
+    /** 工序ID */
+    private Long processId;
+
+    /** 工序编码 */
+    @Excel(name = "工序编码")
+    private String processCode;
+
+    /** 工序名称 */
+    @Excel(name = "工序名称")
+    private String processName;
+
     /** 生产工单ID */
     @Excel(name = "生产工单ID")
     private Long workorderId;
@@ -175,7 +186,31 @@ public class ProFeedback extends BaseEntity
         this.workorderId = workorderId;
     }
 
-    public Long getWorkorderId() 
+    public Long getProcessId() {
+        return processId;
+    }
+
+    public void setProcessId(Long processId) {
+        this.processId = processId;
+    }
+
+    public String getProcessCode() {
+        return processCode;
+    }
+
+    public void setProcessCode(String processCode) {
+        this.processCode = processCode;
+    }
+
+    public String getProcessName() {
+        return processName;
+    }
+
+    public void setProcessName(String processName) {
+        this.processName = processName;
+    }
+
+    public Long getWorkorderId()
     {
         return workorderId;
     }
@@ -404,6 +439,9 @@ public class ProFeedback extends BaseEntity
                 ", workstationId=" + workstationId +
                 ", workstationCode='" + workstationCode + '\'' +
                 ", workstationName='" + workstationName + '\'' +
+                ", processId=" + processId +
+                ", processCode='" + processCode + '\'' +
+                ", processName='" + processName + '\'' +
                 ", workorderId=" + workorderId +
                 ", workorderCode='" + workorderCode + '\'' +
                 ", workorderName='" + workorderName + '\'' +

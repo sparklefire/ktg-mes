@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ktg.common.constant.UserConstants;
 import com.ktg.common.utils.StringUtils;
+import com.ktg.mes.md.domain.MdWorkstation;
+import com.ktg.mes.md.service.IMdWorkstationService;
 import com.ktg.mes.pro.domain.*;
 import com.ktg.mes.pro.service.IProRouteProcessService;
 import com.ktg.mes.pro.service.IProTaskService;
@@ -59,6 +61,9 @@ public class ProFeedbackController extends BaseController
     private IProWorkorderService proWorkorderService;
 
     @Autowired
+    private IMdWorkstationService mdWorkstationService;
+
+    @Autowired
     private IWmItemConsumeService wmItemConsumeService;
 
     @Autowired
@@ -110,6 +115,13 @@ public class ProFeedbackController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody ProFeedback proFeedback)
     {
+        MdWorkstation workstation = mdWorkstationService.selectMdWorkstationByWorkstationId(proFeedback.getWorkstationId());
+        proFeedback.setProcessId(workstation.getProcessId());
+        proFeedback.setProcessCode(workstation.getProcessCode());
+        proFeedback.setProcessName(workstation.getProcessName());
+
+        //根据生产工单，工作站，工序 查找对应的生产任务
+
         return toAjax(proFeedbackService.insertProFeedback(proFeedback));
     }
 
@@ -165,7 +177,9 @@ public class ProFeedbackController extends BaseController
         //如果是关键工序，则更新当前工单的已生产数量，进行产品产出动作
         if(proRouteProcessService.checkKeyProcess(feedback)){
             //更新生产工单的生产数量
-            workorder.setQuantityProduced(workorder.getQuantityProduced().add(feedback.getQuantityFeedback()));
+            BigDecimal produced = workorder.getQuantityProduced() == null?new BigDecimal(0):workorder.getQuantityProduced();
+            BigDecimal feedBackQuantity = feedback.getQuantityFeedback() ==null?new BigDecimal(0):feedback.getQuantityFeedback();
+            workorder.setQuantityProduced( produced.add(feedBackQuantity));
             proWorkorderService.updateProWorkorder(workorder);
 
             //生成产品产出记录单

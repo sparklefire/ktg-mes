@@ -1,5 +1,6 @@
 package com.ktg.mes.pro.controller;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
@@ -117,7 +118,9 @@ public class ProTaskController extends BaseController
                 if(workorder.getParentId().longValue()!=0L){
                     wdata.setParent("MO"+workorder.getParentId().toString());
                 }
-                wdata.setProgress(0f);
+                BigDecimal produced = workorder.getQuantityProduced();
+                BigDecimal quantitiy = workorder.getQuantity();
+                wdata.setProgress( produced.divide(quantitiy).floatValue());
                 wdata.setDuration(0L);
                 wdata.setType(UserConstants.GANTT_TASK_TYPE_PROJECT);
                 ganttData.add(wdata);
@@ -139,7 +142,9 @@ public class ProTaskController extends BaseController
                         data.setQuantity(task.getQuantity());
                         data.setProcess(task.getProcessName());
                         data.setWorkstation(task.getWorkstationName());
-                        data.setProgress(0f);
+                        BigDecimal taskproduced = task.getQuantityProduced();
+                        BigDecimal taskquantitiy = task.getQuantity();
+                        data.setProgress(taskproduced.divide(taskquantitiy).floatValue());
                         data.setType(UserConstants.GANTT_TASK_TYPE_TASK);
                         ganttData.add(data);
                     }

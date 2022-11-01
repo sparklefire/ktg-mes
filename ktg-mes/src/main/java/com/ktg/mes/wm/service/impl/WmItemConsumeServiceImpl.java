@@ -173,7 +173,7 @@ public class WmItemConsumeServiceImpl implements IWmItemConsumeService
                 line.setItemName(bom.getItemName());
                 line.setSpecification(bom.getSpecification());
                 line.setUnitOfMeasure(bom.getUnitOfMeasure());
-                line.setQuantityConsume(bom.getQuantity().multiply(feedback.getQuantity()));
+                line.setQuantityConsume(bom.getQuantity().multiply(feedback.getQuantityFeedback()));
                 line.setBatchCode(workorder.getBatchCode());
                 wmItemConsumeLineMapper.insertWmItemConsumeLine(line);
             }
