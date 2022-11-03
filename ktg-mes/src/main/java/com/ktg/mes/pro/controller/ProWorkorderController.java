@@ -1,16 +1,20 @@
 package com.ktg.mes.pro.controller;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import cn.hutool.core.collection.CollUtil;
 import com.ktg.common.constant.UserConstants;
+import com.ktg.common.core.page.TableDataInfo;
 import com.ktg.common.utils.StringUtils;
+import com.ktg.mes.md.domain.MdItem;
 import com.ktg.mes.md.domain.MdProductBom;
 import com.ktg.mes.md.service.IMdProductBomService;
 import com.ktg.mes.pro.domain.ProWorkorderBom;
 import com.ktg.mes.pro.service.IProWorkorderBomService;
+import io.minio.messages.Item;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -185,6 +189,33 @@ public class ProWorkorderController extends BaseController
         ProWorkorderBom param = new ProWorkorderBom();
         param.setWorkorderId(workorderId);
         proWorkorderBomService.deleteProWorkorderBomByWorkorderId(workorderId);
+    }
+
+    /**
+     * 获取当前工单的物料需求清单
+     */
+    @PreAuthorize("@ss.hasPermi('mes:pro:workorder:list')")
+    @GetMapping("/listItems")
+    public TableDataInfo listItemss(ProWorkorder proWorkorder)
+    {
+        List<MdProductBom> list = getBoms(proWorkorder.getProductId(),proWorkorder.getQuantity());
+        return getDataTable(list);
+    }
+
+    private List<MdProductBom> getBoms(Long itemId,BigDecimal quantity){
+        MdProductBom param = new MdProductBom();
+        List<MdProductBom> results = new ArrayList<MdProductBom>();
+        param.setItemId(itemId);
+        List<MdProductBom> boms = mdProductBomService.selectMdProductBomList(param);
+        if(CollUtil.isNotEmpty(boms)){
+            for (MdProductBom bomItem: boms
+                 ) {
+                bomItem.setQuantity(quantity.multiply(bomItem.getQuantity()));
+                results.add(bomItem);
+                results.addAll(getBoms(bomItem.getBomItemId(),bomItem.getQuantity()));
+            }
+        }
+        return results;
     }
 
 }
