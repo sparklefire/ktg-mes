@@ -17,6 +17,7 @@ import com.ktg.mes.pro.service.IProWorkorderBomService;
 import io.minio.messages.Item;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -198,22 +199,34 @@ public class ProWorkorderController extends BaseController
     @GetMapping("/listItems")
     public TableDataInfo listItemss(ProWorkorder proWorkorder)
     {
-        List<MdProductBom> list = getBoms(proWorkorder.getProductId(),proWorkorder.getQuantity());
-        return getDataTable(list);
+        List<MdProductBom> result = new ArrayList<MdProductBom>();
+        ProWorkorderBom param = new ProWorkorderBom();
+        param.setWorkorderId(proWorkorder.getWorkorderId());
+        List<ProWorkorderBom> boms = proWorkorderBomService.selectProWorkorderBomList(param);
+        if(!CollectionUtils.isEmpty(boms)){
+            for ( ProWorkorderBom bom: boms
+                 ) {
+                MdProductBom theBom = new MdProductBom();
+                theBom.setBomItemId(bom.getItemId());
+                result.addAll(getBoms(theBom,bom.getQuantity()));
+            }
+        }
+        return getDataTable(result);
     }
 
-    private List<MdProductBom> getBoms(Long itemId,BigDecimal quantity){
+    private List<MdProductBom> getBoms(MdProductBom item,BigDecimal quantity){
         MdProductBom param = new MdProductBom();
         List<MdProductBom> results = new ArrayList<MdProductBom>();
-        param.setItemId(itemId);
+        param.setItemId(item.getBomItemId());
         List<MdProductBom> boms = mdProductBomService.selectMdProductBomList(param);
         if(CollUtil.isNotEmpty(boms)){
             for (MdProductBom bomItem: boms
                  ) {
                 bomItem.setQuantity(quantity.multiply(bomItem.getQuantity()));
-                results.add(bomItem);
-                results.addAll(getBoms(bomItem.getBomItemId(),bomItem.getQuantity()));
+                results.addAll(getBoms(bomItem,bomItem.getQuantity()));
             }
+        }else{
+            results.add(item);
         }
         return results;
     }
