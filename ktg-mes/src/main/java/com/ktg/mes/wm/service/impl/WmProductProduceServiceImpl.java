@@ -124,6 +124,11 @@ public class WmProductProduceServiceImpl implements IWmProductProduceService
         return wmProductProduceMapper.deleteWmProductProduceByRecordId(recordId);
     }
 
+    /**
+     * 根据报工单生成
+     * @param feedback
+     * @return
+     */
     @Override
     public WmProductProduce generateProductProduce(ProFeedback feedback) {
         ProWorkorder workorder = proWorkorderMapper.selectProWorkorderByWorkorderId(feedback.getWorkorderId());

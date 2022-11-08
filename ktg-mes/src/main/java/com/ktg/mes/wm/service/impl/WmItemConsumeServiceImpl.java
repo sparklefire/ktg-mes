@@ -1,5 +1,6 @@
 package com.ktg.mes.wm.service.impl;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -11,8 +12,10 @@ import com.ktg.mes.md.mapper.MdWorkstationMapper;
 import com.ktg.mes.pro.domain.*;
 import com.ktg.mes.pro.mapper.*;
 import com.ktg.mes.wm.domain.WmItemConsumeLine;
+import com.ktg.mes.wm.domain.WmMaterialStock;
 import com.ktg.mes.wm.domain.tx.ItemConsumeTxBean;
 import com.ktg.mes.wm.mapper.WmItemConsumeLineMapper;
+import com.ktg.mes.wm.mapper.WmMaterialStockMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ktg.mes.wm.mapper.WmItemConsumeMapper;
@@ -51,6 +54,9 @@ public class WmItemConsumeServiceImpl implements IWmItemConsumeService
 
     @Autowired
     private ProRouteProductBomMapper proRouteProductBomMapper;
+
+    @Autowired
+    private WmMaterialStockMapper wmMaterialStockMapper;
 
     /**
      * 查询物料消耗记录
@@ -166,16 +172,85 @@ public class WmItemConsumeServiceImpl implements IWmItemConsumeService
         if(CollectionUtil.isNotEmpty(boms)){
             for (ProRouteProductBom bom: boms
                  ) {
-                WmItemConsumeLine line = new WmItemConsumeLine();
-                line.setRecordId(itemConsume.getRecordId());
-                line.setItemId(bom.getItemId());
-                line.setItemCode(bom.getItemCode());
-                line.setItemName(bom.getItemName());
-                line.setSpecification(bom.getSpecification());
-                line.setUnitOfMeasure(bom.getUnitOfMeasure());
-                line.setQuantityConsume(bom.getQuantity().multiply(feedback.getQuantityFeedback()));
-                line.setBatchCode(workorder.getBatchCode());
-                wmItemConsumeLineMapper.insertWmItemConsumeLine(line);
+                //这里根据需要消耗的原材料/半成品信息 匹配出对应的线边库库存记录。
+                BigDecimal quantityToConsume = bom.getQuantity().multiply(feedback.getQuantityFeedback()); //总的消耗量
+
+                //从线边库中，根据生产工单、物料按照先进先出的原则查询库存现有量
+                WmMaterialStock p = new WmMaterialStock();
+                p.setWorkorderCode(feedback.getWorkorderCode()); //当前工单
+                p.setItemId(bom.getItemId()); //指定物料
+                p.setWarehouseCode(UserConstants.VIRTUAL_WH); //线边库
+                List<WmMaterialStock> ms = wmMaterialStockMapper.selectWmMaterialStockList(p);
+                if(CollectionUtil.isNotEmpty(ms)){
+                    WmMaterialStock theStock = null;
+                    for(int i=0;i<ms.size();i++){
+                        theStock = ms.get(i);
+                        if(theStock.getQuantityOnhand().compareTo(quantityToConsume)>=0){
+                            //当前库存记录的库存量大于等于本次需要消耗的库存量, 则直接使用当前记录
+                            WmItemConsumeLine line = new WmItemConsumeLine();
+                            line.setMaterialStockId(theStock.getMaterialStockId());
+                            line.setRecordId(itemConsume.getRecordId());
+                            line.setItemId(bom.getItemId());
+                            line.setItemCode(bom.getItemCode());
+                            line.setItemName(bom.getItemName());
+                            line.setSpecification(bom.getSpecification());
+                            line.setUnitOfMeasure(bom.getUnitOfMeasure());
+                            line.setQuantityConsume(quantityToConsume);
+                            line.setBatchCode(workorder.getBatchCode());
+                            wmItemConsumeLineMapper.insertWmItemConsumeLine(line);
+
+                            quantityToConsume= BigDecimal.ZERO;
+                        }else if(theStock.getQuantityOnhand().compareTo(BigDecimal.ZERO)==1){
+                            //当前记录的库存量大于0 并且小于需要扣减的量，只从当前库存记录上扣减在库量，并更新剩余需要扣减的量
+                            WmItemConsumeLine line = new WmItemConsumeLine();
+                            line.setMaterialStockId(theStock.getMaterialStockId());
+                            line.setRecordId(itemConsume.getRecordId());
+                            line.setItemId(bom.getItemId());
+                            line.setItemCode(bom.getItemCode());
+                            line.setItemName(bom.getItemName());
+                            line.setSpecification(bom.getSpecification());
+                            line.setUnitOfMeasure(bom.getUnitOfMeasure());
+                            line.setQuantityConsume(theStock.getQuantityOnhand());
+                            line.setBatchCode(workorder.getBatchCode());
+                            wmItemConsumeLineMapper.insertWmItemConsumeLine(line);
+                            quantityToConsume = quantityToConsume.subtract(theStock.getQuantityOnhand());
+                        } else {
+                            //查出的库存量为负，不做处理
+                        }
+
+                        if(quantityToConsume.compareTo(BigDecimal.ZERO)==0){
+                            //量已经扣减完，则退出
+                            break;
+                        }
+                    }
+
+                    //循环完成后还有剩余未扣除的数量，直接在库中新增一条为负的记录（后期手工核销）
+                    if(quantityToConsume.compareTo(BigDecimal.ZERO)==1){
+                        WmItemConsumeLine line = new WmItemConsumeLine();
+                        line.setRecordId(itemConsume.getRecordId());
+                        line.setItemId(bom.getItemId());
+                        line.setItemCode(bom.getItemCode());
+                        line.setItemName(bom.getItemName());
+                        line.setSpecification(bom.getSpecification());
+                        line.setUnitOfMeasure(bom.getUnitOfMeasure());
+                        line.setQuantityConsume(quantityToConsume);
+                        line.setBatchCode(workorder.getBatchCode());
+                        wmItemConsumeLineMapper.insertWmItemConsumeLine(line);
+                    }
+
+                }else {
+                    //没有查到领出到线边库的物料，直接在库中新增一条为负的记录(后期可能需要手工核销)
+                    WmItemConsumeLine line = new WmItemConsumeLine();
+                    line.setRecordId(itemConsume.getRecordId());
+                    line.setItemId(bom.getItemId());
+                    line.setItemCode(bom.getItemCode());
+                    line.setItemName(bom.getItemName());
+                    line.setSpecification(bom.getSpecification());
+                    line.setUnitOfMeasure(bom.getUnitOfMeasure());
+                    line.setQuantityConsume(bom.getQuantity().multiply(feedback.getQuantityFeedback()));
+                    line.setBatchCode(workorder.getBatchCode());
+                    wmItemConsumeLineMapper.insertWmItemConsumeLine(line);
+                }
             }
         }else {
             return  null; //如果本道工序没有配置BOM物料，则直接返回空

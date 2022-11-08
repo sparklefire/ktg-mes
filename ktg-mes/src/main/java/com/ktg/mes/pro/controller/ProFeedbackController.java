@@ -228,6 +228,7 @@ public class ProFeedbackController extends BaseController
      * @param record
      */
     private void executeItemConsume(WmItemConsume record){
+        //需要在此处进行分批次领料的线边库扣减
         List<ItemConsumeTxBean> beans = wmItemConsumeService.getTxBeans(record.getRecordId());
         storageCoreService.processItemConsume(beans);
         record.setStatus(UserConstants.ORDER_STATUS_FINISHED);

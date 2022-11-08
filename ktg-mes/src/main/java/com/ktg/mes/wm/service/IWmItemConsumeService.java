@@ -64,6 +64,7 @@ public interface IWmItemConsumeService
 
     /**
      * 根据生产报工单生成物料消耗记录
+     * 这里需要处理同一个工单分多次领料的问题（每次领料可能是不同的批次）
      * @param feedback
      * @return
      */
