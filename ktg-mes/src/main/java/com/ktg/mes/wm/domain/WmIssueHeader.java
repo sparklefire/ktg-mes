@@ -54,6 +54,22 @@ public class WmIssueHeader extends BaseEntity
     @Excel(name = "生产任务编码")
     private String taskCode;
 
+    /** 客户ID */
+    @Excel(name = "客户ID")
+    private Long clientId;
+
+    /** 客户编码 */
+    @Excel(name = "客户编码")
+    private String clientCode;
+
+    /** 客户名称 */
+    @Excel(name = "客户名称")
+    private String clientName;
+
+    /** 客户简称 */
+    @Excel(name = "客户简称")
+    private String clientNick;
+
     /** 仓库ID */
     @Excel(name = "仓库ID")
     private Long warehouseId;
@@ -200,7 +216,40 @@ public class WmIssueHeader extends BaseEntity
     {
         return taskCode;
     }
-    public void setWarehouseId(Long warehouseId) 
+
+    public Long getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(Long clientId) {
+        this.clientId = clientId;
+    }
+
+    public String getClientCode() {
+        return clientCode;
+    }
+
+    public void setClientCode(String clientCode) {
+        this.clientCode = clientCode;
+    }
+
+    public String getClientName() {
+        return clientName;
+    }
+
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
+    }
+
+    public String getClientNick() {
+        return clientNick;
+    }
+
+    public void setClientNick(String clientNick) {
+        this.clientNick = clientNick;
+    }
+
+    public void setWarehouseId(Long warehouseId)
     {
         this.warehouseId = warehouseId;
     }
@@ -338,37 +387,36 @@ public class WmIssueHeader extends BaseEntity
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("issueId", getIssueId())
-            .append("issueCode", getIssueCode())
-            .append("issueName", getIssueName())
-            .append("workstationId", getWorkstationId())
-            .append("workstationCode", getWorkstationCode())
-                .append("workstationName", getWorkstationName())
-            .append("workorderId", getWorkorderId())
-            .append("workorderCode", getWorkorderCode())
-            .append("taskId", getTaskId())
-            .append("taskCode", getTaskCode())
-            .append("warehouseId", getWarehouseId())
-            .append("warehouseCode", getWarehouseCode())
-            .append("warehouseName", getWarehouseName())
-            .append("locationId", getLocationId())
-            .append("locationCode", getLocationCode())
-            .append("locationName", getLocationName())
-            .append("areaId", getAreaId())
-            .append("areaCode", getAreaCode())
-            .append("areaName", getAreaName())
-            .append("issueDate", getIssueDate())
-            .append("status", getStatus())
-            .append("remark", getRemark())
-            .append("attr1", getAttr1())
-            .append("attr2", getAttr2())
-            .append("attr3", getAttr3())
-            .append("attr4", getAttr4())
-            .append("createBy", getCreateBy())
-            .append("createTime", getCreateTime())
-            .append("updateBy", getUpdateBy())
-            .append("updateTime", getUpdateTime())
-            .toString();
+        return "WmIssueHeader{" +
+                "issueId=" + issueId +
+                ", issueCode='" + issueCode + '\'' +
+                ", issueName='" + issueName + '\'' +
+                ", workstationId=" + workstationId +
+                ", workstationCode='" + workstationCode + '\'' +
+                ", workstationName='" + workstationName + '\'' +
+                ", workorderId=" + workorderId +
+                ", workorderCode='" + workorderCode + '\'' +
+                ", taskId=" + taskId +
+                ", taskCode='" + taskCode + '\'' +
+                ", clientId=" + clientId +
+                ", clientCode='" + clientCode + '\'' +
+                ", clientName='" + clientName + '\'' +
+                ", clientNick='" + clientNick + '\'' +
+                ", warehouseId=" + warehouseId +
+                ", warehouseCode='" + warehouseCode + '\'' +
+                ", warehouseName='" + warehouseName + '\'' +
+                ", locationId=" + locationId +
+                ", locationCode='" + locationCode + '\'' +
+                ", locationName='" + locationName + '\'' +
+                ", areaId=" + areaId +
+                ", areaCode='" + areaCode + '\'' +
+                ", areaName='" + areaName + '\'' +
+                ", issueDate=" + issueDate +
+                ", status='" + status + '\'' +
+                ", attr1='" + attr1 + '\'' +
+                ", attr2='" + attr2 + '\'' +
+                ", attr3=" + attr3 +
+                ", attr4=" + attr4 +
+                '}';
     }
 }
