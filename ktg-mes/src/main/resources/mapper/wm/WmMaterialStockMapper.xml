@@ -98,7 +98,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="locationId != null "> and location_id = #{locationId}</if>
             <if test="areaId != null "> and area_id = #{areaId}</if>
             <if test="vendorId != null "> and vendor_id = #{vendorId}</if>
-            <if test="recptDate !=null"> and recpt_date = #{recptDate}</if>
             <if test="workorderId !=null">and workorder_id = #{workorderId}</if>
             <if test="workorderCode !=null">and workorder_code = #{workorderCode}</if>
         </where>
