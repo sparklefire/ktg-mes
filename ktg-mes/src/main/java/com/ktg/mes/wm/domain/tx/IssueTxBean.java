@@ -30,6 +30,18 @@ public class IssueTxBean extends BaseEntity {
     /** 批次号 */
     private String batchCode;
 
+    /** 供应商ID */
+    private Long vendorId;
+
+    /** 供应商编号 */
+    private String vendorCode;
+
+    /** 供应商名称 */
+    private String vendorName;
+
+    /** 供应商简称 */
+    private String vendorNick;
+
     /** 仓库ID */
     private Long warehouseId;
 
@@ -136,6 +148,38 @@ public class IssueTxBean extends BaseEntity {
 
     public void setBatchCode(String batchCode) {
         this.batchCode = batchCode;
+    }
+
+    public Long getVendorId() {
+        return vendorId;
+    }
+
+    public void setVendorId(Long vendorId) {
+        this.vendorId = vendorId;
+    }
+
+    public String getVendorCode() {
+        return vendorCode;
+    }
+
+    public void setVendorCode(String vendorCode) {
+        this.vendorCode = vendorCode;
+    }
+
+    public String getVendorName() {
+        return vendorName;
+    }
+
+    public void setVendorName(String vendorName) {
+        this.vendorName = vendorName;
+    }
+
+    public String getVendorNick() {
+        return vendorNick;
+    }
+
+    public void setVendorNick(String vendorNick) {
+        this.vendorNick = vendorNick;
     }
 
     public Long getWarehouseId() {
@@ -276,6 +320,10 @@ public class IssueTxBean extends BaseEntity {
                 ", specification='" + specification + '\'' +
                 ", unitOfMeasure='" + unitOfMeasure + '\'' +
                 ", batchCode='" + batchCode + '\'' +
+                ", vendorId=" + vendorId +
+                ", vendorCode='" + vendorCode + '\'' +
+                ", vendorName='" + vendorName + '\'' +
+                ", vendorNick='" + vendorNick + '\'' +
                 ", warehouseId=" + warehouseId +
                 ", warehouseCode='" + warehouseCode + '\'' +
                 ", warehouseName='" + warehouseName + '\'' +
