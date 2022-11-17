@@ -120,7 +120,7 @@ public class ProRouteProcessController extends BaseController
         if(UserConstants.NOT_UNIQUE.equals(proRouteProcessService.checkProcessExists(proRouteProcess))){
             return AjaxResult.error("不能重复添加工序！");
         }
-        if(UserConstants.NOT_UNIQUE.equals(proRouteProcessService.checkUpdateFlagUnique(proRouteProcess))){
+        if(UserConstants.YES.equals(proRouteProcess.getKeyFlag()) && UserConstants.NOT_UNIQUE.equals(proRouteProcessService.checkUpdateFlagUnique(proRouteProcess))){
             return AjaxResult.error("当前工艺路线已经指定过关键工序");
         }
         ProProcess process = proProcessService.selectProProcessByProcessId(proRouteProcess.getProcessId());
@@ -163,6 +163,9 @@ public class ProRouteProcessController extends BaseController
         }
         if(UserConstants.NOT_UNIQUE.equals(proRouteProcessService.checkProcessExists(proRouteProcess))){
             return AjaxResult.error("不能重复添加工序！");
+        }
+        if(UserConstants.YES.equals(proRouteProcess.getKeyFlag()) && UserConstants.NOT_UNIQUE.equals(proRouteProcessService.checkUpdateFlagUnique(proRouteProcess))){
+            return AjaxResult.error("当前工艺路线已经指定过关键工序");
         }
         ProProcess process = proProcessService.selectProProcessByProcessId(proRouteProcess.getProcessId());
         proRouteProcess.setProcessCode(process.getProcessCode());
