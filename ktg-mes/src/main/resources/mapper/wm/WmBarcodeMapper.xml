@@ -105,7 +105,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="barcodeFormart != null and barcodeFormart != ''">barcode_formart = #{barcodeFormart},</if>
             <if test="barcodeType != null and barcodeType != ''">barcode_type = #{barcodeType},</if>
             <if test="barcodeContent != null and barcodeContent != ''">barcode_content = #{barcodeContent},</if>
-            <if test="bussinessId != null">bussiness_id = #{bussinessId}</if>
+            <if test="bussinessId != null">bussiness_id = #{bussinessId},</if>
             <if test="bussinessCode != null and bussinessCode !=''">bussiness_code = #{bussinessCode},</if>
             <if test="bussinessName != null and bussinessName !=''">bussiness_name = #{bussinessName},</if>
             <if test="barcodeUrl != null  and barcodeUrl != ''">barcode_url = #{barcodeUrl},</if>
