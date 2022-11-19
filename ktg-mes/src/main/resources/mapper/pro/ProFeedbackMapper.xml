@@ -22,6 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="itemCode"    column="item_code"    />
         <result property="itemName"    column="item_name"    />
         <result property="specification"    column="specification"    />
+        <result property="unitOfMeasure" column="unit_of_measure" ></result>
         <result property="quantity"    column="quantity"    />
         <result property="quantityFeedback"    column="quantity_feedback"    />
         <result property="quantityQualified"    column="quantity_qualified"    />
