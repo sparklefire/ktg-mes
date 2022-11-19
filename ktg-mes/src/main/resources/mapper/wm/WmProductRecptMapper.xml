@@ -78,7 +78,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="getTxBean" parameterType="Long" resultMap="ProductRecptTxBeanResult">
         SELECT irl.`item_id`,irl.`item_code`,irl.`item_name`,irl.`specification`,irl.`unit_of_measure`,irl.`batch_code`,
                irl.`warehouse_id`,irl.`warehouse_code`,irl.`warehouse_name`,irl.`location_id`,irl.`location_code`,irl.`location_name`,irl.`area_id`,irl.`area_code`,irl.`area_name`,
-               irl.workorder_id,irl.workorder_code,irl.workorder_name,
+               ir.workorder_id,ir.workorder_code,ir.workorder_name,
                'PR' AS source_doc_type,ir.`recpt_id` AS source_doc_id,ir.`recpt_code` AS source_doc_code,irl.`line_id` AS source_doc_line_id,
                irl.`quantity_recived` AS transaction_quantity,ir.recpt_date, irl.`expire_date`,
                ir.`create_by`,ir.`create_time`,ir.`update_by`,ir.`update_time`
