@@ -7,7 +7,9 @@ import cn.hutool.core.collection.CollUtil;
 import com.ktg.common.constant.UserConstants;
 import com.ktg.common.utils.StringUtils;
 import com.ktg.mes.wm.domain.*;
+import com.ktg.mes.wm.domain.tx.ProductRecptTxBean;
 import com.ktg.mes.wm.service.*;
+import com.sun.deploy.panel.ExceptionListDialog;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,6 +52,9 @@ public class WmProductRecptController extends BaseController
 
     @Autowired
     private IWmStorageAreaService wmStorageAreaService;
+
+    @Autowired
+    private IStorageCoreService storageCoreService;
 
     /**
      * 查询产品入库录列表
@@ -172,7 +177,7 @@ public class WmProductRecptController extends BaseController
     @PreAuthorize("@ss.hasPermi('mes:wm:productrecpt:edit')")
     @Log(title = "产品入库记录", businessType = BusinessType.UPDATE)
     @Transactional
-    @PutMapping("/{issueId}")
+    @PutMapping("/{recptId}")
     public AjaxResult execute(@PathVariable Long recptId){
         WmProductRecpt recpt = wmProductRecptService.selectWmProductRecptByRecptId(recptId);
 
@@ -183,7 +188,11 @@ public class WmProductRecptController extends BaseController
             return AjaxResult.error("请添加要入库的产品");
         }
 
+        List<ProductRecptTxBean> beans = wmProductRecptService.getTxBean(recptId);
+        storageCoreService.processProductRecpt(beans);
 
+        recpt.setStatus(UserConstants.ORDER_STATUS_FINISHED);
+        wmProductRecptService.updateWmProductRecpt(recpt);
 
         return AjaxResult.success();
     }

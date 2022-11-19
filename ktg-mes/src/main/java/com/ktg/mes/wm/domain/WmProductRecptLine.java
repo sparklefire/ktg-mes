@@ -1,6 +1,9 @@
 package com.ktg.mes.wm.domain;
 
 import java.math.BigDecimal;
+import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ktg.common.annotation.Excel;
@@ -90,6 +93,11 @@ public class WmProductRecptLine extends BaseEntity
     /** 库位名称 */
     @Excel(name = "库位名称")
     private String areaName;
+
+    /** 有效期 */
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Excel(name = "有效期", width = 30, dateFormat = "yyyy-MM-dd")
+    private Date expireDate;
 
     /** 预留字段1 */
     private String attr1;
@@ -274,7 +282,16 @@ public class WmProductRecptLine extends BaseEntity
     {
         return areaName;
     }
-    public void setAttr1(String attr1) 
+
+    public Date getExpireDate() {
+        return expireDate;
+    }
+
+    public void setExpireDate(Date expireDate) {
+        this.expireDate = expireDate;
+    }
+
+    public void setAttr1(String attr1)
     {
         this.attr1 = attr1;
     }
@@ -313,35 +330,31 @@ public class WmProductRecptLine extends BaseEntity
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("lineId", getLineId())
-            .append("recptId", getRecptId())
-            .append("materialStockId", getMaterialStockId())
-            .append("itemId", getItemId())
-            .append("itemCode", getItemCode())
-            .append("itemName", getItemName())
-            .append("specification", getSpecification())
-            .append("unitOfMeasure", getUnitOfMeasure())
-            .append("quantityRecived", getQuantityRecived())
-            .append("batchCode", getBatchCode())
-            .append("warehouseId", getWarehouseId())
-            .append("warehouseCode", getWarehouseCode())
-            .append("warehouseName", getWarehouseName())
-            .append("locationId", getLocationId())
-            .append("locationCode", getLocationCode())
-            .append("locationName", getLocationName())
-            .append("areaId", getAreaId())
-            .append("areaCode", getAreaCode())
-            .append("areaName", getAreaName())
-            .append("remark", getRemark())
-            .append("attr1", getAttr1())
-            .append("attr2", getAttr2())
-            .append("attr3", getAttr3())
-            .append("attr4", getAttr4())
-            .append("createBy", getCreateBy())
-            .append("createTime", getCreateTime())
-            .append("updateBy", getUpdateBy())
-            .append("updateTime", getUpdateTime())
-            .toString();
+        return "WmProductRecptLine{" +
+                "lineId=" + lineId +
+                ", recptId=" + recptId +
+                ", materialStockId=" + materialStockId +
+                ", itemId=" + itemId +
+                ", itemCode='" + itemCode + '\'' +
+                ", itemName='" + itemName + '\'' +
+                ", specification='" + specification + '\'' +
+                ", unitOfMeasure='" + unitOfMeasure + '\'' +
+                ", quantityRecived=" + quantityRecived +
+                ", batchCode='" + batchCode + '\'' +
+                ", warehouseId=" + warehouseId +
+                ", warehouseCode='" + warehouseCode + '\'' +
+                ", warehouseName='" + warehouseName + '\'' +
+                ", locationId=" + locationId +
+                ", locationCode='" + locationCode + '\'' +
+                ", locationName='" + locationName + '\'' +
+                ", areaId=" + areaId +
+                ", areaCode='" + areaCode + '\'' +
+                ", areaName='" + areaName + '\'' +
+                ", expireDate=" + expireDate +
+                ", attr1='" + attr1 + '\'' +
+                ", attr2='" + attr2 + '\'' +
+                ", attr3=" + attr3 +
+                ", attr4=" + attr4 +
+                '}';
     }
 }
