@@ -172,7 +172,7 @@ public class WmRtSalseController extends BaseController
      * @param rtId
      * @return
      */
-    @PreAuthorize("@ss.hasPermi('mes:wm:rtissue:edit')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:rtsalse:edit')")
     @Log(title = "产品销售退货单", businessType = BusinessType.UPDATE)
     @Transactional
     @PutMapping("/{rtId}")
