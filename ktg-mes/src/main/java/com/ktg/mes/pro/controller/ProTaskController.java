@@ -144,7 +144,7 @@ public class ProTaskController extends BaseController
                         data.setWorkstation(task.getWorkstationName());
                         BigDecimal taskproduced = task.getQuantityProduced();
                         BigDecimal taskquantitiy = task.getQuantity();
-                        data.setProgress(taskproduced.divide(taskquantitiy).floatValue());
+                        data.setProgress(taskproduced.divide(taskquantitiy,BigDecimal.ROUND_HALF_UP).floatValue());
                         data.setType(UserConstants.GANTT_TASK_TYPE_TASK);
                         ganttData.add(data);
                     }
