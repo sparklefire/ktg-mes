@@ -1009,7 +1009,7 @@ create table wm_transfer (
   transfer_name         varchar(255)    not null                    comment '转移单名称',  
   destination           varchar(255)                                comment '目的地',
   carrier               varchar(64)                                 comment '承运商',
-  booking_note          varchar(64)                                 comment '托运单号'
+  booking_note          varchar(64)                                 comment '托运单号',
   from_warehouse_id     bigint(20)                                  comment '移出仓库ID',
   from_warehouse_code   varchar(64)                                 comment '移出仓库编码',
   from_warehouse_name   varchar(255)                                comment '移出仓库名称',
