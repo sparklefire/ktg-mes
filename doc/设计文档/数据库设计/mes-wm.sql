@@ -9,6 +9,7 @@ create table wm_warehouse (
   location               varchar(500)                               comment '位置',
   area                   double(12,2)                               comment '面积',
   charge                 varchar(64)                                comment '负责人',
+  enable_flag            char(1)         default 'N'                comment '是否启用',
   remark                 varchar(500)    default ''                 comment '备注',
   attr1                  varchar(64)     default null               comment '预留字段1',
   attr2                  varchar(255)     default null              comment '预留字段2',
@@ -687,7 +688,8 @@ create table wm_product_recpt_line (
   location_name         varchar(255)                                comment '库区名称',
   area_id               bigint(20)                                  comment '库位ID',
   area_code             varchar(64)                                 comment '库位编码',
-  area_name             varchar(255)                                comment '库位名称',   
+  area_name             varchar(255)                                comment '库位名称', 
+  expire_date           datetime                                    comment '有效期', 
   remark                varchar(500)    default ''                  comment '备注',
   attr1                 varchar(64)     default null                comment '预留字段1',
   attr2                 varchar(255)    default null                comment '预留字段2',
@@ -996,4 +998,88 @@ create table wm_package_line (
 ) engine=innodb auto_increment=200 comment = '装箱明细表';
 
 
+
+-- ----------------------------
+-- 21、转移单表
+-- ----------------------------
+drop table if exists wm_transfer;
+create table wm_transfer (
+  transfer_id           bigint(20)      not null auto_increment     comment '转移单ID',
+  transfer_code         varchar(64)     not null                    comment '转移单编号',
+  transfer_name         varchar(255)    not null                    comment '转移单名称',  
+  destination           varchar(255)                                comment '目的地',
+  carrier               varchar(64)                                 comment '承运商',
+  booking_note          varchar(64)                                 comment '托运单号'
+  from_warehouse_id     bigint(20)                                  comment '移出仓库ID',
+  from_warehouse_code   varchar(64)                                 comment '移出仓库编码',
+  from_warehouse_name   varchar(255)                                comment '移出仓库名称',
+  to_warehouse_id       bigint(20)                                  comment '移入仓库ID',
+  to_warehouse_code     varchar(64)                                 comment '移入仓库编码',
+  to_warehouse_name     varchar(255)                                comment '移入仓库名称',
+  transfer_date         datetime                                    comment '转移日期',  
+  status                varchar(64)     default 'PREPARE'           comment '单据状态',  
+  remark                varchar(500)    default ''                  comment '备注',
+  attr1                 varchar(64)     default null                comment '预留字段1',
+  attr2                 varchar(255)    default null                comment '预留字段2',
+  attr3                 int(11)         default 0                   comment '预留字段3',
+  attr4                 int(11)         default 0                   comment '预留字段4',
+  create_by             varchar(64)     default ''                  comment '创建者',
+  create_time           datetime                                    comment '创建时间',
+  update_by             varchar(64)     default ''                  comment '更新者',
+  update_time           datetime                                    comment '更新时间',
+  primary key (transfer_id)
+) engine=innodb auto_increment=200 comment = '转移单表';
+
+
+-- ----------------------------
+-- 22、转移单行表
+-- ----------------------------
+drop table if exists wm_transfer_line;
+create table wm_transfer_line (
+  line_id               bigint(20)      not null auto_increment     comment '明细行ID',
+  transfer_id           bigint(20)      not null                    comment '装箱单ID',
+  material_stock_id     bigint(20)      not null                    comment '库存记录ID',
+  item_id               bigint(20)      not null                    comment '产品物料ID',
+  item_code             varchar(64)                                 comment '产品物料编码',
+  item_name             varchar(255)                                comment '产品物料名称',
+  specification         varchar(500)                                comment '规格型号',
+  unit_of_measure       varchar(64)                                 comment '单位',
+  quantity_transfer     double(12,2)    not null                    comment '装箱数量',
+  workorder_id          bigint(20)                                  comment '生产工单ID',
+  workorder_code        varchar(64)                                 comment '生产工单编号',
+  batch_code            varchar(255)                                comment '批次号',
+  from_warehouse_id     bigint(20)                                  comment '移出仓库ID',
+  from_warehouse_code   varchar(64)                                 comment '移出仓库编码',
+  from_warehouse_name   varchar(255)                                comment '移出仓库名称',
+  from_location_id      bigint(20)                                  comment '移出库区ID',
+  from_location_code    varchar(64)                                 comment '移出库区编码',
+  from_location_name    varchar(255)                                comment '移出库区名称',
+  from_area_id          bigint(20)                                  comment '移出库位ID',
+  from_area_code        varchar(64)                                 comment '移出库位编码',
+  from_area_name        varchar(255)                                comment '移出库位名称',   
+  to_warehouse_id       bigint(20)                                  comment '移入仓库ID',
+  to_warehouse_code     varchar(64)                                 comment '移入仓库编码',
+  to_warehouse_name     varchar(255)                                comment '移入仓库名称',
+  to_location_id        bigint(20)                                  comment '移入库区ID',
+  to_location_code      varchar(64)                                 comment '移入库区编码',
+  to_location_name      varchar(255)                                comment '移入库区名称',
+  to_area_id            bigint(20)                                  comment '移入库位ID',
+  to_area_code          varchar(64)                                 comment '移入库位编码',
+  to_area_name          varchar(255)                                comment '移入库位名称',   
+  expire_date           datetime                                    comment '有效期',
+  vendor_id             bigint(20)                                  comment '供应商ID',
+  vendor_code           varchar(64)                                 comment '供应商编码',
+  vendor_name           varchar(255)                                comment '供应商名称',
+  vendor_nick           varchar(255)                                comment '供应商简称',
+  remark                varchar(500)    default ''                  comment '备注',
+  attr1                 varchar(64)     default null                comment '预留字段1',
+  attr2                 varchar(255)    default null                comment '预留字段2',
+  attr3                 int(11)         default 0                   comment '预留字段3',
+  attr4                 int(11)         default 0                   comment '预留字段4',
+  create_by             varchar(64)     default ''                  comment '创建者',
+  create_time           datetime                                    comment '创建时间',
+  update_by             varchar(64)     default ''                  comment '更新者',
+  update_time           datetime                                    comment '更新时间',
+  primary key (line_id)
+) engine=innodb auto_increment=200 comment = '转移单行表';
 
