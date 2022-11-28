@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ktg.mes.wm.mapper.WmTransferLineMapper">
+    
+    <resultMap type="WmTransferLine" id="WmTransferLineResult">
+        <result property="lineId"    column="line_id"    />
+        <result property="transferId"    column="transfer_id"    />
+        <result property="materialStockId"    column="material_stock_id"    />
+        <result property="itemId"    column="item_id"    />
+        <result property="itemCode"    column="item_code"    />
+        <result property="itemName"    column="item_name"    />
+        <result property="specification"    column="specification"    />
+        <result property="unitOfMeasure"    column="unit_of_measure"    />
+        <result property="quantityTransfer"    column="quantity_transfer"    />
+        <result property="workorderId"    column="workorder_id"    />
+        <result property="workorderCode"    column="workorder_code"    />
+        <result property="batchCode"    column="batch_code"    />
+        <result property="fromWarehouseId"    column="from_warehouse_id"    />
+        <result property="fromWarehouseCode"    column="from_warehouse_code"    />
+        <result property="fromWarehouseName"    column="from_warehouse_name"    />
+        <result property="fromLocationId"    column="from_location_id"    />
+        <result property="fromLocationCode"    column="from_location_code"    />
+        <result property="fromLocationName"    column="from_location_name"    />
+        <result property="fromAreaId"    column="from_area_id"    />
+        <result property="fromAreaCode"    column="from_area_code"    />
+        <result property="fromAreaName"    column="from_area_name"    />
+        <result property="toWarehouseId"    column="to_warehouse_id"    />
+        <result property="toWarehouseCode"    column="to_warehouse_code"    />
+        <result property="toWarehouseName"    column="to_warehouse_name"    />
+        <result property="toLocationId"    column="to_location_id"    />
+        <result property="toLocationCode"    column="to_location_code"    />
+        <result property="toLocationName"    column="to_location_name"    />
+        <result property="toAreaId"    column="to_area_id"    />
+        <result property="toAreaCode"    column="to_area_code"    />
+        <result property="toAreaName"    column="to_area_name"    />
+        <result property="expireDate"    column="expire_date"    />
+        <result property="vendorId"    column="vendor_id"    />
+        <result property="vendorCode"    column="vendor_code"    />
+        <result property="vendorName"    column="vendor_name"    />
+        <result property="vendorNick"    column="vendor_nick"    />
+        <result property="remark"    column="remark"    />
+        <result property="attr1"    column="attr1"    />
+        <result property="attr2"    column="attr2"    />
+        <result property="attr3"    column="attr3"    />
+        <result property="attr4"    column="attr4"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectWmTransferLineVo">
+        select line_id, transfer_id, material_stock_id, item_id, item_code, item_name, specification, unit_of_measure, quantity_transfer, workorder_id, workorder_code, batch_code, from_warehouse_id, from_warehouse_code, from_warehouse_name, from_location_id, from_location_code, from_location_name, from_area_id, from_area_code, from_area_name, to_warehouse_id, to_warehouse_code, to_warehouse_name, to_location_id, to_location_code, to_location_name, to_area_id, to_area_code, to_area_name, expire_date, vendor_id, vendor_code, vendor_name, vendor_nick, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from wm_transfer_line
+    </sql>
+
+    <select id="selectWmTransferLineList" parameterType="WmTransferLine" resultMap="WmTransferLineResult">
+        <include refid="selectWmTransferLineVo"/>
+        <where>  
+            <if test="transferId != null "> and transfer_id = #{transferId}</if>
+            <if test="materialStockId != null "> and material_stock_id = #{materialStockId}</if>
+            <if test="itemId != null "> and item_id = #{itemId}</if>
+            <if test="itemCode != null  and itemCode != ''"> and item_code = #{itemCode}</if>
+            <if test="itemName != null  and itemName != ''"> and item_name like concat('%', #{itemName}, '%')</if>
+            <if test="specification != null  and specification != ''"> and specification = #{specification}</if>
+            <if test="unitOfMeasure != null  and unitOfMeasure != ''"> and unit_of_measure = #{unitOfMeasure}</if>
+            <if test="quantityTransfer != null "> and quantity_transfer = #{quantityTransfer}</if>
+            <if test="workorderId != null "> and workorder_id = #{workorderId}</if>
+            <if test="workorderCode != null  and workorderCode != ''"> and workorder_code = #{workorderCode}</if>
+            <if test="batchCode != null  and batchCode != ''"> and batch_code = #{batchCode}</if>
+            <if test="fromWarehouseId != null "> and from_warehouse_id = #{fromWarehouseId}</if>
+            <if test="fromWarehouseCode != null  and fromWarehouseCode != ''"> and from_warehouse_code = #{fromWarehouseCode}</if>
+            <if test="fromWarehouseName != null  and fromWarehouseName != ''"> and from_warehouse_name like concat('%', #{fromWarehouseName}, '%')</if>
+            <if test="fromLocationId != null "> and from_location_id = #{fromLocationId}</if>
+            <if test="fromLocationCode != null  and fromLocationCode != ''"> and from_location_code = #{fromLocationCode}</if>
+            <if test="fromLocationName != null  and fromLocationName != ''"> and from_location_name like concat('%', #{fromLocationName}, '%')</if>
+            <if test="fromAreaId != null "> and from_area_id = #{fromAreaId}</if>
+            <if test="fromAreaCode != null  and fromAreaCode != ''"> and from_area_code = #{fromAreaCode}</if>
+            <if test="fromAreaName != null  and fromAreaName != ''"> and from_area_name like concat('%', #{fromAreaName}, '%')</if>
+            <if test="toWarehouseId != null "> and to_warehouse_id = #{toWarehouseId}</if>
+            <if test="toWarehouseCode != null  and toWarehouseCode != ''"> and to_warehouse_code = #{toWarehouseCode}</if>
+            <if test="toWarehouseName != null  and toWarehouseName != ''"> and to_warehouse_name like concat('%', #{toWarehouseName}, '%')</if>
+            <if test="toLocationId != null "> and to_location_id = #{toLocationId}</if>
+            <if test="toLocationCode != null  and toLocationCode != ''"> and to_location_code = #{toLocationCode}</if>
+            <if test="toLocationName != null  and toLocationName != ''"> and to_location_name like concat('%', #{toLocationName}, '%')</if>
+            <if test="toAreaId != null "> and to_area_id = #{toAreaId}</if>
+            <if test="toAreaCode != null  and toAreaCode != ''"> and to_area_code = #{toAreaCode}</if>
+            <if test="toAreaName != null  and toAreaName != ''"> and to_area_name like concat('%', #{toAreaName}, '%')</if>
+            <if test="expireDate != null "> and expire_date = #{expireDate}</if>
+            <if test="vendorId != null "> and vendor_id = #{vendorId}</if>
+            <if test="vendorCode != null  and vendorCode != ''"> and vendor_code = #{vendorCode}</if>
+            <if test="vendorName != null  and vendorName != ''"> and vendor_name like concat('%', #{vendorName}, '%')</if>
+            <if test="vendorNick != null  and vendorNick != ''"> and vendor_nick = #{vendorNick}</if>
+        </where>
+    </select>
+    
+    <select id="selectWmTransferLineByLineId" parameterType="Long" resultMap="WmTransferLineResult">
+        <include refid="selectWmTransferLineVo"/>
+        where line_id = #{lineId}
+    </select>
+        
+    <insert id="insertWmTransferLine" parameterType="WmTransferLine" useGeneratedKeys="true" keyProperty="lineId">
+        insert into wm_transfer_line
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="transferId != null">transfer_id,</if>
+            <if test="materialStockId != null">material_stock_id,</if>
+            <if test="itemId != null">item_id,</if>
+            <if test="itemCode != null">item_code,</if>
+            <if test="itemName != null">item_name,</if>
+            <if test="specification != null">specification,</if>
+            <if test="unitOfMeasure != null">unit_of_measure,</if>
+            <if test="quantityTransfer != null">quantity_transfer,</if>
+            <if test="workorderId != null">workorder_id,</if>
+            <if test="workorderCode != null">workorder_code,</if>
+            <if test="batchCode != null">batch_code,</if>
+            <if test="fromWarehouseId != null">from_warehouse_id,</if>
+            <if test="fromWarehouseCode != null">from_warehouse_code,</if>
+            <if test="fromWarehouseName != null">from_warehouse_name,</if>
+            <if test="fromLocationId != null">from_location_id,</if>
+            <if test="fromLocationCode != null">from_location_code,</if>
+            <if test="fromLocationName != null">from_location_name,</if>
+            <if test="fromAreaId != null">from_area_id,</if>
+            <if test="fromAreaCode != null">from_area_code,</if>
+            <if test="fromAreaName != null">from_area_name,</if>
+            <if test="toWarehouseId != null">to_warehouse_id,</if>
+            <if test="toWarehouseCode != null">to_warehouse_code,</if>
+            <if test="toWarehouseName != null">to_warehouse_name,</if>
+            <if test="toLocationId != null">to_location_id,</if>
+            <if test="toLocationCode != null">to_location_code,</if>
+            <if test="toLocationName != null">to_location_name,</if>
+            <if test="toAreaId != null">to_area_id,</if>
+            <if test="toAreaCode != null">to_area_code,</if>
+            <if test="toAreaName != null">to_area_name,</if>
+            <if test="expireDate != null">expire_date,</if>
+            <if test="vendorId != null">vendor_id,</if>
+            <if test="vendorCode != null">vendor_code,</if>
+            <if test="vendorName != null">vendor_name,</if>
+            <if test="vendorNick != null">vendor_nick,</if>
+            <if test="remark != null">remark,</if>
+            <if test="attr1 != null">attr1,</if>
+            <if test="attr2 != null">attr2,</if>
+            <if test="attr3 != null">attr3,</if>
+            <if test="attr4 != null">attr4,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="transferId != null">#{transferId},</if>
+            <if test="materialStockId != null">#{materialStockId},</if>
+            <if test="itemId != null">#{itemId},</if>
+            <if test="itemCode != null">#{itemCode},</if>
+            <if test="itemName != null">#{itemName},</if>
+            <if test="specification != null">#{specification},</if>
+            <if test="unitOfMeasure != null">#{unitOfMeasure},</if>
+            <if test="quantityTransfer != null">#{quantityTransfer},</if>
+            <if test="workorderId != null">#{workorderId},</if>
+            <if test="workorderCode != null">#{workorderCode},</if>
+            <if test="batchCode != null">#{batchCode},</if>
+            <if test="fromWarehouseId != null">#{fromWarehouseId},</if>
+            <if test="fromWarehouseCode != null">#{fromWarehouseCode},</if>
+            <if test="fromWarehouseName != null">#{fromWarehouseName},</if>
+            <if test="fromLocationId != null">#{fromLocationId},</if>
+            <if test="fromLocationCode != null">#{fromLocationCode},</if>
+            <if test="fromLocationName != null">#{fromLocationName},</if>
+            <if test="fromAreaId != null">#{fromAreaId},</if>
+            <if test="fromAreaCode != null">#{fromAreaCode},</if>
+            <if test="fromAreaName != null">#{fromAreaName},</if>
+            <if test="toWarehouseId != null">#{toWarehouseId},</if>
+            <if test="toWarehouseCode != null">#{toWarehouseCode},</if>
+            <if test="toWarehouseName != null">#{toWarehouseName},</if>
+            <if test="toLocationId != null">#{toLocationId},</if>
+            <if test="toLocationCode != null">#{toLocationCode},</if>
+            <if test="toLocationName != null">#{toLocationName},</if>
+            <if test="toAreaId != null">#{toAreaId},</if>
+            <if test="toAreaCode != null">#{toAreaCode},</if>
+            <if test="toAreaName != null">#{toAreaName},</if>
+            <if test="expireDate != null">#{expireDate},</if>
+            <if test="vendorId != null">#{vendorId},</if>
+            <if test="vendorCode != null">#{vendorCode},</if>
+            <if test="vendorName != null">#{vendorName},</if>
+            <if test="vendorNick != null">#{vendorNick},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="attr1 != null">#{attr1},</if>
+            <if test="attr2 != null">#{attr2},</if>
+            <if test="attr3 != null">#{attr3},</if>
+            <if test="attr4 != null">#{attr4},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateWmTransferLine" parameterType="WmTransferLine">
+        update wm_transfer_line
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="transferId != null">transfer_id = #{transferId},</if>
+            <if test="materialStockId != null">material_stock_id = #{materialStockId},</if>
+            <if test="itemId != null">item_id = #{itemId},</if>
+            <if test="itemCode != null">item_code = #{itemCode},</if>
+            <if test="itemName != null">item_name = #{itemName},</if>
+            <if test="specification != null">specification = #{specification},</if>
+            <if test="unitOfMeasure != null">unit_of_measure = #{unitOfMeasure},</if>
+            <if test="quantityTransfer != null">quantity_transfer = #{quantityTransfer},</if>
+            <if test="workorderId != null">workorder_id = #{workorderId},</if>
+            <if test="workorderCode != null">workorder_code = #{workorderCode},</if>
+            <if test="batchCode != null">batch_code = #{batchCode},</if>
+            <if test="fromWarehouseId != null">from_warehouse_id = #{fromWarehouseId},</if>
+            <if test="fromWarehouseCode != null">from_warehouse_code = #{fromWarehouseCode},</if>
+            <if test="fromWarehouseName != null">from_warehouse_name = #{fromWarehouseName},</if>
+            <if test="fromLocationId != null">from_location_id = #{fromLocationId},</if>
+            <if test="fromLocationCode != null">from_location_code = #{fromLocationCode},</if>
+            <if test="fromLocationName != null">from_location_name = #{fromLocationName},</if>
+            <if test="fromAreaId != null">from_area_id = #{fromAreaId},</if>
+            <if test="fromAreaCode != null">from_area_code = #{fromAreaCode},</if>
+            <if test="fromAreaName != null">from_area_name = #{fromAreaName},</if>
+            <if test="toWarehouseId != null">to_warehouse_id = #{toWarehouseId},</if>
+            <if test="toWarehouseCode != null">to_warehouse_code = #{toWarehouseCode},</if>
+            <if test="toWarehouseName != null">to_warehouse_name = #{toWarehouseName},</if>
+            <if test="toLocationId != null">to_location_id = #{toLocationId},</if>
+            <if test="toLocationCode != null">to_location_code = #{toLocationCode},</if>
+            <if test="toLocationName != null">to_location_name = #{toLocationName},</if>
+            <if test="toAreaId != null">to_area_id = #{toAreaId},</if>
+            <if test="toAreaCode != null">to_area_code = #{toAreaCode},</if>
+            <if test="toAreaName != null">to_area_name = #{toAreaName},</if>
+            <if test="expireDate != null">expire_date = #{expireDate},</if>
+            <if test="vendorId != null">vendor_id = #{vendorId},</if>
+            <if test="vendorCode != null">vendor_code = #{vendorCode},</if>
+            <if test="vendorName != null">vendor_name = #{vendorName},</if>
+            <if test="vendorNick != null">vendor_nick = #{vendorNick},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="attr1 != null">attr1 = #{attr1},</if>
+            <if test="attr2 != null">attr2 = #{attr2},</if>
+            <if test="attr3 != null">attr3 = #{attr3},</if>
+            <if test="attr4 != null">attr4 = #{attr4},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where line_id = #{lineId}
+    </update>
+
+    <delete id="deleteWmTransferLineByLineId" parameterType="Long">
+        delete from wm_transfer_line where line_id = #{lineId}
+    </delete>
+
+    <delete id="deleteWmTransferLineByLineIds" parameterType="String">
+        delete from wm_transfer_line where line_id in 
+        <foreach item="lineId" collection="array" open="(" separator="," close=")">
+            #{lineId}
+        </foreach>
+    </delete>
+
+    <delete id="deleteByTransferId" parameterType="Long">
+        delete from wm_transfer_line where transfer_id = #{transferId}
+    </delete>
+
+</mapper>
