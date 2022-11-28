@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ktg.mes.wm.mapper.WmTransferMapper">
+    
+    <resultMap type="WmTransfer" id="WmTransferResult">
+        <result property="transferId"    column="transfer_id"    />
+        <result property="transferCode"    column="transfer_code"    />
+        <result property="transferName"    column="transfer_name"    />
+        <result property="transferType"    column="transfer_type"    />
+        <result property="destination"    column="destination"    />
+        <result property="carrier"    column="carrier"    />
+        <result property="bookingNote"    column="booking_note"    />
+        <result property="fromWarehouseId"    column="from_warehouse_id"    />
+        <result property="fromWarehouseCode"    column="from_warehouse_code"    />
+        <result property="fromWarehouseName"    column="from_warehouse_name"    />
+        <result property="toWarehouseId"    column="to_warehouse_id"    />
+        <result property="toWarehouseCode"    column="to_warehouse_code"    />
+        <result property="toWarehouseName"    column="to_warehouse_name"    />
+        <result property="transferDate"    column="transfer_date"    />
+        <result property="status"    column="status"    />
+        <result property="remark"    column="remark"    />
+        <result property="attr1"    column="attr1"    />
+        <result property="attr2"    column="attr2"    />
+        <result property="attr3"    column="attr3"    />
+        <result property="attr4"    column="attr4"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectWmTransferVo">
+        select transfer_id, transfer_code, transfer_name, transfer_type, destination, carrier, booking_note, from_warehouse_id, from_warehouse_code, from_warehouse_name, to_warehouse_id, to_warehouse_code, to_warehouse_name, transfer_date, status, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from wm_transfer
+    </sql>
+
+    <select id="selectWmTransferList" parameterType="WmTransfer" resultMap="WmTransferResult">
+        <include refid="selectWmTransferVo"/>
+        <where>  
+            <if test="transferCode != null  and transferCode != ''"> and transfer_code = #{transferCode}</if>
+            <if test="transferName != null  and transferName != ''"> and transfer_name like concat('%', #{transferName}, '%')</if>
+            <if test="transferType != null  and transferType != ''"> and transfer_type = #{transferType}</if>
+            <if test="destination != null  and destination != ''"> and destination = #{destination}</if>
+            <if test="carrier != null  and carrier != ''"> and carrier = #{carrier}</if>
+            <if test="bookingNote != null  and bookingNote != ''"> and booking_note = #{bookingNote}</if>
+            <if test="fromWarehouseId != null "> and from_warehouse_id = #{fromWarehouseId}</if>
+            <if test="fromWarehouseCode != null  and fromWarehouseCode != ''"> and from_warehouse_code = #{fromWarehouseCode}</if>
+            <if test="fromWarehouseName != null  and fromWarehouseName != ''"> and from_warehouse_name like concat('%', #{fromWarehouseName}, '%')</if>
+            <if test="toWarehouseId != null "> and to_warehouse_id = #{toWarehouseId}</if>
+            <if test="toWarehouseCode != null  and toWarehouseCode != ''"> and to_warehouse_code = #{toWarehouseCode}</if>
+            <if test="toWarehouseName != null  and toWarehouseName != ''"> and to_warehouse_name like concat('%', #{toWarehouseName}, '%')</if>
+            <if test="transferDate != null "> and transfer_date = #{transferDate}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+        </where>
+    </select>
+    
+    <select id="selectWmTransferByTransferId" parameterType="Long" resultMap="WmTransferResult">
+        <include refid="selectWmTransferVo"/>
+        where transfer_id = #{transferId}
+    </select>
+
+    <select id="checkUnique" parameterType="WmTransfer" resultMap="WmTransferResult">
+        <include refid="selectWmTransferVo"/>
+        where transfer_code = #{transferCode}
+    </select>
+
+    <insert id="insertWmTransfer" parameterType="WmTransfer" useGeneratedKeys="true" keyProperty="transferId">
+        insert into wm_transfer
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="transferCode != null and transferCode != ''">transfer_code,</if>
+            <if test="transferName != null and transferName != ''">transfer_name,</if>
+            <if test="transferType != null and transferType != ''">transfer_type,</if>
+            <if test="destination != null">destination,</if>
+            <if test="carrier != null">carrier,</if>
+            <if test="bookingNote != null">booking_note,</if>
+            <if test="fromWarehouseId != null">from_warehouse_id,</if>
+            <if test="fromWarehouseCode != null">from_warehouse_code,</if>
+            <if test="fromWarehouseName != null">from_warehouse_name,</if>
+            <if test="toWarehouseId != null">to_warehouse_id,</if>
+            <if test="toWarehouseCode != null">to_warehouse_code,</if>
+            <if test="toWarehouseName != null">to_warehouse_name,</if>
+            <if test="transferDate != null">transfer_date,</if>
+            <if test="status != null">status,</if>
+            <if test="remark != null">remark,</if>
+            <if test="attr1 != null">attr1,</if>
+            <if test="attr2 != null">attr2,</if>
+            <if test="attr3 != null">attr3,</if>
+            <if test="attr4 != null">attr4,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="transferCode != null and transferCode != ''">#{transferCode},</if>
+            <if test="transferName != null and transferName != ''">#{transferName},</if>
+            <if test="transferType != null and transferType != ''">#{transferType},</if>
+            <if test="destination != null">#{destination},</if>
+            <if test="carrier != null">#{carrier},</if>
+            <if test="bookingNote != null">#{bookingNote},</if>
+            <if test="fromWarehouseId != null">#{fromWarehouseId},</if>
+            <if test="fromWarehouseCode != null">#{fromWarehouseCode},</if>
+            <if test="fromWarehouseName != null">#{fromWarehouseName},</if>
+            <if test="toWarehouseId != null">#{toWarehouseId},</if>
+            <if test="toWarehouseCode != null">#{toWarehouseCode},</if>
+            <if test="toWarehouseName != null">#{toWarehouseName},</if>
+            <if test="transferDate != null">#{transferDate},</if>
+            <if test="status != null">#{status},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="attr1 != null">#{attr1},</if>
+            <if test="attr2 != null">#{attr2},</if>
+            <if test="attr3 != null">#{attr3},</if>
+            <if test="attr4 != null">#{attr4},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateWmTransfer" parameterType="WmTransfer">
+        update wm_transfer
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="transferCode != null and transferCode != ''">transfer_code = #{transferCode},</if>
+            <if test="transferName != null and transferName != ''">transfer_name = #{transferName},</if>
+            <if test="transferType != null and transferType != ''">transfer_type = #{transferType},</if>
+            <if test="destination != null">destination = #{destination},</if>
+            <if test="carrier != null">carrier = #{carrier},</if>
+            <if test="bookingNote != null">booking_note = #{bookingNote},</if>
+            <if test="fromWarehouseId != null">from_warehouse_id = #{fromWarehouseId},</if>
+            <if test="fromWarehouseCode != null">from_warehouse_code = #{fromWarehouseCode},</if>
+            <if test="fromWarehouseName != null">from_warehouse_name = #{fromWarehouseName},</if>
+            <if test="toWarehouseId != null">to_warehouse_id = #{toWarehouseId},</if>
+            <if test="toWarehouseCode != null">to_warehouse_code = #{toWarehouseCode},</if>
+            <if test="toWarehouseName != null">to_warehouse_name = #{toWarehouseName},</if>
+            <if test="transferDate != null">transfer_date = #{transferDate},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="attr1 != null">attr1 = #{attr1},</if>
+            <if test="attr2 != null">attr2 = #{attr2},</if>
+            <if test="attr3 != null">attr3 = #{attr3},</if>
+            <if test="attr4 != null">attr4 = #{attr4},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where transfer_id = #{transferId}
+    </update>
+
+    <delete id="deleteWmTransferByTransferId" parameterType="Long">
+        delete from wm_transfer where transfer_id = #{transferId}
+    </delete>
+
+    <delete id="deleteWmTransferByTransferIds" parameterType="String">
+        delete from wm_transfer where transfer_id in 
+        <foreach item="transferId" collection="array" open="(" separator="," close=")">
+            #{transferId}
+        </foreach>
+    </delete>
+</mapper>
