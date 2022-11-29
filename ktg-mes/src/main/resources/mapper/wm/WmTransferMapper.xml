@@ -12,6 +12,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="destination"    column="destination"    />
         <result property="carrier"    column="carrier"    />
         <result property="bookingNote"    column="booking_note"    />
+        <result property="receiver"    column="receiver"    />
+        <result property="receiverNick"    column="receiver_nick"    />
         <result property="fromWarehouseId"    column="from_warehouse_id"    />
         <result property="fromWarehouseCode"    column="from_warehouse_code"    />
         <result property="fromWarehouseName"    column="from_warehouse_name"    />
@@ -32,7 +34,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectWmTransferVo">
-        select transfer_id, transfer_code, transfer_name, transfer_type, destination, carrier, booking_note, from_warehouse_id, from_warehouse_code, from_warehouse_name, to_warehouse_id, to_warehouse_code, to_warehouse_name, transfer_date, status, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from wm_transfer
+        select transfer_id, transfer_code, transfer_name, transfer_type, destination, carrier, booking_note,receiver,receiver_nick, from_warehouse_id, from_warehouse_code, from_warehouse_name, to_warehouse_id, to_warehouse_code, to_warehouse_name, transfer_date, status, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from wm_transfer
     </sql>
 
     <select id="selectWmTransferList" parameterType="WmTransfer" resultMap="WmTransferResult">
@@ -44,6 +46,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="destination != null  and destination != ''"> and destination = #{destination}</if>
             <if test="carrier != null  and carrier != ''"> and carrier = #{carrier}</if>
             <if test="bookingNote != null  and bookingNote != ''"> and booking_note = #{bookingNote}</if>
+            <if test="receiver != null and receiver != ''">and receiver = #{receiver}</if>
+            <if test="receiverNick != null and receiverNick !=''">and receiver_nick like concat('%',#{receiverNick},'%') </if>
             <if test="fromWarehouseId != null "> and from_warehouse_id = #{fromWarehouseId}</if>
             <if test="fromWarehouseCode != null  and fromWarehouseCode != ''"> and from_warehouse_code = #{fromWarehouseCode}</if>
             <if test="fromWarehouseName != null  and fromWarehouseName != ''"> and from_warehouse_name like concat('%', #{fromWarehouseName}, '%')</if>
@@ -74,6 +78,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="destination != null">destination,</if>
             <if test="carrier != null">carrier,</if>
             <if test="bookingNote != null">booking_note,</if>
+            <if test="receiver != null">receiver,</if>
+            <if test="receiverNick != null">receiver_nick,</if>
             <if test="fromWarehouseId != null">from_warehouse_id,</if>
             <if test="fromWarehouseCode != null">from_warehouse_code,</if>
             <if test="fromWarehouseName != null">from_warehouse_name,</if>
@@ -99,6 +105,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="destination != null">#{destination},</if>
             <if test="carrier != null">#{carrier},</if>
             <if test="bookingNote != null">#{bookingNote},</if>
+            <if test="receiver != null">#{receiver},</if>
+            <if test="receiverNick != null">#{receiverNick},</if>
             <if test="fromWarehouseId != null">#{fromWarehouseId},</if>
             <if test="fromWarehouseCode != null">#{fromWarehouseCode},</if>
             <if test="fromWarehouseName != null">#{fromWarehouseName},</if>
@@ -128,6 +136,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="destination != null">destination = #{destination},</if>
             <if test="carrier != null">carrier = #{carrier},</if>
             <if test="bookingNote != null">booking_note = #{bookingNote},</if>
+            <if test="receiver != null">receiver = #{receiver},</if>
+            <if test="receiverNick != null">receiver_nick = #{receiverNick},</if>
             <if test="fromWarehouseId != null">from_warehouse_id = #{fromWarehouseId},</if>
             <if test="fromWarehouseCode != null">from_warehouse_code = #{fromWarehouseCode},</if>
             <if test="fromWarehouseName != null">from_warehouse_name = #{fromWarehouseName},</if>

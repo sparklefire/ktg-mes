@@ -33,7 +33,7 @@ import com.ktg.common.core.page.TableDataInfo;
  * @date 2022-11-28
  */
 @RestController
-@RequestMapping("/wm/transfer")
+@RequestMapping("/mes/wm/transfer")
 public class WmTransferController extends BaseController
 {
     @Autowired

@@ -44,6 +44,12 @@ public class WmTransfer extends BaseEntity
     @Excel(name = "托运单号")
     private String bookingNote;
 
+    @Excel(name = "收货人")
+    private String receiver;
+
+    @Excel(name = "收货人名称")
+    private String receiverNick;
+
     /** 移出仓库ID */
     @Excel(name = "移出仓库ID")
     private Long fromWarehouseId;
@@ -152,7 +158,24 @@ public class WmTransfer extends BaseEntity
     {
         return bookingNote;
     }
-    public void setFromWarehouseId(Long fromWarehouseId) 
+
+    public String getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(String receiver) {
+        this.receiver = receiver;
+    }
+
+    public String getReceiverNick() {
+        return receiverNick;
+    }
+
+    public void setReceiverNick(String receiverNick) {
+        this.receiverNick = receiverNick;
+    }
+
+    public void setFromWarehouseId(Long fromWarehouseId)
     {
         this.fromWarehouseId = fromWarehouseId;
     }
@@ -263,31 +286,28 @@ public class WmTransfer extends BaseEntity
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("transferId", getTransferId())
-            .append("transferCode", getTransferCode())
-            .append("transferName", getTransferName())
-            .append("transferType", getTransferType())
-            .append("destination", getDestination())
-            .append("carrier", getCarrier())
-            .append("bookingNote", getBookingNote())
-            .append("fromWarehouseId", getFromWarehouseId())
-            .append("fromWarehouseCode", getFromWarehouseCode())
-            .append("fromWarehouseName", getFromWarehouseName())
-            .append("toWarehouseId", getToWarehouseId())
-            .append("toWarehouseCode", getToWarehouseCode())
-            .append("toWarehouseName", getToWarehouseName())
-            .append("transferDate", getTransferDate())
-            .append("status", getStatus())
-            .append("remark", getRemark())
-            .append("attr1", getAttr1())
-            .append("attr2", getAttr2())
-            .append("attr3", getAttr3())
-            .append("attr4", getAttr4())
-            .append("createBy", getCreateBy())
-            .append("createTime", getCreateTime())
-            .append("updateBy", getUpdateBy())
-            .append("updateTime", getUpdateTime())
-            .toString();
+        return "WmTransfer{" +
+                "transferId=" + transferId +
+                ", transferCode='" + transferCode + '\'' +
+                ", transferName='" + transferName + '\'' +
+                ", transferType='" + transferType + '\'' +
+                ", destination='" + destination + '\'' +
+                ", carrier='" + carrier + '\'' +
+                ", bookingNote='" + bookingNote + '\'' +
+                ", receiver='" + receiver + '\'' +
+                ", receiverNick='" + receiverNick + '\'' +
+                ", fromWarehouseId=" + fromWarehouseId +
+                ", fromWarehouseCode='" + fromWarehouseCode + '\'' +
+                ", fromWarehouseName='" + fromWarehouseName + '\'' +
+                ", toWarehouseId=" + toWarehouseId +
+                ", toWarehouseCode='" + toWarehouseCode + '\'' +
+                ", toWarehouseName='" + toWarehouseName + '\'' +
+                ", transferDate=" + transferDate +
+                ", status='" + status + '\'' +
+                ", attr1='" + attr1 + '\'' +
+                ", attr2='" + attr2 + '\'' +
+                ", attr3=" + attr3 +
+                ", attr4=" + attr4 +
+                '}';
     }
 }
