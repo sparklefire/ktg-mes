@@ -4,7 +4,11 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ktg.common.constant.UserConstants;
-import com.ktg.mes.wm.service.IWmTransferLineService;
+import com.ktg.common.utils.StringUtils;
+import com.ktg.mes.wm.domain.WmStorageArea;
+import com.ktg.mes.wm.domain.WmStorageLocation;
+import com.ktg.mes.wm.domain.WmWarehouse;
+import com.ktg.mes.wm.service.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +26,6 @@ import com.ktg.common.core.controller.BaseController;
 import com.ktg.common.core.domain.AjaxResult;
 import com.ktg.common.enums.BusinessType;
 import com.ktg.mes.wm.domain.WmTransfer;
-import com.ktg.mes.wm.service.IWmTransferService;
 import com.ktg.common.utils.poi.ExcelUtil;
 import com.ktg.common.core.page.TableDataInfo;
 
@@ -41,6 +44,15 @@ public class WmTransferController extends BaseController
 
     @Autowired
     private IWmTransferLineService wmTransferLineService;
+
+    @Autowired
+    private IWmWarehouseService wmWarehouseService;
+
+    @Autowired
+    private IWmStorageLocationService wmStorageLocationService;
+
+    @Autowired
+    private IWmStorageAreaService wmStorageAreaService;
 
     /**
      * 查询转移单列表
@@ -88,6 +100,18 @@ public class WmTransferController extends BaseController
         if(UserConstants.NOT_UNIQUE.equals(wmTransferService.checkUnique(wmTransfer))){
             return AjaxResult.error("转移单编号已存在");
         }
+        if(StringUtils.isNotNull(wmTransfer.getFromWarehouseId())){
+            WmWarehouse warehouse = wmWarehouseService.selectWmWarehouseByWarehouseId(wmTransfer.getFromWarehouseId());
+            wmTransfer.setFromWarehouseCode(warehouse.getWarehouseCode());
+            wmTransfer.setFromWarehouseName(warehouse.getWarehouseName());
+        }
+        if(StringUtils.isNotNull(wmTransfer.getToWarehouseId())){
+            WmWarehouse warehouse = wmWarehouseService.selectWmWarehouseByWarehouseId(wmTransfer.getToWarehouseId());
+            wmTransfer.setToWarehouseCode(warehouse.getWarehouseCode());
+            wmTransfer.setToWarehouseName(warehouse.getWarehouseName());
+        }
+
+
         return toAjax(wmTransferService.insertWmTransfer(wmTransfer));
     }
 
@@ -101,6 +125,16 @@ public class WmTransferController extends BaseController
     {
         if(UserConstants.NOT_UNIQUE.equals(wmTransferService.checkUnique(wmTransfer))){
             return AjaxResult.error("转移单编号已存在");
+        }
+        if(StringUtils.isNotNull(wmTransfer.getFromWarehouseId())){
+            WmWarehouse warehouse = wmWarehouseService.selectWmWarehouseByWarehouseId(wmTransfer.getFromWarehouseId());
+            wmTransfer.setFromWarehouseCode(warehouse.getWarehouseCode());
+            wmTransfer.setFromWarehouseName(warehouse.getWarehouseName());
+        }
+        if(StringUtils.isNotNull(wmTransfer.getToWarehouseId())){
+            WmWarehouse warehouse = wmWarehouseService.selectWmWarehouseByWarehouseId(wmTransfer.getToWarehouseId());
+            wmTransfer.setToWarehouseCode(warehouse.getWarehouseCode());
+            wmTransfer.setToWarehouseName(warehouse.getWarehouseName());
         }
         return toAjax(wmTransferService.updateWmTransfer(wmTransfer));
     }
