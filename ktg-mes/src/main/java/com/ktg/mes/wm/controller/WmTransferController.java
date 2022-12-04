@@ -48,11 +48,7 @@ public class WmTransferController extends BaseController
     @Autowired
     private IWmWarehouseService wmWarehouseService;
 
-    @Autowired
-    private IWmStorageLocationService wmStorageLocationService;
 
-    @Autowired
-    private IWmStorageAreaService wmStorageAreaService;
 
     /**
      * 查询转移单列表
