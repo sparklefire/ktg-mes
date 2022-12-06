@@ -8,6 +8,7 @@ import com.ktg.common.utils.StringUtils;
 import com.ktg.mes.wm.domain.WmStorageArea;
 import com.ktg.mes.wm.domain.WmStorageLocation;
 import com.ktg.mes.wm.domain.WmWarehouse;
+import com.ktg.mes.wm.domain.tx.TransferTxBean;
 import com.ktg.mes.wm.service.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,12 +49,13 @@ public class WmTransferController extends BaseController
     @Autowired
     private IWmWarehouseService wmWarehouseService;
 
-
+    @Autowired
+    private IStorageCoreService storageCoreService;
 
     /**
      * 查询转移单列表
      */
-    @PreAuthorize("@ss.hasPermi('wm:transfer:list')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:transfer:list')")
     @GetMapping("/list")
     public TableDataInfo list(WmTransfer wmTransfer)
     {
@@ -65,7 +67,7 @@ public class WmTransferController extends BaseController
     /**
      * 导出转移单列表
      */
-    @PreAuthorize("@ss.hasPermi('wm:transfer:export')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:transfer:export')")
     @Log(title = "转移单", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, WmTransfer wmTransfer)
@@ -78,7 +80,7 @@ public class WmTransferController extends BaseController
     /**
      * 获取转移单详细信息
      */
-    @PreAuthorize("@ss.hasPermi('wm:transfer:query')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:transfer:query')")
     @GetMapping(value = "/{transferId}")
     public AjaxResult getInfo(@PathVariable("transferId") Long transferId)
     {
@@ -88,7 +90,7 @@ public class WmTransferController extends BaseController
     /**
      * 新增转移单
      */
-    @PreAuthorize("@ss.hasPermi('wm:transfer:add')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:transfer:add')")
     @Log(title = "转移单", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody WmTransfer wmTransfer)
@@ -114,7 +116,7 @@ public class WmTransferController extends BaseController
     /**
      * 修改转移单
      */
-    @PreAuthorize("@ss.hasPermi('wm:transfer:edit')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:transfer:edit')")
     @Log(title = "转移单", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody WmTransfer wmTransfer)
@@ -138,7 +140,7 @@ public class WmTransferController extends BaseController
     /**
      * 删除转移单
      */
-    @PreAuthorize("@ss.hasPermi('wm:transfer:remove')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:transfer:remove')")
     @Log(title = "转移单", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{transferIds}")
     @Transactional
@@ -149,5 +151,28 @@ public class WmTransferController extends BaseController
             wmTransferLineService.deleteByTransferId(transferId);
         }
         return toAjax(wmTransferService.deleteWmTransferByTransferIds(transferIds));
+    }
+
+    /**
+     * 执行退货
+     */
+    @PreAuthorize("@ss.hasPermi('mes:wm:transfer:edit')")
+    @Log(title = "转移单", businessType = BusinessType.UPDATE)
+    @Transactional
+    @PutMapping("/{transferId}")
+    public AjaxResult execute(@PathVariable Long transferId){
+        WmTransfer transfer = wmTransferService.selectWmTransferByTransferId(transferId);
+        List<TransferTxBean> beans = wmTransferService.getTxBeans(transferId);
+
+        if(CollectionUtils.isEmpty(beans)){
+            return AjaxResult.error("请添加转移单行信息！");
+        }
+
+        storageCoreService.processTransfer(beans);
+
+
+        transfer.setStatus(UserConstants.ORDER_STATUS_FINISHED);
+        wmTransferService.updateWmTransfer(transfer);
+        return AjaxResult.success();
     }
 }

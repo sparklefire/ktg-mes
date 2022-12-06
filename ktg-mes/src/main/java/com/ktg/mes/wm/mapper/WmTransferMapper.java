@@ -2,6 +2,7 @@ package com.ktg.mes.wm.mapper;
 
 import java.util.List;
 import com.ktg.mes.wm.domain.WmTransfer;
+import com.ktg.mes.wm.domain.tx.TransferTxBean;
 
 /**
  * 转移单Mapper接口
@@ -26,6 +27,9 @@ public interface WmTransferMapper
      * @return 转移单集合
      */
     public List<WmTransfer> selectWmTransferList(WmTransfer wmTransfer);
+
+
+    public List<TransferTxBean> getTxBeans(Long transferId);
 
     /**
      * 检查编码是否唯一

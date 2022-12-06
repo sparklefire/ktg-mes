@@ -5,6 +5,7 @@ import java.util.List;
 import com.ktg.common.constant.UserConstants;
 import com.ktg.common.utils.DateUtils;
 import com.ktg.common.utils.StringUtils;
+import com.ktg.mes.wm.domain.tx.TransferTxBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ktg.mes.wm.mapper.WmTransferMapper;
@@ -45,6 +46,11 @@ public class WmTransferServiceImpl implements IWmTransferService
     public List<WmTransfer> selectWmTransferList(WmTransfer wmTransfer)
     {
         return wmTransferMapper.selectWmTransferList(wmTransfer);
+    }
+
+    @Override
+    public List<TransferTxBean> getTxBeans(Long transferid) {
+        return wmTransferMapper.getTxBeans(transferid);
     }
 
     @Override

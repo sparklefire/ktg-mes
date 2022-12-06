@@ -57,6 +57,16 @@ public interface IStorageCoreService {
      */
     public void processProductSalse(List<ProductSalseTxBean> lines);
 
+    /**
+     * 处理销售退货
+     * @param lines
+     */
     public void processRtSalse(List<RtSalseTxBean> lines);
+
+    /**
+     * 处理转移单
+     * @param lines
+     */
+    public void processTransfer(List<TransferTxBean> lines);
 
 }

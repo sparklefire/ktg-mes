@@ -351,5 +351,54 @@ public class StorageCoreServiceImpl implements IStorageCoreService {
         }
     }
 
+    @Override
+    public void processTransfer(List<TransferTxBean> lines) {
+        if(CollUtil.isEmpty(lines)){
+            throw new BussinessException("没有需要处理的原料消耗单行");
+        }
+        String transactionType_out = UserConstants.TRANSACTION_TYPE_WAREHOUSE_TRANS_OUT;
+        String transactionType_in = UserConstants.TRANSACTION_TYPE_WAREHOUSE_TRANS_IN;
+
+        for(int i=0;i<lines.size();i++){
+            TransferTxBean line = lines.get(i);
+            //先执行出库
+            WmTransaction transaction_out = new WmTransaction();
+            transaction_out.setTransactionType(transactionType_out);
+            BeanUtils.copyBeanProp(transaction_out,line);
+            transaction_out.setWarehouseId(line.getFromWarehouseId());
+            transaction_out.setWarehouseCode(line.getFromWarehouseCode());
+            transaction_out.setWarehouseName(line.getFromWarehouseName());
+            transaction_out.setLocationId(line.getFromLocationId());
+            transaction_out.setLocationCode(line.getFromLocationCode());
+            transaction_out.setLocationName(line.getFromLocationName());
+            transaction_out.setAreaId(line.getFromAreaId());
+            transaction_out.setAreaCode(line.getFromAreaCode());
+            transaction_out.setAreaName(line.getFromAreaName());
+            transaction_out.setTransactionFlag(-1);//库存减少
+            wmTransactionService.processTransaction(transaction_out);
+            //再执行入库
+            WmTransaction transaction_in = new WmTransaction();
+            transaction_in.setTransactionType(transactionType_in);
+            BeanUtils.copyBeanProp(transaction_in,line);
+            transaction_in.setWarehouseId(line.getToWarehouseId());
+            transaction_in.setWarehouseCode(line.getToWarehouseCode());
+            transaction_in.setWarehouseName(line.getToWarehouseName());
+            transaction_in.setLocationId(line.getToLocationId());
+            transaction_in.setLocationCode(line.getToLocationCode());
+            transaction_in.setLocationName(line.getToLocationName());
+            transaction_in.setAreaId(line.getToAreaId());
+            transaction_in.setAreaCode(line.getToAreaCode());
+            transaction_in.setAreaName(line.getToAreaName());
+
+            transaction_in.setTransactionFlag(1);//库存增加
+            transaction_in.setTransactionDate(new Date());
+            //由于是新增的库存记录所以需要将查询出来的库存记录ID置为空
+            transaction_in.setMaterialStockId(null);
+            //设置入库相关联的出库事务ID
+            transaction_in.setRelatedTransactionId(transaction_out.getTransactionId());
+        }
+
+    }
+
 
 }

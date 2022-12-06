@@ -33,6 +33,54 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="updateTime"    column="update_time"    />
     </resultMap>
 
+    <resultMap id="TransferTxBeanResult" type="TransferTxBean">
+        <result property="materialStockId" column="material_stock_id" ></result>
+        <result property="itemId" column="item_id"></result>
+        <result property="itemCode" column="item_code"></result>
+        <result property="itemName" column="item_name"></result>
+        <result property="specification" column="specification"></result>
+        <result property="unitOfMeasure" column="unit_of_measure"></result>
+        <result property="batchCode" column="batch_code"></result>
+        <result property="workorderId" column="workorder_id"></result>
+        <result property="workorderCode" column="workorder_code"></result>
+        <result property="vendorId" column="vendor_id"></result>
+        <result property="vendorCode" column="vendor_code"></result>
+        <result property="vendorName" column="vendor_name"></result>
+        <result property="vendorNick" column="vendor_nick"></result>
+
+        <result property="fromWarehouseId" column="from_warehouse_id"></result>
+        <result property="fromWarehouseCode" column="from_warehouse_code"></result>
+        <result property="fromWarehouseName" column="from_warehouse_name"></result>
+        <result property="fromLocationId" column="from_location_id"></result>
+        <result property="fromLocationCode" column="from_location_code"></result>
+        <result property="fromLocationName" column="from_location_name"></result>
+        <result property="fromAreaId" column="from_area_id"></result>
+        <result property="fromAreaCode" column="from_area_code"></result>
+        <result property="fromAreaName" column="from_area_name"></result>
+
+        <result property="toWarehouseId" column="to_warehouse_id"></result>
+        <result property="toWarehouseCode" column="to_warehouse_code"></result>
+        <result property="toWarehouseName" column="to_warehouse_name"></result>
+        <result property="toLocationId" column="to_location_id"></result>
+        <result property="toLocationCode" column="to_location_code"></result>
+        <result property="toLocationName" column="to_location_name"></result>
+        <result property="toAreaId" column="to_area_id"></result>
+        <result property="toAreaCode" column="to_area_code"></result>
+        <result property="toAreaName" column="to_area_name"></result>
+
+        <result property="sourceDocType" column="source_doc_type"></result>
+        <result property="sourceDocId" column="source_doc_id"></result>
+        <result property="sourceDocCode" column="source_doc_code"></result>
+        <result property="sourceDocLineId" column="source_doc_line_id"></result>
+        <result property="transactionQuantity" column="transaction_quantity"></result>
+        <result property="recptDate" column="recpt_date"></result>
+        <result property="expireDate" column="expire_date"></result>
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
     <sql id="selectWmTransferVo">
         select transfer_id, transfer_code, transfer_name, transfer_type, destination, carrier, booking_note,receiver,receiver_nick, from_warehouse_id, from_warehouse_code, from_warehouse_name, to_warehouse_id, to_warehouse_code, to_warehouse_name, transfer_date, status, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from wm_transfer
     </sql>
@@ -67,6 +115,47 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="checkUnique" parameterType="WmTransfer" resultMap="WmTransferResult">
         <include refid="selectWmTransferVo"/>
         where transfer_code = #{transferCode}
+    </select>
+
+    <select id="getTxBeans" parameterType="Long" resultMap="TransferTxBeanResult">
+        SELECT irl.material_stock_id,
+               irl.`item_id`,
+               irl.`item_code`,
+               irl.`item_name`,
+               irl.`specification`,
+               irl.`unit_of_measure`,
+               irl.`batch_code`,
+               irl.from_warehouse_id,
+               irl.from_warehouse_code,
+               irl.from_warehouse_name,
+               irl.from_location_id,
+               irl.from_location_code,
+               irl.from_location_name,
+               irl.from_area_id,
+               irl.from_area_code,
+               irl.from_area_name,
+               irl.to_warehouse_id,
+               irl.to_warehouse_code,
+               irl.to_warehouse_name,
+               irl.to_location_id,
+               irl.to_location_code,
+               irl.to_location_name,
+               irl.to_area_id,
+               irl.to_area_code,
+               irl.to_area_name,
+               ms.vendor_id,ms.vendor_code,ms.vendor_name,ms.vendor_nick,ms.workorder_id,ms.workorder_code,
+               'TRANSFER' AS source_doc_type,ir.`transfer_id` AS source_doc_id,
+               ir.`transfer_code` AS source_doc_code,
+               irl.`line_id` AS source_doc_line_id,
+               irl.quantity_transfer AS transaction_quantity,
+               ir.transfer_date as recpt_date,
+               irl.expire_date
+        FROM wm_transfer ir
+                 LEFT JOIN wm_transfer_line irl
+                           ON ir.transfer_id = irl.transfer_id
+                 left join wm_material_stock ms
+                           on irl.material_stock_id = ms.material_stock_id
+        WHERE ir.transfer_id = #{transferId}
     </select>
 
     <insert id="insertWmTransfer" parameterType="WmTransfer" useGeneratedKeys="true" keyProperty="transferId">
