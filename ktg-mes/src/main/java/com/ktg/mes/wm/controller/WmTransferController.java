@@ -5,9 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ktg.common.constant.UserConstants;
 import com.ktg.common.utils.StringUtils;
-import com.ktg.mes.wm.domain.WmStorageArea;
-import com.ktg.mes.wm.domain.WmStorageLocation;
-import com.ktg.mes.wm.domain.WmWarehouse;
+import com.ktg.mes.wm.domain.*;
 import com.ktg.mes.wm.domain.tx.TransferTxBean;
 import com.ktg.mes.wm.service.*;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -26,7 +24,6 @@ import com.ktg.common.annotation.Log;
 import com.ktg.common.core.controller.BaseController;
 import com.ktg.common.core.domain.AjaxResult;
 import com.ktg.common.enums.BusinessType;
-import com.ktg.mes.wm.domain.WmTransfer;
 import com.ktg.common.utils.poi.ExcelUtil;
 import com.ktg.common.core.page.TableDataInfo;
 
@@ -162,6 +159,14 @@ public class WmTransferController extends BaseController
     @PutMapping("/{transferId}")
     public AjaxResult execute(@PathVariable Long transferId){
         WmTransfer transfer = wmTransferService.selectWmTransferByTransferId(transferId);
+
+        WmTransferLine param = new WmTransferLine();
+        param.setTransferId(transferId);
+        List<WmTransferLine> lines = wmTransferLineService.selectWmTransferLineList(param);
+        if(CollectionUtils.isEmpty(lines)){
+           return AjaxResult.error("请添加需要转移的物资！");
+        }
+
         List<TransferTxBean> beans = wmTransferService.getTxBeans(transferId);
 
         if(CollectionUtils.isEmpty(beans)){
