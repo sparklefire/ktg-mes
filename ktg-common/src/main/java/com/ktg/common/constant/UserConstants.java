@@ -84,6 +84,7 @@ public class UserConstants
     public static final String MACHINERY_TYPE_CODE="MACHINERY_TYPE_CODE";
     public static final String TASK_CODE="TASK_CODE";
     public static final String DEFECT_CODE = "DEFECT_CODE";
+    public static final String SN_CODE = "SN_CODE";
 
     /**
      * 单据的状态类型
