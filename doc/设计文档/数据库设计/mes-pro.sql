@@ -385,6 +385,7 @@ create table pro_trans_order (
   item_name                      varchar(255)    not null                   comment '产品物料名称',
   specification                  varchar(500)    default null               comment '规格型号',
   unit_of_measure                varchar(64)     not null                   comment '单位',
+  barcode_url                    varchar(255)                               comment '赋码地址',
   quantity_transfered            double(12,2)                               comment '流转数量',  
   produce_date                   datetime                                   comment '生产日期',
   remark                         varchar(500)    default ''                 comment '备注',
@@ -439,4 +440,60 @@ create table pro_trans_consume (
   update_time                    datetime                                   comment '更新时间',
   primary key (record_id)
 ) engine=innodb auto_increment=200 comment = '物料消耗记录表';
+
+
+
+-- ----------------------------
+-- 4、上下工记录表
+-- ----------------------------
+drop table if exists pro_workrecord;
+create table pro_workrecord (
+  record_id                      bigint(20)      not null auto_increment    comment '记录ID',
+  user_id                        bigint(20)      not null                   comment '用户ID',
+  user_name                      varchar(64)                                comment '用户名',
+  nick_name                      bigint(125)                                comment '名称',  
+  workstation_id                 bigint(20)      not null                   comment '工作站ID',
+  workstation_code               varchar(64)                                comment '工作站编号',
+  workstation_name               varchar(125)                               comment '工作站名称',
+  operation_flag                 char(1)         not null                   comment '操作类型',  
+  operation_time                 datetime                                   comment '操作时间',  
+  remark                         varchar(500)    default ''                 comment '备注',
+  attr1                          varchar(64)     default null               comment '预留字段1',
+  attr2                          varchar(255)    default null               comment '预留字段2',
+  attr3                          int(11)         default 0                  comment '预留字段3',
+  attr4                          int(11)         default 0                  comment '预留字段4',
+  create_by                      varchar(64)     default ''                 comment '创建者',
+  create_time                    datetime                                   comment '创建时间',
+  update_by                      varchar(64)     default ''                 comment '更新者',
+  update_time                    datetime                                   comment '更新时间',
+  primary key (record_id)
+) engine=innodb auto_increment=200 comment = '上下工记录表';
+
+
+
+-- ----------------------------
+-- 4、用户工作站绑定关系
+-- ----------------------------
+drop table if exists pro_user_workstation;
+create table pro_user_workstation (
+  record_id                      bigint(20)      not null auto_increment    comment '记录ID',
+  user_id                        bigint(20)      not null                   comment '用户ID',
+  user_name                      varchar(64)                                comment '用户名',
+  nick_name                      bigint(125)                                comment '名称',  
+  workstation_id                 bigint(20)      not null                   comment '工作站ID',
+  workstation_code               varchar(64)                                comment '工作站编号',
+  workstation_name               varchar(125)                               comment '工作站名称', 
+  operation_time                 datetime                                   comment '操作时间',  
+  remark                         varchar(500)    default ''                 comment '备注',
+  attr1                          varchar(64)     default null               comment '预留字段1',
+  attr2                          varchar(255)    default null               comment '预留字段2',
+  attr3                          int(11)         default 0                  comment '预留字段3',
+  attr4                          int(11)         default 0                  comment '预留字段4',
+  create_by                      varchar(64)     default ''                 comment '创建者',
+  create_time                    datetime                                   comment '创建时间',
+  update_by                      varchar(64)     default ''                 comment '更新者',
+  update_time                    datetime                                   comment '更新时间',
+  primary key (record_id)
+) engine=innodb auto_increment=200 comment = '用户工作站绑定关系';
+
 

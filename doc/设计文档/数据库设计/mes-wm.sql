@@ -4,7 +4,7 @@
 drop table if exists wm_warehouse;
 create table wm_warehouse (
   warehouse_id           bigint(20)      not null auto_increment    comment '仓库ID',
-  warehouse_code         varchar(64)     not null                   comment '仓库编码',
+  warehouse_code         varchar(64)     not null UNIQUE            comment '仓库编码',
   warehouse_name         varchar(255)    not null                   comment '仓库名称',
   location               varchar(500)                               comment '位置',
   area                   double(12,2)                               comment '面积',
@@ -30,7 +30,7 @@ create table wm_warehouse (
 drop table if exists wm_storage_location;
 create table wm_storage_location (
   location_id           bigint(20)      not null auto_increment     comment '库区ID',
-  location_code         varchar(64)     not null                    comment '库区编码',
+  location_code         varchar(64)     not null UNIQUE             comment '库区编码',
   location_name         varchar(255)    not null                    comment '库区名称',
   warehouse_id          bigint(20)      not null                    comment '仓库ID',
   area                  double(12,2)                                comment '面积',
@@ -54,7 +54,7 @@ create table wm_storage_location (
 drop table if exists wm_storage_area;
 create table wm_storage_area (
   area_id               bigint(20)      not null auto_increment     comment '库位ID',
-  area_code             varchar(64)     not null                    comment '库位编码',
+  area_code             varchar(64)     not null UNIQUE             comment '库位编码',
   area_name             varchar(255)    not null                    comment '库位名称',
   location_id           bigint(20)      not null                    comment '库区ID',
   area                  double(8,2)                                 comment '面积',
