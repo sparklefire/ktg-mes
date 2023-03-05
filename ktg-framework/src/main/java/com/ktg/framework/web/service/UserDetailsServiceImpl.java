@@ -1,5 +1,6 @@
 package com.ktg.framework.web.service;
 
+import com.ktg.system.strategy.PhoneUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,15 @@ public class UserDetailsServiceImpl implements UserDetailsService
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException
     {
-        SysUser user = userService.selectUserByUserName(username);
+        SysUser user = null;
+        if(PhoneUtils.isMobile(username)){
+            user = userService.selectUserByMobile(username);
+        }
+
+        if(!StringUtils.isNotNull(user)){
+            user = userService.selectUserByUserName(username);
+        }
+
         if (StringUtils.isNull(user))
         {
             log.info("登录用户：{} 不存在.", username);

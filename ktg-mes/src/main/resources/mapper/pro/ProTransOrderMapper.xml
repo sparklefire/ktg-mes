@@ -24,6 +24,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="itemName"    column="item_name"    />
         <result property="specification"    column="specification"    />
         <result property="unitOfMeasure"    column="unit_of_measure"    />
+        <result property="barCodeUrl" column="barcode_url" ></result>
         <result property="quantityTransfered"    column="quantity_transfered"    />
         <result property="produceDate"    column="produce_date"    />
         <result property="remark"    column="remark"    />
@@ -38,7 +39,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectProTransOrderVo">
-        select trans_order_id, trans_order_code, task_id, task_code, workstation_id, workstation_code, workstation_name, process_id, process_code, process_name, workorder_id, workorder_code, workorder_name, batch_code, item_id, item_code, item_name, specification, unit_of_measure, quantity_transfered, produce_date, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from pro_trans_order
+        select trans_order_id, trans_order_code, task_id, task_code, workstation_id, workstation_code, workstation_name, process_id, process_code, process_name, workorder_id, workorder_code, workorder_name, batch_code, item_id, item_code, item_name, specification, unit_of_measure,barcode_url, quantity_transfered, produce_date, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from pro_trans_order
     </sql>
 
     <select id="selectProTransOrderList" parameterType="ProTransOrder" resultMap="ProTransOrderResult">
@@ -62,6 +63,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="itemName != null  and itemName != ''"> and item_name like concat('%', #{itemName}, '%')</if>
             <if test="specification != null  and specification != ''"> and specification = #{specification}</if>
             <if test="unitOfMeasure != null  and unitOfMeasure != ''"> and unit_of_measure = #{unitOfMeasure}</if>
+            <if test="barCodeUrl != null  and barCodeUrl != ''"> and barcode_url = #{barCodeUrl}</if>
             <if test="quantityTransfered != null "> and quantity_transfered = #{quantityTransfered}</if>
             <if test="produceDate != null "> and produce_date = #{produceDate}</if>
         </where>
@@ -93,6 +95,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="itemName != null and itemName != ''">item_name,</if>
             <if test="specification != null">specification,</if>
             <if test="unitOfMeasure != null and unitOfMeasure != ''">unit_of_measure,</if>
+            <if test="barCodeUrl != null and barCodeUrl != ''">barcode_url,</if>
             <if test="quantityTransfered != null">quantity_transfered,</if>
             <if test="produceDate != null">produce_date,</if>
             <if test="remark != null">remark,</if>
@@ -124,6 +127,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="itemName != null and itemName != ''">#{itemName},</if>
             <if test="specification != null">#{specification},</if>
             <if test="unitOfMeasure != null and unitOfMeasure != ''">#{unitOfMeasure},</if>
+            <if test="barCodeUrl != null and barCodeUrl != ''">#{barCodeUrl},</if>
             <if test="quantityTransfered != null">#{quantityTransfered},</if>
             <if test="produceDate != null">#{produceDate},</if>
             <if test="remark != null">#{remark},</if>
@@ -159,6 +163,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="itemName != null and itemName != ''">item_name = #{itemName},</if>
             <if test="specification != null">specification = #{specification},</if>
             <if test="unitOfMeasure != null and unitOfMeasure != ''">unit_of_measure = #{unitOfMeasure},</if>
+            <if test="barCodeUrl != null and barCodeUrl != ''">barcode_url = #{barCodeUrl},</if>
             <if test="quantityTransfered != null">quantity_transfered = #{quantityTransfered},</if>
             <if test="produceDate != null">produce_date = #{produceDate},</if>
             <if test="remark != null">remark = #{remark},</if>

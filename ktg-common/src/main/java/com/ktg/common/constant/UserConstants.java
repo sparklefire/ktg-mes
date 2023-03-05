@@ -85,6 +85,7 @@ public class UserConstants
     public static final String TASK_CODE="TASK_CODE";
     public static final String DEFECT_CODE = "DEFECT_CODE";
     public static final String SN_CODE = "SN_CODE";
+    public static final String TRANS_ORDER_CODE ="TRANS_ORDER_CODE";
 
     /**
      * 单据的状态类型
@@ -202,5 +203,6 @@ public class UserConstants
     public static final String BARCODE_TYPE_MACHINERY = "MACHINERY";
     public static final String BARCODE_TYPE_WORKSTATION = "WORKSTATION";
     public static final String BARCODE_TYPE_WAREHOUSE = "WAREHOUSE";
+    public static final String BARCODE_TYPE_TRANSORDER= "TRANSORDER";
 
 }

@@ -10,6 +10,10 @@ import com.ktg.framework.web.service.MobileLoginService;
 import com.ktg.framework.web.service.TokenService;
 import com.ktg.system.domain.LoginParams;
 import com.ktg.system.service.ISysUserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author SK
  * @since 2018/6/13
  */
+@Api("用户信息")
 @RestController
 @RequestMapping("/mobile/user")
 public class UserController {
@@ -57,6 +62,10 @@ public class UserController {
      *
      * @return 用户信息
      */
+    @ApiOperation("获取用户信息")
+    @ApiResponses({
+            @ApiResponse(code = 200,message = "查询成功",response = AjaxResult.class),
+    })
     @GetMapping("getUserInfo")
     public AjaxResult getUserInfo(HttpServletRequest request) {
         LoginUser loginUser = tokenService.getLoginUser(request);

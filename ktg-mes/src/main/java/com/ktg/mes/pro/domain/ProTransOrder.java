@@ -93,6 +93,8 @@ public class ProTransOrder extends BaseEntity
     @Excel(name = "单位")
     private String unitOfMeasure;
 
+    private String barCodeUrl;
+
     /** 流转数量 */
     @Excel(name = "流转数量")
     private BigDecimal quantityTransfered;
@@ -340,39 +342,43 @@ public class ProTransOrder extends BaseEntity
         return attr4;
     }
 
+    public String getBarCodeUrl() {
+        return barCodeUrl;
+    }
+
+    public void setBarCodeUrl(String barCodeUrl) {
+        this.barCodeUrl = barCodeUrl;
+    }
+
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("transOrderId", getTransOrderId())
-            .append("transOrderCode", getTransOrderCode())
-            .append("taskId", getTaskId())
-            .append("taskCode", getTaskCode())
-            .append("workstationId", getWorkstationId())
-            .append("workstationCode", getWorkstationCode())
-            .append("workstationName", getWorkstationName())
-            .append("processId", getProcessId())
-            .append("processCode", getProcessCode())
-            .append("processName", getProcessName())
-            .append("workorderId", getWorkorderId())
-            .append("workorderCode", getWorkorderCode())
-            .append("workorderName", getWorkorderName())
-            .append("batchCode", getBatchCode())
-            .append("itemId", getItemId())
-            .append("itemCode", getItemCode())
-            .append("itemName", getItemName())
-            .append("specification", getSpecification())
-            .append("unitOfMeasure", getUnitOfMeasure())
-            .append("quantityTransfered", getQuantityTransfered())
-            .append("produceDate", getProduceDate())
-            .append("remark", getRemark())
-            .append("attr1", getAttr1())
-            .append("attr2", getAttr2())
-            .append("attr3", getAttr3())
-            .append("attr4", getAttr4())
-            .append("createBy", getCreateBy())
-            .append("createTime", getCreateTime())
-            .append("updateBy", getUpdateBy())
-            .append("updateTime", getUpdateTime())
-            .toString();
+        return "ProTransOrder{" +
+                "transOrderId=" + transOrderId +
+                ", transOrderCode='" + transOrderCode + '\'' +
+                ", taskId=" + taskId +
+                ", taskCode='" + taskCode + '\'' +
+                ", workstationId=" + workstationId +
+                ", workstationCode='" + workstationCode + '\'' +
+                ", workstationName='" + workstationName + '\'' +
+                ", processId=" + processId +
+                ", processCode='" + processCode + '\'' +
+                ", processName='" + processName + '\'' +
+                ", workorderId=" + workorderId +
+                ", workorderCode='" + workorderCode + '\'' +
+                ", workorderName='" + workorderName + '\'' +
+                ", batchCode='" + batchCode + '\'' +
+                ", itemId=" + itemId +
+                ", itemCode='" + itemCode + '\'' +
+                ", itemName='" + itemName + '\'' +
+                ", specification='" + specification + '\'' +
+                ", unitOfMeasure='" + unitOfMeasure + '\'' +
+                ", barCodeUrl='" + barCodeUrl + '\'' +
+                ", quantityTransfered=" + quantityTransfered +
+                ", produceDate=" + produceDate +
+                ", attr1='" + attr1 + '\'' +
+                ", attr2='" + attr2 + '\'' +
+                ", attr3=" + attr3 +
+                ", attr4=" + attr4 +
+                '}';
     }
 }

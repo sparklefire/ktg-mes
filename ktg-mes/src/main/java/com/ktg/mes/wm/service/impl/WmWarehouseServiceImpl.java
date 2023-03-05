@@ -141,23 +141,36 @@ public class WmWarehouseServiceImpl implements IWmWarehouseService
 
     @Override
     public WmWarehouse initVirtualWarehouse() {
-        WmWarehouse warehouse = new WmWarehouse();
-        warehouse.setWarehouseCode(UserConstants.VIRTUAL_WH);
-        warehouse.setWarehouseName("线边库-虚拟");
-        wmWarehouseMapper.insertWmWarehouse(warehouse);
 
-        WmStorageLocation location = new WmStorageLocation();
-        location.setWarehouseId(warehouse.getWarehouseId());
-        location.setLocationCode(UserConstants.VIRTUAL_WS);
-        location.setLocationName("线边库库区-虚拟");
-        location.setAreaFlag(UserConstants.YES);
-        wmStorageLocationMapper.insertWmStorageLocation(location);
+        WmWarehouse warehouse = wmWarehouseMapper.selectWmWarehouseByWarehouseCode(UserConstants.VIRTUAL_WH);
+        if(!StringUtils.isNotNull(warehouse)){
+            warehouse = new WmWarehouse();
+            warehouse.setWarehouseCode(UserConstants.VIRTUAL_WH);
+            warehouse.setWarehouseName("线边库-虚拟");
+            wmWarehouseMapper.insertWmWarehouse(warehouse);
+        }
 
-        WmStorageArea area = new WmStorageArea();
-        area.setLocationId(location.getLocationId());
-        area.setAreaCode(UserConstants.VIRTUAL_WA);
-        area.setAreaName("线边库库位-虚拟");
-        wmStorageAreaMapper.insertWmStorageArea(area);
+
+        WmStorageLocation location = wmStorageLocationMapper.selectWmStorageLocationByLocationCode(UserConstants.VIRTUAL_WS);
+        if(!StringUtils.isNotNull(location)){
+            location = new WmStorageLocation();
+            location.setWarehouseId(warehouse.getWarehouseId());
+            location.setLocationCode(UserConstants.VIRTUAL_WS);
+            location.setLocationName("线边库库区-虚拟");
+            location.setAreaFlag(UserConstants.YES);
+            wmStorageLocationMapper.insertWmStorageLocation(location);
+        }
+
+
+        WmStorageArea area = wmStorageAreaMapper.selectWmStorageAreaByAreaCode(UserConstants.VIRTUAL_WA);
+        if(!StringUtils.isNotNull(area)){
+            area = new WmStorageArea();
+            area.setLocationId(location.getLocationId());
+            area.setAreaCode(UserConstants.VIRTUAL_WA);
+            area.setAreaName("线边库库位-虚拟");
+            wmStorageAreaMapper.insertWmStorageArea(area);
+        }
+
         return warehouse;
     }
 }
