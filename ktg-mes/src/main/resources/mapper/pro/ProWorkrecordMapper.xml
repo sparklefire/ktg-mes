@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ktg.mes.pro.mapper.ProWorkrecordMapper">
+    
+    <resultMap type="ProWorkrecord" id="ProWorkrecordResult">
+        <result property="recordId"    column="record_id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="userName"    column="user_name"    />
+        <result property="nickName"    column="nick_name"    />
+        <result property="workstationId"    column="workstation_id"    />
+        <result property="workstationCode"    column="workstation_code"    />
+        <result property="workstationName"    column="workstation_name"    />
+        <result property="operationFlag"    column="operation_flag"    />
+        <result property="operationTime"    column="operation_time"    />
+        <result property="remark"    column="remark"    />
+        <result property="attr1"    column="attr1"    />
+        <result property="attr2"    column="attr2"    />
+        <result property="attr3"    column="attr3"    />
+        <result property="attr4"    column="attr4"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectProWorkrecordVo">
+        select record_id, user_id, user_name, nick_name, workstation_id, workstation_code, workstation_name, operation_flag, operation_time, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from pro_workrecord
+    </sql>
+
+    <select id="selectProWorkrecordList" parameterType="ProWorkrecord" resultMap="ProWorkrecordResult">
+        <include refid="selectProWorkrecordVo"/>
+        <where>  
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="userName != null  and userName != ''"> and user_name like concat('%', #{userName}, '%')</if>
+            <if test="nickName != null "> and nick_name like concat('%', #{nickName}, '%')</if>
+            <if test="workstationId != null "> and workstation_id = #{workstationId}</if>
+            <if test="workstationCode != null  and workstationCode != ''"> and workstation_code = #{workstationCode}</if>
+            <if test="workstationName != null  and workstationName != ''"> and workstation_name like concat('%', #{workstationName}, '%')</if>
+            <if test="operationFlag != null  and operationFlag != ''"> and operation_flag = #{operationFlag}</if>
+            <if test="operationTime != null "> and operation_time = #{operationTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectProWorkrecordByRecordId" parameterType="Long" resultMap="ProWorkrecordResult">
+        <include refid="selectProWorkrecordVo"/>
+        where record_id = #{recordId}
+    </select>
+        
+    <insert id="insertProWorkrecord" parameterType="ProWorkrecord" useGeneratedKeys="true" keyProperty="recordId">
+        insert into pro_workrecord
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="userName != null">user_name,</if>
+            <if test="nickName != null">nick_name,</if>
+            <if test="workstationId != null">workstation_id,</if>
+            <if test="workstationCode != null">workstation_code,</if>
+            <if test="workstationName != null">workstation_name,</if>
+            <if test="operationFlag != null and operationFlag != ''">operation_flag,</if>
+            <if test="operationTime != null">operation_time,</if>
+            <if test="remark != null">remark,</if>
+            <if test="attr1 != null">attr1,</if>
+            <if test="attr2 != null">attr2,</if>
+            <if test="attr3 != null">attr3,</if>
+            <if test="attr4 != null">attr4,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="userName != null">#{userName},</if>
+            <if test="nickName != null">#{nickName},</if>
+            <if test="workstationId != null">#{workstationId},</if>
+            <if test="workstationCode != null">#{workstationCode},</if>
+            <if test="workstationName != null">#{workstationName},</if>
+            <if test="operationFlag != null and operationFlag != ''">#{operationFlag},</if>
+            <if test="operationTime != null">#{operationTime},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="attr1 != null">#{attr1},</if>
+            <if test="attr2 != null">#{attr2},</if>
+            <if test="attr3 != null">#{attr3},</if>
+            <if test="attr4 != null">#{attr4},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateProWorkrecord" parameterType="ProWorkrecord">
+        update pro_workrecord
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="userName != null">user_name = #{userName},</if>
+            <if test="nickName != null">nick_name = #{nickName},</if>
+            <if test="workstationId != null">workstation_id = #{workstationId},</if>
+            <if test="workstationCode != null">workstation_code = #{workstationCode},</if>
+            <if test="workstationName != null">workstation_name = #{workstationName},</if>
+            <if test="operationFlag != null and operationFlag != ''">operation_flag = #{operationFlag},</if>
+            <if test="operationTime != null">operation_time = #{operationTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="attr1 != null">attr1 = #{attr1},</if>
+            <if test="attr2 != null">attr2 = #{attr2},</if>
+            <if test="attr3 != null">attr3 = #{attr3},</if>
+            <if test="attr4 != null">attr4 = #{attr4},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where record_id = #{recordId}
+    </update>
+
+    <delete id="deleteProWorkrecordByRecordId" parameterType="Long">
+        delete from pro_workrecord where record_id = #{recordId}
+    </delete>
+
+    <delete id="deleteProWorkrecordByRecordIds" parameterType="String">
+        delete from pro_workrecord where record_id in 
+        <foreach item="recordId" collection="array" open="(" separator="," close=")">
+            #{recordId}
+        </foreach>
+    </delete>
+</mapper>
