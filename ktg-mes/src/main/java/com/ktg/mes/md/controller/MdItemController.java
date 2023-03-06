@@ -12,6 +12,7 @@ import com.ktg.common.enums.BusinessType;
 import com.ktg.common.utils.StringUtils;
 import com.ktg.mes.md.domain.MdItem;
 import com.ktg.mes.md.service.IItemTypeService;
+import com.ktg.mes.wm.utils.WmBarCodeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
@@ -28,6 +29,9 @@ public class MdItemController extends BaseController {
 
     @Autowired
     private IItemTypeService iItemTypeService;
+
+    @Autowired
+    private WmBarCodeUtil barcodeUtil;
 
     /**
      * 列表查询
@@ -77,7 +81,9 @@ public class MdItemController extends BaseController {
             mdItem.setItemOrProduct(type.getItemOrProduct());
         }
         mdItem.setCreateBy(getUsername());
-        return toAjax(mdItemService.insertMdItem(mdItem));
+        mdItemService.insertMdItem(mdItem);
+        barcodeUtil.generateBarCode(UserConstants.BARCODE_TYPE_ITEM,mdItem.getItemId(),mdItem.getItemCode(), mdItem.getItemName());
+        return AjaxResult.success(mdItem.getItemId());
     }
 
     /**

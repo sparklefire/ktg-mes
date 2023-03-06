@@ -15,6 +15,7 @@ import com.ktg.mes.wm.domain.WmWarehouse;
 import com.ktg.mes.wm.service.IWmStorageAreaService;
 import com.ktg.mes.wm.service.IWmStorageLocationService;
 import com.ktg.mes.wm.service.IWmWarehouseService;
+import com.ktg.mes.wm.utils.WmBarCodeUtil;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -70,6 +71,9 @@ public class MdWorkstationController extends BaseController
 
     @Autowired
     private IWmStorageAreaService wmStorageAreaService;
+
+    @Autowired
+    private WmBarCodeUtil barCodeUtil;
 
     /**
      * 查询工作站列表
@@ -156,8 +160,9 @@ public class MdWorkstationController extends BaseController
         mdWorkstation.setAreaId(area.getAreaId());
         mdWorkstation.setAreaCode(area.getAreaCode());
         mdWorkstation.setAreaName(area.getAreaName());
-
-        return toAjax(mdWorkstationService.insertMdWorkstation(mdWorkstation));
+        mdWorkstationService.insertMdWorkstation(mdWorkstation);
+        barCodeUtil.generateBarCode(UserConstants.BARCODE_TYPE_WORKSTATION,mdWorkstation.getWorkstationId(), mdWorkstation.getWorkstationCode(),mdWorkstation.getWorkstationName());
+        return AjaxResult.success(mdWorkstation.getWorkstationId());
     }
 
     /**

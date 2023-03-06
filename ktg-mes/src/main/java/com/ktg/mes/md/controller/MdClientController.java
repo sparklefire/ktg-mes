@@ -4,6 +4,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ktg.common.constant.UserConstants;
+import com.ktg.mes.wm.utils.WmBarCodeUtil;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +36,9 @@ public class MdClientController extends BaseController
 {
     @Autowired
     private IMdClientService mdClientService;
+
+    @Autowired
+    private WmBarCodeUtil barCodeUtil;
 
     /**
      * 查询客户列表
@@ -91,7 +95,10 @@ public class MdClientController extends BaseController
             return AjaxResult.error("客户简称已存在！");
         }
 
-        return toAjax(mdClientService.insertMdClient(mdClient));
+        mdClientService.insertMdClient(mdClient);
+        barCodeUtil.generateBarCode(UserConstants.BARCODE_TYPE_CLIENT,mdClient.getClientId(),mdClient.getClientCode(),mdClient.getClientName());
+
+        return AjaxResult.success(mdClient.getClientId());
     }
 
     /**

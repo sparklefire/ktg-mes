@@ -2,6 +2,9 @@ package com.ktg.mes.pro.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ktg.common.constant.UserConstants;
+import com.ktg.mes.wm.utils.WmBarCodeUtil;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +36,9 @@ public class ProTransOrderController extends BaseController
 {
     @Autowired
     private IProTransOrderService proTransOrderService;
+
+    @Autowired
+    private WmBarCodeUtil wmBarCodeUtil;
 
     /**
      * 查询流转单列表
@@ -77,7 +83,9 @@ public class ProTransOrderController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody ProTransOrder proTransOrder)
     {
-        return toAjax(proTransOrderService.insertProTransOrder(proTransOrder));
+        proTransOrderService.insertProTransOrder(proTransOrder);
+        wmBarCodeUtil.generateBarCode(UserConstants.BARCODE_TYPE_TRANSORDER,proTransOrder.getTransOrderId(),proTransOrder.getTransOrderCode(),null);
+        return AjaxResult.success(proTransOrder.getTransOrderId());
     }
 
     /**

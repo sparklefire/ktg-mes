@@ -197,12 +197,17 @@ public class UserConstants
     /**
      * 条码类型
      */
-    public static final String BARCODE_TYPE_ITEM = "ITEM";
-    public static final String BARCODE_TYPE_PACKAGE = "PACKAGE";
-    public static final String BARCODE_TYPE_STOCK = "STOCK";
-    public static final String BARCODE_TYPE_MACHINERY = "MACHINERY";
-    public static final String BARCODE_TYPE_WORKSTATION = "WORKSTATION";
-    public static final String BARCODE_TYPE_WAREHOUSE = "WAREHOUSE";
-    public static final String BARCODE_TYPE_TRANSORDER= "TRANSORDER";
+    public static final String BARCODE_TYPE_ITEM = "ITEM"; //物料
+    public static final String BARCODE_TYPE_PACKAGE = "PACKAGE"; //装箱单
+    public static final String BARCODE_TYPE_STOCK = "STOCK"; //库存
+    public static final String BARCODE_TYPE_MACHINERY = "MACHINERY"; //设备
+    public static final String BARCODE_TYPE_WORKSTATION = "WORKSTATION"; //工作站
+    public static final String BARCODE_TYPE_WAREHOUSE = "WAREHOUSE"; //仓库
+    public static final String BARCODE_TYPE_STORAGELOCATION = "LOCATION"; //库区
+    public static final String BARCODE_TYPE_STORAGEAREA = "AREA"; //库位
+    public static final String BARCODE_TYPE_TRANSORDER = "TRANSORDER"; //流转单
+    public static final String BARCODE_TYPE_CLIENT = "CLIENT"; //客户
+    public static final String BARCODE_TYPE_VENDOR = "VENDOR"; //供应商
+    public static final String BARCODE_TYPE_SN = "SN";
 
 }

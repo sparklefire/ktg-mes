@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ktg.common.constant.UserConstants;
 import com.ktg.mes.wm.service.IWmStorageAreaService;
+import com.ktg.mes.wm.utils.WmBarCodeUtil;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,6 +41,9 @@ public class WmStorageLocationController extends BaseController
 
     @Autowired
     private IWmStorageAreaService wmStorageAreaService;
+
+    @Autowired
+    private WmBarCodeUtil wmBarCodeUtil;
 
     /**
      * 查询库区设置列表
@@ -90,7 +94,9 @@ public class WmStorageLocationController extends BaseController
         if(UserConstants.NOT_UNIQUE.equals(wmStorageLocationService.checkLocationNameUnique(wmStorageLocation))){
             return AjaxResult.error("库区名称已存在!");
         }
-        return toAjax(wmStorageLocationService.insertWmStorageLocation(wmStorageLocation));
+        wmStorageLocationService.insertWmStorageLocation(wmStorageLocation);
+        wmBarCodeUtil.generateBarCode(UserConstants.BARCODE_TYPE_WAREHOUSE,wmStorageLocation.getLocationId(),wmStorageLocation.getLocationCode(),wmStorageLocation.getLocationName());
+        return AjaxResult.success(wmStorageLocation.getLocationId());
     }
 
     /**

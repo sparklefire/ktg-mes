@@ -2,6 +2,9 @@ package com.ktg.mes.wm.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ktg.common.constant.UserConstants;
+import com.ktg.mes.wm.utils.WmBarCodeUtil;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +36,9 @@ public class WmStorageAreaController extends BaseController
 {
     @Autowired
     private IWmStorageAreaService wmStorageAreaService;
+
+    @Autowired
+    private WmBarCodeUtil barCodeUtil;
 
     /**
      * 查询库位设置列表
@@ -77,7 +83,9 @@ public class WmStorageAreaController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody WmStorageArea wmStorageArea)
     {
-        return toAjax(wmStorageAreaService.insertWmStorageArea(wmStorageArea));
+        wmStorageAreaService.insertWmStorageArea(wmStorageArea);
+        barCodeUtil.generateBarCode(UserConstants.BARCODE_TYPE_STORAGEAREA,wmStorageArea.getAreaId(),wmStorageArea.getAreaCode(),wmStorageArea.getAreaName());
+        return AjaxResult.success(wmStorageArea.getAreaId());
     }
 
     /**

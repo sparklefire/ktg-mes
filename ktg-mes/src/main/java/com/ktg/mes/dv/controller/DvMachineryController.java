@@ -2,6 +2,9 @@ package com.ktg.mes.dv.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ktg.common.constant.UserConstants;
+import com.ktg.mes.wm.utils.WmBarCodeUtil;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +36,9 @@ public class DvMachineryController extends BaseController
 {
     @Autowired
     private IDvMachineryService dvMachineryService;
+
+    @Autowired
+    private WmBarCodeUtil wmBarCodeUtil;
 
     /**
      * 查询设备列表
@@ -77,7 +83,9 @@ public class DvMachineryController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody DvMachinery dvMachinery)
     {
-        return toAjax(dvMachineryService.insertDvMachinery(dvMachinery));
+        dvMachineryService.insertDvMachinery(dvMachinery);
+        wmBarCodeUtil.generateBarCode(UserConstants.BARCODE_TYPE_MACHINERY,dvMachinery.getMachineryId(),dvMachinery.getMachineryCode(),dvMachinery.getMachineryName());
+        return AjaxResult.success(dvMachinery.getMachineryId());
     }
 
     /**

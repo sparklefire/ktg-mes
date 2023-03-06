@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.ktg.common.constant.UserConstants;
 import com.ktg.mes.wm.service.IWmStorageAreaService;
 import com.ktg.mes.wm.service.IWmStorageLocationService;
+import com.ktg.mes.wm.utils.WmBarCodeUtil;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,6 +45,9 @@ public class WmWarehouseController extends BaseController
 
     @Autowired
     private IWmStorageAreaService wmStorageAreaService;
+
+    @Autowired
+    private WmBarCodeUtil wmBarCodeUtil;
 
     /**
      * 查询仓库设置列表
@@ -104,7 +108,10 @@ public class WmWarehouseController extends BaseController
             return AjaxResult.error("仓库名称已存在！");
         }
 
-        return toAjax(wmWarehouseService.insertWmWarehouse(wmWarehouse));
+        wmWarehouseService.insertWmWarehouse(wmWarehouse);
+        wmBarCodeUtil.generateBarCode(UserConstants.BARCODE_TYPE_WAREHOUSE,wmWarehouse.getWarehouseId(),wmWarehouse.getWarehouseCode(),wmWarehouse.getWarehouseName());
+
+        return AjaxResult.success(wmWarehouse.getWarehouseId());
     }
 
     /**

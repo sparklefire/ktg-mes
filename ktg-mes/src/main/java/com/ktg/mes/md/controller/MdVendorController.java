@@ -4,6 +4,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ktg.common.constant.UserConstants;
+import com.ktg.mes.wm.utils.WmBarCodeUtil;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +36,9 @@ public class MdVendorController extends BaseController
 {
     @Autowired
     private IMdVendorService mdVendorService;
+
+    @Autowired
+    private WmBarCodeUtil barCodeUtil;
 
     /**
      * 查询供应商列表
@@ -89,7 +93,10 @@ public class MdVendorController extends BaseController
             return AjaxResult.error("供应商简称已存在！");
         }
 
-        return toAjax(mdVendorService.insertMdVendor(mdVendor));
+        mdVendorService.insertMdVendor(mdVendor);
+        barCodeUtil.generateBarCode(UserConstants.BARCODE_TYPE_VENDOR,mdVendor.getVendorId(),mdVendor.getVendorCode(),mdVendor.getVendorName());
+
+        return AjaxResult.success(mdVendor.getVendorId());
     }
 
     /**
