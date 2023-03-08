@@ -11,6 +11,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="contentFormart"    column="content_formart"    />
         <result property="contentExample"    column="content_example"    />
         <result property="autoGenFlag"    column="auto_gen_flag"    />
+        <result property="defaultTemplate"    column="default_template"    />
         <result property="enableFlag"    column="enable_flag"    />
         <result property="remark"    column="remark"    />
         <result property="attr1"    column="attr1"    />
@@ -24,7 +25,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectWmBarcodeConfigVo">
-        select config_id, barcode_formart, barcode_type, content_formart, content_example, auto_gen_flag, enable_flag, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from wm_barcode_config
+        select config_id, barcode_formart, barcode_type, content_formart, content_example, auto_gen_flag,default_template, enable_flag, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from wm_barcode_config
     </sql>
 
     <select id="selectWmBarcodeConfigList" parameterType="WmBarcodeConfig" resultMap="WmBarcodeConfigResult">
@@ -56,6 +57,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="contentFormart != null and contentFormart != ''">content_formart,</if>
             <if test="contentExample != null">content_example,</if>
             <if test="autoGenFlag != null">auto_gen_flag,</if>
+            <if test="defaultTemplate !=null">default_template,</if>
             <if test="enableFlag != null">enable_flag,</if>
             <if test="remark != null">remark,</if>
             <if test="attr1 != null">attr1,</if>
@@ -73,6 +75,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="contentFormart != null and contentFormart != ''">#{contentFormart},</if>
             <if test="contentExample != null">#{contentExample},</if>
             <if test="autoGenFlag != null">#{autoGenFlag},</if>
+            <if test="defaultTemplate !=null">#{defaultTemplate},</if>
             <if test="enableFlag != null">#{enableFlag},</if>
             <if test="remark != null">#{remark},</if>
             <if test="attr1 != null">#{attr1},</if>
@@ -94,6 +97,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="contentFormart != null and contentFormart != ''">content_formart = #{contentFormart},</if>
             <if test="contentExample != null">content_example = #{contentExample},</if>
             <if test="autoGenFlag != null">auto_gen_flag = #{autoGenFlag},</if>
+            <if test="defaultTemplate !=null">default_template = #{defaultTemplate},</if>
             <if test="enableFlag != null">enable_flag = #{enableFlag},</if>
             <if test="remark != null">remark = #{remark},</if>
             <if test="attr1 != null">attr1 = #{attr1},</if>

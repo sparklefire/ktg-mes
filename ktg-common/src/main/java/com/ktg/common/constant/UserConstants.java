@@ -1,5 +1,7 @@
 package com.ktg.common.constant;
 
+import org.omg.CORBA.PUBLIC_MEMBER;
+
 /**
  * 用户常量信息
  * 
@@ -35,6 +37,8 @@ public class UserConstants
 
     /** 是否为系统默认（是） */
     public static final String YES = "Y";
+
+    public static final String NO = "N";
 
     /** 是否菜单外链（是） */
     public static final String YES_FRAME = "0";
@@ -209,5 +213,12 @@ public class UserConstants
     public static final String BARCODE_TYPE_CLIENT = "CLIENT"; //客户
     public static final String BARCODE_TYPE_VENDOR = "VENDOR"; //供应商
     public static final String BARCODE_TYPE_SN = "SN";
+
+    /**
+     * 消息状态
+     */
+    public static final String MESSAGE_STATUS_UNREAD = "UNREAD"; //未读
+    public static final String MESSAGE_STATUS_READ = "READ";//已读
+    public static final String MESSAGE_STATUS_PROCEED = "PROCEED";//已处理
 
 }

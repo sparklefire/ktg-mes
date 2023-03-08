@@ -38,6 +38,9 @@ public class WmBarcodeConfig extends BaseEntity
     @Excel(name = "是否自动生成")
     private String autoGenFlag;
 
+    /** 默认的打印模板 **/
+    private String defaultTemplate;
+
     /** 是否生效 */
     @Excel(name = "是否生效")
     private String enableFlag;
@@ -112,7 +115,14 @@ public class WmBarcodeConfig extends BaseEntity
     {
         return autoGenFlag;
     }
-    public void setEnableFlag(String enableFlag) 
+    public String getDefaultTemplate() {
+        return defaultTemplate;
+    }
+
+    public void setDefaultTemplate(String defaultTemplate) {
+        this.defaultTemplate = defaultTemplate;
+    }
+    public void setEnableFlag(String enableFlag)
     {
         this.enableFlag = enableFlag;
     }
@@ -160,23 +170,19 @@ public class WmBarcodeConfig extends BaseEntity
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("configId", getConfigId())
-            .append("barcodeFormart", getBarcodeFormart())
-            .append("barcodeType", getBarcodeType())
-            .append("contentFormart", getContentFormart())
-            .append("contentExample", getContentExample())
-            .append("autoGenFlag", getAutoGenFlag())
-            .append("enableFlag", getEnableFlag())
-            .append("remark", getRemark())
-            .append("attr1", getAttr1())
-            .append("attr2", getAttr2())
-            .append("attr3", getAttr3())
-            .append("attr4", getAttr4())
-            .append("createBy", getCreateBy())
-            .append("createTime", getCreateTime())
-            .append("updateBy", getUpdateBy())
-            .append("updateTime", getUpdateTime())
-            .toString();
+        return "WmBarcodeConfig{" +
+                "configId=" + configId +
+                ", barcodeFormart='" + barcodeFormart + '\'' +
+                ", barcodeType='" + barcodeType + '\'' +
+                ", contentFormart='" + contentFormart + '\'' +
+                ", contentExample='" + contentExample + '\'' +
+                ", autoGenFlag='" + autoGenFlag + '\'' +
+                ", defaultTemplate='" + defaultTemplate + '\'' +
+                ", enableFlag='" + enableFlag + '\'' +
+                ", attr1='" + attr1 + '\'' +
+                ", attr2='" + attr2 + '\'' +
+                ", attr3=" + attr3 +
+                ", attr4=" + attr4 +
+                '}';
     }
 }

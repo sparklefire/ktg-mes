@@ -222,4 +222,28 @@ public class TokenService
     {
         return Constants.LOGIN_TOKEN_KEY + uuid;
     }
+
+    /**
+     * 根据Token获取对应的用户
+     * @param token
+     * @return
+     */
+    public LoginUser getUserByToken(String token){
+        if (StringUtils.isNotEmpty(token))
+        {
+            try
+            {
+                Claims claims = parseToken(token);
+                // 解析对应的权限以及用户信息
+                String uuid = (String) claims.get(Constants.LOGIN_USER_KEY);
+                String userKey = getTokenKey(uuid);
+                LoginUser user = redisCache.getCacheObject(userKey);
+                return user;
+            }
+            catch (Exception e)
+            {
+            }
+        }
+        return null;
+    }
 }

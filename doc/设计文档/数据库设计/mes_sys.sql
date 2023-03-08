@@ -110,3 +110,34 @@ create table sys_attachment (
 ) engine=innodb auto_increment=200 comment = '附件表';
 
 
+-- ----------------------------
+-- 5、消息表
+-- ----------------------------
+drop table if exists sys_messsage;
+create table sys_message (
+  message_id        bigint(20)      not null auto_increment    comment '附件ID',
+  message_type      varchar(64)     not null                   comment '消息类型',
+  message_level     varchar(64)     not null                   comment '消息级别',
+  message_title     varchar(64)                                comment '标题',
+  message_content   longblob                                   comment '内容',
+  sender_id         bigint(20)                                 comment '发送人ID',
+  sender_name       varchar(64)                                comment '发送人名称',
+  sender_nick       varchar(64)                                comment '发送人昵称', 
+  recipient_id      bigint(20)      not null                   comment '接收人ID',
+  recipient_name    varchar(64)                                comment '接收人名称',
+  recipient_nick    varchar(64)                                comment '接收人昵称',
+  process_time      datetime                                   comment '处理时间',
+  call_back         varchar(255)                               comment '回调地址',
+  status            varchar(64)     not null default 'UNREAD'  comment '状态',
+  deleted_flag      char(1)         not null default 'N'       comment '是否删除',
+  remark            varchar(500)    default ''                 comment '备注',
+  attr1             varchar(64)     default null               comment '预留字段1',
+  attr2             varchar(255)     default null              comment '预留字段2',
+  attr3             int(11)         default 0                  comment '预留字段3',
+  attr4             int(11)         default 0                  comment '预留字段4',
+  create_by         varchar(64)     default ''                 comment '创建者',
+  create_time       datetime                                   comment '创建时间',
+  update_by         varchar(64)     default ''                 comment '更新者',
+  update_time       datetime                                   comment '更新时间',
+  primary key (message_id)
+) engine=innodb auto_increment=200 comment = '消息表';

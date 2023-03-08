@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ktg.system.mapper.SysMessageMapper">
+    
+    <resultMap type="SysMessage" id="SysMessageResult">
+        <result property="messageId"    column="message_id"    />
+        <result property="messageType"    column="message_type"    />
+        <result property="messageLevel"    column="message_level"    />
+        <result property="messageTitle"    column="message_title"    />
+        <result property="messageContent"    column="message_content"    />
+        <result property="senderId"    column="sender_id"    />
+        <result property="senderName"    column="sender_name"    />
+        <result property="senderNick"    column="sender_nick"    />
+        <result property="recipientId"    column="recipient_id"    />
+        <result property="recipientName"    column="recipient_name"    />
+        <result property="recipientNick"    column="recipient_nick"    />
+        <result property="processTime"    column="process_time"    />
+        <result property="callBack"    column="call_back"    />
+        <result property="status"    column="status"    />
+        <result property="deletedFlag"    column="deleted_flag"    />
+        <result property="remark"    column="remark"    />
+        <result property="attr1"    column="attr1"    />
+        <result property="attr2"    column="attr2"    />
+        <result property="attr3"    column="attr3"    />
+        <result property="attr4"    column="attr4"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectSysMessageVo">
+        select message_id, message_type, message_level, message_title, message_content, sender_id, sender_name, sender_nick, recipient_id, recipient_name, recipient_nick, process_time, call_back, status, deleted_flag, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from sys_message
+    </sql>
+
+    <select id="selectSysMessageList" parameterType="SysMessage" resultMap="SysMessageResult">
+        <include refid="selectSysMessageVo"/>
+        <where>  
+            <if test="messageType != null  and messageType != ''"> and message_type = #{messageType}</if>
+            <if test="messageLevel != null  and messageLevel != ''"> and message_level = #{messageLevel}</if>
+            <if test="messageTitle != null  and messageTitle != ''"> and message_title = #{messageTitle}</if>
+            <if test="messageContent != null  and messageContent != ''"> and message_content = #{messageContent}</if>
+            <if test="senderId != null "> and sender_id = #{senderId}</if>
+            <if test="senderName != null  and senderName != ''"> and sender_name like concat('%', #{senderName}, '%')</if>
+            <if test="senderNick != null  and senderNick != ''"> and sender_nick = #{senderNick}</if>
+            <if test="recipientId != null "> and recipient_id = #{recipientId}</if>
+            <if test="recipientName != null  and recipientName != ''"> and recipient_name like concat('%', #{recipientName}, '%')</if>
+            <if test="recipientNick != null  and recipientNick != ''"> and recipient_nick = #{recipientNick}</if>
+            <if test="processTime != null "> and process_time = #{processTime}</if>
+            <if test="callBack != null  and callBack != ''"> and call_back = #{callBack}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+            and deleted_flag = 'N'
+        </where>
+        order by create_time desc
+    </select>
+    
+    <select id="selectSysMessageByMessageId" parameterType="Long" resultMap="SysMessageResult">
+        <include refid="selectSysMessageVo"/>
+        where message_id = #{messageId}
+    </select>
+        
+    <insert id="insertSysMessage" parameterType="SysMessage" useGeneratedKeys="true" keyProperty="messageId">
+        insert into sys_message
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="messageType != null and messageType != ''">message_type,</if>
+            <if test="messageLevel != null and messageLevel != ''">message_level,</if>
+            <if test="messageTitle != null">message_title,</if>
+            <if test="messageContent != null">message_content,</if>
+            <if test="senderId != null">sender_id,</if>
+            <if test="senderName != null">sender_name,</if>
+            <if test="senderNick != null">sender_nick,</if>
+            <if test="recipientId != null">recipient_id,</if>
+            <if test="recipientName != null">recipient_name,</if>
+            <if test="recipientNick != null">recipient_nick,</if>
+            <if test="processTime != null">process_time,</if>
+            <if test="callBack != null">call_back,</if>
+            <if test="status != null and status != ''">status,</if>
+            <if test="deletedFlag != null and deletedFlag != ''">deleted_flag,</if>
+            <if test="remark != null">remark,</if>
+            <if test="attr1 != null">attr1,</if>
+            <if test="attr2 != null">attr2,</if>
+            <if test="attr3 != null">attr3,</if>
+            <if test="attr4 != null">attr4,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="messageType != null and messageType != ''">#{messageType},</if>
+            <if test="messageLevel != null and messageLevel != ''">#{messageLevel},</if>
+            <if test="messageTitle != null">#{messageTitle},</if>
+            <if test="messageContent != null">#{messageContent},</if>
+            <if test="senderId != null">#{senderId},</if>
+            <if test="senderName != null">#{senderName},</if>
+            <if test="senderNick != null">#{senderNick},</if>
+            <if test="recipientId != null">#{recipientId},</if>
+            <if test="recipientName != null">#{recipientName},</if>
+            <if test="recipientNick != null">#{recipientNick},</if>
+            <if test="processTime != null">#{processTime},</if>
+            <if test="callBack != null">#{callBack},</if>
+            <if test="status != null and status != ''">#{status},</if>
+            <if test="deletedFlag != null and deletedFlag != ''">#{deletedFlag},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="attr1 != null">#{attr1},</if>
+            <if test="attr2 != null">#{attr2},</if>
+            <if test="attr3 != null">#{attr3},</if>
+            <if test="attr4 != null">#{attr4},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysMessage" parameterType="SysMessage">
+        update sys_message
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="messageType != null and messageType != ''">message_type = #{messageType},</if>
+            <if test="messageLevel != null and messageLevel != ''">message_level = #{messageLevel},</if>
+            <if test="messageTitle != null">message_title = #{messageTitle},</if>
+            <if test="messageContent != null">message_content = #{messageContent},</if>
+            <if test="senderId != null">sender_id = #{senderId},</if>
+            <if test="senderName != null">sender_name = #{senderName},</if>
+            <if test="senderNick != null">sender_nick = #{senderNick},</if>
+            <if test="recipientId != null">recipient_id = #{recipientId},</if>
+            <if test="recipientName != null">recipient_name = #{recipientName},</if>
+            <if test="recipientNick != null">recipient_nick = #{recipientNick},</if>
+            <if test="processTime != null">process_time = #{processTime},</if>
+            <if test="callBack != null">call_back = #{callBack},</if>
+            <if test="status != null and status != ''">status = #{status},</if>
+            <if test="deletedFlag != null and deletedFlag != ''">deleted_flag = #{deletedFlag},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="attr1 != null">attr1 = #{attr1},</if>
+            <if test="attr2 != null">attr2 = #{attr2},</if>
+            <if test="attr3 != null">attr3 = #{attr3},</if>
+            <if test="attr4 != null">attr4 = #{attr4},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where message_id = #{messageId}
+    </update>
+
+    <delete id="deleteSysMessageByMessageId" parameterType="Long">
+        delete from sys_message where message_id = #{messageId}
+    </delete>
+
+    <delete id="deleteSysMessageByMessageIds" parameterType="String">
+        delete from sys_message where message_id in 
+        <foreach item="messageId" collection="array" open="(" separator="," close=")">
+            #{messageId}
+        </foreach>
+    </delete>
+</mapper>

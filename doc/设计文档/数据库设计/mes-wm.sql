@@ -899,6 +899,7 @@ create table wm_barcode_config (
   content_formart       varchar(255)    not null                    comment '内容格式',
   content_example       varchar(255)                                comment '内容样例',
   auto_gen_flag         char(1)         default 'Y'                 comment '是否自动生成',
+  default_template      varchar(255)                                comment '默认的打印模板',
   enable_flag           char(1)         default 'Y'                 comment '是否生效',
   remark                varchar(500)    default ''                  comment '备注',
   attr1                 varchar(64)     default null                comment '预留字段1',
