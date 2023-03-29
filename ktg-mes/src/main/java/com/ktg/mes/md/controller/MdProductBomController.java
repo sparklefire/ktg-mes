@@ -79,6 +79,10 @@ public class MdProductBomController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody MdProductBom mdProductBom)
     {
+        if(mdProductBom.getBomItemId() == mdProductBom.getItemId()){
+            return  AjaxResult.error("产品不能作为自身的BOM物料！");
+        }
+
         return toAjax(mdProductBomService.insertMdProductBom(mdProductBom));
     }
 

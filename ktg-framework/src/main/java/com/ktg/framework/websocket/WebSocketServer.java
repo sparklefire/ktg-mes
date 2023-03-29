@@ -12,6 +12,7 @@ import javax.websocket.server.ServerEndpoint;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
+import com.ktg.common.constant.UserConstants;
 import com.ktg.common.core.domain.entity.SysUser;
 import com.ktg.common.core.domain.model.LoginUser;
 import com.ktg.common.utils.StringUtils;
@@ -124,15 +125,18 @@ public class WebSocketServer
     @OnMessage
     public void onMessage(String message, Session session)
     {
-        try{
-            SysMessage msg = JSON.parseObject(message, new TypeReference<SysMessage>(){});
-            if(StringUtils.isNotNull(msg.getRecipientName())){
-                //这里必须传递username
-                WebSocketUsers.sendMesssageToUserByName(msg.getRecipientName(),message);
+        if(!UserConstants.WEBSOCKET_HEARTBEAT.equals(message)){
+            try{
+                SysMessage msg = JSON.parseObject(message, new TypeReference<SysMessage>(){});
+                if(StringUtils.isNotNull(msg.getRecipientName())){
+                    //这里必须传递username
+                    WebSocketUsers.sendMesssageToUserByName(msg.getRecipientName(),message);
+                }
+            }catch (Exception e){
+                LOGGER.error("\n 错误的websocket信息格式 - {}", message);
             }
-        }catch (Exception e){
-            LOGGER.error("\n 错误的websocket信息格式 - {}", message);
         }
+        LOGGER.debug("\n 收到客户端发送的消息 - {}", message);
     }
 
 }

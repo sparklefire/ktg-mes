@@ -120,7 +120,7 @@ public class ProTaskController extends BaseController
                 }
                 BigDecimal produced = workorder.getQuantityProduced();
                 BigDecimal quantitiy = workorder.getQuantity();
-                wdata.setProgress( produced.divide(quantitiy).floatValue());
+                wdata.setProgress( produced.divide(quantitiy,BigDecimal.ROUND_HALF_UP).floatValue());
                 wdata.setDuration(0L);
                 wdata.setType(UserConstants.GANTT_TASK_TYPE_PROJECT);
                 ganttData.add(wdata);
