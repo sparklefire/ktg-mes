@@ -58,10 +58,11 @@ public class ProWorkorderController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('mes:pro:workorder:list')")
     @GetMapping("/list")
-    public AjaxResult list(ProWorkorder proWorkorder)
+    public TableDataInfo list(ProWorkorder proWorkorder)
     {
+        startPage();
         List<ProWorkorder> list = proWorkorderService.selectProWorkorderList(proWorkorder);
-        return AjaxResult.success(list);
+        return getDataTable(list);
     }
 
     /**
@@ -208,22 +209,27 @@ public class ProWorkorderController extends BaseController
                  ) {
                 MdProductBom theBom = new MdProductBom();
                 theBom.setBomItemId(bom.getItemId());
-                result.addAll(getBoms(theBom,bom.getQuantity()));
+                result.addAll(getBoms(theBom,bom.getQuantity(),0));
             }
         }
         return getDataTable(result);
     }
 
-    private List<MdProductBom> getBoms(MdProductBom item,BigDecimal quantity){
+    private List<MdProductBom> getBoms(MdProductBom item,BigDecimal quantity,int count){
         MdProductBom param = new MdProductBom();
         List<MdProductBom> results = new ArrayList<MdProductBom>();
+        if(count >20){
+            return results;
+        }
         param.setItemId(item.getBomItemId());
         List<MdProductBom> boms = mdProductBomService.selectMdProductBomList(param);
         if(CollUtil.isNotEmpty(boms)){
+            //最多20层依赖
+            count ++;
             for (MdProductBom bomItem: boms
                  ) {
                 bomItem.setQuantity(quantity.multiply(bomItem.getQuantity()));
-                results.addAll(getBoms(bomItem,bomItem.getQuantity()));
+                results.addAll(getBoms(bomItem,bomItem.getQuantity(),count));
             }
         }else{
             results.add(item);
