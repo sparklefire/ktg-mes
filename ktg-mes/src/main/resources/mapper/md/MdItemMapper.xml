@@ -121,6 +121,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update md_item
 		<set>
 			<if test="itemName !=null and itemName !=''">item_name = #{itemName},</if>
+			<if test="itemTypeId != null and itemTypeId != 0 "> item_type_id = #{itemTypeId},</if>
+			<if test="itemTypeCode !=null and itemTypeCode !=''">item_type_code = #{itemTypeCode},</if>
+			<if test="itemTypeName !=null and itemTypeName !=''">item_type_name = #{itemTypeName},</if>
 			<if test="specification !=null and specification !=''">specification = #{specification},</if>
 			<if test="unitOfMeasure !=null and unitOfMeasure !=''">unit_of_measure = #{unitOfMeasure},</if>
 			<if test="itemOrProduct !=null and itemOrProduct !=''">item_or_product = #{itemOrProduct},</if>
