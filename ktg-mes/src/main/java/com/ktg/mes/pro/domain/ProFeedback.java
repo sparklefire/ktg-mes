@@ -21,6 +21,11 @@ public class ProFeedback extends BaseEntity
     /** 记录ID */
     private Long recordId;
 
+    /**
+     * 报工单编号
+     */
+    private String feedbackCode;
+
     /** 报工类型*/
     private String feedbackType;
 
@@ -159,7 +164,15 @@ public class ProFeedback extends BaseEntity
         this.workstationId = workstationId;
     }
 
-    public Long getWorkstationId() 
+    public String getFeedbackCode() {
+        return feedbackCode;
+    }
+
+    public void setFeedbackCode(String feedbackCode) {
+        this.feedbackCode = feedbackCode;
+    }
+
+    public Long getWorkstationId()
     {
         return workstationId;
     }
@@ -435,6 +448,7 @@ public class ProFeedback extends BaseEntity
     public String toString() {
         return "ProFeedback{" +
                 "recordId=" + recordId +
+                ", feedbackCode='" + feedbackCode + '\'' +
                 ", feedbackType='" + feedbackType + '\'' +
                 ", workstationId=" + workstationId +
                 ", workstationCode='" + workstationCode + '\'' +

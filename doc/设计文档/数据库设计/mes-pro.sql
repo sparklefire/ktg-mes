@@ -282,6 +282,7 @@ drop table if exists pro_feedback;
 create table pro_feedback (
   record_id                      bigint(20)      not null auto_increment    comment '记录ID',
   feedback_type                  varchar(64)     not null                   comment '报工类型',
+  feedback_code                  varchar(64)                                comment '报工单编号',
   workstation_id                 bigint(20)      not null                   comment '工作站ID',
   workstation_code               varchar(64)                                comment '工作站编号',
   workstation_name               varchar(255)                               comment '工作站名称',

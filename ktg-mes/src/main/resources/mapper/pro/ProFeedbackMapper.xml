@@ -6,6 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <resultMap type="ProFeedback" id="ProFeedbackResult">
         <result property="recordId"    column="record_id"    />
+        <result property="feedbackCode" column="feedback_code" />
         <result property="feedbackType"    column="feedback_type"    />
         <result property="workstationId"    column="workstation_id"    />
         <result property="workstationCode"    column="workstation_code"    />
@@ -53,6 +54,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectProFeedbackVo"/>
         <where>  
             <if test="workstationId != null "> and workstation_id = #{workstationId}</if>
+            <if test="feedbackCode !=null "> and feedback_code = #{feedbackCode}</if>
             <if test="feedbackType !=null "> and feedback_type = #{feedbackType}</if>
             <if test="workstationCode != null  and workstationCode != ''"> and workstation_code = #{workstationCode}</if>
             <if test="workstationName != null  and workstationName != ''"> and workstation_name like concat('%', #{workstationName}, '%')</if>
@@ -92,6 +94,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         insert into pro_feedback
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="feedbackType !=null ">feedback_type,</if>
+            <if test="feedbackCode !=null ">feedback_code,</if>
             <if test="workstationId != null">workstation_id,</if>
             <if test="workstationCode != null">workstation_code,</if>
             <if test="workstationName != null">workstation_name,</if>
@@ -131,6 +134,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="feedbackType !=null ">#{feedbackType},</if>
+            <if test="feedbackCode !=null ">#{feedbackCode},</if>
             <if test="workstationId != null">#{workstationId},</if>
             <if test="workstationCode != null">#{workstationCode},</if>
             <if test="workstationName != null">#{workstationName},</if>
@@ -174,6 +178,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         update pro_feedback
         <trim prefix="SET" suffixOverrides=",">
             <if test="feedbackType !=null ">feedback_type = #{feedbackType},</if>
+            <if test="feedbackCode !=null ">feedback_code = #{feedbackCode},</if>
             <if test="workstationId != null">workstation_id = #{workstationId},</if>
             <if test="workstationCode != null">workstation_code = #{workstationCode},</if>
             <if test="workstationName != null">workstation_name = #{workstationName},</if>
