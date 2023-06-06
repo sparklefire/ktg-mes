@@ -1114,3 +1114,73 @@ create table wm_sn (
   update_time           datetime                                    comment '更新时间',
   primary key (sn_id)
 ) engine=innodb auto_increment=200 comment = 'SN码表';
+
+
+
+-- ----------------------------
+-- 24、库存盘点记录表
+-- ----------------------------
+drop table if exists wm_stock_taking;
+create table wm_stock_taking (
+  taking_id             bigint(20)      not null auto_increment     comment '盘点单ID',
+  taking_code           varchar(64)     not null                    comment '盘点单编号', 
+  taking_name           varchar(255)                                comment '盘点单名称',
+  taking_date           datetime        not null                    comment '盘点日期',
+  user_name             varchar(64)                                 comment '盘点人用户名',
+  nick_name             varchar(64)                                 comment '盘点人',
+  taking_type           varchar(64)     not null                    comment '盘点类型',
+  warehouse_id          bigint(20)                                  comment '仓库ID',
+  warehouse_code        varchar(64)                                 comment '仓库编码',
+  warehouse_name        varchar(255)                                comment '仓库名称',
+  status                varchar(64)     default 'PREPARE'           comment '单据状态',  
+  remark                varchar(500)    default ''                  comment '备注',
+  attr1                 varchar(64)     default null                comment '预留字段1',
+  attr2                 varchar(255)    default null                comment '预留字段2',
+  attr3                 int(11)         default 0                   comment '预留字段3',
+  attr4                 int(11)         default 0                   comment '预留字段4',
+  create_by             varchar(64)     default ''                  comment '创建者',
+  create_time           datetime                                    comment '创建时间',
+  update_by             varchar(64)     default ''                  comment '更新者',
+  update_time           datetime                                    comment '更新时间',
+  primary key (taking_id)
+) engine=innodb auto_increment=200 comment = '库存盘点记录表';
+
+
+
+-- ----------------------------
+-- 25、库存盘点明细表
+-- ----------------------------
+drop table if exists wm_stock_taking_line;
+create table wm_stock_taking_line (
+  line_id               bigint(20)      not null auto_increment     comment '行ID',
+  taking_id             bigint(20)                                  comment '报废单ID',
+  material_stock_id     bigint(20)                                  comment '库存ID',
+  item_id               bigint(20)      not null                    comment '产品物料ID',
+  item_code             varchar(64)                                 comment '产品物料编码',
+  item_name             varchar(255)                                comment '产品物料名称',
+  specification         varchar(500)                                comment '规格型号',
+  unit_of_measure       varchar(64)                                 comment '单位',
+  unit_name             varchar(64)                                 comment '单位名称',
+  quantity              int(11)         not null default 1          comment '数量',
+  taking_quantity       int(11)                                     comment '盘点数量',
+  warehouse_id          bigint(20)                                  comment '仓库ID',
+  warehouse_code        varchar(64)                                 comment '仓库编码',
+  warehouse_name        varchar(255)                                comment '仓库名称',
+  location_id           bigint(20)                                  comment '库区ID',
+  location_code         varchar(64)                                 comment '库区编码',
+  location_name         varchar(255)                                comment '库区名称',
+  area_id               bigint(20)                                  comment '库位ID',
+  area_code             varchar(64)                                 comment '库位编码',
+  area_name             varchar(255)                                comment '库位名称', 
+  taking_status         varchar(64)     not null default 'LOSS'     comment '盘点状态',
+  remark                varchar(500)    default ''                  comment '备注',
+  attr1                 varchar(64)     default null                comment '预留字段1',
+  attr2                 varchar(255)    default null                comment '预留字段2',
+  attr3                 int(11)         default 0                   comment '预留字段3',
+  attr4                 int(11)         default 0                   comment '预留字段4',
+  create_by             varchar(64)     default ''                  comment '创建者',
+  create_time           datetime                                    comment '创建时间',
+  update_by             varchar(64)     default ''                  comment '更新者',
+  update_time           datetime                                    comment '更新时间',
+  primary key (line_id)
+) engine=innodb auto_increment=200 comment = '库存盘点明细表';
