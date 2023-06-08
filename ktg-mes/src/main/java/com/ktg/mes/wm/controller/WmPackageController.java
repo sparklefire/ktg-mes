@@ -107,6 +107,7 @@ public class WmPackageController extends BaseController
         wmBarcode.setBarcodeContent(""+UserConstants.BARCODE_TYPE_PACKAGE+"-"+wmPackage.getPackageCode());
         String path =wmBarcodeService.generateBarcode(wmBarcode);
         wmBarcode.setBarcodeUrl(path);
+        wmBarcode.setCreateBy(getUsername());
         wmBarcodeService.insertWmBarcode(wmBarcode);
 
         //将条码的URL更新上去

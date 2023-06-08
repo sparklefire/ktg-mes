@@ -123,6 +123,7 @@ public class WmTransferLineController extends BaseController
             wmTransferLine.setToAreaCode(area.getAreaCode());
             wmTransferLine.setToAreaName(area.getAreaName());
         }
+        wmTransferLine.setCreateBy(getUsername());
         return toAjax(wmTransferLineService.insertWmTransferLine(wmTransferLine));
     }
 

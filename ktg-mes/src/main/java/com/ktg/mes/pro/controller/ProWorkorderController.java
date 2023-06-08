@@ -107,7 +107,7 @@ public class ProWorkorderController extends BaseController
 
         Long workorderId = proWorkorder.getWorkorderId();
         generateBomLine(workorderId);
-
+        proWorkorder.setCreateBy(getUsername());
         return AjaxResult.success(workorderId);
     }
 

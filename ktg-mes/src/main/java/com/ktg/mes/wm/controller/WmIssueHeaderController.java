@@ -119,8 +119,7 @@ public class WmIssueHeaderController extends BaseController
             wmIssueHeader.setAreaCode(area.getAreaCode());
             wmIssueHeader.setAreaName(area.getAreaName());
         }
-
-
+        wmIssueHeader.setCreateBy(getUsername());
         return toAjax(wmIssueHeaderService.insertWmIssueHeader(wmIssueHeader));
     }
 

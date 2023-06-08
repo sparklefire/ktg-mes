@@ -117,6 +117,7 @@ public class WmProductSalseController extends BaseController
             wmProductSalse.setAreaCode(area.getAreaCode());
             wmProductSalse.setAreaName(area.getAreaName());
         }
+        wmProductSalse.setCreateBy(getUsername());
         return toAjax(wmProductSalseService.insertWmProductSalse(wmProductSalse));
     }
 

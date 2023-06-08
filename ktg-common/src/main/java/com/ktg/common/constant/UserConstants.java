@@ -92,6 +92,16 @@ public class UserConstants
     public static final String DEFECT_CODE = "DEFECT_CODE";
     public static final String SN_CODE = "SN_CODE";
     public static final String TRANS_ORDER_CODE ="TRANS_ORDER_CODE";
+    public static final String ITEMRECPT_CODE ="ITEMRECPT_CODE"; //物料采购入库
+    public static final String WM_RTVENDOR_CODE ="WM_RTVENDOR_CODE";//退回供应商
+    public static final String ISSUE_CODE ="ISSUE_CODE"; //生产领料
+    public static final String RTISSUE_CODE ="RTISSUE_CODE"; //生产退料
+    public static final String PRODUCTRECPT_CODE ="PRODUCTRECPT_CODE"; //产品入库
+    public static final String PRODUCTSALSE_CODE ="PRODUCTSALSE_CODE"; //销售出库
+    public static final String RTSALSE_CODE ="RTSALSE_CODE"; //销售退货
+    public static final String TRANSFER_CODE ="TRANSFER_CODE"; //移库
+    public static final String STOCKTAKING_CODE ="STOCKTAKING_CODE"; //盘库单
+    public static final String FEEDBACK_CODE ="FEEDBACK_CODE"; //报工单
 
     /**
      * 单据的状态类型

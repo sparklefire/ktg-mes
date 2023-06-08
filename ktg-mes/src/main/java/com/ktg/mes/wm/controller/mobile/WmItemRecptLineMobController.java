@@ -1,44 +1,32 @@
-package com.ktg.mes.wm.controller;
+package com.ktg.mes.wm.controller.mobile;
 
-import java.util.List;
-import javax.servlet.http.HttpServletResponse;
-
-import com.ktg.common.utils.StringUtils;
-import com.ktg.mes.wm.domain.WmStorageArea;
-import com.ktg.mes.wm.domain.WmStorageLocation;
-import com.ktg.mes.wm.domain.WmWarehouse;
-import com.ktg.mes.wm.service.IWmStorageAreaService;
-import com.ktg.mes.wm.service.IWmStorageLocationService;
-import com.ktg.mes.wm.service.IWmWarehouseService;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import com.ktg.common.annotation.Log;
 import com.ktg.common.core.controller.BaseController;
 import com.ktg.common.core.domain.AjaxResult;
-import com.ktg.common.enums.BusinessType;
-import com.ktg.mes.wm.domain.WmItemRecptLine;
-import com.ktg.mes.wm.service.IWmItemRecptLineService;
-import com.ktg.common.utils.poi.ExcelUtil;
 import com.ktg.common.core.page.TableDataInfo;
+import com.ktg.common.enums.BusinessType;
+import com.ktg.common.utils.StringUtils;
+import com.ktg.mes.wm.domain.WmItemRecptLine;
+import com.ktg.mes.wm.domain.WmStorageArea;
+import com.ktg.mes.wm.domain.WmStorageLocation;
+import com.ktg.mes.wm.domain.WmWarehouse;
+import com.ktg.mes.wm.service.IWmItemRecptLineService;
+import com.ktg.mes.wm.service.IWmStorageAreaService;
+import com.ktg.mes.wm.service.IWmStorageLocationService;
+import com.ktg.mes.wm.service.IWmWarehouseService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
-/**
- * 物料入库单行Controller
- * 
- * @author yinjinlu
- * @date 2022-05-22
- */
+import java.util.List;
+
+@Api("采购入库明细")
 @RestController
-@RequestMapping("/mes/wm/itemrecptline")
-public class WmItemRecptLineController extends BaseController
-{
+@RequestMapping("/mobile/wm/itemrecptline")
+public class WmItemRecptLineMobController extends BaseController {
+
     @Autowired
     private IWmItemRecptLineService wmItemRecptLineService;
 
@@ -55,6 +43,7 @@ public class WmItemRecptLineController extends BaseController
     /**
      * 查询物料入库单行列表
      */
+    @ApiOperation("查询采购入库单明细信息接口")
     @PreAuthorize("@ss.hasPermi('mes:wm:itemrecptline:list')")
     @GetMapping("/list")
     public TableDataInfo list(WmItemRecptLine wmItemRecptLine)
@@ -65,21 +54,9 @@ public class WmItemRecptLineController extends BaseController
     }
 
     /**
-     * 导出物料入库单行列表
-     */
-    @PreAuthorize("@ss.hasPermi('mes:wm:itemrecptline:export')")
-    @Log(title = "物料入库单行", businessType = BusinessType.EXPORT)
-    @PostMapping("/export")
-    public void export(HttpServletResponse response, WmItemRecptLine wmItemRecptLine)
-    {
-        List<WmItemRecptLine> list = wmItemRecptLineService.selectWmItemRecptLineList(wmItemRecptLine);
-        ExcelUtil<WmItemRecptLine> util = new ExcelUtil<WmItemRecptLine>(WmItemRecptLine.class);
-        util.exportExcel(response, list, "物料入库单行数据");
-    }
-
-    /**
      * 获取物料入库单行详细信息
      */
+    @ApiOperation("查看采购入库单明细信息接口")
     @PreAuthorize("@ss.hasPermi('mes:wm:itemrecptline:query')")
     @GetMapping(value = "/{lineId}")
     public AjaxResult getInfo(@PathVariable("lineId") Long lineId)
@@ -90,6 +67,7 @@ public class WmItemRecptLineController extends BaseController
     /**
      * 新增物料入库单行
      */
+    @ApiOperation("新增采购入库单明细信息接口")
     @PreAuthorize("@ss.hasPermi('mes:wm:itemrecptline:add')")
     @Log(title = "物料入库单行", businessType = BusinessType.INSERT)
     @PostMapping
@@ -117,6 +95,7 @@ public class WmItemRecptLineController extends BaseController
     /**
      * 修改物料入库单行
      */
+    @ApiOperation("修改采购入库单明细信息接口")
     @PreAuthorize("@ss.hasPermi('mes:wm:itemrecptline:edit')")
     @Log(title = "物料入库单行", businessType = BusinessType.UPDATE)
     @PutMapping
@@ -143,11 +122,13 @@ public class WmItemRecptLineController extends BaseController
     /**
      * 删除物料入库单行
      */
+    @ApiOperation("删除采购入库单明细信息接口")
     @PreAuthorize("@ss.hasPermi('mes:wm:itemrecptline:remove')")
     @Log(title = "物料入库单行", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{lineIds}")
+    @DeleteMapping("/{lineIds}")
     public AjaxResult remove(@PathVariable Long[] lineIds)
     {
         return toAjax(wmItemRecptLineService.deleteWmItemRecptLineByLineIds(lineIds));
     }
+
 }

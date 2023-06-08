@@ -77,6 +77,7 @@ public class WmIssueLineController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody WmIssueLine wmIssueLine)
     {
+        wmIssueLine.setCreateBy(getUsername());
         return toAjax(wmIssueLineService.insertWmIssueLine(wmIssueLine));
     }
 

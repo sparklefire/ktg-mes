@@ -1,4 +1,4 @@
-package com.ktg.mes.pro.controller;
+package com.ktg.mes.pro.controller.mobile;
 
 import cn.hutool.core.collection.CollUtil;
 import com.ktg.common.annotation.Log;

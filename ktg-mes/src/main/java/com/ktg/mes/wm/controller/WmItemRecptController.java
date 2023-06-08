@@ -118,6 +118,7 @@ public class WmItemRecptController extends BaseController
            wmItemRecpt.setAreaName(area.getAreaName());
         }
 
+        wmItemRecpt.setCreateBy(getUsername());
         return toAjax(wmItemRecptService.insertWmItemRecpt(wmItemRecpt));
     }
 

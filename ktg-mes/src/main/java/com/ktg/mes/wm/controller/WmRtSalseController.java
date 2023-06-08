@@ -117,6 +117,7 @@ public class WmRtSalseController extends BaseController
             wmRtSalse.setAreaCode(area.getAreaCode());
             wmRtSalse.setAreaName(area.getAreaName());
         }
+        wmRtSalse.setCreateBy(getUsername());
         return toAjax(wmRtSalseService.insertWmRtSalse(wmRtSalse));
     }
 

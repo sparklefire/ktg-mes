@@ -109,7 +109,7 @@ public class WmProductRecptLineController extends BaseController
             wmProductRecptLine.setAreaCode(area.getAreaCode());
             wmProductRecptLine.setAreaName(area.getAreaName());
         }
-
+        wmProductRecptLine.setCreateBy(getUsername());
         return toAjax(wmProductRecptLineService.insertWmProductRecptLine(wmProductRecptLine));
     }
 

@@ -77,6 +77,7 @@ public class WmRtVendorLineController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody WmRtVendorLine wmRtVendorLine)
     {
+        wmRtVendorLine.setCreateBy(getUsername());
         return toAjax(wmRtVendorLineService.insertWmRtVendorLine(wmRtVendorLine));
     }
 

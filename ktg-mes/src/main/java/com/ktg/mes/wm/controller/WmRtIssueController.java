@@ -118,6 +118,7 @@ public class WmRtIssueController extends BaseController
             wmRtIssue.setAreaCode(area.getAreaCode());
             wmRtIssue.setAreaName(area.getAreaName());
         }
+        wmRtIssue.setCreateBy(getUsername());
         return toAjax(wmRtIssueService.insertWmRtIssue(wmRtIssue));
     }
 

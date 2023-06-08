@@ -123,7 +123,7 @@ public class ProFeedbackController extends BaseController
         }else {
             return AjaxResult.error("当前生产任务对应的工作站不存在！");
         }
-
+        proFeedback.setCreateBy(getUsername());
         return toAjax(proFeedbackService.insertProFeedback(proFeedback));
     }
 

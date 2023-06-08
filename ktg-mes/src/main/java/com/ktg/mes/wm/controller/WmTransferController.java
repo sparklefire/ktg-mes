@@ -106,7 +106,7 @@ public class WmTransferController extends BaseController
             wmTransfer.setToWarehouseName(warehouse.getWarehouseName());
         }
 
-
+        wmTransfer.setCreateBy(getUsername());
         return toAjax(wmTransferService.insertWmTransfer(wmTransfer));
     }
 

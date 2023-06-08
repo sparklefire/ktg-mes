@@ -1,4 +1,4 @@
-package com.ktg.mes.pro.controller;
+package com.ktg.mes.pro.controller.mobile;
 
 import cn.hutool.core.collection.CollectionUtil;
 import com.ktg.common.annotation.Log;
@@ -114,7 +114,7 @@ public class ProTransOrderMobController extends BaseController {
         if(StringUtils.isNotNull(proTransOrder.getQuantityTransfered())){
             return AjaxResult.error("请填写报工数量");
         }
-
+        proTransOrder.setCreateBy(getUsername());
         proTransOrderService.insertProTransOrder(proTransOrder);
 
         //自动生成条码

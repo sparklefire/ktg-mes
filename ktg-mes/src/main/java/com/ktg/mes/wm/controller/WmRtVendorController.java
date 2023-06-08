@@ -92,6 +92,7 @@ public class WmRtVendorController extends BaseController
         if(UserConstants.NOT_UNIQUE.equals(wmRtVendorService.checkCodeUnique(wmRtVendor))){
             return AjaxResult.error("退货单编号已经存在！");
         }
+        wmRtVendor.setCreateBy(getUsername());
         return toAjax(wmRtVendorService.insertWmRtVendor(wmRtVendor));
     }
 

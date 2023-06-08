@@ -1,4 +1,4 @@
-package com.ktg.mes.pro.controller;
+package com.ktg.mes.pro.controller.mobile;
 
 import com.ktg.common.annotation.Log;
 import com.ktg.common.constant.UserConstants;
@@ -48,6 +48,7 @@ public class ProFeedBackMobController extends BaseController {
         }else {
             return AjaxResult.error("当前生产任务对应的工作站不存在！");
         }
+        proFeedback.setCreateBy(getUsername());
         proFeedbackService.insertProFeedback(proFeedback);
         return AjaxResult.success(proFeedback);
     }

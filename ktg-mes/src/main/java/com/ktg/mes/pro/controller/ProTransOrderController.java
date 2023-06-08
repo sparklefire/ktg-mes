@@ -85,6 +85,7 @@ public class ProTransOrderController extends BaseController
     {
         proTransOrderService.insertProTransOrder(proTransOrder);
         wmBarCodeUtil.generateBarCode(UserConstants.BARCODE_TYPE_TRANSORDER,proTransOrder.getTransOrderId(),proTransOrder.getTransOrderCode(),null);
+        proTransOrder.setCreateBy(getUsername());
         return AjaxResult.success(proTransOrder.getTransOrderId());
     }
 
