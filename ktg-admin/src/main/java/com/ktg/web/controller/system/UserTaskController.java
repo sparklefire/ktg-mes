@@ -31,10 +31,10 @@ public class UserTaskController extends BaseController {
      */
     @ApiOperation("查询待处理的任务和单据（分页）")
     @GetMapping("/listTodo")
-    public TableDataInfo listTodoList(Long userId)
+    public TableDataInfo listTodoList(String userName)
     {
         startPage();
-        List<UserTask> list = userTaskService.listTodoList(userId);
+        List<UserTask> list = userTaskService.listTodoList(userName);
         return getDataTable(list);
     }
 
@@ -45,10 +45,10 @@ public class UserTaskController extends BaseController {
      */
     @ApiOperation("查询已处理的任务和单据（分页）")
     @GetMapping("/listFinished")
-    public TableDataInfo listFinishedList(Long userId)
+    public TableDataInfo listFinishedList(String userName)
     {
         startPage();
-        List<UserTask> list = userTaskService.listFinishedList(userId);
+        List<UserTask> list = userTaskService.listFinishedList(userName);
         return getDataTable(list);
     }
 

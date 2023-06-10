@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface UserTaskMapper {
 
-    public List<UserTask> listTodoList(Long userId);
+    public List<UserTask> listTodoList(String userName);
 
-    public List<UserTask> listFinishedList(Long userId);
+    public List<UserTask> listFinishedList(String userName);
 
 }

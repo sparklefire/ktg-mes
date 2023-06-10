@@ -9,124 +9,128 @@
         <result property="taskCode"     column="task_code" />
         <result property="taskName"     column="task_name" />
         <result property="status"       column="status"    />
-        <result property="taskType"     column="taskType"  />
+        <result property="taskType"     column="task_type"  />
         <result property="createBy"     column="create_by"    />
         <result property="createTime"   column="create_time"  />
         <result property="updateBy"     column="update_by"    />
         <result property="updateTime"   column="update_time"  />
     </resultMap>
 
-    <select id="listTodoList" parameterType="Long" resultMap="UserTaskResult">
-        select *
+    <select id="listTodoList" parameterType="String" resultMap="UserTaskResult">
+        select task_type,task_code,task_name,t.`status`,su.nick_name as create_by,su.create_time
         from (
                  select 'ITEMRECPT' as task_type, recpt_id as task_id,recpt_code as task_code,recpt_name  as task_name,`status`,create_by,create_time,update_by,update_time
                  from wm_item_recpt wir
                  where wir.`status` = 'PREPARE'
-                   and wir.create_by = #{userId}
+                   and wir.create_by = #{userName}
                  union
                  select 'WM_RTVENDOR' as task_type, wrv.rt_id as task_id,rt_code as task_code, rt_name  as task_name,`status`,create_by,create_time,update_by,update_time
                  from wm_rt_vendor wrv
                  where wrv.`status` ='PREPARE'
-                   and wrv.create_by = #{userId}
+                   and wrv.create_by = #{userName}
                  union
                  select 'ISSUE' as task_type, issue_id as task_id,issue_code as issue_code, issue_name  as task_name,`status`,create_by,create_time,update_by,update_time
                  from wm_issue_header wih
                  where wih.`status` ='PREPARE'
-                   and wih.create_by = #{userId}
+                   and wih.create_by = #{userName}
                  union
                  select 'RTISSUE' as task_type, rt_id as task_id,rt_code as task_code, rt_name  as task_name,`status`,create_by,create_time,update_by,update_time
                  from wm_rt_issue wri
                  where wri.`status` ='PREPARE'
-                   AND wri.create_by = #{userId}
+                   AND wri.create_by = #{userName}
                  union
                  select 'PRODUCTRECPT' as task_type, wpr.recpt_id as task_id,recpt_code as task_code, recpt_name  as task_name,`status`,create_by,create_time,update_by,update_time
                  from wm_product_recpt wpr
                  where wpr.`status` ='PREPARE'
-                   and wpr.create_by = #{userId}
+                   and wpr.create_by = #{userName}
                  union
                  select 'PRODUCTSALSE' as task_type, wps.salse_id as task_id,salse_code as task_code, salse_name  as task_name,`status`,create_by,create_time,update_by,update_time
                  from wm_product_salse wps
                  where wps.`status` ='PREPARE'
-                   and wps.create_by = #{userId}
+                   and wps.create_by = #{userName}
                  union
                  select 'RTSALSE' as task_type,wrs.rt_id as task_id,rt_code as task_code, rt_name  as task_name,`status`,create_by,create_time,update_by,update_time
                  from wm_rt_salse wrs
                  where wrs.`status` ='PREPARE'
-                   and wrs.create_by = #{userId}
+                   and wrs.create_by = #{userName}
                  union
                  select 'TRANSFER' as task_type,wt.transfer_id as task_id,wt.transfer_code as task_code, wt.transfer_name as task_name,`status`,create_by,create_time,update_by,update_time
                  from wm_transfer wt
                  where wt.`status` ='PREPARE'
-                   and wt.create_by = #{userId}
+                   and wt.create_by = #{userName}
                  union
                  select 'STOCKTAKING' as task_type,wst.taking_id as task_id,wst.taking_code as task_code,wst.taking_name as task_name,`status`,create_by,create_time,update_by,update_time
                  from wm_stock_taking wst
                  where wst.`status` ='PREPARE'
-                   and wst.create_by = #{userId}
+                   and wst.create_by = #{userName}
                  union
                  select 'FEEDBACK' as task_type,pf.record_id as task_id,feedback_code as task_code,'报工单' as task_name,`status`,create_by,create_time,update_by,update_time
                  from pro_feedback pf
                  where pf.`status`='PREPARE'
-                   and pf.create_by = #{userId}
+                   and pf.create_by = #{userName}
              ) t
-        order by create_time, desc
+             left join sys_user su
+                 on t.create_by = su.user_name
+        order by create_time, task_type desc
 
     </select>
 
-    <select id="listFinishedList" parameterType="Long" resultMap="UserTaskResult">
-        select *
+    <select id="listFinishedList" parameterType="String" resultMap="UserTaskResult">
+        select task_type,task_code,task_name,t.`status`,su.nick_name as create_by,su.create_time
         from (
                  select 'ITEMRECPT' as task_type, recpt_id as task_id,recpt_code as task_code,recpt_name  as task_name,`status`,create_by,create_time,update_by,update_time
                  from wm_item_recpt wir
                  where wir.`status` != 'PREPARE'
-                   and wir.create_by = #{userId}
+                   and wir.create_by = #{userName}
                  union
                  select 'WM_RTVENDOR' as task_type, wrv.rt_id as task_id,rt_code as task_code, rt_name  as task_name,`status`,create_by,create_time,update_by,update_time
                  from wm_rt_vendor wrv
                  where wrv.`status` !='PREPARE'
-                   and wrv.create_by = #{userId}
+                   and wrv.create_by = #{userName}
                  union
                  select 'ISSUE' as task_type, issue_id as task_id,issue_code as issue_code, issue_name  as task_name,`status`,create_by,create_time,update_by,update_time
                  from wm_issue_header wih
                  where wih.`status` !='PREPARE'
-                   and wih.create_by = #{userId}
+                   and wih.create_by = #{userName}
                  union
                  select 'RTISSUE' as task_type, rt_id as task_id,rt_code as task_code, rt_name  as task_name,`status`,create_by,create_time,update_by,update_time
                  from wm_rt_issue wri
                  where wri.`status` !='PREPARE'
-                   AND wri.create_by = #{userId}
+                   AND wri.create_by = #{userName}
                  union
                  select 'PRODUCTRECPT' as task_type, wpr.recpt_id as task_id,recpt_code as task_code, recpt_name  as task_name,`status`,create_by,create_time,update_by,update_time
                  from wm_product_recpt wpr
                  where wpr.`status` !='PREPARE'
-                   and wpr.create_by = #{userId}
+                   and wpr.create_by = #{userName}
                  union
                  select 'PRODUCTSALSE' as task_type, wps.salse_id as task_id,salse_code as task_code, salse_name  as task_name,`status`,create_by,create_time,update_by,update_time
                  from wm_product_salse wps
                  where wps.`status` !='PREPARE'
-                   and wps.create_by = #{userId}
+                   and wps.create_by = #{userName}
                  union
                  select 'RTSALSE' as task_type,wrs.rt_id as task_id,rt_code as task_code, rt_name  as task_name,`status`,create_by,create_time,update_by,update_time
                  from wm_rt_salse wrs
                  where wrs.`status` !='PREPARE'
-                   and wrs.create_by = #{userId}
+                   and wrs.create_by = #{userName}
                  union
                  select 'TRANSFER' as task_type,wt.transfer_id as task_id,wt.transfer_code as task_code, wt.transfer_name as task_name,`status`,create_by,create_time,update_by,update_time
                  from wm_transfer wt
                  where wt.`status` !='PREPARE'
-                   and wt.create_by = #{userId}
+                   and wt.create_by = #{userName}
                  union
                  select 'STOCKTAKING' as task_type,wst.taking_id as task_id,wst.taking_code as task_code,wst.taking_name as task_name,`status`,create_by,create_time,update_by,update_time
                  from wm_stock_taking wst
                  where wst.`status` !='PREPARE'
-                   and wst.create_by = #{userId}
+                   and wst.create_by = #{userName}
                  union
                  select 'FEEDBACK' as task_type,pf.record_id as task_id,feedback_code as task_code,'报工单' as task_name,`status`,create_by,create_time,update_by,update_time
                  from pro_feedback pf
                  where pf.`status` !='PREPARE'
-                   and pf.create_by = #{userId}
+                   and pf.create_by = #{userName}
              ) t
-        order by create_time, desc
+             left join sys_user su
+                 on t.create_by = su.user_name
+        order by create_time, task_type desc
     </select>
 
 </mapper>

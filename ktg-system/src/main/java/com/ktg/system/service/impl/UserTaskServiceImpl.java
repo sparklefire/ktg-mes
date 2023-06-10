@@ -15,12 +15,12 @@ public class UserTaskServiceImpl implements IUserTaskService {
     private UserTaskMapper userTaskMapper;
 
     @Override
-    public List<UserTask> listTodoList(Long userId) {
-        return userTaskMapper.listTodoList(userId);
+    public List<UserTask> listTodoList(String userName) {
+        return userTaskMapper.listTodoList(userName);
     }
 
     @Override
-    public List<UserTask> listFinishedList(Long userId) {
-        return userTaskMapper.listFinishedList(userId);
+    public List<UserTask> listFinishedList(String userName) {
+        return userTaskMapper.listFinishedList(userName);
     }
 }
