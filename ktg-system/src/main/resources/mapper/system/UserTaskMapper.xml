@@ -17,7 +17,7 @@
     </resultMap>
 
     <select id="listTodoList" parameterType="String" resultMap="UserTaskResult">
-        select task_type,task_code,task_name,t.`status`,su.nick_name as create_by,su.create_time
+        select task_type,task_id,task_code,task_name,t.`status`,su.nick_name as create_by,t.create_time
         from (
                  select 'ITEMRECPT' as task_type, recpt_id as task_id,recpt_code as task_code,recpt_name  as task_name,`status`,create_by,create_time,update_by,update_time
                  from wm_item_recpt wir
@@ -76,7 +76,7 @@
     </select>
 
     <select id="listFinishedList" parameterType="String" resultMap="UserTaskResult">
-        select task_type,task_code,task_name,t.`status`,su.nick_name as create_by,su.create_time
+        select task_type,task_id,task_code,task_name,t.`status`,su.nick_name as create_by,t.create_time
         from (
                  select 'ITEMRECPT' as task_type, recpt_id as task_id,recpt_code as task_code,recpt_name  as task_name,`status`,create_by,create_time,update_by,update_time
                  from wm_item_recpt wir
@@ -130,7 +130,7 @@
              ) t
              left join sys_user su
                  on t.create_by = su.user_name
-        order by create_time, task_type desc
+        order by create_time desc, task_type asc
     </select>
 
 </mapper>

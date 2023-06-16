@@ -114,6 +114,18 @@ public class WmItemRecptMobController extends BaseController {
     }
 
     /**
+     * 获取物料入库单详细信息
+     */
+    @ApiOperation("获取物料入库单详细信息接口")
+    @PreAuthorize("@ss.hasPermi('mes:wm:itemrecpt:query')")
+    @GetMapping(value = "/{recptId}")
+    public AjaxResult getInfo(@PathVariable("recptId") Long recptId)
+    {
+        return AjaxResult.success(wmItemRecptService.selectWmItemRecptByRecptId(recptId));
+    }
+
+
+    /**
      * 删除物料入库单
      */
     @ApiOperation("删除采购入库单基本信息接口")

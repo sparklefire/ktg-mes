@@ -77,19 +77,37 @@ public class WmItemRecptLineMobController extends BaseController {
             WmWarehouse warehouse = wmWarehouseService.selectWmWarehouseByWarehouseId(wmItemRecptLine.getWarehouseId());
             wmItemRecptLine.setWarehouseCode(warehouse.getWarehouseCode());
             wmItemRecptLine.setWarehouseName(warehouse.getWarehouseName());
+        }else if(StringUtils.isNotNull(wmItemRecptLine.getWarehouseCode())){
+            WmWarehouse warehouse = wmWarehouseService.selectWmWarehouseByWarehouseCode(wmItemRecptLine.getWarehouseCode());
+            wmItemRecptLine.setWarehouseId(warehouse.getWarehouseId());
+            wmItemRecptLine.setWarehouseCode(warehouse.getWarehouseCode());
+            wmItemRecptLine.setWarehouseName(warehouse.getWarehouseName());
         }
+
         if(StringUtils.isNotNull(wmItemRecptLine.getLocationId())){
             WmStorageLocation location = wmStorageLocationService.selectWmStorageLocationByLocationId(wmItemRecptLine.getLocationId());
             wmItemRecptLine.setLocationCode(location.getLocationCode());
             wmItemRecptLine.setLocationName(location.getLocationName());
+        } else if(StringUtils.isNotNull(wmItemRecptLine.getLocationCode())){
+            WmStorageLocation location = wmStorageLocationService.selectWmStorageLocationByLocationCode(wmItemRecptLine.getLocationCode());
+            wmItemRecptLine.setLocationId(location.getLocationId());
+            wmItemRecptLine.setLocationCode(location.getLocationCode());
+            wmItemRecptLine.setLocationName(location.getLocationName());
         }
+
         if(StringUtils.isNotNull(wmItemRecptLine.getAreaId())){
             WmStorageArea area = wmStorageAreaService.selectWmStorageAreaByAreaId(wmItemRecptLine.getAreaId());
             wmItemRecptLine.setAreaCode(area.getAreaCode());
             wmItemRecptLine.setAreaName(area.getAreaName());
+        } else if(StringUtils.isNotNull(wmItemRecptLine.getAreaCode())){
+            WmStorageArea area = wmStorageAreaService.selectWmStorageAreaByAreaCode(wmItemRecptLine.getAreaCode());
+            wmItemRecptLine.setAreaId(area.getAreaId());
+            wmItemRecptLine.setAreaCode(area.getAreaCode());
+            wmItemRecptLine.setAreaName(area.getAreaName());
         }
         wmItemRecptLine.setCreateBy(getUsername());
-        return toAjax(wmItemRecptLineService.insertWmItemRecptLine(wmItemRecptLine));
+        wmItemRecptLineService.insertWmItemRecptLine(wmItemRecptLine);
+        return AjaxResult.success(wmItemRecptLine);
     }
 
     /**
@@ -105,19 +123,37 @@ public class WmItemRecptLineMobController extends BaseController {
             WmWarehouse warehouse = wmWarehouseService.selectWmWarehouseByWarehouseId(wmItemRecptLine.getWarehouseId());
             wmItemRecptLine.setWarehouseCode(warehouse.getWarehouseCode());
             wmItemRecptLine.setWarehouseName(warehouse.getWarehouseName());
+        }else if(StringUtils.isNotNull(wmItemRecptLine.getWarehouseCode())){
+            WmWarehouse warehouse = wmWarehouseService.selectWmWarehouseByWarehouseCode(wmItemRecptLine.getWarehouseCode());
+            wmItemRecptLine.setWarehouseId(warehouse.getWarehouseId());
+            wmItemRecptLine.setWarehouseCode(warehouse.getWarehouseCode());
+            wmItemRecptLine.setWarehouseName(warehouse.getWarehouseName());
         }
+
         if(StringUtils.isNotNull(wmItemRecptLine.getLocationId())){
             WmStorageLocation location = wmStorageLocationService.selectWmStorageLocationByLocationId(wmItemRecptLine.getLocationId());
             wmItemRecptLine.setLocationCode(location.getLocationCode());
             wmItemRecptLine.setLocationName(location.getLocationName());
+        } else if(StringUtils.isNotNull(wmItemRecptLine.getLocationCode())){
+            WmStorageLocation location = wmStorageLocationService.selectWmStorageLocationByLocationCode(wmItemRecptLine.getLocationCode());
+            wmItemRecptLine.setLocationId(location.getLocationId());
+            wmItemRecptLine.setLocationCode(location.getLocationCode());
+            wmItemRecptLine.setLocationName(location.getLocationName());
         }
+
         if(StringUtils.isNotNull(wmItemRecptLine.getAreaId())){
             WmStorageArea area = wmStorageAreaService.selectWmStorageAreaByAreaId(wmItemRecptLine.getAreaId());
+            wmItemRecptLine.setAreaCode(area.getAreaCode());
+            wmItemRecptLine.setAreaName(area.getAreaName());
+        } else if(StringUtils.isNotNull(wmItemRecptLine.getAreaCode())){
+            WmStorageArea area = wmStorageAreaService.selectWmStorageAreaByAreaCode(wmItemRecptLine.getAreaCode());
+            wmItemRecptLine.setAreaId(area.getAreaId());
             wmItemRecptLine.setAreaCode(area.getAreaCode());
             wmItemRecptLine.setAreaName(area.getAreaName());
         }
         return toAjax(wmItemRecptLineService.updateWmItemRecptLine(wmItemRecptLine));
     }
+
 
     /**
      * 删除物料入库单行
