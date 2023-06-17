@@ -1,15 +1,13 @@
 package com.ktg.mes.wm.controller.mobile;
 
+import cn.hutool.core.collection.CollectionUtil;
 import com.ktg.common.annotation.Log;
 import com.ktg.common.constant.UserConstants;
 import com.ktg.common.core.controller.BaseController;
 import com.ktg.common.core.domain.AjaxResult;
 import com.ktg.common.enums.BusinessType;
 import com.ktg.common.utils.StringUtils;
-import com.ktg.mes.wm.domain.WmItemRecpt;
-import com.ktg.mes.wm.domain.WmStorageArea;
-import com.ktg.mes.wm.domain.WmStorageLocation;
-import com.ktg.mes.wm.domain.WmWarehouse;
+import com.ktg.mes.wm.domain.*;
 import com.ktg.mes.wm.domain.tx.ItemRecptTxBean;
 import com.ktg.mes.wm.service.*;
 import com.ktg.system.strategy.AutoCodeUtil;
@@ -161,6 +159,24 @@ public class WmItemRecptMobController extends BaseController {
     public AjaxResult execute(@PathVariable Long recptId){
 
         WmItemRecpt recpt = wmItemRecptService.selectWmItemRecptByRecptId(recptId);
+
+        //单据有效性
+        if(!StringUtils.isNotNull(recpt)){
+            return AjaxResult.error("无效单据");
+        }
+
+        //先检查单据状态
+        if(UserConstants.ORDER_STATUS_FINISHED.equals(recpt.getStatus())){
+            return AjaxResult.error("当前单据已提交!");
+        }
+
+        //检查行数量
+        WmItemRecptLine param =  new WmItemRecptLine();
+        param.setRecptId(recptId);
+        List<WmItemRecptLine> lines = wmItemRecptLineService.selectWmItemRecptLineList(param);
+        if(CollectionUtil.isEmpty(lines)){
+            return AjaxResult.error("请添加明细信息！");
+        }
 
         //构造Transaction事务，并执行库存更新逻辑
         List<ItemRecptTxBean> beans = wmItemRecptService.getTxBeans(recptId);
