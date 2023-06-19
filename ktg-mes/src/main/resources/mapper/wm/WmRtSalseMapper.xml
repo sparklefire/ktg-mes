@@ -112,6 +112,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="attr3 != null "> and attr3 = #{attr3}</if>
             <if test="attr4 != null "> and attr4 = #{attr4}</if>
         </where>
+        order by create_time desc
     </select>
     
     <select id="selectWmRtSalseByRtId" parameterType="Long" resultMap="WmRtSalseResult">

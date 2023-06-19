@@ -33,6 +33,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="routeDesc != null  and routeDesc != ''"> and route_desc = #{routeDesc}</if>
             <if test="enableFlag != null  and enableFlag != ''"> and enable_flag = #{enableFlag}</if>
         </where>
+        order by create_time desc
     </select>
     
     <select id="selectProRouteByRouteId" parameterType="Long" resultMap="ProRouteResult">

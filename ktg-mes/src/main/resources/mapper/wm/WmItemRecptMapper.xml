@@ -99,6 +99,7 @@
             <if test="recptDate != null "> and recpt_date = #{recptDate}</if>
             <if test="status != null  and status != ''"> and status = #{status}</if>
         </where>
+        order by create_time desc
     </select>
 
     <select id="selectWmItemRecptByRecptId" parameterType="Long" resultMap="WmItemRecptResult">

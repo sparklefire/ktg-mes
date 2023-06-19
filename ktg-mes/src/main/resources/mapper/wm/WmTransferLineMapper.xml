@@ -93,6 +93,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="vendorName != null  and vendorName != ''"> and vendor_name like concat('%', #{vendorName}, '%')</if>
             <if test="vendorNick != null  and vendorNick != ''"> and vendor_nick = #{vendorNick}</if>
         </where>
+        order by create_time desc
     </select>
     
     <select id="selectWmTransferLineByLineId" parameterType="Long" resultMap="WmTransferLineResult">

@@ -61,6 +61,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="areaName != null  and areaName != ''"> and area_name like concat('%', #{areaName}, '%')</if>
             <if test="expireDate != null "> and expire_date = #{expireDate}</if>
         </where>
+        order by create_time desc
     </select>
     
     <select id="selectWmItemRecptLineByLineId" parameterType="Long" resultMap="WmItemRecptLineResult">

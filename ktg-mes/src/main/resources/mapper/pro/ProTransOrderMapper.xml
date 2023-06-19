@@ -67,6 +67,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="quantityTransfered != null "> and quantity_transfered = #{quantityTransfered}</if>
             <if test="produceDate != null "> and produce_date = #{produceDate}</if>
         </where>
+        order by create_time desc
     </select>
     
     <select id="selectProTransOrderByTransOrderId" parameterType="Long" resultMap="ProTransOrderResult">

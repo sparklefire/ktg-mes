@@ -33,6 +33,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="attention != null  and attention != ''"> and attention = #{attention}</if>
             <if test="enableFlag != null  and enableFlag != ''"> and enable_flag = #{enableFlag}</if>
         </where>
+        order by create_time desc
     </select>
     
     <select id="selectProProcessByProcessId" parameterType="Long" resultMap="ProProcessResult">

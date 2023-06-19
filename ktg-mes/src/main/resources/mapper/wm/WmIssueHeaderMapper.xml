@@ -107,6 +107,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="issueDate != null "> and issue_date = #{issueDate}</if>
             <if test="status != null  and status != ''"> and status = #{status}</if>
         </where>
+        order by create_time desc
     </select>
     
     <select id="selectWmIssueHeaderByIssueId" parameterType="Long" resultMap="WmIssueHeaderResult">

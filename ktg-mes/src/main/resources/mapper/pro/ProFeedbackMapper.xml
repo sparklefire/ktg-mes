@@ -83,6 +83,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="recordNick != null "> and record_nick = #{recordNick}</if>
             <if test="status != null "> and status = #{status}</if>
         </where>
+        order by create_time desc
     </select>
     
     <select id="selectProFeedbackByRecordId" parameterType="Long" resultMap="ProFeedbackResult">
