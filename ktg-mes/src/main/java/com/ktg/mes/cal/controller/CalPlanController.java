@@ -5,7 +5,9 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
 import javax.servlet.http.HttpServletResponse;
 
+import cn.hutool.core.collection.CollectionUtil;
 import com.ktg.common.constant.UserConstants;
+import com.ktg.mes.cal.domain.CalPlanTeam;
 import com.ktg.mes.cal.service.ICalPlanTeamService;
 import com.ktg.mes.cal.service.ICalShiftService;
 import com.ktg.mes.cal.service.ICalTeamshiftService;
@@ -112,6 +114,16 @@ public class CalPlanController extends BaseController
     public AjaxResult edit(@RequestBody CalPlan calPlan)
     {
         if(UserConstants.ORDER_STATUS_CONFIRMED.equals(calPlan.getStatus())){
+
+            //检查班组配置
+            List<CalPlanTeam> teams = calPlanTeamService.selectCalPlanTeamListByPlanId(calPlan.getPlanId());
+            if(CollectionUtil.isEmpty(teams)){
+                return AjaxResult.error("请配置班组!");
+            } else if(teams.size() != 2 && UserConstants.CAL_SHIFT_TYPE_TWO.equals(calPlan.getShiftType())){
+                return AjaxResult.error("两班倒请配置两个班组!");
+            } else if(teams.size() !=3 && UserConstants.CAL_SHIFT_TYPE_THREE.equals(calPlan.getShiftType())){
+                return AjaxResult.error("三倒请配置三个班组!");
+            }
 
             calTeamshiftService.genRecords(calPlan.getPlanId());
         }
