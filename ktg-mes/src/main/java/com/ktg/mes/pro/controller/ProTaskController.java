@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import cn.hutool.core.collection.CollUtil;
 import com.ktg.common.constant.UserConstants;
+import com.ktg.common.utils.StringUtils;
 import com.ktg.mes.pro.domain.*;
 import com.ktg.mes.pro.service.IProProcessService;
 import com.ktg.mes.pro.service.IProWorkorderService;
@@ -168,6 +169,14 @@ public class ProTaskController extends BaseController
     {
         if(proTask.getQuantity().compareTo(BigDecimal.ZERO) !=1){
             return AjaxResult.error("排产数量必须大于0！");
+        }
+
+        if(!StringUtils.isNotNull(proTask.getWorkstationId())){
+            return AjaxResult.error("请选择工作站！");
+        }
+
+        if(proTask.getDuration()<=0){
+            return AjaxResult.error("生产时长必须大于0！");
         }
 
         //生产工单
