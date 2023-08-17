@@ -14,6 +14,7 @@ import com.ktg.mes.pro.service.IProWorkorderService;
 import com.ktg.mes.wm.domain.*;
 import com.ktg.mes.wm.domain.tx.RtIssueTxBean;
 import com.ktg.mes.wm.service.*;
+import com.ktg.system.strategy.AutoCodeUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,21 +36,14 @@ public class WmRtIssueMobController extends BaseController {
     @Autowired
     private IWmRtIssueLineService wmRtIssueLineService;
 
-
-    @Autowired
-    private IWmWarehouseService wmWarehouseService;
-
-    @Autowired
-    private IWmStorageLocationService wmStorageLocationService;
-
-    @Autowired
-    private IWmStorageAreaService wmStorageAreaService;
-
     @Autowired
     private IStorageCoreService storageCoreService;
 
     @Autowired
     private IProWorkorderService proWorkorderService;
+
+    @Autowired
+    private AutoCodeUtil autoCodeUtil;
 
     /**
      * 查询生产退料单头列表
@@ -85,9 +79,14 @@ public class WmRtIssueMobController extends BaseController {
     @PostMapping
     public AjaxResult add(@RequestBody WmRtIssue wmRtIssue)
     {
-        if(UserConstants.NOT_UNIQUE.equals(wmRtIssueService.checkUnique(wmRtIssue))){
-            return AjaxResult.error("退料单编号已存在");
+        if(StringUtils.isNotNull(wmRtIssue.getRtCode())){
+            if(UserConstants.NOT_UNIQUE.equals(wmRtIssueService.checkUnique(wmRtIssue))){
+                return AjaxResult.error("退料单编号已存在");
+            }
+        }else {
+            wmRtIssue.setRtCode(autoCodeUtil.genSerialCode(UserConstants.RTISSUE_CODE,""));
         }
+
 
         if(StringUtils.isNotNull(wmRtIssue.getWorkorderId())){
             ProWorkorder workorder = proWorkorderService.selectProWorkorderByWorkorderId(wmRtIssue.getWorkorderId());

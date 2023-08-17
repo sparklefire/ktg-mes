@@ -78,10 +78,6 @@ public class WmIssueMobController extends BaseController {
     @PostMapping
     public AjaxResult add(@RequestBody WmIssueHeader wmIssueHeader)
     {
-        if(UserConstants.NOT_UNIQUE.equals(wmIssueHeaderService.checkIssueCodeUnique(wmIssueHeader))){
-            return AjaxResult.error("领料单编号已存在");
-        }
-
         if(StringUtils.isNotNull(wmIssueHeader.getIssueCode())){
             if(UserConstants.NOT_UNIQUE.equals(wmIssueHeaderService.checkIssueCodeUnique(wmIssueHeader))){
                 return  AjaxResult.error("单据编号已存在！");

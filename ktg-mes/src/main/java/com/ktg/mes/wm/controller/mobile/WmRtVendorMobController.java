@@ -13,6 +13,7 @@ import com.ktg.mes.wm.domain.WmRtVendor;
 import com.ktg.mes.wm.domain.tx.RtVendorTxBean;
 import com.ktg.mes.wm.service.IStorageCoreService;
 import com.ktg.mes.wm.service.IWmRtVendorService;
+import com.ktg.system.strategy.AutoCodeUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,9 @@ public class WmRtVendorMobController extends BaseController {
 
     @Autowired
     private IMdVendorService mdVendorService;
+
+    @Autowired
+    private AutoCodeUtil autoCodeUtil;
 
     /**
      * 查询供应商退货列表
@@ -69,8 +73,12 @@ public class WmRtVendorMobController extends BaseController {
     @PostMapping
     public AjaxResult add(@RequestBody WmRtVendor wmRtVendor)
     {
-        if(UserConstants.NOT_UNIQUE.equals(wmRtVendorService.checkCodeUnique(wmRtVendor))){
-            return AjaxResult.error("退货单编号已经存在！");
+        if(StringUtils.isNotNull(wmRtVendor.getRtCode())){
+            if(UserConstants.NOT_UNIQUE.equals(wmRtVendorService.checkCodeUnique(wmRtVendor))){
+                return AjaxResult.error("退货单编号已经存在！");
+            }
+        }else {
+            wmRtVendor.setRtCode(autoCodeUtil.genSerialCode(UserConstants.WM_RTVENDOR_CODE,""));
         }
 
         if(StringUtils.isNotNull(wmRtVendor.getVendorId())){
