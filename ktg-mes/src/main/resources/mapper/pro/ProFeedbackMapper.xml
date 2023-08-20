@@ -28,6 +28,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="quantityFeedback"    column="quantity_feedback"    />
         <result property="quantityQualified"    column="quantity_qualified"    />
         <result property="quantityUnquanlified"    column="quantity_unquanlified"    />
+        <result property="quantityUnCheck"    column="quantity_uncheck"    />
         <result property="userName"    column="user_name"    />
         <result property="nickName"    column="nick_name"    />
         <result property="feedbackChannel"    column="feedback_channel"    />
@@ -47,7 +48,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectProFeedbackVo">
-        select record_id,feedback_type, workstation_id, workstation_code, workstation_name,process_id, process_code, process_name, workorder_id, workorder_code, workorder_name, task_id, task_code,item_id,item_code,item_name,specification,unit_of_measure, quantity, quantity_feedback, quantity_qualified, quantity_unquanlified, user_name, nick_name, feedback_channel, feedback_time,record_user,record_nick,status, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from pro_feedback
+        select record_id,feedback_type, workstation_id, workstation_code, workstation_name,process_id, process_code, process_name, workorder_id, workorder_code, workorder_name, task_id, task_code,item_id,item_code,item_name,specification,unit_of_measure, quantity, quantity_feedback, quantity_qualified, quantity_unquanlified,quantity_uncheck, user_name, nick_name, feedback_channel, feedback_time,record_user,record_nick,status, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from pro_feedback
     </sql>
 
     <select id="selectProFeedbackList" parameterType="ProFeedback" resultMap="ProFeedbackResult">
@@ -75,6 +76,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="quantityFeedback != null "> and quantity_feedback = #{quantityFeedback}</if>
             <if test="quantityQualified != null "> and quantity_qualified = #{quantityQualified}</if>
             <if test="quantityUnquanlified != null "> and quantity_unquanlified = #{quantityUnquanlified}</if>
+            <if test="quantityUnCheck != null "> and quantity_uncheck = #{quantityUnCheck}</if>
             <if test="userName != null  and userName != ''"> and user_name like concat('%', #{userName}, '%')</if>
             <if test="nickName != null  and nickName != ''"> and nick_name like concat('%', #{nickName}, '%')</if>
             <if test="feedbackChannel != null  and feedbackChannel != ''"> and feedback_channel = #{feedbackChannel}</if>
@@ -116,6 +118,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="quantityFeedback != null">quantity_feedback,</if>
             <if test="quantityQualified != null">quantity_qualified,</if>
             <if test="quantityUnquanlified != null">quantity_unquanlified,</if>
+            <if test="quantityUnCheck != null ">quantity_uncheck,</if>
             <if test="userName != null">user_name,</if>
             <if test="nickName != null">nick_name,</if>
             <if test="feedbackChannel != null">feedback_channel,</if>
@@ -156,6 +159,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="quantityFeedback != null">#{quantityFeedback},</if>
             <if test="quantityQualified != null">#{quantityQualified},</if>
             <if test="quantityUnquanlified != null">#{quantityUnquanlified},</if>
+            <if test="quantityUnCheck != null ">#{quantityUnCheck},</if>
             <if test="userName != null">#{userName},</if>
             <if test="nickName != null">#{nickName},</if>
             <if test="feedbackChannel != null">#{feedbackChannel},</if>
@@ -200,6 +204,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="quantityFeedback != null">quantity_feedback = #{quantityFeedback},</if>
             <if test="quantityQualified != null">quantity_qualified = #{quantityQualified},</if>
             <if test="quantityUnquanlified != null">quantity_unquanlified = #{quantityUnquanlified},</if>
+            <if test="quantityUnCheck != null ">quantity_uncheck = #{quantityUnCheck},</if>
             <if test="userName != null">user_name = #{userName},</if>
             <if test="nickName != null">nick_name = #{nickName},</if>
             <if test="feedbackChannel != null">feedback_channel = #{feedbackChannel},</if>

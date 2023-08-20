@@ -109,6 +109,9 @@ public class ProFeedback extends BaseEntity
     @Excel(name = "不良品数量")
     private BigDecimal quantityUnquanlified;
 
+    @Excel(name = "待检测数量")
+    private BigDecimal quantityUncheck;
+
     /** 报工用户名 */
     @Excel(name = "报工用户名")
     private String userName;
@@ -444,6 +447,14 @@ public class ProFeedback extends BaseEntity
         this.recordNick = recordNick;
     }
 
+    public BigDecimal getQuantityUncheck() {
+        return quantityUncheck;
+    }
+
+    public void setQuantityUncheck(BigDecimal quantityUncheck) {
+        this.quantityUncheck = quantityUncheck;
+    }
+
     @Override
     public String toString() {
         return "ProFeedback{" +
@@ -470,6 +481,7 @@ public class ProFeedback extends BaseEntity
                 ", quantityFeedback=" + quantityFeedback +
                 ", quantityQualified=" + quantityQualified +
                 ", quantityUnquanlified=" + quantityUnquanlified +
+                ", quantityUncheck=" + quantityUncheck +
                 ", userName='" + userName + '\'' +
                 ", nickName='" + nickName + '\'' +
                 ", feedbackChannel='" + feedbackChannel + '\'' +
