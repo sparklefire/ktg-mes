@@ -19,6 +19,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="defaultSufTime"    column="default_suf_time"    />
         <result property="colorCode"    column="color_code"    />
         <result property="keyFlag" column="key_flag" ></result>
+        <result property="isCheck" column="is_check" ></result>
         <result property="remark"    column="remark"    />
         <result property="attr1"    column="attr1"    />
         <result property="attr2"    column="attr2"    />
@@ -31,7 +32,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectProRouteProcessVo">
-        select record_id, route_id, process_id, process_code, process_name, order_num, next_process_id, next_process_code, next_process_name, link_type, default_pre_time, default_suf_time, color_code,key_flag, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from pro_route_process
+        select record_id, route_id, process_id, process_code, process_name, order_num, next_process_id, next_process_code, next_process_name, link_type, default_pre_time, default_suf_time, color_code,key_flag,is_check, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from pro_route_process
     </sql>
 
 
@@ -51,6 +52,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="defaultSufTime != null "> and default_suf_time = #{defaultSufTime}</if>
             <if test="colorCode != null  and colorCode != ''"> and color_code = #{colorCode}</if>
             <if test="keyFlag !=null and keyFlag !=''"> and key_flag = #{keyFlag}</if>
+            <if test="isCheck !=null and isCheck !=''"> and is_check = #{isCheck}</if>
         </where>
         order by order_num asc
     </select>
@@ -123,6 +125,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="defaultSufTime != null">default_suf_time,</if>
             <if test="colorCode != null">color_code,</if>
             <if test="keyFlag !=null">key_flag,</if>
+            <if test="isCheck !=null">is_check,</if>
             <if test="remark != null">remark,</if>
             <if test="attr1 != null">attr1,</if>
             <if test="attr2 != null">attr2,</if>
@@ -147,6 +150,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="defaultSufTime != null">#{defaultSufTime},</if>
             <if test="colorCode != null">#{colorCode},</if>
             <if test="keyFlag !=null">#{keyFlag},</if>
+            <if test="isCheck !=null">#{isCheck},</if>
             <if test="remark != null">#{remark},</if>
             <if test="attr1 != null">#{attr1},</if>
             <if test="attr2 != null">#{attr2},</if>
@@ -174,6 +178,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="defaultPreTime != null">default_pre_time = #{defaultPreTime},</if>
             <if test="defaultSufTime != null">default_suf_time = #{defaultSufTime},</if>
             <if test="keyFlag !=null">key_flag = #{keyFlag},</if>
+            <if test="isCheck !=null">is_check = #{isCheck},</if>
             <if test="colorCode != null">color_code = #{colorCode},</if>
             <if test="remark != null">remark = #{remark},</if>
             <if test="attr1 != null">attr1 = #{attr1},</if>

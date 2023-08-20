@@ -14,9 +14,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="workorderId"    column="workorder_id"    />
         <result property="workorderCode"    column="workorder_code"    />
         <result property="workorderName"    column="workorder_name"    />
+        <result property="routeId"      column="route_id"    />
+        <result property="routeCode"    column="route_code"    />
         <result property="processId"    column="process_id"    />
         <result property="processCode"    column="process_code"    />
         <result property="processName"    column="process_name"    />
+        <result property="isCheck"    column="is_check"    />
         <result property="taskId"    column="task_id"    />
         <result property="taskCode"    column="task_code"    />
         <result property="itemId"    column="item_id"    />
@@ -28,7 +31,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="quantityFeedback"    column="quantity_feedback"    />
         <result property="quantityQualified"    column="quantity_qualified"    />
         <result property="quantityUnquanlified"    column="quantity_unquanlified"    />
-        <result property="quantityUnCheck"    column="quantity_uncheck"    />
+        <result property="quantityUncheck"    column="quantity_uncheck"    />
         <result property="userName"    column="user_name"    />
         <result property="nickName"    column="nick_name"    />
         <result property="feedbackChannel"    column="feedback_channel"    />
@@ -48,7 +51,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectProFeedbackVo">
-        select record_id,feedback_type, workstation_id, workstation_code, workstation_name,process_id, process_code, process_name, workorder_id, workorder_code, workorder_name, task_id, task_code,item_id,item_code,item_name,specification,unit_of_measure, quantity, quantity_feedback, quantity_qualified, quantity_unquanlified,quantity_uncheck, user_name, nick_name, feedback_channel, feedback_time,record_user,record_nick,status, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from pro_feedback
+        select f.record_id,f.feedback_type, f.workstation_id, f.workstation_code, f.workstation_name,f.process_id, f.process_code, f.process_name,p.is_check, f.workorder_id, f.workorder_code, f.workorder_name, f.task_id, f.task_code,f.item_id,f.item_code,f.item_name,f.specification,f.unit_of_measure, f.quantity, f.quantity_feedback, f.quantity_qualified, f.quantity_unquanlified,f.quantity_uncheck, f.user_name, f.nick_name, f.feedback_channel, f.feedback_time,f.record_user,f.record_nick,f.status, f.remark, f.attr1, f.attr2, f.attr3, f.attr4, f.create_by, f.create_time, f.update_by, f.update_time
+        from pro_feedback f
+            left join pro_route_process p
+                on f.process_id = p.process_id and f.route_id = p.route_id
     </sql>
 
     <select id="selectProFeedbackList" parameterType="ProFeedback" resultMap="ProFeedbackResult">
@@ -59,9 +65,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="feedbackType !=null "> and feedback_type = #{feedbackType}</if>
             <if test="workstationCode != null  and workstationCode != ''"> and workstation_code = #{workstationCode}</if>
             <if test="workstationName != null  and workstationName != ''"> and workstation_name like concat('%', #{workstationName}, '%')</if>
-            <if test="processId != null "> and process_id = #{processId}</if>
-            <if test="processCode != null  and processCode != ''"> and process_code = #{processCode}</if>
-            <if test="processName != null  and processName != ''"> and process_name like concat('%', #{processName}, '%')</if>
+            <if test="processId != null "> and f.process_id = #{processId}</if>
+            <if test="processCode != null  and processCode != ''"> and f.process_code = #{processCode}</if>
+            <if test="processName != null  and processName != ''"> and f.process_name like concat('%', #{processName}, '%')</if>
             <if test="workorderId != null "> and workorder_id = #{workorderId}</if>
             <if test="workorderCode != null  and workorderCode != ''"> and workorder_code = #{workorderCode}</if>
             <if test="workorderName != null  and workorderName != ''"> and workorder_name like concat('%', #{workorderName}, '%')</if>
@@ -76,7 +82,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="quantityFeedback != null "> and quantity_feedback = #{quantityFeedback}</if>
             <if test="quantityQualified != null "> and quantity_qualified = #{quantityQualified}</if>
             <if test="quantityUnquanlified != null "> and quantity_unquanlified = #{quantityUnquanlified}</if>
-            <if test="quantityUnCheck != null "> and quantity_uncheck = #{quantityUnCheck}</if>
+            <if test="quantityUncheck != null "> and quantity_uncheck = #{quantityUncheck}</if>
             <if test="userName != null  and userName != ''"> and user_name like concat('%', #{userName}, '%')</if>
             <if test="nickName != null  and nickName != ''"> and nick_name like concat('%', #{nickName}, '%')</if>
             <if test="feedbackChannel != null  and feedbackChannel != ''"> and feedback_channel = #{feedbackChannel}</if>
@@ -118,7 +124,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="quantityFeedback != null">quantity_feedback,</if>
             <if test="quantityQualified != null">quantity_qualified,</if>
             <if test="quantityUnquanlified != null">quantity_unquanlified,</if>
-            <if test="quantityUnCheck != null ">quantity_uncheck,</if>
+            <if test="quantityUncheck != null ">quantity_uncheck,</if>
             <if test="userName != null">user_name,</if>
             <if test="nickName != null">nick_name,</if>
             <if test="feedbackChannel != null">feedback_channel,</if>
@@ -159,7 +165,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="quantityFeedback != null">#{quantityFeedback},</if>
             <if test="quantityQualified != null">#{quantityQualified},</if>
             <if test="quantityUnquanlified != null">#{quantityUnquanlified},</if>
-            <if test="quantityUnCheck != null ">#{quantityUnCheck},</if>
+            <if test="quantityUncheck != null ">#{quantityUncheck},</if>
             <if test="userName != null">#{userName},</if>
             <if test="nickName != null">#{nickName},</if>
             <if test="feedbackChannel != null">#{feedbackChannel},</if>
@@ -204,7 +210,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="quantityFeedback != null">quantity_feedback = #{quantityFeedback},</if>
             <if test="quantityQualified != null">quantity_qualified = #{quantityQualified},</if>
             <if test="quantityUnquanlified != null">quantity_unquanlified = #{quantityUnquanlified},</if>
-            <if test="quantityUnCheck != null ">quantity_uncheck = #{quantityUnCheck},</if>
+            <if test="quantityUncheck != null ">quantity_uncheck = #{quantityUncheck},</if>
             <if test="userName != null">user_name = #{userName},</if>
             <if test="nickName != null">nick_name = #{nickName},</if>
             <if test="feedbackChannel != null">feedback_channel = #{feedbackChannel},</if>

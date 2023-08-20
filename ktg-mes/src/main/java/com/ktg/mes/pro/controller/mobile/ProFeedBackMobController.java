@@ -1,5 +1,6 @@
 package com.ktg.mes.pro.controller.mobile;
 
+import cn.hutool.core.collection.CollectionUtil;
 import com.ktg.common.annotation.Log;
 import com.ktg.common.constant.UserConstants;
 import com.ktg.common.core.controller.BaseController;
@@ -10,7 +11,9 @@ import com.ktg.common.utils.StringUtils;
 import com.ktg.mes.md.domain.MdWorkstation;
 import com.ktg.mes.md.service.IMdWorkstationService;
 import com.ktg.mes.pro.domain.ProFeedback;
+import com.ktg.mes.pro.domain.ProRouteProcess;
 import com.ktg.mes.pro.service.IProFeedbackService;
+import com.ktg.mes.pro.service.IProRouteProcessService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -30,6 +33,8 @@ public class ProFeedBackMobController extends BaseController {
     @Autowired
     private IMdWorkstationService mdWorkstationService;
 
+    @Autowired
+    private IProRouteProcessService proRouteProcessService;
 
     /**
      * 新增生产报工记录
@@ -48,6 +53,31 @@ public class ProFeedBackMobController extends BaseController {
         }else {
             return AjaxResult.error("当前生产任务对应的工作站不存在！");
         }
+
+        //检查对应的工艺路线和工序配置
+        if(StringUtils.isNotNull(proFeedback.getRouteId())&& StringUtils.isNotNull(proFeedback.getProcessId())){
+            ProRouteProcess param = new ProRouteProcess();
+            param.setRouteId(proFeedback.getRouteId());
+            param.setProcessId(proFeedback.getProcessId());
+            List<ProRouteProcess> processes = proRouteProcessService.selectProRouteProcessList(param);
+            if(CollectionUtil.isEmpty(processes)){
+                return AjaxResult.error("未找到生产任务对应的工艺工序配置！");
+            }
+        }else {
+            return AjaxResult.error("当前生产任务对应的工艺工序配置无效！");
+        }
+
+        //检查数量
+        if(UserConstants.YES.equals(proFeedback.getIsCheck())){
+            if(!StringUtils.isNotNull(proFeedback.getQuantityUncheck())){
+                return AjaxResult.error("当前工作站报工需要经过质检确认，请输入待检测数量!");
+            }
+        }else {
+            if(!StringUtils.isNotNull(proFeedback.getQuantityQualified()) || !StringUtils.isNotNull(proFeedback.getQuantityUnquanlified())){
+                return AjaxResult.error("请输入合格品和不良品数量！");
+            }
+        }
+
         proFeedback.setCreateBy(getUsername());
         proFeedbackService.insertProFeedback(proFeedback);
         return AjaxResult.success(proFeedback);
@@ -106,6 +136,39 @@ public class ProFeedBackMobController extends BaseController {
     @PutMapping
     public AjaxResult edit(@RequestBody ProFeedback proFeedback)
     {
+        MdWorkstation workstation = mdWorkstationService.selectMdWorkstationByWorkstationId(proFeedback.getWorkstationId());
+        if(StringUtils.isNotNull(workstation)){
+            proFeedback.setProcessId(workstation.getProcessId());
+            proFeedback.setProcessCode(workstation.getProcessCode());
+            proFeedback.setProcessName(workstation.getProcessName());
+        }else {
+            return AjaxResult.error("当前生产任务对应的工作站不存在！");
+        }
+
+        //检查对应的工艺路线和工序配置
+        if(StringUtils.isNotNull(proFeedback.getRouteId())&& StringUtils.isNotNull(proFeedback.getProcessId())){
+            ProRouteProcess param = new ProRouteProcess();
+            param.setRouteId(proFeedback.getRouteId());
+            param.setProcessId(proFeedback.getProcessId());
+            List<ProRouteProcess> processes = proRouteProcessService.selectProRouteProcessList(param);
+            if(CollectionUtil.isEmpty(processes)){
+                return AjaxResult.error("未找到生产任务对应的工艺工序配置！");
+            }
+        }else {
+            return AjaxResult.error("当前生产任务对应的工艺工序配置无效！");
+        }
+
+        //检查数量
+        if(UserConstants.YES.equals(proFeedback.getIsCheck())){
+            if(!StringUtils.isNotNull(proFeedback.getQuantityUncheck())){
+                return AjaxResult.error("当前工作站报工需要经过质检确认，请输入待检测数量!");
+            }
+        }else {
+            if(!StringUtils.isNotNull(proFeedback.getQuantityQualified()) || !StringUtils.isNotNull(proFeedback.getQuantityUnquanlified())){
+                return AjaxResult.error("请输入合格品和不良品数量！");
+            }
+        }
+
         return toAjax(proFeedbackService.updateProFeedback(proFeedback));
     }
 

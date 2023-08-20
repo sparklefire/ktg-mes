@@ -69,6 +69,9 @@ public class ProRouteProcess extends BaseEntity
     /** 是否关键工序 */
     private String keyFlag;
 
+    /** 是否质检 */
+    private String isCheck;
+
     /** 预留字段1 */
     private String attr1;
 
@@ -207,7 +210,15 @@ public class ProRouteProcess extends BaseEntity
         return colorCode;
     }
 
-    public void setAttr1(String attr1) 
+    public String getIsCheck() {
+        return isCheck;
+    }
+
+    public void setIsCheck(String isCheck) {
+        this.isCheck = isCheck;
+    }
+
+    public void setAttr1(String attr1)
     {
         this.attr1 = attr1;
     }
@@ -263,6 +274,7 @@ public class ProRouteProcess extends BaseEntity
                 ", defaultSufTime=" + defaultSufTime +
                 ", colorCode='" + colorCode + '\'' +
                 ", keyFlag='" + keyFlag + '\'' +
+                ", isCheck='" + isCheck + '\'' +
                 ", attr1='" + attr1 + '\'' +
                 ", attr2='" + attr2 + '\'' +
                 ", attr3=" + attr3 +

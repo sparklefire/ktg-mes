@@ -53,6 +53,10 @@ public class ProTask extends BaseEntity
     @Excel(name = "工作站名称")
     private String workstationName;
 
+    private Long routeId;
+
+    private String routeCode;
+
     /** 工序ID */
     @Excel(name = "工序ID")
     private Long processId;
@@ -64,6 +68,8 @@ public class ProTask extends BaseEntity
     /** 工序名称 */
     @Excel(name = "工序名称")
     private String processName;
+
+    private String isCheck;
 
     /** 产品物料ID */
     @Excel(name = "产品物料ID")
@@ -477,6 +483,30 @@ public class ProTask extends BaseEntity
         return attr4;
     }
 
+    public Long getRouteId() {
+        return routeId;
+    }
+
+    public void setRouteId(Long routeId) {
+        this.routeId = routeId;
+    }
+
+    public String getRouteCode() {
+        return routeCode;
+    }
+
+    public void setRouteCode(String routeCode) {
+        this.routeCode = routeCode;
+    }
+
+    public String getIsCheck() {
+        return isCheck;
+    }
+
+    public void setIsCheck(String isCheck) {
+        this.isCheck = isCheck;
+    }
+
     @Override
     public String toString() {
         return "ProTask{" +
@@ -489,9 +519,12 @@ public class ProTask extends BaseEntity
                 ", workstationId=" + workstationId +
                 ", workstationCode='" + workstationCode + '\'' +
                 ", workstationName='" + workstationName + '\'' +
+                ", routeId=" + routeId +
+                ", routeCode='" + routeCode + '\'' +
                 ", processId=" + processId +
                 ", processCode='" + processCode + '\'' +
                 ", processName='" + processName + '\'' +
+                ", isCheck='" + isCheck + '\'' +
                 ", itemId=" + itemId +
                 ", itemCode='" + itemCode + '\'' +
                 ", itemName='" + itemName + '\'' +

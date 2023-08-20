@@ -17,6 +17,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="processId"    column="process_id"    />
         <result property="processCode"    column="process_code"    />
         <result property="processName"    column="process_name"    />
+        <result property="isCheck"    column="is_check"    />
         <result property="itemId"    column="item_id"    />
         <result property="itemCode"    column="item_code"    />
         <result property="itemName"    column="item_name"    />
@@ -51,47 +52,61 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
     <sql id="selectProTaskVo">
-        select task_id, task_code, task_name, workorder_id, workorder_code, workorder_name, workstation_id, workstation_code, workstation_name, process_id, process_code, process_name, item_id, item_code, item_name, specification, unit_of_measure, quantity, quantity_produced, quantity_changed, client_id, client_code, client_name, client_nick, start_time, duration, end_time, color_code, request_date, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time, status, quantity_quanlify, quantity_unquanlify from pro_task
+        select t.task_id, t.task_code, t.task_name, t.workorder_id, t.workorder_code, t.workorder_name,
+               t.workstation_id, t.workstation_code, t.workstation_name,
+               t.route_id, t.route_code,
+               t.process_id, t.process_code, t.process_name,p.is_check,
+               t.item_id, t.item_code, t.item_name, t.specification, t.unit_of_measure,
+               t.quantity, t.quantity_produced, t.quantity_changed,
+               t.client_id, t.client_code, t.client_name, t.client_nick,
+               t.start_time, t.duration, t.end_time, t.color_code, t.request_date,
+               t.remark, t.attr1, t.attr2, t.attr3, t.attr4, t.create_by, t.create_time, t.update_by, t.update_time,
+               t.status, t.quantity_quanlify, t.quantity_unquanlify
+        from pro_task t
+             left join pro_route_process p
+             on t.route_id = p.route_id and t.process_id = p.process_id
     </sql>
 
     <select id="selectProTaskList" parameterType="ProTask" resultMap="ProTaskResult">
         <include refid="selectProTaskVo"/>
         <where>
-            <if test="taskCode != null  and taskCode != ''"> and task_code = #{taskCode}</if>
-            <if test="taskName != null  and taskName != ''"> and task_name like concat('%', #{taskName}, '%')</if>
-            <if test="workorderId != null "> and workorder_id = #{workorderId}</if>
-            <if test="workorderCode != null  and workorderCode != ''"> and workorder_code = #{workorderCode}</if>
-            <if test="workorderName != null  and workorderName != ''"> and workorder_name like concat('%', #{workorderName}, '%')</if>
-            <if test="workstationId != null "> and workstation_id = #{workstationId}</if>
-            <if test="workstationCode != null  and workstationCode != ''"> and workstation_code = #{workstationCode}</if>
-            <if test="workstationName != null  and workstationName != ''"> and workstation_name like concat('%', #{workstationName}, '%')</if>
-            <if test="processId != null "> and process_id = #{processId}</if>
-            <if test="processCode != null  and processCode != ''"> and process_code = #{processCode}</if>
-            <if test="processName != null  and processName != ''"> and process_name like concat('%', #{processName}, '%')</if>
-            <if test="itemId != null "> and item_id = #{itemId}</if>
-            <if test="itemCode != null  and itemCode != ''"> and item_code = #{itemCode}</if>
-            <if test="itemName != null  and itemName != ''"> and item_name like concat('%', #{itemName}, '%')</if>
-            <if test="specification != null  and specification != ''"> and specification = #{specification}</if>
-            <if test="unitOfMeasure != null  and unitOfMeasure != ''"> and unit_of_measure = #{unitOfMeasure}</if>
-            <if test="quantity != null "> and quantity = #{quantity}</if>
-            <if test="quantityProduced != null "> and quantity_produced = #{quantityProduced}</if>
-            <if test="quantityChanged != null "> and quantity_changed = #{quantityChanged}</if>
-            <if test="clientId != null "> and client_id = #{clientId}</if>
-            <if test="clientCode != null  and clientCode != ''"> and client_code = #{clientCode}</if>
-            <if test="clientName != null  and clientName != ''"> and client_name like concat('%', #{clientName}, '%')</if>
-            <if test="clientNick != null  and clientNick != ''"> and client_nick = #{clientNick}</if>
-            <if test="startTime != null "> and start_time = #{startTime}</if>
-            <if test="duration != null "> and duration = #{duration}</if>
-            <if test="endTime != null "> and end_time = #{endTime}</if>
-            <if test="colorCode != null  and colorCode != ''"> and color_code = #{colorCode}</if>
-            <if test="requestDate != null "> and request_date = #{requestDate}</if>
-            <if test="attr1 != null  and attr1 != ''"> and attr1 = #{attr1}</if>
-            <if test="attr2 != null  and attr2 != ''"> and attr2 = #{attr2}</if>
-            <if test="attr3 != null "> and attr3 = #{attr3}</if>
-            <if test="attr4 != null "> and attr4 = #{attr4}</if>
-            <if test="status != null  and status != ''"> and status = #{status}</if>
-            <if test="quantityQuanlify != null "> and quantity_quanlify = #{quantityQuanlify}</if>
-            <if test="quantityUnquanlify != null "> and quantity_unquanlify = #{quantityUnquanlify}</if>
+            <if test="taskCode != null  and taskCode != ''"> and t.task_code = #{taskCode}</if>
+            <if test="taskName != null  and taskName != ''"> and t.task_name like concat('%', #{taskName}, '%')</if>
+            <if test="workorderId != null "> and t.workorder_id = #{workorderId}</if>
+            <if test="workorderCode != null  and workorderCode != ''"> and t.workorder_code = #{workorderCode}</if>
+            <if test="workorderName != null  and workorderName != ''"> and t.workorder_name like concat('%', #{workorderName}, '%')</if>
+            <if test="workstationId != null "> and t.workstation_id = #{workstationId}</if>
+            <if test="workstationCode != null  and workstationCode != ''"> and t.workstation_code = #{workstationCode}</if>
+            <if test="workstationName != null  and workstationName != ''"> and t.workstation_name like concat('%', #{workstationName}, '%')</if>
+            <if test="routeId != null "> and t.route_id = #{routeId}</if>
+            <if test="routeCode != null and routeCode !=''"> and t.route_code = #{routeCode}</if>
+            <if test="processId != null "> and t.process_id = #{processId}</if>
+            <if test="processCode != null  and processCode != ''"> and t.process_code = #{processCode}</if>
+            <if test="processName != null  and processName != ''"> and t.process_name like concat('%', #{processName}, '%')</if>
+            <if test="itemId != null "> and t.item_id = #{itemId}</if>
+            <if test="itemCode != null  and itemCode != ''"> and t.item_code = #{itemCode}</if>
+            <if test="itemName != null  and itemName != ''"> and t.item_name like concat('%', #{itemName}, '%')</if>
+            <if test="specification != null  and specification != ''"> and t.specification = #{specification}</if>
+            <if test="unitOfMeasure != null  and unitOfMeasure != ''"> and t.unit_of_measure = #{unitOfMeasure}</if>
+            <if test="quantity != null "> and t.quantity = #{quantity}</if>
+            <if test="quantityProduced != null "> and t.quantity_produced = #{quantityProduced}</if>
+            <if test="quantityChanged != null "> and t.quantity_changed = #{quantityChanged}</if>
+            <if test="clientId != null "> and t.client_id = #{clientId}</if>
+            <if test="clientCode != null  and clientCode != ''"> and t.client_code = #{clientCode}</if>
+            <if test="clientName != null  and clientName != ''"> and t.client_name like concat('%', #{clientName}, '%')</if>
+            <if test="clientNick != null  and clientNick != ''"> and t.client_nick = #{clientNick}</if>
+            <if test="startTime != null "> and t.start_time = #{startTime}</if>
+            <if test="duration != null "> and t.duration = #{duration}</if>
+            <if test="endTime != null "> and t.end_time = #{endTime}</if>
+            <if test="colorCode != null  and colorCode != ''"> and t.color_code = #{colorCode}</if>
+            <if test="requestDate != null "> and t.request_date = #{requestDate}</if>
+            <if test="attr1 != null  and attr1 != ''"> and t.attr1 = #{attr1}</if>
+            <if test="attr2 != null  and attr2 != ''"> and t.attr2 = #{attr2}</if>
+            <if test="attr3 != null "> and t.attr3 = #{attr3}</if>
+            <if test="attr4 != null "> and t.attr4 = #{attr4}</if>
+            <if test="status != null  and status != ''"> and t.status = #{status}</if>
+            <if test="quantityQuanlify != null "> and t.quantity_quanlify = #{quantityQuanlify}</if>
+            <if test="quantityUnquanlify != null "> and t.quantity_unquanlify = #{quantityUnquanlify}</if>
         </where>
     </select>
     
@@ -111,6 +126,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="workstationId != null">workstation_id,</if>
             <if test="workstationCode != null and workstationCode != ''">workstation_code,</if>
             <if test="workstationName != null and workstationName != ''">workstation_name,</if>
+            <if test="routeId != null">route_id,</if>
+            <if test="routeCode != null">route_code,</if>
             <if test="processId != null">process_id,</if>
             <if test="processCode != null">process_code,</if>
             <if test="processName != null">process_name,</if>
@@ -153,6 +170,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="workstationId != null">#{workstationId},</if>
             <if test="workstationCode != null and workstationCode != ''">#{workstationCode},</if>
             <if test="workstationName != null and workstationName != ''">#{workstationName},</if>
+            <if test="routeId != null">#{routeId},</if>
+            <if test="routeCode != null">#{routeCode},</if>
             <if test="processId != null">#{processId},</if>
             <if test="processCode != null">#{processCode},</if>
             <if test="processName != null">#{processName},</if>
@@ -199,6 +218,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="workstationId != null">workstation_id = #{workstationId},</if>
             <if test="workstationCode != null and workstationCode != ''">workstation_code = #{workstationCode},</if>
             <if test="workstationName != null and workstationName != ''">workstation_name = #{workstationName},</if>
+            <if test="routeId != null">route_id = #{routeId},</if>
+            <if test="routeCode != null and routeCode !=''">route_code = #{routeCode},</if>
             <if test="processId != null">process_id = #{processId},</if>
             <if test="processCode != null">process_code = #{processCode},</if>
             <if test="processName != null">process_name = #{processName},</if>

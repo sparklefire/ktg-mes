@@ -41,6 +41,10 @@ public class ProFeedback extends BaseEntity
     @Excel(name = "工作站名称")
     private String workstationName;
 
+    private Long routeId;
+
+    private String routeCode;
+
     /** 工序ID */
     private Long processId;
 
@@ -51,6 +55,8 @@ public class ProFeedback extends BaseEntity
     /** 工序名称 */
     @Excel(name = "工序名称")
     private String processName;
+
+    private String isCheck;
 
     /** 生产工单ID */
     @Excel(name = "生产工单ID")
@@ -455,6 +461,30 @@ public class ProFeedback extends BaseEntity
         this.quantityUncheck = quantityUncheck;
     }
 
+    public String getIsCheck() {
+        return isCheck;
+    }
+
+    public void setIsCheck(String isCheck) {
+        this.isCheck = isCheck;
+    }
+
+    public Long getRouteId() {
+        return routeId;
+    }
+
+    public void setRouteId(Long routeId) {
+        this.routeId = routeId;
+    }
+
+    public String getRouteCode() {
+        return routeCode;
+    }
+
+    public void setRouteCode(String routeCode) {
+        this.routeCode = routeCode;
+    }
+
     @Override
     public String toString() {
         return "ProFeedback{" +
@@ -464,9 +494,12 @@ public class ProFeedback extends BaseEntity
                 ", workstationId=" + workstationId +
                 ", workstationCode='" + workstationCode + '\'' +
                 ", workstationName='" + workstationName + '\'' +
+                ", routeId=" + routeId +
+                ", routeCode='" + routeCode + '\'' +
                 ", processId=" + processId +
                 ", processCode='" + processCode + '\'' +
                 ", processName='" + processName + '\'' +
+                ", isCheck='" + isCheck + '\'' +
                 ", workorderId=" + workorderId +
                 ", workorderCode='" + workorderCode + '\'' +
                 ", workorderName='" + workorderName + '\'' +
