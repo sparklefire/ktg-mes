@@ -303,6 +303,7 @@ create table pro_feedback (
   quantity_feedback              double(14,2)                               comment '本次报工数量',
   quantity_qualified             double(14,2)                               comment '合格品数量',
   quantity_unquanlified          double(14,2)                               comment '不良品数量',
+  quantity_uncheck               double(14,2)                               comment '待检测数量',
   user_name                      varchar(64)                                comment '报工用户名',
   nick_name                      varchar(64)                                comment '昵称',
   feedback_channel               varchar(64)                                comment '报工途径',
