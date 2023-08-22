@@ -1184,3 +1184,32 @@ create table wm_stock_taking_line (
   update_time           datetime                                    comment '更新时间',
   primary key (line_id)
 ) engine=innodb auto_increment=200 comment = '库存盘点明细表';
+
+
+-- ----------------------------
+-- 26、库存盘点结果表
+-- ----------------------------
+drop table if exists wm_stock_taking_result;
+create table wm_stock_taking_result (
+  result_id             bigint(20)      not null auto_increment     comment '结果ID',
+  taking_id             bigint(20)                                  comment '盘点单ID',
+  item_id               bigint(20)      not null                    comment '产品物料ID',
+  item_code             varchar(64)                                 comment '产品物料编码',
+  item_name             varchar(255)                                comment '产品物料名称',
+  specification         varchar(500)                                comment '规格型号',
+  unit_of_measure       varchar(64)                                 comment '单位',
+  unit_name             varchar(64)                                 comment '单位名称',
+  quantity              int(11)         not null default 1          comment '数量',
+  taking_quantity       int(11)                                     comment '盘点数量',
+  taking_status         varchar(64)     not null default 'LOSS'     comment '盘点状态',
+  remark                varchar(500)    default ''                  comment '备注',
+  attr1                 varchar(64)     default null                comment '预留字段1',
+  attr2                 varchar(255)    default null                comment '预留字段2',
+  attr3                 int(11)         default 0                   comment '预留字段3',
+  attr4                 int(11)         default 0                   comment '预留字段4',
+  create_by             varchar(64)     default ''                  comment '创建者',
+  create_time           datetime                                    comment '创建时间',
+  update_by             varchar(64)     default ''                  comment '更新者',
+  update_time           datetime                                    comment '更新时间',
+  primary key (result_id)
+) engine=innodb auto_increment=200 comment = '库存盘点结果表';

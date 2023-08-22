@@ -233,4 +233,16 @@ public class UserConstants
     public static final String MESSAGE_STATUS_READ = "READ";//已读
     public static final String MESSAGE_STATUS_PROCEED = "PROCEED";//已处理
 
+    /**
+     * 库存盘点方式
+     */
+    public static final String WM_STOCK_TAKING_TYPE_BLIND = "BLIND"; //盲盘
+    public static final String WM_STOCK_TAKING_TYPE_OPEN = "OPEN"; //明盘
+
+    /**
+     * 库存盘点结果
+     */
+    public static final String WM_STOCK_TAKING_STATUS_LOSS = "LOSS";// 盘亏
+    public static final String WM_STOCK_TAKING_STATUS_PROFIT = "PROFIT"; //盘盈
+    public static final String WM_STOCK_TAKING_STATUS_NORMAL = "NORMAL"; //正常
 }
