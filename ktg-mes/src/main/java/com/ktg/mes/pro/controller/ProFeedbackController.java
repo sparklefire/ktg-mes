@@ -230,8 +230,15 @@ public class ProFeedbackController extends BaseController
         }
 
         ProWorkorder workorder = proWorkorderService.selectProWorkorderByWorkorderId(feedback.getWorkorderId());
-        //更新生产任务的生产数量
+
         ProTask task = proTaskService.selectProTaskByTaskId(feedback.getTaskId());
+
+        //判断当前生产任务的状态，如果已经完成则不能再报工
+        if(UserConstants.ORDER_STATUS_FINISHED.equals(task.getStatus())){
+            return AjaxResult.error("当前生产工单的状态为已完成，不能继续报工，请刷新生产任务列表！");
+        }
+
+        //更新生产任务的生产数量
         BigDecimal quantityProduced,quantityQuanlify,quantityUnquanlify;
         quantityQuanlify = task.getQuantityQuanlify()==null? new BigDecimal(0):task.getQuantityQuanlify();
         quantityUnquanlify = task.getQuantityUnquanlify() ==null? new BigDecimal(0):task.getQuantityUnquanlify();
@@ -239,6 +246,7 @@ public class ProFeedbackController extends BaseController
         task.setQuantityProduced(quantityProduced.add(feedback.getQuantityFeedback()));
         task.setQuantityQuanlify(quantityQuanlify.add(feedback.getQuantityQualified()));
         task.setQuantityUnquanlify(quantityUnquanlify.add(feedback.getQuantityUnquanlified()));
+
         proTaskService.updateProTask(task);
 
         //如果是关键工序，则更新当前工单的已生产数量，进行产品产出动作

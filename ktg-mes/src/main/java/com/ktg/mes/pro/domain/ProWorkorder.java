@@ -94,6 +94,11 @@ public class ProWorkorder extends TreeEntity
     @Excel(name = "需求日期", width = 30, dateFormat = "yyyy-MM-dd")
     private Date requestDate;
 
+    /** 完成时间 */
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mi:ss")
+    @Excel(name = "完成时间", width = 30, dateFormat = "yyyy-MM-dd hh:mi:ss")
+    private Date finishDate;
+
     /** 单据状态 */
     @Excel(name = "单据状态")
     private String status;
@@ -326,6 +331,13 @@ public class ProWorkorder extends TreeEntity
         return attr4;
     }
 
+    public Date getFinishDate() {
+        return finishDate;
+    }
+
+    public void setFinishDate(Date finishDate) {
+        this.finishDate = finishDate;
+    }
 
     @Override
     public String toString() {
@@ -349,6 +361,7 @@ public class ProWorkorder extends TreeEntity
                 ", clientCode='" + clientCode + '\'' +
                 ", clientName='" + clientName + '\'' +
                 ", requestDate=" + requestDate +
+                ", finishDate=" + finishDate +
                 ", status='" + status + '\'' +
                 ", attr1='" + attr1 + '\'' +
                 ", attr2='" + attr2 + '\'' +

@@ -71,7 +71,7 @@
              ) t
              left join sys_user su
                  on t.create_by = su.user_name
-        order by create_time, task_type desc
+        order by create_time desc, task_type desc
 
     </select>
 

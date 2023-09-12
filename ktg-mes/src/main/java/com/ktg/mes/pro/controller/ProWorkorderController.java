@@ -12,11 +12,17 @@ import com.ktg.common.utils.StringUtils;
 import com.ktg.mes.md.domain.MdItem;
 import com.ktg.mes.md.domain.MdProductBom;
 import com.ktg.mes.md.service.IMdProductBomService;
+import com.ktg.mes.pro.domain.ProTask;
 import com.ktg.mes.pro.domain.ProWorkorderBom;
+import com.ktg.mes.pro.service.IProTaskService;
 import com.ktg.mes.pro.service.IProWorkorderBomService;
+import com.ktg.mes.wm.domain.WmRtIssue;
+import com.ktg.mes.wm.domain.WmRtIssueLine;
+import com.ktg.mes.wm.domain.tx.RtIssueTxBean;
 import io.minio.messages.Item;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -52,6 +58,9 @@ public class ProWorkorderController extends BaseController
 
     @Autowired
     private IMdProductBomService mdProductBomService;
+
+    @Autowired
+    private IProTaskService proTaskService;
 
     /**
      * 查询生产工单列表
@@ -235,6 +244,36 @@ public class ProWorkorderController extends BaseController
             results.add(item);
         }
         return results;
+    }
+
+
+    /**
+     * 完成工单
+     * @param workorderId
+     * @return
+     */
+    @PreAuthorize("@ss.hasPermi('mes:wm:rtissue:edit')")
+    @Log(title = "生产工单", businessType = BusinessType.UPDATE)
+    @Transactional
+    @PutMapping("/{workorderId}")
+    public AjaxResult dofinish(@PathVariable Long workorderId){
+        ProWorkorder workorder = proWorkorderService.selectProWorkorderByWorkorderId(workorderId);
+
+        //将此工单下所有的生产任务状态设置为已完成
+        ProTask param = new ProTask();
+        param.setWorkorderId(workorderId);
+        List<ProTask> tasks = proTaskService.selectProTaskList(param);
+        if(!CollectionUtils.isEmpty(tasks)){
+            for (ProTask task:tasks
+                 ) {
+                task.setStatus(UserConstants.ORDER_STATUS_FINISHED);
+                proTaskService.updateProTask(task);
+            }
+        }
+
+        workorder.setStatus(UserConstants.ORDER_STATUS_FINISHED); //更新工单的状态
+        proWorkorderService.updateProWorkorder(workorder);
+        return AjaxResult.success();
     }
 
 }

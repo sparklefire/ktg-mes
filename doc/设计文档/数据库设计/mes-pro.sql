@@ -24,6 +24,7 @@ create table pro_workorder (
   request_date                datetime        not null                   comment '需求日期',
   parent_id                   bigint(20)      default 0 not null         comment '父工单',
   ancestors                   varchar(500)    not null                   comment '所有父节点ID',
+  finish_date                 datetime                                   comment '完成时间',
   status                      varchar(64)     default 'PREPARE'          comment '单据状态',
   remark                      varchar(500)    default ''                 comment '备注',
   attr1                       varchar(64)     default null               comment '预留字段1',
@@ -537,3 +538,29 @@ create table pro_andon_record (
   update_time                    datetime                                   comment '更新时间',
   primary key (record_id)
 ) engine=innodb auto_increment=200 comment = '安灯呼叫记录';
+
+-- ----------------------------
+-- 4、停机记录
+-- ----------------------------
+drop table if exists pro_shutdown_record;
+create table pro_shutdown_record (
+  record_id                      bigint(20)      not null auto_increment    comment '记录ID',
+  workstation_id                 bigint(20)      not null                   comment '工作站ID',
+  workstation_code               varchar(64)                                comment '工作站编号',
+  workstation_name               varchar(125)                               comment '工作站名称', 
+  machinery_id                   bigint(20)                                 comment '设备ID',
+  machinery_code                 varchar(64)                                comment '设备编号',
+  machinery_name                 varchar(255)                               comment '设备名称', 
+  shutdown_reason                varchar(500)    not null                   comment '停机原因',
+  operation_time                 datetime                                   comment '操作时间', 
+  remark                         varchar(500)    default ''                 comment '备注',
+  attr1                          varchar(64)     default null               comment '预留字段1',
+  attr2                          varchar(255)    default null               comment '预留字段2',
+  attr3                          int(11)         default 0                  comment '预留字段3',
+  attr4                          int(11)         default 0                  comment '预留字段4',
+  create_by                      varchar(64)     default ''                 comment '创建者',
+  create_time                    datetime                                   comment '创建时间',
+  update_by                      varchar(64)     default ''                 comment '更新者',
+  update_time                    datetime                                   comment '更新时间',
+  primary key (record_id)
+) engine=innodb auto_increment=200 comment = '停机记录记录';
