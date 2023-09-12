@@ -504,3 +504,36 @@ create table pro_user_workstation (
 ) engine=innodb auto_increment=200 comment = '用户工作站绑定关系';
 
 
+-- ----------------------------
+-- 4、安灯呼叫记录
+-- ----------------------------
+drop table if exists pro_andon_record;
+create table pro_andon_record (
+  record_id                      bigint(20)      not null auto_increment    comment '记录ID',
+  workstation_id                 bigint(20)      not null                   comment '工作站ID',
+  workstation_code               varchar(64)                                comment '工作站编号',
+  workstation_name               varchar(125)                               comment '工作站名称', 
+  user_id                        bigint(20)      not null                   comment '用户ID',
+  user_name                      varchar(64)                                comment '用户名',
+  nick_name                      bigint(125)                                comment '名称',  
+  workorder_id                   bigint(20)                                 comment '生产工单ID',
+  workorder_code                 varchar(64)                                comment '生产工单编号',
+  workorder_name                 varchar(255)                               comment '生产工单名称', 
+  process_id                     bigint(20)                                 comment '工序ID',
+  process_code                   varchar(64)                                comment '工序编号',
+  process_name                   varchar(255)                               comment '工序名称',
+  andon_reason                   varchar(500)    not null                   comment '呼叫原因',
+  andon_level                    varchar(64)     default 'LEVEL3'           comment '级别',
+  operation_time                 datetime                                   comment '操作时间',
+  status                         varchar(64)     default 'ACTIVE'           comment '激活中',  
+  remark                         varchar(500)    default ''                 comment '备注',
+  attr1                          varchar(64)     default null               comment '预留字段1',
+  attr2                          varchar(255)    default null               comment '预留字段2',
+  attr3                          int(11)         default 0                  comment '预留字段3',
+  attr4                          int(11)         default 0                  comment '预留字段4',
+  create_by                      varchar(64)     default ''                 comment '创建者',
+  create_time                    datetime                                   comment '创建时间',
+  update_by                      varchar(64)     default ''                 comment '更新者',
+  update_time                    datetime                                   comment '更新时间',
+  primary key (record_id)
+) engine=innodb auto_increment=200 comment = '安灯呼叫记录';
