@@ -46,6 +46,11 @@ public class WmMaterialStockServiceImpl implements IWmMaterialStockService
         return wmMaterialStockMapper.selectWmMaterialStockList(wmMaterialStock);
     }
 
+    @Override
+    public List<WmMaterialStock> queryWmMaterialStockList(WmMaterialStock wmMaterialStock) {
+        return wmMaterialStockMapper.queryWmMaterialStockList(wmMaterialStock);
+    }
+
     /**
      * 新增库存记录
      * 

@@ -9,6 +9,7 @@ import com.ktg.common.constant.UserConstants;
 import com.ktg.system.strategy.AutoCodeUtil;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -94,6 +95,7 @@ public class WmSnController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('mes:wm:sn:add')")
     @Log(title = "SN码", businessType = BusinessType.INSERT)
+    @Transactional
     @PostMapping
     public AjaxResult add(@RequestBody WmSn wmSn)
     {

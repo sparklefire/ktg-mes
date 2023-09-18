@@ -10,6 +10,7 @@ import com.ktg.common.constant.UserConstants;
 import com.ktg.common.utils.StringUtils;
 import com.ktg.mes.pro.domain.*;
 import com.ktg.mes.pro.service.IProProcessService;
+import com.ktg.mes.pro.service.IProRouteService;
 import com.ktg.mes.pro.service.IProWorkorderService;
 import com.ktg.system.strategy.AutoCodeUtil;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -48,6 +49,9 @@ public class ProTaskController extends BaseController
 
     @Autowired
     private IProProcessService proProcessService;
+
+    @Autowired
+    private IProRouteService proRouteService;
 
     @Autowired
     private AutoCodeUtil autoCodeUtil;
@@ -192,11 +196,26 @@ public class ProTaskController extends BaseController
         proTask.setClientCode(order.getClientCode());
         proTask.setClientName(order.getClientName());
 
+        //工艺信息
+        if(StringUtils.isNotNull(proTask.getRouteId())){
+            ProRoute route = proRouteService.selectProRouteByRouteId(proTask.getRouteId());
+            if(StringUtils.isNotNull(route)){
+                proTask.setRouteCode(route.getRouteCode());
+            }else {
+                return AjaxResult.error("当前生产任务对应的工艺路线信息无效！"+proTask.getRouteId());
+            }
+        }
+
         //工序信息
         ProProcess process = proProcessService.selectProProcessByProcessId(proTask.getProcessId());
-        proTask.setProcessId(process.getProcessId());
-        proTask.setProcessCode(process.getProcessCode());
-        proTask.setProcessName(process.getProcessName());
+        if(StringUtils.isNotNull(process)){
+            proTask.setProcessId(process.getProcessId());
+            proTask.setProcessCode(process.getProcessCode());
+            proTask.setProcessName(process.getProcessName());
+        }else{
+            return AjaxResult.error("当前生产任务对应的工序信息无效！"+proTask.getProcessId());
+        }
+
 
         //自动生成任务编号和名称
         proTask.setTaskCode(autoCodeUtil.genSerialCode(UserConstants.TASK_CODE,null));
@@ -217,6 +236,47 @@ public class ProTaskController extends BaseController
     {
         if(proTask.getQuantity().compareTo(BigDecimal.ZERO) !=1){
             return AjaxResult.error("排产数量必须大于0！");
+        }
+
+        if(!StringUtils.isNotNull(proTask.getWorkstationId())){
+            return AjaxResult.error("请选择工作站！");
+        }
+
+        if(proTask.getDuration()<=0){
+            return AjaxResult.error("生产时长必须大于0！");
+        }
+
+        //生产工单
+        ProWorkorder order = proWorkorderService.selectProWorkorderByWorkorderId(proTask.getWorkorderId());
+        proTask.setWorkorderCode(order.getWorkorderCode());
+        proTask.setWorkorderName(order.getWorkorderName());
+        proTask.setItemId(order.getProductId());
+        proTask.setItemCode(order.getProductCode());
+        proTask.setItemName(order.getProductName());
+        proTask.setSpecification(order.getProductSpc());
+        proTask.setUnitOfMeasure(order.getUnitOfMeasure());
+        proTask.setClientId(order.getClientId());
+        proTask.setClientCode(order.getClientCode());
+        proTask.setClientName(order.getClientName());
+
+        //工艺信息
+        if(StringUtils.isNotNull(proTask.getRouteId())){
+            ProRoute route = proRouteService.selectProRouteByRouteId(proTask.getRouteId());
+            if(StringUtils.isNotNull(route)){
+                proTask.setRouteCode(route.getRouteCode());
+            }else {
+                return AjaxResult.error("当前生产任务对应的工艺路线信息无效！"+proTask.getRouteId());
+            }
+        }
+
+        //工序信息
+        ProProcess process = proProcessService.selectProProcessByProcessId(proTask.getProcessId());
+        if(StringUtils.isNotNull(process)){
+            proTask.setProcessId(process.getProcessId());
+            proTask.setProcessCode(process.getProcessCode());
+            proTask.setProcessName(process.getProcessName());
+        }else{
+            return AjaxResult.error("当前生产任务对应的工序信息无效！"+proTask.getProcessId());
         }
 
         return toAjax(proTaskService.updateProTask(proTask));

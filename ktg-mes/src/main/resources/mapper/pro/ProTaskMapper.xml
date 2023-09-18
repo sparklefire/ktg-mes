@@ -14,6 +14,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="workstationId"    column="workstation_id"    />
         <result property="workstationCode"    column="workstation_code"    />
         <result property="workstationName"    column="workstation_name"    />
+        <result property="routeId" column="route_id" ></result>
+        <result property="routeCode" column="route_code"></result>
         <result property="processId"    column="process_id"    />
         <result property="processCode"    column="process_code"    />
         <result property="processName"    column="process_name"    />

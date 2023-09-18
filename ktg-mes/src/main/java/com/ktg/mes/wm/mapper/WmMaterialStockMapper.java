@@ -32,6 +32,14 @@ public interface WmMaterialStockMapper
     public List<WmMaterialStock> selectWmMaterialStockList(WmMaterialStock wmMaterialStock);
 
     /**
+     * 模糊查询库存记录列表
+     *
+     * @param wmMaterialStock 库存记录
+     * @return 库存记录集合
+     */
+    public List<WmMaterialStock> queryWmMaterialStockList(WmMaterialStock wmMaterialStock);
+
+    /**
      * 新增库存记录
      * 
      * @param wmMaterialStock 库存记录

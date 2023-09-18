@@ -51,7 +51,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectProFeedbackVo">
-        select f.record_id,f.feedback_type, f.workstation_id, f.workstation_code, f.workstation_name,f.process_id, f.process_code, f.process_name,p.is_check, f.workorder_id, f.workorder_code, f.workorder_name, f.task_id, f.task_code,f.item_id,f.item_code,f.item_name,f.specification,f.unit_of_measure, f.quantity, f.quantity_feedback, f.quantity_qualified, f.quantity_unquanlified,f.quantity_uncheck, f.user_name, f.nick_name, f.feedback_channel, f.feedback_time,f.record_user,f.record_nick,f.status, f.remark, f.attr1, f.attr2, f.attr3, f.attr4, f.create_by, f.create_time, f.update_by, f.update_time
+        select f.record_id,f.feedback_type, f.workstation_id, f.workstation_code, f.workstation_name,f.route_id,f.route_code, f.process_id, f.process_code, f.process_name,p.is_check, f.workorder_id, f.workorder_code, f.workorder_name, f.task_id, f.task_code,f.item_id,f.item_code,f.item_name,f.specification,f.unit_of_measure, f.quantity, f.quantity_feedback, f.quantity_qualified, f.quantity_unquanlified,f.quantity_uncheck, f.user_name, f.nick_name, f.feedback_channel, f.feedback_time,f.record_user,f.record_nick,f.status, f.remark, f.attr1, f.attr2, f.attr3, f.attr4, f.create_by, f.create_time, f.update_by, f.update_time
         from pro_feedback f
             left join pro_route_process p
                 on f.process_id = p.process_id and f.route_id = p.route_id
@@ -96,7 +96,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="selectProFeedbackByRecordId" parameterType="Long" resultMap="ProFeedbackResult">
         <include refid="selectProFeedbackVo"/>
-        where record_id = #{recordId}
+        where f.record_id = #{recordId}
     </select>
         
     <insert id="insertProFeedback" parameterType="ProFeedback" useGeneratedKeys="true" keyProperty="recordId">
@@ -107,6 +107,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="workstationId != null">workstation_id,</if>
             <if test="workstationCode != null">workstation_code,</if>
             <if test="workstationName != null">workstation_name,</if>
+            <if test="routeId !=null">route_id,</if>
+            <if test="routeCode !=null">route_code,</if>
             <if test="processId != null">process_id,</if>
             <if test="processCode != null">process_code,</if>
             <if test="processName != null">process_name,</if>
@@ -148,6 +150,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="workstationId != null">#{workstationId},</if>
             <if test="workstationCode != null">#{workstationCode},</if>
             <if test="workstationName != null">#{workstationName},</if>
+            <if test="routeId !=null">#{routeId},</if>
+            <if test="routeCode !=null">#{routeCode},</if>
             <if test="processId != null">#{processId},</if>
             <if test="processCode != null">#{processCode},</if>
             <if test="processName != null">#{processName},</if>
@@ -193,6 +197,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="workstationId != null">workstation_id = #{workstationId},</if>
             <if test="workstationCode != null">workstation_code = #{workstationCode},</if>
             <if test="workstationName != null">workstation_name = #{workstationName},</if>
+            <if test="routeId !=null">route_id = #{routeId},</if>
+            <if test="routeCode !=null">route_code = #{routeCode},</if>
             <if test="processId != null">process_id = #{processId},</if>
             <if test="processCode != null">process_code = #{processCode},</if>
             <if test="processName != null">process_name = #{processName},</if>

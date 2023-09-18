@@ -94,6 +94,10 @@ public class WmRtIssueLineController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody WmRtIssueLine wmRtIssueLine)
     {
+        if(!StringUtils.isNotNull(wmRtIssueLine.getMaterialStockId())){
+            return AjaxResult.error("请从库存现有量中选择退料的物资！");
+        }
+
         if(StringUtils.isNotNull(wmRtIssueLine.getWarehouseId())){
             WmWarehouse warehouse = wmWarehouseService.selectWmWarehouseByWarehouseId(wmRtIssueLine.getWarehouseId());
             wmRtIssueLine.setWarehouseCode(warehouse.getWarehouseCode());

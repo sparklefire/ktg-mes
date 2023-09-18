@@ -516,7 +516,7 @@ create table pro_andon_record (
   workstation_name               varchar(125)                               comment '工作站名称', 
   user_id                        bigint(20)      not null                   comment '用户ID',
   user_name                      varchar(64)                                comment '用户名',
-  nick_name                      bigint(125)                                comment '名称',  
+  nick_name                      varchar(125)                               comment '名称',  
   workorder_id                   bigint(20)                                 comment '生产工单ID',
   workorder_code                 varchar(64)                                comment '生产工单编号',
   workorder_name                 varchar(255)                               comment '生产工单名称', 

@@ -238,6 +238,11 @@ public class ProFeedbackController extends BaseController
             return AjaxResult.error("当前生产工单的状态为已完成，不能继续报工，请刷新生产任务列表！");
         }
 
+        //仍旧有待检数量时不能执行
+        if(StringUtils.isNotNull(feedback.getQuantityUncheck()) && feedback.getQuantityUncheck().compareTo(BigDecimal.ZERO) >0){
+            return  AjaxResult.error("当前报工单未完成检验（待检数量大于0），无法执行报工！");
+        }
+
         //更新生产任务的生产数量
         BigDecimal quantityProduced,quantityQuanlify,quantityUnquanlify;
         quantityQuanlify = task.getQuantityQuanlify()==null? new BigDecimal(0):task.getQuantityQuanlify();
