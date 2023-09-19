@@ -57,6 +57,11 @@ public class QcIpqcServiceImpl implements IQcIpqcService
         return UserConstants.UNIQUE;
     }
 
+    @Override
+    public List<QcIpqc> getProcessInfo(QcIpqc qcIpqc) {
+        return qcIpqcMapper.getProcessInfo(qcIpqc);
+    }
+
     /**
      * 新增过程检验单
      * 

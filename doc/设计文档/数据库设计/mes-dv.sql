@@ -108,7 +108,7 @@ create table dv_check_plan (
 
 
 -- ----------------------------
--- 5、点检保养设备表
+-- 5、点检保养计划设备表
 -- ----------------------------
 drop table if exists dv_check_machinery;
 create table dv_check_machinery (
@@ -133,7 +133,7 @@ create table dv_check_machinery (
 
 
 -- ----------------------------
--- 6、点检保养项目表
+-- 6、点检保养计划项目表
 -- ----------------------------
 drop table if exists dv_check_subject;
 create table dv_check_subject (
@@ -156,6 +156,127 @@ create table dv_check_subject (
   update_time                 datetime                                   comment '更新时间',
   primary key (record_id)
 ) engine=innodb auto_increment=200 comment = '点检项目表';
+
+
+
+-- ----------------------------
+-- 7、设备点检记录表
+-- ----------------------------
+drop table if exists dv_check_record;
+create table dv_check_record (
+  record_id                   bigint(20)      not null auto_increment    comment '计划ID',
+  plan_id                     bigint(20)                                 comment '计划ID',
+  plan_code                   varchar(64)                                comment '计划编码',
+  plan_name                   varchar(255)                               comment '计划名称',
+  plan_type                   varchar(64)                                comment '计划类型',
+  machinery_id                bigint(20)      not null                   comment '设备ID',
+  machinery_code              varchar(64)     not null                   comment '设备编码',
+  machinery_name              varchar(255)    not null                   comment '设备名称',
+  machinery_brand             varchar(255)                               comment '品牌',
+  machinery_spec              varchar(255)                               comment '规格型号',
+  check_time                  datetime        not null                   comment '点检时间',  
+  status                      varchar(64)     default 'PREPARE'          comment '状态',
+  remark                      varchar(500)    default ''                 comment '备注',
+  attr1                       varchar(64)     default null               comment '预留字段1',
+  attr2                       varchar(255)    default null               comment '预留字段2',
+  attr3                       int(11)         default 0                  comment '预留字段3',
+  attr4                       int(11)         default 0                  comment '预留字段4',
+  create_by                   varchar(64)     default ''                 comment '创建者',
+  create_time                 datetime                                   comment '创建时间',
+  update_by                   varchar(64)     default ''                 comment '更新者',
+  update_time                 datetime                                   comment '更新时间',
+  primary key (record_id)
+) engine=innodb auto_increment=200 comment = '设备点检记录表';
+
+
+-- ----------------------------
+-- 8、设备点检记录行表
+-- ----------------------------
+drop table if exists dv_check_record_line;
+create table dv_check_record_line (
+  line_id                     bigint(20)      not null auto_increment    comment '计划ID',
+  record_id                   bigint(20)      not null                   comment '计划ID',
+  subject_id                  bigint(20)      not null                   comment '项目ID',
+  subject_code                varchar(64)     not null                   comment '项目编码',
+  subject_name                varchar(255)                               comment '项目名称',
+  subject_type                varchar(64)                                comment '项目类型',
+  subject_content             varchar(500)    not null                   comment '项目内容',
+  subject_standard            varchar(255)                               comment '标准',
+  check_status                varchar(64)     not null                   comment '点检结果',
+  check_result                varchar(500)                               comment '异常描述',
+  attr1                       varchar(64)     default null               comment '预留字段1',
+  attr2                       varchar(255)    default null               comment '预留字段2',
+  attr3                       int(11)         default 0                  comment '预留字段3',
+  attr4                       int(11)         default 0                  comment '预留字段4',
+  create_by                   varchar(64)     default ''                 comment '创建者',
+  create_time                 datetime                                   comment '创建时间',
+  update_by                   varchar(64)     default ''                 comment '更新者',
+  update_time                 datetime                                   comment '更新时间',
+  primary key (line_id)
+) engine=innodb auto_increment=200 comment = '设备点检记录行表';
+
+
+
+
+
+
+-- ----------------------------
+-- 7、设备保养记录表
+-- ----------------------------
+drop table if exists dv_mainten_record;
+create table dv_mainten_record (
+  record_id                   bigint(20)      not null auto_increment    comment '计划ID',
+  plan_id                     bigint(20)                                 comment '计划ID',
+  plan_code                   varchar(64)                                comment '计划编码',
+  plan_name                   varchar(255)                               comment '计划名称',
+  plan_type                   varchar(64)                                comment '计划类型',
+  machinery_id                bigint(20)      not null                   comment '设备ID',
+  machinery_code              varchar(64)     not null                   comment '设备编码',
+  machinery_name              varchar(255)    not null                   comment '设备名称',
+  machinery_brand             varchar(255)                               comment '品牌',
+  machinery_spec              varchar(255)                               comment '规格型号',
+  mainten_time                  datetime        not null                 comment '保养时间',  
+  status                      varchar(64)     default 'PREPARE'          comment '状态',
+  remark                      varchar(500)    default ''                 comment '备注',
+  attr1                       varchar(64)     default null               comment '预留字段1',
+  attr2                       varchar(255)    default null               comment '预留字段2',
+  attr3                       int(11)         default 0                  comment '预留字段3',
+  attr4                       int(11)         default 0                  comment '预留字段4',
+  create_by                   varchar(64)     default ''                 comment '创建者',
+  create_time                 datetime                                   comment '创建时间',
+  update_by                   varchar(64)     default ''                 comment '更新者',
+  update_time                 datetime                                   comment '更新时间',
+  primary key (record_id)
+) engine=innodb auto_increment=200 comment = '设备保养记录表';
+
+
+-- ----------------------------
+-- 8、设备保养记录行表
+-- ----------------------------
+drop table if exists dv_mainten_record_line;
+create table dv_mainten_record_line (
+  line_id                     bigint(20)      not null auto_increment    comment '计划ID',
+  record_id                   bigint(20)      not null                   comment '计划ID',
+  subject_id                  bigint(20)      not null                   comment '项目ID',
+  subject_code                varchar(64)     not null                   comment '项目编码',
+  subject_name                varchar(255)                               comment '项目名称',
+  subject_type                varchar(64)                                comment '项目类型',
+  subject_content             varchar(500)    not null                   comment '项目内容',
+  subject_standard            varchar(255)                               comment '标准',
+  mainten_status              varchar(64)     not null                   comment '保养结果',
+  mainten_result              varchar(500)                               comment '异常描述',
+  attr1                       varchar(64)     default null               comment '预留字段1',
+  attr2                       varchar(255)    default null               comment '预留字段2',
+  attr3                       int(11)         default 0                  comment '预留字段3',
+  attr4                       int(11)         default 0                  comment '预留字段4',
+  create_by                   varchar(64)     default ''                 comment '创建者',
+  create_time                 datetime                                   comment '创建时间',
+  update_by                   varchar(64)     default ''                 comment '更新者',
+  update_time                 datetime                                   comment '更新时间',
+  primary key (line_id)
+) engine=innodb auto_increment=200 comment = '设备保养记录行表';
+
+
 
 
 
@@ -223,3 +344,29 @@ create table dv_repair_line (
 ) engine=innodb auto_increment=200 comment = '设备维修单行';
 
 
+-- ----------------------------
+-- 7、设备开停机记录表
+-- ----------------------------
+drop table if exists dv_dss_record;
+create table dv_dss_record (
+  record_id                   bigint(20)      not null auto_increment    comment '记录ID',
+  plan_code                   varchar(64)                                comment '记录编号',
+  record_type                 varchar(64)     default 'STOP'             comment '记录类型',
+  machinery_id                bigint(20)      not null                   comment '设备ID',
+  machinery_code              varchar(64)     not null                   comment '设备编码',
+  machinery_name              varchar(255)    not null                   comment '设备名称',
+  machinery_brand             varchar(255)                               comment '品牌',
+  machinery_spec              varchar(255)                               comment '规格型号',
+  record_time                 datetime        not null                   comment '记录时间',  
+  status                      varchar(64)     default 'PREPARE'          comment '状态',
+  remark                      varchar(500)    default ''                 comment '备注',
+  attr1                       varchar(64)     default null               comment '预留字段1',
+  attr2                       varchar(255)    default null               comment '预留字段2',
+  attr3                       int(11)         default 0                  comment '预留字段3',
+  attr4                       int(11)         default 0                  comment '预留字段4',
+  create_by                   varchar(64)     default ''                 comment '创建者',
+  create_time                 datetime                                   comment '创建时间',
+  update_by                   varchar(64)     default ''                 comment '更新者',
+  update_time                 datetime                                   comment '更新时间',
+  primary key (record_id)
+) engine=innodb auto_increment=200 comment = '设备保养记录表';

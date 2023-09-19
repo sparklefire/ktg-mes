@@ -95,8 +95,8 @@ public class ProWorkorder extends TreeEntity
     private Date requestDate;
 
     /** 完成时间 */
-    @JsonFormat(pattern = "yyyy-MM-dd hh:mi:ss")
-    @Excel(name = "完成时间", width = 30, dateFormat = "yyyy-MM-dd hh:mi:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    @Excel(name = "完成时间", width = 30, dateFormat = "yyyy-MM-dd hh:mm:ss")
     private Date finishDate;
 
     /** 单据状态 */

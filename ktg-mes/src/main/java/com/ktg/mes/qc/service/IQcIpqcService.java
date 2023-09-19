@@ -36,6 +36,14 @@ public interface IQcIpqcService
     public String checkIpqcCodeUnique(QcIpqc qcIpqc);
 
     /**
+     * 根据当前传递的过程检验单，查询更多工艺相关信息
+     * @param qcIpqc
+     * @return
+     */
+    public List<QcIpqc> getProcessInfo(QcIpqc qcIpqc);
+
+
+    /**
      * 新增过程检验单
      * 
      * @param qcIpqc 过程检验单

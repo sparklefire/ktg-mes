@@ -104,7 +104,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="checkIpqcCodeUnique" parameterType="QcIpqc" resultMap="QcIpqcResult">
         select * from qc_ipqc where ipqc_code = #{ipqcCode}
     </select>
-        
+
+    <select id="getProcessInfo" parameterType="QcIpqc" resultMap="QcIpqcResult">
+        select pw.workorder_id, pw.workorder_code,pw.workorder_name, rp.process_id, rp.process_code,rp.process_name,mw.workstation_id, mw.workstation_code,mw.workstation_name
+        from pro_workorder pw
+                 left join pro_route_product prp
+                           on pw.product_code = prp.item_code
+                 left join pro_route_process rp
+                           on rp.route_id = prp.route_id
+                 left join md_workstation mw
+                           on mw.process_id = rp.process_id
+        <where>
+            <if test="workorderId">and pw.workorder_id = #{workorderId}</if>
+            <if test="workorderCode">and pw.workorder_code = #{workorderCode}</if>
+            <if test="workstationId">and mw.workstation_id = #{workstationId}</if>
+            <if test="workstationCode">and mw.workstation_code = #{workstationCode}</if>
+        </where>
+    </select>
+
+
     <insert id="insertQcIpqc" parameterType="QcIpqc" useGeneratedKeys="true" keyProperty="ipqcId">
         insert into qc_ipqc
         <trim prefix="(" suffix=")" suffixOverrides=",">

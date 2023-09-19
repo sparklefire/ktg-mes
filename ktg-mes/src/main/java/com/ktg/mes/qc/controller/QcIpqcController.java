@@ -14,6 +14,7 @@ import com.ktg.mes.qc.service.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -116,6 +117,14 @@ public class QcIpqcController extends BaseController
         qcIpqc.setSpecification(workorder.getProductSpc());
         qcIpqc.setUnitOfMeasure(workorder.getUnitOfMeasure());
 
+        //查询工序相关信息
+        List<QcIpqc> infos = qcIpqcService.getProcessInfo(qcIpqc);
+        if(!CollectionUtils.isEmpty(infos)&&infos.size() ==1){
+            qcIpqc.setProcessId(infos.get(0).getProcessId());
+            qcIpqc.setProcessCode(infos.get(0).getProcessCode());
+            qcIpqc.setProcessName(infos.get(0).getProcessName());
+        }
+
         //根据产品和检测类型获取检测模板
         QcTemplate param = new QcTemplate();
         param.setQcTypes(qcIpqc.getIpqcType());
@@ -151,6 +160,9 @@ public class QcIpqcController extends BaseController
             return AjaxResult.error("检测单编码已存在！");
         }
 
+        //对合格品和不合格品数量进行检查
+
+
         //根据工单获取产品信息
         ProWorkorder workorder = proWorkorderService.selectProWorkorderByWorkorderId(qcIpqc.getWorkorderId());
         qcIpqc.setWorkorderId(workorder.getWorkorderId());
@@ -161,6 +173,14 @@ public class QcIpqcController extends BaseController
         qcIpqc.setItemName(workorder.getProductName());
         qcIpqc.setSpecification(workorder.getProductSpc());
         qcIpqc.setUnitOfMeasure(workorder.getUnitOfMeasure());
+
+        //查询工序相关信息
+        List<QcIpqc> infos = qcIpqcService.getProcessInfo(qcIpqc);
+        if(!CollectionUtils.isEmpty(infos)&&infos.size() ==1){
+            qcIpqc.setProcessId(infos.get(0).getProcessId());
+            qcIpqc.setProcessCode(infos.get(0).getProcessCode());
+            qcIpqc.setProcessName(infos.get(0).getProcessName());
+        }
 
         //根据产品和检测类型获取检测模板
         QcTemplate param = new QcTemplate();
