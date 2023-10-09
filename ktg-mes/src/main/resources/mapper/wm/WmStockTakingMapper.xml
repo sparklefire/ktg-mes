@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ktg.mes.wm.mapper.WmStockTakingMapper">
+    
+    <resultMap type="WmStockTaking" id="WmStockTakingResult">
+        <result property="takingId"    column="taking_id"    />
+        <result property="takingCode"    column="taking_code"    />
+        <result property="takingName"    column="taking_name"    />
+        <result property="takingDate"    column="taking_date"    />
+        <result property="userName"    column="user_name"    />
+        <result property="nickName"    column="nick_name"    />
+        <result property="takingType"    column="taking_type"    />
+        <result property="warehouseId"    column="warehouse_id"    />
+        <result property="warehouseCode"    column="warehouse_code"    />
+        <result property="warehouseName"    column="warehouse_name"    />
+        <result property="status"    column="status"    />
+        <result property="remark"    column="remark"    />
+        <result property="attr1"    column="attr1"    />
+        <result property="attr2"    column="attr2"    />
+        <result property="attr3"    column="attr3"    />
+        <result property="attr4"    column="attr4"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectWmStockTakingVo">
+        select taking_id, taking_code, taking_name, taking_date, user_name, nick_name, taking_type, warehouse_id, warehouse_code, warehouse_name, status, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from wm_stock_taking
+    </sql>
+
+    <select id="selectWmStockTakingList" parameterType="WmStockTaking" resultMap="WmStockTakingResult">
+        <include refid="selectWmStockTakingVo"/>
+        <where>  
+            <if test="takingCode != null  and takingCode != ''"> and taking_code = #{takingCode}</if>
+            <if test="takingName != null  and takingName != ''"> and taking_name like concat('%', #{takingName}, '%')</if>
+            <if test="takingDate != null "> and taking_date = #{takingDate}</if>
+            <if test="userName != null  and userName != ''"> and user_name like concat('%', #{userName}, '%')</if>
+            <if test="nickName != null  and nickName != ''"> and nick_name like concat('%', #{nickName}, '%')</if>
+            <if test="takingType != null  and takingType != ''"> and taking_type = #{takingType}</if>
+            <if test="warehouseId != null "> and warehouse_id = #{warehouseId}</if>
+            <if test="warehouseCode != null  and warehouseCode != ''"> and warehouse_code = #{warehouseCode}</if>
+            <if test="warehouseName != null  and warehouseName != ''"> and warehouse_name like concat('%', #{warehouseName}, '%')</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+        </where>
+    </select>
+    
+    <select id="selectWmStockTakingByTakingId" parameterType="Long" resultMap="WmStockTakingResult">
+        <include refid="selectWmStockTakingVo"/>
+        where taking_id = #{takingId}
+    </select>
+
+    <select id="checkUnique" parameterType="WmStockTaking" resultMap="WmStockTakingResult">
+        <include refid="selectWmStockTakingVo"/>
+        where taking_code = #{takingCode}
+    </select>
+        
+    <insert id="insertWmStockTaking" parameterType="WmStockTaking" useGeneratedKeys="true" keyProperty="takingId">
+        insert into wm_stock_taking
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="takingCode != null and takingCode != ''">taking_code,</if>
+            <if test="takingName != null">taking_name,</if>
+            <if test="takingDate != null">taking_date,</if>
+            <if test="userName != null">user_name,</if>
+            <if test="nickName != null">nick_name,</if>
+            <if test="takingType != null and takingType != ''">taking_type,</if>
+            <if test="warehouseId != null">warehouse_id,</if>
+            <if test="warehouseCode != null">warehouse_code,</if>
+            <if test="warehouseName != null">warehouse_name,</if>
+            <if test="status != null">status,</if>
+            <if test="remark != null">remark,</if>
+            <if test="attr1 != null">attr1,</if>
+            <if test="attr2 != null">attr2,</if>
+            <if test="attr3 != null">attr3,</if>
+            <if test="attr4 != null">attr4,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="takingCode != null and takingCode != ''">#{takingCode},</if>
+            <if test="takingName != null">#{takingName},</if>
+            <if test="takingDate != null">#{takingDate},</if>
+            <if test="userName != null">#{userName},</if>
+            <if test="nickName != null">#{nickName},</if>
+            <if test="takingType != null and takingType != ''">#{takingType},</if>
+            <if test="warehouseId != null">#{warehouseId},</if>
+            <if test="warehouseCode != null">#{warehouseCode},</if>
+            <if test="warehouseName != null">#{warehouseName},</if>
+            <if test="status != null">#{status},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="attr1 != null">#{attr1},</if>
+            <if test="attr2 != null">#{attr2},</if>
+            <if test="attr3 != null">#{attr3},</if>
+            <if test="attr4 != null">#{attr4},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateWmStockTaking" parameterType="WmStockTaking">
+        update wm_stock_taking
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="takingCode != null and takingCode != ''">taking_code = #{takingCode},</if>
+            <if test="takingName != null">taking_name = #{takingName},</if>
+            <if test="takingDate != null">taking_date = #{takingDate},</if>
+            <if test="userName != null">user_name = #{userName},</if>
+            <if test="nickName != null">nick_name = #{nickName},</if>
+            <if test="takingType != null and takingType != ''">taking_type = #{takingType},</if>
+            <if test="warehouseId != null">warehouse_id = #{warehouseId},</if>
+            <if test="warehouseCode != null">warehouse_code = #{warehouseCode},</if>
+            <if test="warehouseName != null">warehouse_name = #{warehouseName},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="attr1 != null">attr1 = #{attr1},</if>
+            <if test="attr2 != null">attr2 = #{attr2},</if>
+            <if test="attr3 != null">attr3 = #{attr3},</if>
+            <if test="attr4 != null">attr4 = #{attr4},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where taking_id = #{takingId}
+    </update>
+
+    <delete id="deleteWmStockTakingByTakingId" parameterType="Long">
+        delete from wm_stock_taking where taking_id = #{takingId}
+    </delete>
+
+    <delete id="deleteWmStockTakingByTakingIds" parameterType="String">
+        delete from wm_stock_taking where taking_id in 
+        <foreach item="takingId" collection="array" open="(" separator="," close=")">
+            #{takingId}
+        </foreach>
+    </delete>
+</mapper>
