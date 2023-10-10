@@ -94,6 +94,21 @@ public class WmItemRecptLine extends BaseEntity
     @Excel(name = "有效期", width = 30, dateFormat = "yyyy-MM-dd")
     private Date expireDate;
 
+    /**
+     * 是否来料检验
+     */
+    private String iqcCheck;
+
+    /**
+     * 来料检验单ID
+     */
+    private Long iqcId;
+
+    /**
+     * 来料检验单编码
+     */
+    private String iqcCode;
+
     /** 预留字段1 */
     private String attr1;
 
@@ -277,7 +292,32 @@ public class WmItemRecptLine extends BaseEntity
     {
         return expireDate;
     }
-    public void setAttr1(String attr1) 
+
+    public String getIqcCheck() {
+        return iqcCheck;
+    }
+
+    public void setIqcCheck(String iqcCheck) {
+        this.iqcCheck = iqcCheck;
+    }
+
+    public Long getIqcId() {
+        return iqcId;
+    }
+
+    public void setIqcId(Long iqcId) {
+        this.iqcId = iqcId;
+    }
+
+    public String getIqcCode() {
+        return iqcCode;
+    }
+
+    public void setIqcCode(String iqcCode) {
+        this.iqcCode = iqcCode;
+    }
+
+    public void setAttr1(String attr1)
     {
         this.attr1 = attr1;
     }
@@ -316,35 +356,33 @@ public class WmItemRecptLine extends BaseEntity
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("lineId", getLineId())
-            .append("recptId", getRecptId())
-            .append("itemId", getItemId())
-            .append("itemCode", getItemCode())
-            .append("itemName", getItemName())
-            .append("specification", getSpecification())
-            .append("unitOfMeasure", getUnitOfMeasure())
-            .append("quantityRecived", getQuantityRecived())
-            .append("batchCode", getBatchCode())
-            .append("warehouseId", getWarehouseId())
-            .append("warehouseCode", getWarehouseCode())
-            .append("warehouseName", getWarehouseName())
-            .append("locationId", getLocationId())
-            .append("locationCode", getLocationCode())
-            .append("locationName", getLocationName())
-            .append("areaId", getAreaId())
-            .append("areaCode", getAreaCode())
-            .append("areaName", getAreaName())
-            .append("expireDate", getExpireDate())
-            .append("remark", getRemark())
-            .append("attr1", getAttr1())
-            .append("attr2", getAttr2())
-            .append("attr3", getAttr3())
-            .append("attr4", getAttr4())
-            .append("createBy", getCreateBy())
-            .append("createTime", getCreateTime())
-            .append("updateBy", getUpdateBy())
-            .append("updateTime", getUpdateTime())
-            .toString();
+        return "WmItemRecptLine{" +
+                "lineId=" + lineId +
+                ", recptId=" + recptId +
+                ", itemId=" + itemId +
+                ", itemCode='" + itemCode + '\'' +
+                ", itemName='" + itemName + '\'' +
+                ", specification='" + specification + '\'' +
+                ", unitOfMeasure='" + unitOfMeasure + '\'' +
+                ", quantityRecived=" + quantityRecived +
+                ", batchCode='" + batchCode + '\'' +
+                ", warehouseId=" + warehouseId +
+                ", warehouseCode='" + warehouseCode + '\'' +
+                ", warehouseName='" + warehouseName + '\'' +
+                ", locationId=" + locationId +
+                ", locationCode='" + locationCode + '\'' +
+                ", locationName='" + locationName + '\'' +
+                ", areaId=" + areaId +
+                ", areaCode='" + areaCode + '\'' +
+                ", areaName='" + areaName + '\'' +
+                ", expireDate=" + expireDate +
+                ", iqcCheck='" + iqcCheck + '\'' +
+                ", iqcId=" + iqcId +
+                ", iqcCode='" + iqcCode + '\'' +
+                ", attr1='" + attr1 + '\'' +
+                ", attr2='" + attr2 + '\'' +
+                ", attr3=" + attr3 +
+                ", attr4=" + attr4 +
+                '}';
     }
 }

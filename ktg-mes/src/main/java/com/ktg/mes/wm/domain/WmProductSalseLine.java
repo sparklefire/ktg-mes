@@ -91,6 +91,21 @@ public class WmProductSalseLine extends BaseEntity
     @Excel(name = "库位名称")
     private String areaName;
 
+    /**
+     * 是否出厂检验
+     */
+    private String oqcCheck;
+
+    /**
+     * 出厂检验单ID
+     */
+    private Long oqcId;
+
+    /**
+     * 出厂检验单编码
+     */
+    private String oqcCode;
+
     /** 预留字段1 */
     private String attr1;
 
@@ -274,7 +289,32 @@ public class WmProductSalseLine extends BaseEntity
     {
         return areaName;
     }
-    public void setAttr1(String attr1) 
+
+    public String getOqcCheck() {
+        return oqcCheck;
+    }
+
+    public void setOqcCheck(String oqcCheck) {
+        this.oqcCheck = oqcCheck;
+    }
+
+    public Long getOqcId() {
+        return oqcId;
+    }
+
+    public void setOqcId(Long oqcId) {
+        this.oqcId = oqcId;
+    }
+
+    public String getOqcCode() {
+        return oqcCode;
+    }
+
+    public void setOqcCode(String oqcCode) {
+        this.oqcCode = oqcCode;
+    }
+
+    public void setAttr1(String attr1)
     {
         this.attr1 = attr1;
     }
@@ -313,35 +353,33 @@ public class WmProductSalseLine extends BaseEntity
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("lineId", getLineId())
-            .append("salseId", getSalseId())
-            .append("materialStockId", getMaterialStockId())
-            .append("itemId", getItemId())
-            .append("itemCode", getItemCode())
-            .append("itemName", getItemName())
-            .append("specification", getSpecification())
-            .append("unitOfMeasure", getUnitOfMeasure())
-            .append("quantitySalse", getQuantitySalse())
-            .append("batchCode", getBatchCode())
-            .append("warehouseId", getWarehouseId())
-            .append("warehouseCode", getWarehouseCode())
-            .append("warehouseName", getWarehouseName())
-            .append("locationId", getLocationId())
-            .append("locationCode", getLocationCode())
-            .append("locationName", getLocationName())
-            .append("areaId", getAreaId())
-            .append("areaCode", getAreaCode())
-            .append("areaName", getAreaName())
-            .append("remark", getRemark())
-            .append("attr1", getAttr1())
-            .append("attr2", getAttr2())
-            .append("attr3", getAttr3())
-            .append("attr4", getAttr4())
-            .append("createBy", getCreateBy())
-            .append("createTime", getCreateTime())
-            .append("updateBy", getUpdateBy())
-            .append("updateTime", getUpdateTime())
-            .toString();
+        return "WmProductSalseLine{" +
+                "lineId=" + lineId +
+                ", salseId=" + salseId +
+                ", materialStockId=" + materialStockId +
+                ", itemId=" + itemId +
+                ", itemCode='" + itemCode + '\'' +
+                ", itemName='" + itemName + '\'' +
+                ", specification='" + specification + '\'' +
+                ", unitOfMeasure='" + unitOfMeasure + '\'' +
+                ", quantitySalse=" + quantitySalse +
+                ", batchCode='" + batchCode + '\'' +
+                ", warehouseId=" + warehouseId +
+                ", warehouseCode='" + warehouseCode + '\'' +
+                ", warehouseName='" + warehouseName + '\'' +
+                ", locationId=" + locationId +
+                ", locationCode='" + locationCode + '\'' +
+                ", locationName='" + locationName + '\'' +
+                ", areaId=" + areaId +
+                ", areaCode='" + areaCode + '\'' +
+                ", areaName='" + areaName + '\'' +
+                ", oqcCheck='" + oqcCheck + '\'' +
+                ", oqcId=" + oqcId +
+                ", oqcCode='" + oqcCode + '\'' +
+                ", attr1='" + attr1 + '\'' +
+                ", attr2='" + attr2 + '\'' +
+                ", attr3=" + attr3 +
+                ", attr4=" + attr4 +
+                '}';
     }
 }

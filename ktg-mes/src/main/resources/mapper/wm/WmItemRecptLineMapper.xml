@@ -24,6 +24,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="areaCode"    column="area_code"    />
         <result property="areaName"    column="area_name"    />
         <result property="expireDate"    column="expire_date"    />
+        <result property="iqcCheck"  column="iqc_check" ></result>
+        <result property="iqcId"    column="iqc_id"></result>
+        <result property="iqcCode"  column="iqc_code"></result>
         <result property="remark"    column="remark"    />
         <result property="attr1"    column="attr1"    />
         <result property="attr2"    column="attr2"    />
@@ -36,7 +39,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectWmItemRecptLineVo">
-        select line_id, recpt_id, item_id, item_code, item_name, specification, unit_of_measure, quantity_recived, batch_code, warehouse_id, warehouse_code, warehouse_name, location_id, location_code, location_name, area_id, area_code, area_name, expire_date, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from wm_item_recpt_line
+        select line_id, recpt_id, item_id, item_code, item_name, specification, unit_of_measure, quantity_recived, batch_code, warehouse_id, warehouse_code, warehouse_name, location_id, location_code, location_name, area_id, area_code, area_name, expire_date,iqc_check,iqc_id,iqc_code, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from wm_item_recpt_line
     </sql>
 
     <select id="selectWmItemRecptLineList" parameterType="WmItemRecptLine" resultMap="WmItemRecptLineResult">
@@ -90,6 +93,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="areaCode != null">area_code,</if>
             <if test="areaName != null">area_name,</if>
             <if test="expireDate != null">expire_date,</if>
+            <if test="iqcCheck != null">iqc_check,</if>
+            <if test="iqcId != null">iqc_id,</if>
+            <if test="iqcCode != null">iqc_code,</if>
             <if test="remark != null">remark,</if>
             <if test="attr1 != null">attr1,</if>
             <if test="attr2 != null">attr2,</if>
@@ -119,6 +125,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="areaCode != null">#{areaCode},</if>
             <if test="areaName != null">#{areaName},</if>
             <if test="expireDate != null">#{expireDate},</if>
+            <if test="iqcCheck != null">#{iqcCheck},</if>
+            <if test="iqcId != null">#{iqcId},</if>
+            <if test="iqcCode != null">#{iqcCode},</if>
             <if test="remark != null">#{remark},</if>
             <if test="attr1 != null">#{attr1},</if>
             <if test="attr2 != null">#{attr2},</if>
@@ -152,6 +161,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="areaCode != null">area_code = #{areaCode},</if>
             <if test="areaName != null">area_name = #{areaName},</if>
             <if test="expireDate != null">expire_date = #{expireDate},</if>
+            <if test="iqcCheck != null">iqc_check = #{iqcCheck},</if>
+            <if test="iqcId != null">iqc_id = #{iqcId},</if>
+            <if test="iqcCode != null">iqc_code = #{iqcCode},</if>
             <if test="remark != null">remark = #{remark},</if>
             <if test="attr1 != null">attr1 = #{attr1},</if>
             <if test="attr2 != null">attr2 = #{attr2},</if>

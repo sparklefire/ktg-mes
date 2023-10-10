@@ -14,6 +14,7 @@ import com.ktg.mes.pro.domain.ProFeedback;
 import com.ktg.mes.pro.domain.ProRouteProcess;
 import com.ktg.mes.pro.service.IProFeedbackService;
 import com.ktg.mes.pro.service.IProRouteProcessService;
+import com.ktg.system.strategy.AutoCodeUtil;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -35,6 +36,9 @@ public class ProFeedBackMobController extends BaseController {
 
     @Autowired
     private IProRouteProcessService proRouteProcessService;
+
+    @Autowired
+    private AutoCodeUtil autoCodeUtil;
 
     /**
      * 新增生产报工记录
@@ -77,7 +81,8 @@ public class ProFeedBackMobController extends BaseController {
                 return AjaxResult.error("请输入合格品和不良品数量！");
             }
         }
-
+        String feedbackCode = autoCodeUtil.genSerialCode(UserConstants.FEEDBACK_CODE,"");
+        proFeedback.setFeedbackCode(feedbackCode);
         proFeedback.setCreateBy(getUsername());
         proFeedbackService.insertProFeedback(proFeedback);
         return AjaxResult.success(proFeedback);

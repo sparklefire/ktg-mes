@@ -20,6 +20,7 @@ import com.ktg.mes.wm.domain.tx.ProductProductTxBean;
 import com.ktg.mes.wm.service.IStorageCoreService;
 import com.ktg.mes.wm.service.IWmItemConsumeService;
 import com.ktg.mes.wm.service.IWmProductProduceService;
+import com.ktg.system.strategy.AutoCodeUtil;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -72,6 +73,9 @@ public class ProFeedbackController extends BaseController
 
     @Autowired
     private IStorageCoreService storageCoreService;
+
+    @Autowired
+    private AutoCodeUtil autoCodeUtil;
 
     /**
      * 查询生产报工记录列表
@@ -147,7 +151,8 @@ public class ProFeedbackController extends BaseController
                 return AjaxResult.error("请输入合格品和不良品数量！");
             }
         }
-
+        String feedbackCode = autoCodeUtil.genSerialCode(UserConstants.FEEDBACK_CODE,"");
+        proFeedback.setFeedbackCode(feedbackCode);
         proFeedback.setCreateBy(getUsername());
         return toAjax(proFeedbackService.insertProFeedback(proFeedback));
     }

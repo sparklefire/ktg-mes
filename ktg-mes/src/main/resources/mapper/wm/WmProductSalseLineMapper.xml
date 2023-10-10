@@ -24,6 +24,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="areaId"    column="area_id"    />
         <result property="areaCode"    column="area_code"    />
         <result property="areaName"    column="area_name"    />
+        <result property="oqcCheck"  column="oqc_check"></result>
+        <result property="oqcId"  column="oqc_id"></result>
+        <result property="oqcCode"  column="oqc_code"></result>
         <result property="remark"    column="remark"    />
         <result property="attr1"    column="attr1"    />
         <result property="attr2"    column="attr2"    />
@@ -36,7 +39,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectWmProductSalseLineVo">
-        select line_id, salse_id, material_stock_id, item_id, item_code, item_name, specification, unit_of_measure, quantity_salse, batch_code, warehouse_id, warehouse_code, warehouse_name, location_id, location_code, location_name, area_id, area_code, area_name, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from wm_product_salse_line
+        select line_id, salse_id, material_stock_id, item_id, item_code, item_name, specification, unit_of_measure, quantity_salse, batch_code, warehouse_id, warehouse_code, warehouse_name, location_id, location_code, location_name, area_id, area_code, area_name, oqc_check,oqc_id,oqc_code, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from wm_product_salse_line
     </sql>
 
     <select id="selectWmProductSalseLineList" parameterType="WmProductSalseLine" resultMap="WmProductSalseLineResult">
@@ -90,6 +93,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="areaId != null">area_id,</if>
             <if test="areaCode != null">area_code,</if>
             <if test="areaName != null">area_name,</if>
+            <if test="oqcCheck != null">oqc_check,</if>
+            <if test="oqcId != null">oqc_id,</if>
+            <if test="oqcCode != null">oqc_code,</if>
             <if test="remark != null">remark,</if>
             <if test="attr1 != null">attr1,</if>
             <if test="attr2 != null">attr2,</if>
@@ -119,6 +125,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="areaId != null">#{areaId},</if>
             <if test="areaCode != null">#{areaCode},</if>
             <if test="areaName != null">#{areaName},</if>
+            <if test="oqcCheck != null">#{oqcCheck},</if>
+            <if test="oqcId != null">#{oqcId},</if>
+            <if test="oqcCode != null">#{oqcCode},</if>
             <if test="remark != null">#{remark},</if>
             <if test="attr1 != null">#{attr1},</if>
             <if test="attr2 != null">#{attr2},</if>
@@ -152,6 +161,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="areaId != null">area_id = #{areaId},</if>
             <if test="areaCode != null">area_code = #{areaCode},</if>
             <if test="areaName != null">area_name = #{areaName},</if>
+            <if test="oqcCheck != null">oqc_check = #{oqcCheck},</if>
+            <if test="oqcId != null">oqc_id = #{oqcId},</if>
+            <if test="oqcCode != null">oqc_code = #{oqcCode},</if>
             <if test="remark != null">remark = #{remark},</if>
             <if test="attr1 != null">attr1 = #{attr1},</if>
             <if test="attr2 != null">attr2 = #{attr2},</if>
