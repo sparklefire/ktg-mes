@@ -37,7 +37,7 @@ public class WmProductProduceLineController extends BaseController
     /**
      * 查询产品产出记录行列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:wm:productproduceline:list')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:productproduce:list')")
     @GetMapping("/list")
     public TableDataInfo list(WmProductProduceLine wmProductProduceLine)
     {
@@ -49,7 +49,7 @@ public class WmProductProduceLineController extends BaseController
     /**
      * 导出产品产出记录行列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:wm:productproduceline:export')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:productproduce:export')")
     @Log(title = "产品产出记录行", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, WmProductProduceLine wmProductProduceLine)
@@ -62,7 +62,7 @@ public class WmProductProduceLineController extends BaseController
     /**
      * 获取产品产出记录行详细信息
      */
-    @PreAuthorize("@ss.hasPermi('mes:wm:productproduceline:query')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:productproduce:query')")
     @GetMapping(value = "/{lineId}")
     public AjaxResult getInfo(@PathVariable("lineId") Long lineId)
     {
@@ -72,7 +72,7 @@ public class WmProductProduceLineController extends BaseController
     /**
      * 新增产品产出记录行
      */
-    @PreAuthorize("@ss.hasPermi('mes:wm:productproduceline:add')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:productproduce:add')")
     @Log(title = "产品产出记录行", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody WmProductProduceLine wmProductProduceLine)
@@ -83,7 +83,7 @@ public class WmProductProduceLineController extends BaseController
     /**
      * 修改产品产出记录行
      */
-    @PreAuthorize("@ss.hasPermi('mes:wm:productproduceline:edit')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:productproduce:edit')")
     @Log(title = "产品产出记录行", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody WmProductProduceLine wmProductProduceLine)
@@ -94,7 +94,7 @@ public class WmProductProduceLineController extends BaseController
     /**
      * 删除产品产出记录行
      */
-    @PreAuthorize("@ss.hasPermi('mes:wm:productproduceline:remove')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:productproduce:remove')")
     @Log(title = "产品产出记录行", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{lineIds}")
     public AjaxResult remove(@PathVariable Long[] lineIds)

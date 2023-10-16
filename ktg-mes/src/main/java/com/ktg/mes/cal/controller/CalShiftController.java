@@ -44,7 +44,7 @@ public class CalShiftController extends BaseController
     /**
      * 查询计划班次列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:cal:shift:list')")
+    @PreAuthorize("@ss.hasPermi('mes:cal:calplan:list')")
     @GetMapping("/list")
     public TableDataInfo list(CalShift calShift)
     {
@@ -56,7 +56,7 @@ public class CalShiftController extends BaseController
     /**
      * 导出计划班次列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:cal:shift:export')")
+    @PreAuthorize("@ss.hasPermi('mes:cal:calplan:export')")
     @Log(title = "计划班次", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, CalShift calShift)
@@ -69,7 +69,7 @@ public class CalShiftController extends BaseController
     /**
      * 获取计划班次详细信息
      */
-    @PreAuthorize("@ss.hasPermi('mes:cal:shift:query')")
+    @PreAuthorize("@ss.hasPermi('mes:cal:calplan:query')")
     @GetMapping(value = "/{shiftId}")
     public AjaxResult getInfo(@PathVariable("shiftId") Long shiftId)
     {
@@ -79,7 +79,7 @@ public class CalShiftController extends BaseController
     /**
      * 新增计划班次
      */
-    @PreAuthorize("@ss.hasPermi('mes:cal:shift:add')")
+    @PreAuthorize("@ss.hasPermi('mes:cal:calplan:add')")
     @Log(title = "计划班次", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody CalShift calShift)
@@ -102,7 +102,7 @@ public class CalShiftController extends BaseController
     /**
      * 修改计划班次
      */
-    @PreAuthorize("@ss.hasPermi('mes:cal:shift:edit')")
+    @PreAuthorize("@ss.hasPermi('mes:cal:calplan:edit')")
     @Log(title = "计划班次", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody CalShift calShift)
@@ -113,7 +113,7 @@ public class CalShiftController extends BaseController
     /**
      * 删除计划班次
      */
-    @PreAuthorize("@ss.hasPermi('mes:cal:shift:remove')")
+    @PreAuthorize("@ss.hasPermi('mes:cal:calplan:remove')")
     @Log(title = "计划班次", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{shiftIds}")
     public AjaxResult remove(@PathVariable Long[] shiftIds)

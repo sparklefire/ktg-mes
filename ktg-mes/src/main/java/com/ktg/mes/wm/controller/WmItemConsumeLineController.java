@@ -37,7 +37,7 @@ public class WmItemConsumeLineController extends BaseController
     /**
      * 查询物料消耗记录行列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:wm:itemconsumeline:list')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:itemconsume:list')")
     @GetMapping("/list")
     public TableDataInfo list(WmItemConsumeLine wmItemConsumeLine)
     {
@@ -49,7 +49,7 @@ public class WmItemConsumeLineController extends BaseController
     /**
      * 导出物料消耗记录行列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:wm:itemconsumeline:export')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:itemconsume:export')")
     @Log(title = "物料消耗记录行", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, WmItemConsumeLine wmItemConsumeLine)
@@ -62,7 +62,7 @@ public class WmItemConsumeLineController extends BaseController
     /**
      * 获取物料消耗记录行详细信息
      */
-    @PreAuthorize("@ss.hasPermi('mes:wm:itemconsumeline:query')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:itemconsume:query')")
     @GetMapping(value = "/{lineId}")
     public AjaxResult getInfo(@PathVariable("lineId") Long lineId)
     {
@@ -72,7 +72,7 @@ public class WmItemConsumeLineController extends BaseController
     /**
      * 新增物料消耗记录行
      */
-    @PreAuthorize("@ss.hasPermi('mes:wm:itemconsumeline:add')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:itemconsume:add')")
     @Log(title = "物料消耗记录行", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody WmItemConsumeLine wmItemConsumeLine)
@@ -83,7 +83,7 @@ public class WmItemConsumeLineController extends BaseController
     /**
      * 修改物料消耗记录行
      */
-    @PreAuthorize("@ss.hasPermi('mes:wm:itemconsumeline:edit')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:itemconsume:edit')")
     @Log(title = "物料消耗记录行", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody WmItemConsumeLine wmItemConsumeLine)
@@ -94,7 +94,7 @@ public class WmItemConsumeLineController extends BaseController
     /**
      * 删除物料消耗记录行
      */
-    @PreAuthorize("@ss.hasPermi('mes:wm:itemconsumeline:remove')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:itemconsume:remove')")
     @Log(title = "物料消耗记录行", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{lineIds}")
     public AjaxResult remove(@PathVariable Long[] lineIds)

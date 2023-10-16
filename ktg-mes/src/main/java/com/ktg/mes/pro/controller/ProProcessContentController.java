@@ -37,7 +37,7 @@ public class ProProcessContentController extends BaseController
     /**
      * 查询生产工序内容列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:pro:processcontent:list')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:process:list')")
     @GetMapping("/list")
     public TableDataInfo list(ProProcessContent proProcessContent)
     {
@@ -49,7 +49,7 @@ public class ProProcessContentController extends BaseController
     /**
      * 导出生产工序内容列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:pro:processcontent:export')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:process:export')")
     @Log(title = "生产工序内容", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, ProProcessContent proProcessContent)
@@ -62,7 +62,7 @@ public class ProProcessContentController extends BaseController
     /**
      * 获取生产工序内容详细信息
      */
-    @PreAuthorize("@ss.hasPermi('mes:pro:processcontent:query')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:process:query')")
     @GetMapping(value = "/{contentId}")
     public AjaxResult getInfo(@PathVariable("contentId") Long contentId)
     {
@@ -72,7 +72,7 @@ public class ProProcessContentController extends BaseController
     /**
      * 新增生产工序内容
      */
-    @PreAuthorize("@ss.hasPermi('mes:pro:processcontent:add')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:process:add')")
     @Log(title = "生产工序内容", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody ProProcessContent proProcessContent)
@@ -83,7 +83,7 @@ public class ProProcessContentController extends BaseController
     /**
      * 修改生产工序内容
      */
-    @PreAuthorize("@ss.hasPermi('mes:pro:processcontent:edit')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:process:edit')")
     @Log(title = "生产工序内容", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody ProProcessContent proProcessContent)
@@ -94,7 +94,7 @@ public class ProProcessContentController extends BaseController
     /**
      * 删除生产工序内容
      */
-    @PreAuthorize("@ss.hasPermi('mes:pro:processcontent:remove')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:process:remove')")
     @Log(title = "生产工序内容", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{contentIds}")
     public AjaxResult remove(@PathVariable Long[] contentIds)

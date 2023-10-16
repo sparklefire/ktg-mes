@@ -55,7 +55,7 @@ public class WmItemRecptLineController extends BaseController
     /**
      * 查询物料入库单行列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:wm:itemrecptline:list')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:itemrecpt:list')")
     @GetMapping("/list")
     public TableDataInfo list(WmItemRecptLine wmItemRecptLine)
     {
@@ -67,7 +67,7 @@ public class WmItemRecptLineController extends BaseController
     /**
      * 导出物料入库单行列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:wm:itemrecptline:export')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:itemrecpt:export')")
     @Log(title = "物料入库单行", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, WmItemRecptLine wmItemRecptLine)
@@ -80,7 +80,7 @@ public class WmItemRecptLineController extends BaseController
     /**
      * 获取物料入库单行详细信息
      */
-    @PreAuthorize("@ss.hasPermi('mes:wm:itemrecptline:query')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:itemrecpt:query')")
     @GetMapping(value = "/{lineId}")
     public AjaxResult getInfo(@PathVariable("lineId") Long lineId)
     {
@@ -90,7 +90,7 @@ public class WmItemRecptLineController extends BaseController
     /**
      * 新增物料入库单行
      */
-    @PreAuthorize("@ss.hasPermi('mes:wm:itemrecptline:add')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:itemrecpt:add')")
     @Log(title = "物料入库单行", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody WmItemRecptLine wmItemRecptLine)
@@ -117,7 +117,7 @@ public class WmItemRecptLineController extends BaseController
     /**
      * 修改物料入库单行
      */
-    @PreAuthorize("@ss.hasPermi('mes:wm:itemrecptline:edit')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:itemrecpt:edit')")
     @Log(title = "物料入库单行", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody WmItemRecptLine wmItemRecptLine)
@@ -143,7 +143,7 @@ public class WmItemRecptLineController extends BaseController
     /**
      * 删除物料入库单行
      */
-    @PreAuthorize("@ss.hasPermi('mes:wm:itemrecptline:remove')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:itemrecpt:remove')")
     @Log(title = "物料入库单行", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{lineIds}")
     public AjaxResult remove(@PathVariable Long[] lineIds)

@@ -39,7 +39,7 @@ public class CalTeamMemberController extends BaseController
     /**
      * 查询班组成员列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:cal:teammember:list')")
+    @PreAuthorize("@ss.hasPermi('mes:cal:team:list')")
     @GetMapping("/list")
     public TableDataInfo list(CalTeamMember calTeamMember)
     {
@@ -51,7 +51,7 @@ public class CalTeamMemberController extends BaseController
     /**
      * 导出班组成员列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:cal:teammember:export')")
+    @PreAuthorize("@ss.hasPermi('mes:cal:team:export')")
     @Log(title = "班组成员", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, CalTeamMember calTeamMember)
@@ -64,7 +64,7 @@ public class CalTeamMemberController extends BaseController
     /**
      * 获取班组成员详细信息
      */
-    @PreAuthorize("@ss.hasPermi('mes:cal:teammember:query')")
+    @PreAuthorize("@ss.hasPermi('mes:cal:team:query')")
     @GetMapping(value = "/{memberId}")
     public AjaxResult getInfo(@PathVariable("memberId") Long memberId)
     {
@@ -74,7 +74,7 @@ public class CalTeamMemberController extends BaseController
     /**
      * 新增班组成员
      */
-    @PreAuthorize("@ss.hasPermi('mes:cal:teammember:add')")
+    @PreAuthorize("@ss.hasPermi('mes:cal:team:add')")
     @Log(title = "班组成员", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody CalTeamMember calTeamMember)
@@ -89,7 +89,7 @@ public class CalTeamMemberController extends BaseController
     /**
      * 删除班组成员
      */
-    @PreAuthorize("@ss.hasPermi('mes:cal:teammember:remove')")
+    @PreAuthorize("@ss.hasPermi('mes:cal:team:remove')")
     @Log(title = "班组成员", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{memberIds}")
     public AjaxResult remove(@PathVariable Long[] memberIds)

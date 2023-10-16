@@ -37,7 +37,7 @@ public class WmIssueLineController extends BaseController
     /**
      * 查询生产领料单行列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:wm:issueline:list')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:issueheader:list')")
     @GetMapping("/list")
     public TableDataInfo list(WmIssueLine wmIssueLine)
     {
@@ -49,7 +49,7 @@ public class WmIssueLineController extends BaseController
     /**
      * 导出生产领料单行列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:wm:issueline:export')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:issueheader:export')")
     @Log(title = "生产领料单行", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, WmIssueLine wmIssueLine)
@@ -62,7 +62,7 @@ public class WmIssueLineController extends BaseController
     /**
      * 获取生产领料单行详细信息
      */
-    @PreAuthorize("@ss.hasPermi('mes:wm:issueline:query')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:issueheader:query')")
     @GetMapping(value = "/{lineId}")
     public AjaxResult getInfo(@PathVariable("lineId") Long lineId)
     {
@@ -72,7 +72,7 @@ public class WmIssueLineController extends BaseController
     /**
      * 新增生产领料单行
      */
-    @PreAuthorize("@ss.hasPermi('mes:wm:issueline:add')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:issueheader:add')")
     @Log(title = "生产领料单行", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody WmIssueLine wmIssueLine)
@@ -84,7 +84,7 @@ public class WmIssueLineController extends BaseController
     /**
      * 修改生产领料单行
      */
-    @PreAuthorize("@ss.hasPermi('mes:wm:issueline:edit')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:issueheader:edit')")
     @Log(title = "生产领料单行", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody WmIssueLine wmIssueLine)
@@ -95,7 +95,7 @@ public class WmIssueLineController extends BaseController
     /**
      * 删除生产领料单行
      */
-    @PreAuthorize("@ss.hasPermi('mes:wm:issueline:remove')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:issueheader:remove')")
     @Log(title = "生产领料单行", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{lineIds}")
     public AjaxResult remove(@PathVariable Long[] lineIds)

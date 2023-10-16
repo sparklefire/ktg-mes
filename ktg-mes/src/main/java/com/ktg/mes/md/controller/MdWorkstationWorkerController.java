@@ -45,7 +45,7 @@ public class MdWorkstationWorkerController extends BaseController
     /**
      * 查询人力资源列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:md:workstationworker:list')")
+    @PreAuthorize("@ss.hasPermi('mes:md:workstation:list')")
     @GetMapping("/list")
     public TableDataInfo list(MdWorkstationWorker mdWorkstationWorker)
     {
@@ -57,7 +57,7 @@ public class MdWorkstationWorkerController extends BaseController
     /**
      * 导出人力资源列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:md:workstationworker:export')")
+    @PreAuthorize("@ss.hasPermi('mes:md:workstation:export')")
     @Log(title = "人力资源", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, MdWorkstationWorker mdWorkstationWorker)
@@ -70,7 +70,7 @@ public class MdWorkstationWorkerController extends BaseController
     /**
      * 获取人力资源详细信息
      */
-    @PreAuthorize("@ss.hasPermi('mes:md:workstationworker:query')")
+    @PreAuthorize("@ss.hasPermi('mes:md:workstation:query')")
     @GetMapping(value = "/{recordId}")
     public AjaxResult getInfo(@PathVariable("recordId") Long recordId)
     {
@@ -80,7 +80,7 @@ public class MdWorkstationWorkerController extends BaseController
     /**
      * 新增人力资源
      */
-    @PreAuthorize("@ss.hasPermi('mes:md:workstationworker:add')")
+    @PreAuthorize("@ss.hasPermi('mes:md:workstation:add')")
     @Log(title = "人力资源", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody MdWorkstationWorker mdWorkstationWorker)
@@ -97,7 +97,7 @@ public class MdWorkstationWorkerController extends BaseController
     /**
      * 修改人力资源
      */
-    @PreAuthorize("@ss.hasPermi('mes:md:workstationworker:edit')")
+    @PreAuthorize("@ss.hasPermi('mes:md:workstation:edit')")
     @Log(title = "人力资源", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody MdWorkstationWorker mdWorkstationWorker)
@@ -114,7 +114,7 @@ public class MdWorkstationWorkerController extends BaseController
     /**
      * 删除人力资源
      */
-    @PreAuthorize("@ss.hasPermi('mes:md:workstationworker:remove')")
+    @PreAuthorize("@ss.hasPermi('mes:md:workstation:remove')")
     @Log(title = "人力资源", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{recordIds}")
     public AjaxResult remove(@PathVariable Long[] recordIds)

@@ -37,7 +37,7 @@ public class WmProductSalseLineController extends BaseController
     /**
      * 查询产品销售出库行列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:wm:productsalseline:list')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:productsalse:list')")
     @GetMapping("/list")
     public TableDataInfo list(WmProductSalseLine wmProductSalseLine)
     {
@@ -49,7 +49,7 @@ public class WmProductSalseLineController extends BaseController
     /**
      * 导出产品销售出库行列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:wm:productsalseline:export')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:productsalse:export')")
     @Log(title = "产品销售出库行", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, WmProductSalseLine wmProductSalseLine)
@@ -62,7 +62,7 @@ public class WmProductSalseLineController extends BaseController
     /**
      * 获取产品销售出库行详细信息
      */
-    @PreAuthorize("@ss.hasPermi('mes:wm:productsalseline:query')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:productsalse:query')")
     @GetMapping(value = "/{lineId}")
     public AjaxResult getInfo(@PathVariable("lineId") Long lineId)
     {
@@ -72,7 +72,7 @@ public class WmProductSalseLineController extends BaseController
     /**
      * 新增产品销售出库行
      */
-    @PreAuthorize("@ss.hasPermi('mes:wm:productsalseline:add')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:productsalse:add')")
     @Log(title = "产品销售出库行", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody WmProductSalseLine wmProductSalseLine)
@@ -84,7 +84,7 @@ public class WmProductSalseLineController extends BaseController
     /**
      * 修改产品销售出库行
      */
-    @PreAuthorize("@ss.hasPermi('mes:wm:productsalseline:edit')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:productsalse:edit')")
     @Log(title = "产品销售出库行", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody WmProductSalseLine wmProductSalseLine)
@@ -95,7 +95,7 @@ public class WmProductSalseLineController extends BaseController
     /**
      * 删除产品销售出库行
      */
-    @PreAuthorize("@ss.hasPermi('mes:wm:productsalseline:remove')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:productsalse:remove')")
     @Log(title = "产品销售出库行", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{lineIds}")
     public AjaxResult remove(@PathVariable Long[] lineIds)

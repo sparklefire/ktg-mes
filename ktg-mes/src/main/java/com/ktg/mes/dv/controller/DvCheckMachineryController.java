@@ -39,7 +39,7 @@ public class DvCheckMachineryController extends BaseController
     /**
      * 查询点检设备列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:dv:checkmachinery:list')")
+    @PreAuthorize("@ss.hasPermi('mes:dv:checkplan:list')")
     @GetMapping("/list")
     public TableDataInfo list(DvCheckMachinery dvCheckMachinery)
     {
@@ -51,7 +51,7 @@ public class DvCheckMachineryController extends BaseController
     /**
      * 导出点检设备列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:dv:checkmachinery:export')")
+    @PreAuthorize("@ss.hasPermi('mes:dv:checkplan:export')")
     @Log(title = "点检设备", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, DvCheckMachinery dvCheckMachinery)
@@ -64,7 +64,7 @@ public class DvCheckMachineryController extends BaseController
     /**
      * 获取点检设备详细信息
      */
-    @PreAuthorize("@ss.hasPermi('mes:dv:checkmachinery:query')")
+    @PreAuthorize("@ss.hasPermi('mes:dv:checkplan:query')")
     @GetMapping(value = "/{recordId}")
     public AjaxResult getInfo(@PathVariable("recordId") Long recordId)
     {
@@ -74,7 +74,7 @@ public class DvCheckMachineryController extends BaseController
     /**
      * 新增点检设备
      */
-    @PreAuthorize("@ss.hasPermi('mes:dv:checkmachinery:add')")
+    @PreAuthorize("@ss.hasPermi('mes:dv:checkplan:add')")
     @Log(title = "点检设备", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody DvCheckMachinery dvCheckMachinery)
@@ -88,7 +88,7 @@ public class DvCheckMachineryController extends BaseController
     /**
      * 修改点检设备
      */
-    @PreAuthorize("@ss.hasPermi('mes:dv:checkmachinery:edit')")
+    @PreAuthorize("@ss.hasPermi('mes:dv:checkplan:edit')")
     @Log(title = "点检设备", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody DvCheckMachinery dvCheckMachinery)
@@ -102,7 +102,7 @@ public class DvCheckMachineryController extends BaseController
     /**
      * 删除点检设备
      */
-    @PreAuthorize("@ss.hasPermi('mes:dv:checkmachinery:remove')")
+    @PreAuthorize("@ss.hasPermi('mes:dv:checkplan:remove')")
     @Log(title = "点检设备", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{recordIds}")
     public AjaxResult remove(@PathVariable Long[] recordIds)

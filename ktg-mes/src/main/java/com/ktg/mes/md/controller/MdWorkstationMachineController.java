@@ -45,7 +45,7 @@ public class MdWorkstationMachineController extends BaseController
     /**
      * 查询设备资源列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:md:workstationmachine:list')")
+    @PreAuthorize("@ss.hasPermi('mes:md:workstation:list')")
     @GetMapping("/list")
     public TableDataInfo list(MdWorkstationMachine mdWorkstationMachine)
     {
@@ -57,7 +57,7 @@ public class MdWorkstationMachineController extends BaseController
     /**
      * 导出设备资源列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:md:workstationmachine:export')")
+    @PreAuthorize("@ss.hasPermi('mes:md:workstation:export')")
     @Log(title = "设备资源", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, MdWorkstationMachine mdWorkstationMachine)
@@ -70,7 +70,7 @@ public class MdWorkstationMachineController extends BaseController
     /**
      * 获取设备资源详细信息
      */
-    @PreAuthorize("@ss.hasPermi('mes:md:workstationmachine:query')")
+    @PreAuthorize("@ss.hasPermi('mes:md:workstation:query')")
     @GetMapping(value = "/{recordId}")
     public AjaxResult getInfo(@PathVariable("recordId") Long recordId)
     {
@@ -80,7 +80,7 @@ public class MdWorkstationMachineController extends BaseController
     /**
      * 新增设备资源
      */
-    @PreAuthorize("@ss.hasPermi('mes:md:workstationmachine:add')")
+    @PreAuthorize("@ss.hasPermi('mes:md:workstation:add')")
     @Log(title = "设备资源", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody MdWorkstationMachine mdWorkstationMachine)
@@ -96,7 +96,7 @@ public class MdWorkstationMachineController extends BaseController
     /**
      * 修改设备资源
      */
-    @PreAuthorize("@ss.hasPermi('mes:md:workstationmachine:edit')")
+    @PreAuthorize("@ss.hasPermi('mes:md:workstation:edit')")
     @Log(title = "设备资源", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody MdWorkstationMachine mdWorkstationMachine)
@@ -107,7 +107,7 @@ public class MdWorkstationMachineController extends BaseController
     /**
      * 删除设备资源
      */
-    @PreAuthorize("@ss.hasPermi('mes:md:workstationmachine:remove')")
+    @PreAuthorize("@ss.hasPermi('mes:md:workstation:remove')")
     @Log(title = "设备资源", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{recordIds}")
     public AjaxResult remove(@PathVariable Long[] recordIds)

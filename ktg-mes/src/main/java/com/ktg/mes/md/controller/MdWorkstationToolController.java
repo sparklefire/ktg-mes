@@ -44,7 +44,7 @@ public class MdWorkstationToolController extends BaseController
     /**
      * 查询工装夹具资源列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:md:workstationtool:list')")
+    @PreAuthorize("@ss.hasPermi('mes:md:workstation:list')")
     @GetMapping("/list")
     public TableDataInfo list(MdWorkstationTool mdWorkstationTool)
     {
@@ -56,7 +56,7 @@ public class MdWorkstationToolController extends BaseController
     /**
      * 导出工装夹具资源列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:md:workstationtool:export')")
+    @PreAuthorize("@ss.hasPermi('mes:md:workstation:export')")
     @Log(title = "工装夹具资源", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, MdWorkstationTool mdWorkstationTool)
@@ -69,7 +69,7 @@ public class MdWorkstationToolController extends BaseController
     /**
      * 获取工装夹具资源详细信息
      */
-    @PreAuthorize("@ss.hasPermi('mes:md:workstationtool:query')")
+    @PreAuthorize("@ss.hasPermi('mes:md:workstation:query')")
     @GetMapping(value = "/{recordId}")
     public AjaxResult getInfo(@PathVariable("recordId") Long recordId)
     {
@@ -79,7 +79,7 @@ public class MdWorkstationToolController extends BaseController
     /**
      * 新增工装夹具资源
      */
-    @PreAuthorize("@ss.hasPermi('mes:md:workstationtool:add')")
+    @PreAuthorize("@ss.hasPermi('mes:md:workstation:add')")
     @Log(title = "工装夹具资源", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody MdWorkstationTool mdWorkstationTool)
@@ -96,7 +96,7 @@ public class MdWorkstationToolController extends BaseController
     /**
      * 修改工装夹具资源
      */
-    @PreAuthorize("@ss.hasPermi('mes:md:workstationtool:edit')")
+    @PreAuthorize("@ss.hasPermi('mes:md:workstation:edit')")
     @Log(title = "工装夹具资源", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody MdWorkstationTool mdWorkstationTool)
@@ -113,7 +113,7 @@ public class MdWorkstationToolController extends BaseController
     /**
      * 删除工装夹具资源
      */
-    @PreAuthorize("@ss.hasPermi('mes:md:workstationtool:remove')")
+    @PreAuthorize("@ss.hasPermi('mes:md:workstation:remove')")
     @Log(title = "工装夹具资源", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{recordIds}")
     public AjaxResult remove(@PathVariable Long[] recordIds)

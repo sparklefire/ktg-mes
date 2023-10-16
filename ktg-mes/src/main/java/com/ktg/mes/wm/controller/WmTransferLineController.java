@@ -53,7 +53,7 @@ public class WmTransferLineController extends BaseController
     /**
      * 查询转移单行列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:wm:transferline:list')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:transfer:list')")
     @GetMapping("/list")
     public TableDataInfo list(WmTransferLine wmTransferLine)
     {
@@ -65,7 +65,7 @@ public class WmTransferLineController extends BaseController
     /**
      * 导出转移单行列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:wm:transferline:export')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:transfer:export')")
     @Log(title = "转移单行", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, WmTransferLine wmTransferLine)
@@ -78,7 +78,7 @@ public class WmTransferLineController extends BaseController
     /**
      * 获取转移单行详细信息
      */
-    @PreAuthorize("@ss.hasPermi('mes:wm:transferline:query')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:transfer:query')")
     @GetMapping(value = "/{lineId}")
     public AjaxResult getInfo(@PathVariable("lineId") Long lineId)
     {
@@ -88,7 +88,7 @@ public class WmTransferLineController extends BaseController
     /**
      * 新增转移单行
      */
-    @PreAuthorize("@ss.hasPermi('mes:wm:transferline:add')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:transfer:add')")
     @Log(title = "转移单行", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody WmTransferLine wmTransferLine)
@@ -130,7 +130,7 @@ public class WmTransferLineController extends BaseController
     /**
      * 修改转移单行
      */
-    @PreAuthorize("@ss.hasPermi('mes:wm:transferline:edit')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:transfer:edit')")
     @Log(title = "转移单行", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody WmTransferLine wmTransferLine)
@@ -171,7 +171,7 @@ public class WmTransferLineController extends BaseController
     /**
      * 删除转移单行
      */
-    @PreAuthorize("@ss.hasPermi('mes:wm:transferline:remove')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:transfer:remove')")
     @Log(title = "转移单行", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{lineIds}")
     public AjaxResult remove(@PathVariable Long[] lineIds)

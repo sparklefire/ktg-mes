@@ -39,7 +39,7 @@ public class CalPlanTeamController extends BaseController
     /**
      * 查询计划班组列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:cal:planteam:list')")
+    @PreAuthorize("@ss.hasPermi('mes:cal:calplan:list')")
     @GetMapping("/list")
     public TableDataInfo list(CalPlanTeam calPlanTeam)
     {
@@ -51,7 +51,7 @@ public class CalPlanTeamController extends BaseController
     /**
      * 导出计划班组列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:cal:planteam:export')")
+    @PreAuthorize("@ss.hasPermi('mes:cal:calplan:export')")
     @Log(title = "计划班组", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, CalPlanTeam calPlanTeam)
@@ -64,7 +64,7 @@ public class CalPlanTeamController extends BaseController
     /**
      * 获取计划班组详细信息
      */
-    @PreAuthorize("@ss.hasPermi('mes:cal:planteam:query')")
+    @PreAuthorize("@ss.hasPermi('mes:cal:calplan:query')")
     @GetMapping(value = "/{recordId}")
     public AjaxResult getInfo(@PathVariable("recordId") Long recordId)
     {
@@ -74,7 +74,7 @@ public class CalPlanTeamController extends BaseController
     /**
      * 新增计划班组
      */
-    @PreAuthorize("@ss.hasPermi('mes:cal:planteam:add')")
+    @PreAuthorize("@ss.hasPermi('mes:cal:calplan:add')")
     @Log(title = "计划班组", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody CalPlanTeam calPlanTeam)
@@ -88,7 +88,7 @@ public class CalPlanTeamController extends BaseController
     /**
      * 修改计划班组
      */
-    @PreAuthorize("@ss.hasPermi('mes:cal:planteam:edit')")
+    @PreAuthorize("@ss.hasPermi('mes:cal:calplan:edit')")
     @Log(title = "计划班组", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody CalPlanTeam calPlanTeam)
@@ -99,7 +99,7 @@ public class CalPlanTeamController extends BaseController
     /**
      * 删除计划班组
      */
-    @PreAuthorize("@ss.hasPermi('mes:cal:planteam:remove')")
+    @PreAuthorize("@ss.hasPermi('mes:cal:calplan:remove')")
     @Log(title = "计划班组", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{recordIds}")
     public AjaxResult remove(@PathVariable Long[] recordIds)
