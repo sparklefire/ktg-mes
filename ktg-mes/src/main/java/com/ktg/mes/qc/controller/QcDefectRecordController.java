@@ -103,6 +103,14 @@ public class QcDefectRecordController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody QcDefectRecord qcDefectRecord)
     {
+        if(!StringUtils.isNotNull(qcDefectRecord.getDefectName())){
+            return AjaxResult.error("请填写缺陷内容");
+        }
+
+        if(StringUtils.isNotNull(qcDefectRecord.getDefectLevel())){
+            return AjaxResult.error("请选择缺陷级别");
+        }
+
         return toAjax(qcDefectRecordService.insertQcDefectRecord(qcDefectRecord));
     }
 
@@ -120,6 +128,14 @@ public class QcDefectRecordController extends BaseController
         if(CollUtil.isNotEmpty(defects)){
             for (QcDefectRecord defect: defects
             ) {
+                if(!StringUtils.isNotNull(defect.getDefectName())){
+                    return AjaxResult.error("请填写缺陷内容");
+                }
+
+                if(StringUtils.isNotNull(defect.getDefectLevel())){
+                    return AjaxResult.error("请选择缺陷级别");
+                }
+
                 if(StringUtils.isNotNull(defect.getRecordId())){
                     qcDefectRecordService.updateQcDefectRecord(defect);
                 }else {
