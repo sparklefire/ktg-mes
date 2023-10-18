@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServletResponse;
 import cn.hutool.core.collection.CollUtil;
 import com.ktg.common.constant.UserConstants;
 import com.ktg.common.utils.StringUtils;
+import com.ktg.mes.pro.domain.ProFeedback;
 import com.ktg.mes.pro.domain.ProWorkorder;
+import com.ktg.mes.pro.service.IProFeedbackService;
 import com.ktg.mes.pro.service.IProWorkorderService;
 import com.ktg.mes.qc.domain.*;
 import com.ktg.mes.qc.service.*;
@@ -57,6 +59,9 @@ public class QcIpqcController extends BaseController
 
     @Autowired
     private IQcDefectRecordService qcDefectRecordService;
+
+    @Autowired
+    private IProFeedbackService proFeedbackService;
 
     /**
      * 查询过程检验单列表
@@ -191,6 +196,20 @@ public class QcIpqcController extends BaseController
             qcIpqc.setTemplateId(template.getTemplateId());
         }else{
             return AjaxResult.error("当前工单生产的产品未配置此类型的检验模板！");
+        }
+
+        //如果是完成单据则根据单据上的来源单据，更新对应的关联检验单信息
+        if(UserConstants.ORDER_STATUS_FINISHED.equals(qcIpqc.getStatus())){
+            if(StringUtils.isNotNull(qcIpqc.getSourceDocCode())){
+                //这里默认更新生产报工单的数据
+                ProFeedback feedback =  proFeedbackService.selectProFeedbackByRecordId(qcIpqc.getSourceDocId());
+                if(StringUtils.isNotNull(feedback)){
+                    feedback.setQuantityQualified(qcIpqc.getQuantityQualified());
+                    feedback.setQuantityUnquanlified(qcIpqc.getQuantityUnqualified());
+                    feedback.setQuantityUncheck(BigDecimal.ZERO);
+                    proFeedbackService.updateProFeedback(feedback);
+                }
+            }
         }
 
         return toAjax(qcIpqcService.updateQcIpqc(qcIpqc));

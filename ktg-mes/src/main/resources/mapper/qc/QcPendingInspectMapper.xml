@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ktg.mes.qc.mapper.QcPendingInspectMapper">
+    <resultMap id="QcPendingInspectResult" type="QcPendingInspect">
+        <result property="sourceDocId"    column="source_doc_id"    />
+        <result property="sourceDocCode"    column="source_doc_code"    />
+        <result property="sourceLineId" column="source_line_id"></result>
+        <result property="recordTime"    column="record_time"    />
+        <result property="qcType"    column="qc_type"    />
+        <result property="itemId"    column="item_id"    />
+        <result property="itemCode"    column="item_code"    />
+        <result property="itemName"    column="item_name"    />
+        <result property="specification" column="specification"></result>
+        <result property="unitOfMeasure" column="unit_of_measure"></result>
+        <result property="quantityUncheck"    column="quantity_uncheck"    />
+        <result property="workOrderId"    column="workorder_id"    />
+        <result property="workOrderCode"    column="workorder_code"    />
+        <result property="workOrderName"    column="workorder_name"    />
+        <result property="workstationId"    column="workstation_id"    />
+        <result property="workstationCode"    column="workstation_code"    />
+        <result property="workstationName"    column="workstation_name"    />
+        <result property="vendorClientId" column="vendor_client_id"></result>
+        <result property="vendorClientCode" column="vendor_client_code"></result>
+        <result property="vendorClientName" column="vendor_client_name"></result>
+        <result property="vendorClientNick" column="vendor_client_nick"></result>
+        <result property="batchCode" column="batch_code"></result>
+        <result property="taskId"    column="task_id"    />
+        <result property="taskCode"    column="task_code"    />
+        <result property="taskName"    column="task_name"    />
+        <result property="warehouseId"    column="warehouse_id"    />
+        <result property="warehouseCode"    column="warehouse_code"    />
+        <result property="warehouseName"    column="warehouse_name"    />
+        <result property="locationId"    column="location_id"    />
+        <result property="locationCode"    column="location_code"    />
+        <result property="locationName"    column="location_name"    />
+        <result property="areaId"    column="area_id"    />
+        <result property="areaCode"    column="area_code"    />
+        <result property="areaName"    column="area_name"    />
+        <result property="address"    column="address"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <select id="selectQcPendingList" parameterType="QcPendingInspect" resultMap="QcPendingInspectResult">
+        SELECT *
+        FROM
+            (
+                SELECT
+                    wi.recpt_id as source_doc_id,
+                    wi.recpt_code AS source_doc_code,
+                    wil.line_id AS source_line_id,
+                    wi.create_time AS record_time,
+                    'IQC' AS qc_type,
+                    wil.item_id,
+                    wil.item_code,
+                    wil.item_name,
+                    wil.specification,
+                    wil.unit_of_measure,
+                    wil.quantity_recived AS quantity_uncheck,
+                    NULL AS workorder_id,
+                    NULL AS workorder_code,
+                    NULL AS workorder_name,
+                    NULL AS task_id,
+                    NULL AS task_code,
+                    NULL AS task_name,
+                    NULL AS workstation_id,
+                    NULL AS workstation_code,
+                    NULL AS workstation_name,
+                    wi.vendor_id as vendor_client_id,
+                    wi.vendor_code as vendor_client_code,
+                    wi.vendor_name as vendor_client_name,
+                    wi.vendor_nick as vendor_client_nick,
+                    wil.batch_code,
+                    wil.warehouse_id,
+                    wil.warehouse_code,
+                    wil.warehouse_name,
+                    wil.location_id,
+                    wil.location_code,
+                    wil.location_name,
+                    wil.area_id,
+                    wil.area_code,
+                    wil.area_name,
+                    concat( wil.warehouse_name, wil.location_name, wil.area_name ) AS address
+                FROM
+                    wm_item_recpt wi
+                        LEFT JOIN wm_item_recpt_line wil ON wi.recpt_id = wil.recpt_id
+                WHERE
+                    wil.iqc_check = 'Y'
+                  AND wil.iqc_id IS NULL UNION ALL
+                SELECT
+                    pf.record_id as source_doc_id,
+                    pf.feedback_code AS source_doc_code,
+                    pf.record_id as source_line_id,
+                    pf.feedback_time AS record_time,
+                    'PQC' AS qc_type,
+                    pf.item_id,
+                    pf.item_code,
+                    pf.item_name,
+                    pf.specification,
+                    pf.unit_of_measure,
+                    pf.quantity_uncheck,
+                    pf.workorder_id,
+                    pf.workorder_code,
+                    pf.workorder_name,
+                    pf.task_id,
+                    pf.task_code,
+                    NULL AS task_name,
+                    pf.workstation_id,
+                    pf.workstation_code,
+                    pf.workstation_name,
+                    NULL as vendor_client_id,
+                    NULL as vendor_client_code,
+                    NULL as vendor_client_name,
+                    NULL as vendor_client_nick,
+                    NULL AS batch_code,
+                    NULL AS warehouse_id,
+                    NULL AS warehouse_code,
+                    NULL AS warehouse_name,
+                    NULL AS location_id,
+                    NULL AS location_code,
+                    NULL AS location_name,
+                    NULL AS area_id,
+                    NULL AS area_code,
+                    NULL AS area_name,
+                    pf.workstation_name AS address
+                FROM
+                    pro_feedback pf
+                WHERE
+                    pf.quantity_uncheck > 0 UNION ALL
+                SELECT
+                    ps.salse_id AS source_doc_id,
+                    ps.salse_code AS source_doc_code,
+                    psl.line_id AS source_line_id,
+                    ps.create_time AS record_time,
+                    'OQC' AS qc_type,
+                    psl.item_id,
+                    psl.item_code,
+                    psl.item_name,
+                    psl.specification,
+                    psl.unit_of_measure,
+                    psl.quantity_salse AS quantity_uncheck,
+                    NULL AS workorder_id,
+                    NULL AS workorder_code,
+                    NULL AS workorder_name,
+                    NULL AS task_id,
+                    NULL AS task_code,
+                    NULL AS task_name,
+                    NULL AS workstation_id,
+                    NULL AS workstation_code,
+                    NULL AS workstation_name,
+                    ps.client_id as vendor_client_id,
+                    ps.client_code as vendor_client_code,
+                    ps.client_name as vendor_client_name,
+                    ps.client_nick as vendor_client_nick,
+                    psl.batch_code,
+                    psl.warehouse_id,
+                    psl.warehouse_code,
+                    psl.warehouse_name,
+                    psl.location_id,
+                    psl.location_code,
+                    psl.location_name,
+                    psl.area_id,
+                    psl.area_code,
+                    psl.area_name,
+                    concat( psl.warehouse_name, psl.location_name, psl.area_name ) AS address
+                FROM
+                    wm_product_salse ps
+                        LEFT JOIN wm_product_salse_line psl ON ps.salse_id = psl.salse_id
+                WHERE
+                    psl.oqc_check = 'Y'
+                  AND psl.oqc_id IS NULL
+            ) t
+        ORDER BY record_time DESC
+    </select>
+
+</mapper>

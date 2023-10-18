@@ -33,6 +33,17 @@ public class QcIqc extends BaseEntity
     @Excel(name = "检验模板ID")
     private Long templateId;
 
+    private Long sourceDocId;
+
+    @Excel(name = "来源单据类型")
+    private String sourceDocType;
+
+    @Excel(name = "来源单据编号")
+    private String sourceDocCode;
+
+    private Long sourceLineId;
+
+
     /** 供应商ID */
     @Excel(name = "供应商ID")
     private Long vendorId;
@@ -189,7 +200,40 @@ public class QcIqc extends BaseEntity
     {
         return templateId;
     }
-    public void setVendorId(Long vendorId) 
+
+    public Long getSourceDocId() {
+        return sourceDocId;
+    }
+
+    public void setSourceDocId(Long sourceDocId) {
+        this.sourceDocId = sourceDocId;
+    }
+
+    public String getSourceDocType() {
+        return sourceDocType;
+    }
+
+    public void setSourceDocType(String sourceDocType) {
+        this.sourceDocType = sourceDocType;
+    }
+
+    public String getSourceDocCode() {
+        return sourceDocCode;
+    }
+
+    public void setSourceDocCode(String sourceDocCode) {
+        this.sourceDocCode = sourceDocCode;
+    }
+
+    public Long getSourceLineId() {
+        return sourceLineId;
+    }
+
+    public void setSourceLineId(Long sourceLineId) {
+        this.sourceLineId = sourceLineId;
+    }
+
+    public void setVendorId(Long vendorId)
     {
         this.vendorId = vendorId;
     }

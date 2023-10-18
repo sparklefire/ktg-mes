@@ -10,6 +10,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="ipqcName"    column="ipqc_name"    />
         <result property="ipqcType"    column="ipqc_type"    />
         <result property="templateId"    column="template_id"    />
+        <result property="sourceDocId" column="source_doc_id" ></result>
+        <result property="sourceDocType" column="source_doc_type"></result>
+        <result property="sourceDocCode" column="source_doc_code"></result>
+        <result property="sourceLineId" column="source_line_id"></result>
         <result property="workorderId"    column="workorder_id"    />
         <result property="workorderCode"    column="workorder_code"    />
         <result property="workorderName"    column="workorder_name"    />
@@ -52,7 +56,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectQcIpqcVo">
-        select ipqc_id, ipqc_code, ipqc_name, ipqc_type, template_id, workorder_id, workorder_code, workorder_name, task_id, task_code, task_name, workstation_id, workstation_code, workstation_name, process_id, process_code, process_name, item_id, item_code, item_name, specification, unit_of_measure, quantity_check, quantity_unqualified, quantity_qualified, cr_rate, maj_rate, min_rate, cr_quantity, maj_quantity, min_quantity, check_result, inspect_date, inspector, status, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from qc_ipqc
+        select ipqc_id, ipqc_code, ipqc_name, ipqc_type, template_id, source_doc_id,source_doc_type, source_doc_code, source_line_id, workorder_id, workorder_code, workorder_name, task_id, task_code, task_name, workstation_id, workstation_code, workstation_name, process_id, process_code, process_name, item_id, item_code, item_name, specification, unit_of_measure, quantity_check, quantity_unqualified, quantity_qualified, cr_rate, maj_rate, min_rate, cr_quantity, maj_quantity, min_quantity, check_result, inspect_date, inspector, status, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from qc_ipqc
     </sql>
 
     <select id="selectQcIpqcList" parameterType="QcIpqc" resultMap="QcIpqcResult">
@@ -62,6 +66,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="ipqcName != null  and ipqcName != ''"> and ipqc_name like concat('%', #{ipqcName}, '%')</if>
             <if test="ipqcType != null  and ipqcType != ''"> and ipqc_type = #{ipqcType}</if>
             <if test="templateId != null "> and template_id = #{templateId}</if>
+            <if test="sourceDocId != null"> and source_doc_id = #{sourceDocId}</if>
+            <if test="sourceDocType !=null and sourceDocType !=''"> and source_doc_type = #{sourceDocType}</if>
+            <if test="sourceDocCode !=null and sourceDocCode !=''"> and source_doc_code = #{sourceDocCode}</if>
+            <if test="sourceLineId !=null"> and source_line_id = #{sourceLineId}</if>
             <if test="workorderId != null "> and workorder_id = #{workorderId}</if>
             <if test="workorderCode != null  and workorderCode != ''"> and workorder_code = #{workorderCode}</if>
             <if test="workorderName != null  and workorderName != ''"> and workorder_name like concat('%', #{workorderName}, '%')</if>
@@ -130,6 +138,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="ipqcName != null">ipqc_name,</if>
             <if test="ipqcType != null and ipqcType != ''">ipqc_type,</if>
             <if test="templateId != null">template_id,</if>
+            <if test="sourceDocId != null">source_doc_id,</if>
+            <if test="sourceDocType !=null and sourceDocType !=''">source_doc_type,</if>
+            <if test="sourceDocCode !=null and sourceDocCode !=''">source_doc_code,</if>
+            <if test="sourceLineId !=null">source_line_id,</if>
             <if test="workorderId != null">workorder_id,</if>
             <if test="workorderCode != null and workorderCode != ''">workorder_code,</if>
             <if test="workorderName != null and workorderName != ''">workorder_name,</if>
@@ -175,6 +187,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="ipqcName != null">#{ipqcName},</if>
             <if test="ipqcType != null and ipqcType != ''">#{ipqcType},</if>
             <if test="templateId != null">#{templateId},</if>
+            <if test="sourceDocId != null">#{sourceDocId},</if>
+            <if test="sourceDocType !=null and sourceDocType !=''">#{sourceDocType},</if>
+            <if test="sourceDocCode !=null and sourceDocCode !=''">#{sourceDocCode},</if>
+            <if test="sourceLineId !=null">#{sourceLineId},</if>
             <if test="workorderId != null">#{workorderId},</if>
             <if test="workorderCode != null and workorderCode != ''">#{workorderCode},</if>
             <if test="workorderName != null and workorderName != ''">#{workorderName},</if>
@@ -224,6 +240,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="ipqcName != null">ipqc_name = #{ipqcName},</if>
             <if test="ipqcType != null and ipqcType != ''">ipqc_type = #{ipqcType},</if>
             <if test="templateId != null">template_id = #{templateId},</if>
+            <if test="sourceDocId !=null">source_doc_id = #{sourceDocId},</if>
+            <if test="sourceDocType !=null and sourceDocType !=''">source_doc_type = #{sourceDocType},</if>
+            <if test="sourceDocCode !=null and sourceDocCode !=''">source_doc_code = #{sourceDocCode},</if>
+            <if test="sourceLineId !=null">source_line_id = #{sourceLineId},</if>
             <if test="workorderId != null">workorder_id = #{workorderId},</if>
             <if test="workorderCode != null and workorderCode != ''">workorder_code = #{workorderCode},</if>
             <if test="workorderName != null and workorderName != ''">workorder_name = #{workorderName},</if>

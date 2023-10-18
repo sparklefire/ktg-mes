@@ -5,6 +5,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import cn.hutool.core.collection.CollUtil;
 import com.ktg.common.constant.UserConstants;
+import com.ktg.common.utils.StringUtils;
+import com.ktg.mes.pro.domain.ProFeedback;
+import com.ktg.mes.pro.service.IProFeedbackService;
 import com.ktg.mes.qc.domain.*;
 import com.ktg.mes.qc.service.*;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -49,6 +52,8 @@ public class QcIqcController extends BaseController
 
     @Autowired
     private IQcDefectRecordService qcDefectRecordService;
+
+
 
     /**
      * 查询来料检验单列表

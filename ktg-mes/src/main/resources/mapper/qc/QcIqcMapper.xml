@@ -10,6 +10,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="iqcName"    column="iqc_name"    />
         <result property="templateId"    column="template_id"    />
         <result property="vendorId"    column="vendor_id"    />
+        <result property="sourceDocId" column="source_doc_id" ></result>
+        <result property="sourceDocType" column="source_doc_type"></result>
+        <result property="sourceDocCode" column="source_doc_code"></result>
+        <result property="sourceLineId" column="source_line_id"></result>
         <result property="vendorCode"    column="vendor_code"    />
         <result property="vendorName"    column="vendor_name"    />
         <result property="vendorNick"    column="vendor_nick"    />
@@ -48,7 +52,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectQcIqcVo">
-        select iqc_id, iqc_code, iqc_name, template_id, vendor_id, vendor_code, vendor_name, vendor_nick, vendor_batch, item_id, item_code, item_name, specification, unit_of_measure, quantity_min_check, quantity_max_unqualified, quantity_recived, quantity_check, quantity_unqualified, cr_rate, maj_rate, min_rate, cr_quantity, maj_quantity, min_quantity, check_result, recive_date, inspect_date, inspector,u.nick_name as inspector_name, q.status, q.remark, attr1, attr2, attr3, attr4, q.create_by, q.create_time, q.update_by, q.update_time from qc_iqc q left join sys_user u on u.user_name = q.inspector
+        select iqc_id, iqc_code, iqc_name, template_id, source_doc_id,source_doc_type, source_doc_code, source_line_id, vendor_id, vendor_code, vendor_name, vendor_nick, vendor_batch, item_id, item_code, item_name, specification, unit_of_measure, quantity_min_check, quantity_max_unqualified, quantity_recived, quantity_check, quantity_unqualified, cr_rate, maj_rate, min_rate, cr_quantity, maj_quantity, min_quantity, check_result, recive_date, inspect_date, inspector,u.nick_name as inspector_name, q.status, q.remark, attr1, attr2, attr3, attr4, q.create_by, q.create_time, q.update_by, q.update_time from qc_iqc q left join sys_user u on u.user_name = q.inspector
     </sql>
 
     <select id="selectQcIqcList" parameterType="QcIqc" resultMap="QcIqcResult">
@@ -57,6 +61,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="iqcCode != null  and iqcCode != ''"> and iqc_code = #{iqcCode}</if>
             <if test="iqcName != null  and iqcName != ''"> and iqc_name like concat('%', #{iqcName}, '%')</if>
             <if test="templateId != null "> and template_id = #{templateId}</if>
+            <if test="sourceDocId != null"> and source_doc_id = #{sourceDocId}</if>
+            <if test="sourceDocType !=null and sourceDocType !=''"> and source_doc_type = #{sourceDocType}</if>
+            <if test="sourceDocCode !=null and sourceDocCode !=''"> and source_doc_code = #{sourceDocCode}</if>
+            <if test="sourceLineId !=null"> and source_line_id = #{sourceLineId}</if>
             <if test="vendorId != null "> and vendor_id = #{vendorId}</if>
             <if test="vendorCode != null  and vendorCode != ''"> and vendor_code = #{vendorCode}</if>
             <if test="vendorName != null  and vendorName != ''"> and vendor_name like concat('%', #{vendorName}, '%')</if>
@@ -103,6 +111,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="iqcCode != null and iqcCode != ''">iqc_code,</if>
             <if test="iqcName != null and iqcName != ''">iqc_name,</if>
             <if test="templateId != null">template_id,</if>
+            <if test="sourceDocId != null">source_doc_id,</if>
+            <if test="sourceDocType !=null and sourceDocType !=''">source_doc_type,</if>
+            <if test="sourceDocCode !=null and sourceDocCode !=''">source_doc_code,</if>
+            <if test="sourceLineId !=null">source_line_id,</if>
             <if test="vendorId != null">vendor_id,</if>
             <if test="vendorCode != null and vendorCode != ''">vendor_code,</if>
             <if test="vendorName != null and vendorName != ''">vendor_name,</if>
@@ -143,6 +155,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="iqcCode != null and iqcCode != ''">#{iqcCode},</if>
             <if test="iqcName != null and iqcName != ''">#{iqcName},</if>
             <if test="templateId != null">#{templateId},</if>
+            <if test="sourceDocId != null">#{sourceDocId},</if>
+            <if test="sourceDocType !=null and sourceDocType !=''">#{sourceDocType},</if>
+            <if test="sourceDocCode !=null and sourceDocCode !=''">#{sourceDocCode},</if>
+            <if test="sourceLineId !=null">#{sourceLineId},</if>
             <if test="vendorId != null">#{vendorId},</if>
             <if test="vendorCode != null and vendorCode != ''">#{vendorCode},</if>
             <if test="vendorName != null and vendorName != ''">#{vendorName},</if>
@@ -208,6 +224,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="iqcCode != null and iqcCode != ''">iqc_code = #{iqcCode},</if>
             <if test="iqcName != null and iqcName != ''">iqc_name = #{iqcName},</if>
             <if test="templateId != null">template_id = #{templateId},</if>
+            <if test="sourceDocId !=null">source_doc_id = #{sourceDocId},</if>
+            <if test="sourceDocType !=null and sourceDocType !=''">source_doc_type = #{sourceDocType},</if>
+            <if test="sourceDocCode !=null and sourceDocCode !=''">source_doc_code = #{sourceDocCode},</if>
+            <if test="sourceLineId !=null">source_line_id = #{sourceLineId},</if>
             <if test="vendorId != null">vendor_id = #{vendorId},</if>
             <if test="vendorCode != null and vendorCode != ''">vendor_code = #{vendorCode},</if>
             <if test="vendorName != null and vendorName != ''">vendor_name = #{vendorName},</if>

@@ -107,7 +107,7 @@ public class QcDefectRecordController extends BaseController
             return AjaxResult.error("请填写缺陷内容");
         }
 
-        if(StringUtils.isNotNull(qcDefectRecord.getDefectLevel())){
+        if(!StringUtils.isNotNull(qcDefectRecord.getDefectLevel())){
             return AjaxResult.error("请选择缺陷级别");
         }
 
@@ -132,7 +132,7 @@ public class QcDefectRecordController extends BaseController
                     return AjaxResult.error("请填写缺陷内容");
                 }
 
-                if(StringUtils.isNotNull(defect.getDefectLevel())){
+                if(!StringUtils.isNotNull(defect.getDefectLevel())){
                     return AjaxResult.error("请选择缺陷级别");
                 }
 

@@ -9,6 +9,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="oqcCode"    column="oqc_code"    />
         <result property="oqcName"    column="oqc_name"    />
         <result property="templateId"    column="template_id"    />
+        <result property="sourceDocId" column="source_doc_id" ></result>
+        <result property="sourceDocType" column="source_doc_type"></result>
+        <result property="sourceDocCode" column="source_doc_code"></result>
+        <result property="sourceLineId" column="source_line_id"></result>
         <result property="clientId"    column="client_id"    />
         <result property="clientCode"    column="client_code"    />
         <result property="clientName"    column="client_name"    />
@@ -47,7 +51,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectQcOqcVo">
-        select oqc_id, oqc_code, oqc_name, template_id, client_id, client_code, client_name, batch_code, item_id, item_code, item_name, specification, unit_of_measure, quantity_min_check, quantity_max_unqualified, quantity_out, quantity_check, quantity_unqualified, quantity_quanlified, cr_rate, maj_rate, min_rate, cr_quantity, maj_quantity, min_quantity, check_result, out_date, inspect_date, inspector, status, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from qc_oqc
+        select oqc_id, oqc_code, oqc_name, template_id, source_doc_id,source_doc_type, source_doc_code, source_line_id, client_id, client_code, client_name, batch_code, item_id, item_code, item_name, specification, unit_of_measure, quantity_min_check, quantity_max_unqualified, quantity_out, quantity_check, quantity_unqualified, quantity_quanlified, cr_rate, maj_rate, min_rate, cr_quantity, maj_quantity, min_quantity, check_result, out_date, inspect_date, inspector, status, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from qc_oqc
     </sql>
 
     <select id="selectQcOqcList" parameterType="QcOqc" resultMap="QcOqcResult">
@@ -56,6 +60,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="oqcCode != null  and oqcCode != ''"> and oqc_code = #{oqcCode}</if>
             <if test="oqcName != null  and oqcName != ''"> and oqc_name like concat('%', #{oqcName}, '%')</if>
             <if test="templateId != null "> and template_id = #{templateId}</if>
+            <if test="sourceDocId != null"> and source_doc_id = #{sourceDocId}</if>
+            <if test="sourceDocType !=null and sourceDocType !=''"> and source_doc_type = #{sourceDocType}</if>
+            <if test="sourceDocCode !=null and sourceDocCode !=''"> and source_doc_code = #{sourceDocCode}</if>
+            <if test="sourceLineId !=null"> and source_line_id = #{sourceLineId}</if>
             <if test="clientId != null "> and client_id = #{clientId}</if>
             <if test="clientCode != null  and clientCode != ''"> and client_code = #{clientCode}</if>
             <if test="clientName != null  and clientName != ''"> and client_name like concat('%', #{clientName}, '%')</if>
@@ -102,6 +110,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="oqcCode != null and oqcCode != ''">oqc_code,</if>
             <if test="oqcName != null">oqc_name,</if>
             <if test="templateId != null">template_id,</if>
+            <if test="sourceDocId != null">source_doc_id,</if>
+            <if test="sourceDocType !=null and sourceDocType !=''">source_doc_type,</if>
+            <if test="sourceDocCode !=null and sourceDocCode !=''">source_doc_code,</if>
+            <if test="sourceLineId !=null">source_line_id,</if>
             <if test="clientId != null">client_id,</if>
             <if test="clientCode != null and clientCode != ''">client_code,</if>
             <if test="clientName != null and clientName != ''">client_name,</if>
@@ -142,6 +154,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="oqcCode != null and oqcCode != ''">#{oqcCode},</if>
             <if test="oqcName != null">#{oqcName},</if>
             <if test="templateId != null">#{templateId},</if>
+            <if test="sourceDocId != null">#{sourceDocId},</if>
+            <if test="sourceDocType !=null and sourceDocType !=''">#{sourceDocType},</if>
+            <if test="sourceDocCode !=null and sourceDocCode !=''">#{sourceDocCode},</if>
+            <if test="sourceLineId !=null">#{sourceLineId},</if>
             <if test="clientId != null">#{clientId},</if>
             <if test="clientCode != null and clientCode != ''">#{clientCode},</if>
             <if test="clientName != null and clientName != ''">#{clientName},</if>
@@ -186,6 +202,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="oqcCode != null and oqcCode != ''">oqc_code = #{oqcCode},</if>
             <if test="oqcName != null">oqc_name = #{oqcName},</if>
             <if test="templateId != null">template_id = #{templateId},</if>
+            <if test="sourceDocId !=null">source_doc_id = #{sourceDocId},</if>
+            <if test="sourceDocType !=null and sourceDocType !=''">source_doc_type = #{sourceDocType},</if>
+            <if test="sourceDocCode !=null and sourceDocCode !=''">source_doc_code = #{sourceDocCode},</if>
+            <if test="sourceLineId !=null">source_line_id = #{sourceLineId},</if>
             <if test="clientId != null">client_id = #{clientId},</if>
             <if test="clientCode != null and clientCode != ''">client_code = #{clientCode},</if>
             <if test="clientName != null and clientName != ''">client_name = #{clientName},</if>

@@ -34,7 +34,7 @@
             AND rule_id = #{ruleId}
         </if>
         <if test="ruleCode != null and ruleCode != ''">
-            AND rule_code = #{ruleCode}
+            AND rule_code like concat('%', #{ruleCode}, '%')
         </if>
 
         <if test="ruleName != null and ruleName != ''">
