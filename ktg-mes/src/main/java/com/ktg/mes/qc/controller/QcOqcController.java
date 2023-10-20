@@ -6,10 +6,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import cn.hutool.core.collection.CollUtil;
 import com.ktg.common.constant.UserConstants;
+import com.ktg.common.utils.StringUtils;
 import com.ktg.mes.qc.domain.*;
 import com.ktg.mes.qc.service.IQcOqcLineService;
 import com.ktg.mes.qc.service.IQcTemplateIndexService;
 import com.ktg.mes.qc.service.IQcTemplateProductService;
+import com.ktg.mes.wm.domain.WmProductSalseLine;
+import com.ktg.mes.wm.service.IWmProductSalseLineService;
+import org.apache.catalina.User;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,6 +54,9 @@ public class QcOqcController extends BaseController
 
     @Autowired
     private IQcTemplateIndexService qcTemplateIndexService;
+
+    @Autowired
+    private IWmProductSalseLineService wmProductSalseLineService;
 
     /**
      * 查询出货检验单列表
@@ -127,6 +134,29 @@ public class QcOqcController extends BaseController
     {
         if(UserConstants.NOT_UNIQUE.equals(qcOqcService.checkOqcCodeUnique(qcOqc))){
             return AjaxResult.error("出货单编号已存在!");
+        }
+
+        //自动获取对应的检测模板
+        QcTemplateProduct param = new QcTemplateProduct();
+        param.setItemId(qcOqc.getItemId());
+        List<QcTemplateProduct> templates = qcTemplateProductService.selectQcTemplateProductList(param);
+        if(CollUtil.isNotEmpty(templates)){
+            qcOqc.setTemplateId(templates.get(0).getTemplateId());
+        }else{
+            return AjaxResult.error("当前产品未配置检测模板！");
+        }
+        //设置检测人
+        qcOqc.setInspector(getUsername());
+
+        if(UserConstants.ORDER_STATUS_FINISHED.equals(qcOqc.getStatus())){
+            if(StringUtils.isNotNull(qcOqc.getSourceDocCode())){
+                WmProductSalseLine line =  wmProductSalseLineService.selectWmProductSalseLineByLineId(qcOqc.getSourceLineId());
+                if(StringUtils.isNotNull(line)){
+                    line.setOqcId(qcOqc.getOqcId());
+                    line.setOqcCode(qcOqc.getOqcCode());
+                    wmProductSalseLineService.updateWmProductSalseLine(line);
+                }
+            }
         }
         return toAjax(qcOqcService.updateQcOqc(qcOqc));
     }

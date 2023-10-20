@@ -10,6 +10,9 @@ import com.ktg.mes.pro.domain.ProFeedback;
 import com.ktg.mes.pro.service.IProFeedbackService;
 import com.ktg.mes.qc.domain.*;
 import com.ktg.mes.qc.service.*;
+import com.ktg.mes.wm.domain.WmItemRecptLine;
+import com.ktg.mes.wm.service.IWmItemRecptLineService;
+import com.ktg.mes.wm.service.IWmItemRecptService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,6 +56,8 @@ public class QcIqcController extends BaseController
     @Autowired
     private IQcDefectRecordService qcDefectRecordService;
 
+    @Autowired
+    private IWmItemRecptLineService wmItemRecptLineService;
 
 
     /**
@@ -129,6 +134,29 @@ public class QcIqcController extends BaseController
     {
         if(UserConstants.NOT_UNIQUE.equals(qcIqcService.checkIqcCodeUnique(qcIqc))){
             return AjaxResult.error("单据编号已存在！");
+        }
+
+        QcTemplateProduct param = new QcTemplateProduct();
+        param.setItemId(qcIqc.getItemId());
+        List<QcTemplateProduct> templates = qcTemplateProductService.selectQcTemplateProductList(param);
+        if(CollUtil.isNotEmpty(templates)){
+            qcIqc.setTemplateId(templates.get(0).getTemplateId());
+        }else{
+            return AjaxResult.error("当前产品未配置检测模板！");
+        }
+        qcIqc.setInspector(getUsername());
+
+        //如果是完成状态，则根据来源单据更新其对应的检测单
+        if(UserConstants.ORDER_STATUS_FINISHED.equals(qcIqc.getStatus())){
+            if(StringUtils.isNotNull(qcIqc.getSourceDocCode())){
+                //这里默认是采购入库单，后续有其他单据则根据单据类型(sourceDocType)进行区分
+                WmItemRecptLine line = wmItemRecptLineService.selectWmItemRecptLineByLineId(qcIqc.getSourceLineId());
+                if(StringUtils.isNotNull(line)){
+                    line.setIqcCode(qcIqc.getIqcCode());
+                    line.setIqcId(qcIqc.getIqcId());
+                    wmItemRecptLineService.updateWmItemRecptLine(line);
+                }
+            }
         }
 
         return toAjax(qcIqcService.updateQcIqc(qcIqc));
