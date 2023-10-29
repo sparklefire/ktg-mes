@@ -29,6 +29,10 @@ public class ProWorkorder extends TreeEntity
     @Excel(name = "工单名称")
     private String workorderName;
 
+    /** 工单类型 */
+    @Excel(name = "工单类型")
+    private String workorderType;
+
     /** 来源类型 */
     @Excel(name = "来源类型")
     private String orderSource;
@@ -89,6 +93,19 @@ public class ProWorkorder extends TreeEntity
     @Excel(name = "客户名称")
     private String clientName;
 
+    /** 供应商ID */
+    @Excel(name = "供应商ID")
+    private Long vendorId;
+
+    /** 供应商编号 */
+    @Excel(name = "供应商编号")
+    private String vendorCode;
+
+    /** 供应商名称 */
+    @Excel(name = "供应商名称")
+    private String vendorName;
+
+
     /** 需求日期 */
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Excel(name = "需求日期", width = 30, dateFormat = "yyyy-MM-dd")
@@ -142,7 +159,16 @@ public class ProWorkorder extends TreeEntity
     {
         return workorderName;
     }
-    public void setOrderSource(String orderSource) 
+
+    public String getWorkorderType() {
+        return workorderType;
+    }
+
+    public void setWorkorderType(String workorderType) {
+        this.workorderType = workorderType;
+    }
+
+    public void setOrderSource(String orderSource)
     {
         this.orderSource = orderSource;
     }
@@ -268,7 +294,32 @@ public class ProWorkorder extends TreeEntity
     {
         return clientName;
     }
-    public void setRequestDate(Date requestDate) 
+
+    public Long getVendorId() {
+        return vendorId;
+    }
+
+    public void setVendorId(Long vendorId) {
+        this.vendorId = vendorId;
+    }
+
+    public String getVendorCode() {
+        return vendorCode;
+    }
+
+    public void setVendorCode(String vendorCode) {
+        this.vendorCode = vendorCode;
+    }
+
+    public String getVendorName() {
+        return vendorName;
+    }
+
+    public void setVendorName(String vendorName) {
+        this.vendorName = vendorName;
+    }
+
+    public void setRequestDate(Date requestDate)
     {
         this.requestDate = requestDate;
     }
@@ -345,6 +396,7 @@ public class ProWorkorder extends TreeEntity
                 "workorderId=" + workorderId +
                 ", workorderCode='" + workorderCode + '\'' +
                 ", workorderName='" + workorderName + '\'' +
+                ", workorderType='" + workorderType + '\'' +
                 ", orderSource='" + orderSource + '\'' +
                 ", sourceCode='" + sourceCode + '\'' +
                 ", productId=" + productId +
@@ -360,6 +412,9 @@ public class ProWorkorder extends TreeEntity
                 ", clientId=" + clientId +
                 ", clientCode='" + clientCode + '\'' +
                 ", clientName='" + clientName + '\'' +
+                ", vendorId=" + vendorId +
+                ", vendorCode='" + vendorCode + '\'' +
+                ", vendorName='" + vendorName + '\'' +
                 ", requestDate=" + requestDate +
                 ", finishDate=" + finishDate +
                 ", status='" + status + '\'' +

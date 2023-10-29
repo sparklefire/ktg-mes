@@ -6,6 +6,7 @@ create table pro_workorder (
   workorder_id                bigint(20)      not null auto_increment    comment '工单ID',
   workorder_code              varchar(64)     not null                   comment '工单编码',
   workorder_name              varchar(255)    not null                   comment '工单名称',
+  workorder_type              varchar(64)     default 'SELF'             comment '工单类型',
   order_source                varchar(64)     not null                   comment '来源类型',
   source_code                 varchar(64)                                comment '来源单据',
   product_id                  bigint(20)      not null                   comment '产品ID',
@@ -20,6 +21,9 @@ create table pro_workorder (
   client_id                   bigint(20)                                 comment '客户ID',
   client_code                 varchar(64)                                comment '客户编码',
   client_name                 varchar(255)                               comment '客户名称',
+  vendor_id                   bigint(20)                                 comment '供应商ID',
+  vendor_code                 varchar(64)                                comment '供应商编号',
+  vendor_name                 varchar(255)                               comment '供应商名称',
   batch_code                  varchar(64)                                comment '批次号',
   request_date                datetime        not null                   comment '需求日期',
   parent_id                   bigint(20)      default 0 not null         comment '父工单',
@@ -564,3 +568,5 @@ create table pro_shutdown_record (
   update_time                    datetime                                   comment '更新时间',
   primary key (record_id)
 ) engine=innodb auto_increment=200 comment = '停机记录记录';
+
+

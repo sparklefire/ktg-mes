@@ -8,6 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="workorderId"    column="workorder_id"    />
         <result property="workorderCode"    column="workorder_code"    />
         <result property="workorderName"    column="workorder_name"    />
+        <result property="workorderType"  column="workorder_type" />
         <result property="orderSource"    column="order_source"    />
         <result property="sourceCode"    column="source_code"    />
         <result property="productId"    column="product_id"    />
@@ -23,6 +24,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="clientId"    column="client_id"    />
         <result property="clientCode"    column="client_code"    />
         <result property="clientName"    column="client_name"    />
+        <result property="vendorId" column="vendor_id"/>
+        <result property="vendorCode" column="vendor_code"/>
+        <result property="vendorName" column="vendor_name"/>
         <result property="requestDate"    column="request_date"    />
         <result property="parentId"    column="parent_id"    />
         <result property="ancestors"    column="ancestors"    />
@@ -40,7 +44,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectProWorkorderVo">
-        select workorder_id, workorder_code, workorder_name, order_source, source_code, product_id, product_code, product_name, product_spc, unit_of_measure,batch_code, quantity,quantity_produced, client_id, client_code, client_name, request_date, parent_id, ancestors, status, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from pro_workorder
+        select workorder_id, workorder_code, workorder_name, workorder_type, order_source, source_code, product_id, product_code, product_name, product_spc, unit_of_measure,batch_code, quantity,quantity_produced, client_id, client_code, client_name, vendor_id, vendor_code, vendor_name, request_date, parent_id, ancestors, status, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from pro_workorder
     </sql>
 
     <select id="selectProWorkorderList" parameterType="ProWorkorder" resultMap="ProWorkorderResult">
@@ -48,6 +52,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <where>  
             <if test="workorderCode != null  and workorderCode != ''"> and workorder_code = #{workorderCode}</if>
             <if test="workorderName != null  and workorderName != ''"> and workorder_name like concat('%', #{workorderName}, '%')</if>
+            <if test="workorderType != null and workorderType !=''"> and workorder_type = #{workorderType}</if>
             <if test="orderSource != null  and orderSource != ''"> and order_source = #{orderSource}</if>
             <if test="sourceCode != null  and sourceCode != ''"> and source_code = #{sourceCode}</if>
             <if test="productId != null "> and product_id = #{productId}</if>
@@ -63,6 +68,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="clientId != null "> and client_id = #{clientId}</if>
             <if test="clientCode != null  and clientCode != ''"> and client_code = #{clientCode}</if>
             <if test="clientName != null  and clientName != ''"> and client_name like concat('%', #{clientName}, '%')</if>
+            <if test="vendorId != null"> and vendor_id = #{vendorId}</if>
+            <if test="vendorCode != null and vendorCode !=''"> and vendor_code = #{vendorCode}</if>
+            <if test="vendorName != null and vendorName !=''"> and vendor_name like concat('%',#{vendorName},'%')</if>
             <if test="requestDate != null "> and request_date = #{requestDate}</if>
             <if test="finishDate != null "> and finish_date = #{finishDate}</if>
             <if test="parentId != null "> and parent_id = #{parentId}</if>
@@ -87,6 +95,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="workorderCode != null and workorderCode != ''">workorder_code,</if>
             <if test="workorderName != null and workorderName != ''">workorder_name,</if>
+            <if test="workorderType != null and workorderType != ''">workorder_type,</if>
             <if test="orderSource != null and orderSource != ''">order_source,</if>
             <if test="sourceCode != null">source_code,</if>
             <if test="productId != null">product_id,</if>
@@ -102,6 +111,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="clientId != null">client_id,</if>
             <if test="clientCode != null">client_code,</if>
             <if test="clientName != null">client_name,</if>
+            <if test="vendorId !=null">vendor_id,</if>
+            <if test="vendorCode !=null">vendor_code,</if>
+            <if test="vendorName !=null">vendor_name,</if>
             <if test="requestDate != null">request_date,</if>
             <if test="finishDate != null">finish_date,</if>
             <if test="parentId != null">parent_id,</if>
@@ -120,6 +132,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="workorderCode != null and workorderCode != ''">#{workorderCode},</if>
             <if test="workorderName != null and workorderName != ''">#{workorderName},</if>
+            <if test="workorderType != null and workorderType != ''">#{workorderType},</if>
             <if test="orderSource != null and orderSource != ''">#{orderSource},</if>
             <if test="sourceCode != null">#{sourceCode},</if>
             <if test="productId != null">#{productId},</if>
@@ -135,6 +148,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="clientId != null">#{clientId},</if>
             <if test="clientCode != null">#{clientCode},</if>
             <if test="clientName != null">#{clientName},</if>
+            <if test="vendorId !=null">#{vendorId},</if>
+            <if test="vendorCode !=null">#{vendorCode},</if>
+            <if test="vendorName !=null">#{vendorName},</if>
             <if test="requestDate != null">#{requestDate},</if>
             <if test="finishDate != null">#{finishDate},</if>
             <if test="parentId != null">#{parentId},</if>
@@ -157,6 +173,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <trim prefix="SET" suffixOverrides=",">
             <if test="workorderCode != null and workorderCode != ''">workorder_code = #{workorderCode},</if>
             <if test="workorderName != null and workorderName != ''">workorder_name = #{workorderName},</if>
+            <if test="workorderType != null and workorderType != ''">workorder_type = #{workorderType},</if>
             <if test="orderSource != null and orderSource != ''">order_source = #{orderSource},</if>
             <if test="sourceCode != null">source_code = #{sourceCode},</if>
             <if test="productId != null">product_id = #{productId},</if>
@@ -172,6 +189,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="clientId != null">client_id = #{clientId},</if>
             <if test="clientCode != null">client_code = #{clientCode},</if>
             <if test="clientName != null">client_name = #{clientName},</if>
+            <if test="vendorId !=null">vendor_id = #{vendorId},</if>
+            <if test="vendorCode !=null">vendor_code = #{vendorCode},</if>
+            <if test="vendorName !=null">vendor_name = #{vendorName},</if>
             <if test="requestDate != null">request_date = #{requestDate},</if>
             <if test="finishDate != null">finish_date = #{finishDate},</if>
             <if test="parentId != null">parent_id = #{parentId},</if>
