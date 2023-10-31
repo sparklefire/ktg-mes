@@ -2,6 +2,7 @@ package com.ktg.mes.wm.mapper;
 
 import java.util.List;
 import com.ktg.mes.wm.domain.WmOutsourceRecpt;
+import com.ktg.mes.wm.domain.tx.OutsourceRecptTxBean;
 
 /**
  * 外协入库单Mapper接口
@@ -58,4 +59,6 @@ public interface WmOutsourceRecptMapper
      * @return 结果
      */
     public int deleteWmOutsourceRecptByRecptIds(Long[] recptIds);
+
+    public List<OutsourceRecptTxBean> getTxBeans(Long recptId);
 }

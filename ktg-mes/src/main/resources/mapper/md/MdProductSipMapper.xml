@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ktg.mes.md.mapper.MdProductSipMapper">
+    
+    <resultMap type="MdProductSip" id="MdProductSipResult">
+        <result property="sipId"    column="sip_id"    />
+        <result property="itemId"    column="item_id"    />
+        <result property="orderNum"    column="order_num"    />
+        <result property="processId"    column="process_id"    />
+        <result property="processCode"    column="process_code"    />
+        <result property="processName"    column="process_name"    />
+        <result property="sipTitle"    column="sip_title"    />
+        <result property="sipDescription"    column="sip_description"    />
+        <result property="sipUrl"    column="sip_url"    />
+        <result property="remark"    column="remark"    />
+        <result property="attr1"    column="attr1"    />
+        <result property="attr2"    column="attr2"    />
+        <result property="attr3"    column="attr3"    />
+        <result property="attr4"    column="attr4"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectMdProductSipVo">
+        select sip_id, item_id, order_num, process_id, process_code, process_name, sip_title, sip_description, sip_url, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from md_product_sip
+    </sql>
+
+    <select id="selectMdProductSipList" parameterType="MdProductSip" resultMap="MdProductSipResult">
+        <include refid="selectMdProductSipVo"/>
+        <where>  
+            <if test="itemId != null "> and item_id = #{itemId}</if>
+            <if test="orderNum != null "> and order_num = #{orderNum}</if>
+            <if test="processId != null "> and process_id = #{processId}</if>
+            <if test="processCode != null  and processCode != ''"> and process_code = #{processCode}</if>
+            <if test="processName != null  and processName != ''"> and process_name like concat('%', #{processName}, '%')</if>
+            <if test="sipTitle != null  and sipTitle != ''"> and sip_title = #{sipTitle}</if>
+            <if test="sipDescription != null  and sipDescription != ''"> and sip_description = #{sipDescription}</if>
+            <if test="sipUrl != null  and sipUrl != ''"> and sip_url = #{sipUrl}</if>
+        </where>
+    </select>
+    
+    <select id="selectMdProductSipBySipId" parameterType="Long" resultMap="MdProductSipResult">
+        <include refid="selectMdProductSipVo"/>
+        where sip_id = #{sipId}
+    </select>
+        
+    <insert id="insertMdProductSip" parameterType="MdProductSip" useGeneratedKeys="true" keyProperty="sipId">
+        insert into md_product_sip
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="itemId != null">item_id,</if>
+            <if test="orderNum != null">order_num,</if>
+            <if test="processId != null">process_id,</if>
+            <if test="processCode != null">process_code,</if>
+            <if test="processName != null">process_name,</if>
+            <if test="sipTitle != null">sip_title,</if>
+            <if test="sipDescription != null">sip_description,</if>
+            <if test="sipUrl != null">sip_url,</if>
+            <if test="remark != null">remark,</if>
+            <if test="attr1 != null">attr1,</if>
+            <if test="attr2 != null">attr2,</if>
+            <if test="attr3 != null">attr3,</if>
+            <if test="attr4 != null">attr4,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="itemId != null">#{itemId},</if>
+            <if test="orderNum != null">#{orderNum},</if>
+            <if test="processId != null">#{processId},</if>
+            <if test="processCode != null">#{processCode},</if>
+            <if test="processName != null">#{processName},</if>
+            <if test="sipTitle != null">#{sipTitle},</if>
+            <if test="sipDescription != null">#{sipDescription},</if>
+            <if test="sipUrl != null">#{sipUrl},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="attr1 != null">#{attr1},</if>
+            <if test="attr2 != null">#{attr2},</if>
+            <if test="attr3 != null">#{attr3},</if>
+            <if test="attr4 != null">#{attr4},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateMdProductSip" parameterType="MdProductSip">
+        update md_product_sip
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="itemId != null">item_id = #{itemId},</if>
+            <if test="orderNum != null">order_num = #{orderNum},</if>
+            <if test="processId != null">process_id = #{processId},</if>
+            <if test="processCode != null">process_code = #{processCode},</if>
+            <if test="processName != null">process_name = #{processName},</if>
+            <if test="sipTitle != null">sip_title = #{sipTitle},</if>
+            <if test="sipDescription != null">sip_description = #{sipDescription},</if>
+            <if test="sipUrl != null">sip_url = #{sipUrl},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="attr1 != null">attr1 = #{attr1},</if>
+            <if test="attr2 != null">attr2 = #{attr2},</if>
+            <if test="attr3 != null">attr3 = #{attr3},</if>
+            <if test="attr4 != null">attr4 = #{attr4},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where sip_id = #{sipId}
+    </update>
+
+    <delete id="deleteMdProductSipBySipId" parameterType="Long">
+        delete from md_product_sip where sip_id = #{sipId}
+    </delete>
+
+    <delete id="deleteMdProductSipBySipIds" parameterType="String">
+        delete from md_product_sip where sip_id in 
+        <foreach item="sipId" collection="array" open="(" separator="," close=")">
+            #{sipId}
+        </foreach>
+    </delete>
+</mapper>

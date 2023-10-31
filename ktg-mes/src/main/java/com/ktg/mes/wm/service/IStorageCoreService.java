@@ -28,6 +28,18 @@ public interface IStorageCoreService {
     public void processIssue(List<IssueTxBean> lines);
 
     /**
+     * 处理外协领料
+     * @param lines
+     */
+    public void processOutsourceIssue(List<OutsourceIssueTxBean> lines);
+
+    /**
+     * 处理外协入库
+     * @param lines
+     */
+    public void processOutsourceRecpt(List<OutsourceRecptTxBean> lines);
+
+    /**
      * 处理生产退料
      * @param lines
      */

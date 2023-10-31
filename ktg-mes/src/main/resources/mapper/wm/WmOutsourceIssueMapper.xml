@@ -36,6 +36,40 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="updateTime"    column="update_time"    />
     </resultMap>
 
+    <resultMap id="OutsourceIssueTxBeanResult" type="OutsourceIssueTxBean">
+        <result property="materialStockId" column="material_stock_id"></result>
+        <result property="itemId" column="item_id"></result>
+        <result property="itemCode" column="item_code"></result>
+        <result property="itemName" column="item_name"></result>
+        <result property="specification" column="specification"></result>
+        <result property="unitOfMeasure" column="unit_of_measure"></result>
+        <result property="batchCode" column="batch_code"></result>
+        <result property="warehouseId" column="warehouse_id"></result>
+        <result property="warehouseCode" column="warehouse_code"></result>
+        <result property="warehouseName" column="warehouse_name"></result>
+        <result property="locationId" column="location_id"></result>
+        <result property="locationCode" column="location_code"></result>
+        <result property="locationName" column="location_name"></result>
+        <result property="areaId" column="area_id"></result>
+        <result property="areaCode" column="area_code"></result>
+        <result property="areaName" column="area_name"></result>
+        <result property="vendorId" column="vendor_id"></result>
+        <result property="vendorCode" column="vendor_code"></result>
+        <result property="vendorName" column="vendor_name"></result>
+        <result property="vendorNick" column="vendor_nick"></result>
+        <result property="sourceDocType" column="source_doc_type"></result>
+        <result property="sourceDocId" column="source_doc_id"></result>
+        <result property="sourceDocCode" column="source_doc_code"></result>
+        <result property="sourceDocLineId" column="source_doc_line_id"></result>
+        <result property="transactionQuantity" column="transaction_quantity"></result>
+        <result property="workorderId" column="workorder_id"></result>
+        <result property="workorderCode" column="workorder_code"></result>
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
     <sql id="selectWmOutsourceIssueVo">
         select issue_id, issue_code, issue_name, workorder_id, workorder_code, vendor_id, vendor_code, vendor_name, vendor_nick, warehouse_id, warehouse_code, warehouse_name, location_id, location_code, location_name, area_id, area_code, area_name, issue_date, status, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time from wm_outsource_issue
     </sql>
@@ -68,6 +102,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectWmOutsourceIssueByIssueId" parameterType="Long" resultMap="WmOutsourceIssueResult">
         <include refid="selectWmOutsourceIssueVo"/>
         where issue_id = #{issueId}
+    </select>
+
+    <select id="getTxBeans" parameterType="Long" resultMap="OutsourceIssueTxBeanResult">
+        SELECT irl.material_stock_id, irl.`item_id`,irl.`item_code`,irl.`item_name`,irl.`specification`,irl.`unit_of_measure`,irl.`batch_code`,
+               irl.`warehouse_id`,irl.`warehouse_code`,irl.`warehouse_name`,irl.`location_id`,irl.`location_code`,irl.`location_name`,irl.`area_id`,irl.`area_code`,irl.`area_name`,
+               'ISSUE' AS source_doc_type,ir.`issue_id` AS source_doc_id,ir.`issue_code` AS source_doc_code,irl.`line_id` AS source_doc_line_id,
+               irl.`quantity_issued` AS transaction_quantity,ir.workorder_id,ir.workorder_code,
+               ir.`create_by`,ir.`create_time`,ir.`update_by`,ir.`update_time`
+        FROM wm_outsource_issue ir
+                 LEFT JOIN wm_outsource_issue_line irl
+                           ON ir.issue_id = irl.`issue_id`
+        WHERE ir.`issue_id` = #{issueId}
     </select>
         
     <insert id="insertWmOutsourceIssue" parameterType="WmOutsourceIssue" useGeneratedKeys="true" keyProperty="issueId">

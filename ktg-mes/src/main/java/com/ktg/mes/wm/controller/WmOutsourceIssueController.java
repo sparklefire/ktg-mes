@@ -9,6 +9,8 @@ import com.ktg.mes.wm.domain.WmIssueHeader;
 import com.ktg.mes.wm.domain.WmIssueLine;
 import com.ktg.mes.wm.domain.WmOutsourceIssueLine;
 import com.ktg.mes.wm.domain.tx.IssueTxBean;
+import com.ktg.mes.wm.domain.tx.OutsourceIssueTxBean;
+import com.ktg.mes.wm.service.IStorageCoreService;
 import com.ktg.mes.wm.service.IWmOutsourceIssueLineService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +47,9 @@ public class WmOutsourceIssueController extends BaseController
 
     @Autowired
     private IWmOutsourceIssueLineService wmOutsourceIssueLineService;
+
+    @Autowired
+    private IStorageCoreService storageCoreService;
 
     /**
      * 查询外协领料单头列表
@@ -108,9 +113,14 @@ public class WmOutsourceIssueController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('mes:wm:outsourceissue:remove')")
     @Log(title = "外协领料单头", businessType = BusinessType.DELETE)
+    @Transactional
 	@DeleteMapping("/{issueIds}")
     public AjaxResult remove(@PathVariable Long[] issueIds)
     {
+        for (Long issueId:issueIds
+             ) {
+            wmOutsourceIssueLineService.deleteWmOutsourceIssueLineByIssueId(issueId);
+        }
         return toAjax(wmOutsourceIssueService.deleteWmOutsourceIssueByIssueIds(issueIds));
     }
 
@@ -130,8 +140,10 @@ public class WmOutsourceIssueController extends BaseController
         if(CollUtil.isEmpty(lines)){
             return AjaxResult.error("请指定领出的物资");
         }
-        //TODO: 库存事务核心处理
 
+        List<OutsourceIssueTxBean> beans = wmOutsourceIssueService.getTxBeans(issueId);
+
+        storageCoreService.processOutsourceIssue(beans);
         //更新单据状态
         header.setStatus(UserConstants.ORDER_STATUS_FINISHED);
         wmOutsourceIssueService.updateWmOutsourceIssue(header);

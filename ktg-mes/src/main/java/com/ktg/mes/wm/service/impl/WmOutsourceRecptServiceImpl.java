@@ -2,6 +2,7 @@ package com.ktg.mes.wm.service.impl;
 
 import java.util.List;
 import com.ktg.common.utils.DateUtils;
+import com.ktg.mes.wm.domain.tx.OutsourceRecptTxBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ktg.mes.wm.mapper.WmOutsourceRecptMapper;
@@ -92,5 +93,10 @@ public class WmOutsourceRecptServiceImpl implements IWmOutsourceRecptService
     public int deleteWmOutsourceRecptByRecptId(Long recptId)
     {
         return wmOutsourceRecptMapper.deleteWmOutsourceRecptByRecptId(recptId);
+    }
+
+    @Override
+    public List<OutsourceRecptTxBean> getTxBeans(Long recptId) {
+        return wmOutsourceRecptMapper.getTxBeans(recptId);
     }
 }

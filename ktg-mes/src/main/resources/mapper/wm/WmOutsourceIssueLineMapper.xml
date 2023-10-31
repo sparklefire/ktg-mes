@@ -67,6 +67,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectWmOutsourceIssueLineVo"/>
         where line_id = #{lineId}
     </select>
+
+    <select id="selectWmOutsourceIssueLineByIssueId" parameterType="Long" resultMap="WmOutsourceIssueLineResult">
+        <include refid="selectWmOutsourceIssueLineVo"/>
+        where issue_id = #{issueId}
+    </select>
         
     <insert id="insertWmOutsourceIssueLine" parameterType="WmOutsourceIssueLine" useGeneratedKeys="true" keyProperty="lineId">
         insert into wm_outsource_issue_line
@@ -166,6 +171,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <delete id="deleteWmOutsourceIssueLineByLineId" parameterType="Long">
         delete from wm_outsource_issue_line where line_id = #{lineId}
+    </delete>
+
+    <delete id="deleteWmOutsourceIssueLineByIssueId" parameterType="Long">
+        delete from wm_outsource_issue_line where issue_id = #{issueId}
     </delete>
 
     <delete id="deleteWmOutsourceIssueLineByLineIds" parameterType="String">

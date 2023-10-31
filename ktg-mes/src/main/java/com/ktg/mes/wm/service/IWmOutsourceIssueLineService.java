@@ -27,6 +27,14 @@ public interface IWmOutsourceIssueLineService
      */
     public List<WmOutsourceIssueLine> selectWmOutsourceIssueLineList(WmOutsourceIssueLine wmOutsourceIssueLine);
 
+
+    /**
+     * 根据外协领料单ID查询所有行
+     * @param issueId
+     * @return
+     */
+    public List<WmOutsourceIssueLine> selectWmOutsourceIssueLineByIssueId(Long issueId);
+
     /**
      * 新增外协领料单行
      * 
@@ -58,4 +66,11 @@ public interface IWmOutsourceIssueLineService
      * @return 结果
      */
     public int deleteWmOutsourceIssueLineByLineId(Long lineId);
+
+    /**
+     * 根据发料单ID删除所有行
+     * @param issueId
+     * @return
+     */
+    public int deleteWmOutsourceIssueLineByIssueId(Long issueId);
 }

@@ -2,6 +2,7 @@ package com.ktg.mes.wm.service;
 
 import java.util.List;
 import com.ktg.mes.wm.domain.WmOutsourceRecpt;
+import com.ktg.mes.wm.domain.tx.OutsourceRecptTxBean;
 
 /**
  * 外协入库单Service接口
@@ -58,4 +59,11 @@ public interface IWmOutsourceRecptService
      * @return 结果
      */
     public int deleteWmOutsourceRecptByRecptId(Long recptId);
+
+    /**
+     * 获取执行入库的TxBeans
+     * @param recptId
+     * @return
+     */
+    public List<OutsourceRecptTxBean> getTxBeans(Long recptId);
 }

@@ -2,6 +2,8 @@ package com.ktg.mes.wm.service;
 
 import java.util.List;
 import com.ktg.mes.wm.domain.WmOutsourceIssue;
+import com.ktg.mes.wm.domain.tx.IssueTxBean;
+import com.ktg.mes.wm.domain.tx.OutsourceIssueTxBean;
 
 /**
  * 外协领料单头Service接口
@@ -58,4 +60,6 @@ public interface IWmOutsourceIssueService
      * @return 结果
      */
     public int deleteWmOutsourceIssueByIssueId(Long issueId);
+
+    public List<OutsourceIssueTxBean> getTxBeans(Long issueId);
 }

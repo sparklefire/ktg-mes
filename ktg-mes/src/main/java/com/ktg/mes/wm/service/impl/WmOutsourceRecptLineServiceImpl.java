@@ -44,6 +44,11 @@ public class WmOutsourceRecptLineServiceImpl implements IWmOutsourceRecptLineSer
         return wmOutsourceRecptLineMapper.selectWmOutsourceRecptLineList(wmOutsourceRecptLine);
     }
 
+    @Override
+    public List<WmOutsourceRecptLine> selectWmOutsourceRecptLineByRecptId(Long recptId) {
+        return wmOutsourceRecptLineMapper.selectWmOutsourceRecptLineByRecptId(recptId);
+    }
+
     /**
      * 新增外协入库单行
      * 
@@ -92,5 +97,10 @@ public class WmOutsourceRecptLineServiceImpl implements IWmOutsourceRecptLineSer
     public int deleteWmOutsourceRecptLineByLineId(Long lineId)
     {
         return wmOutsourceRecptLineMapper.deleteWmOutsourceRecptLineByLineId(lineId);
+    }
+
+    @Override
+    public int deleteWmOutsourceRecptLineByRecptId(Long recptId) {
+        return wmOutsourceRecptLineMapper.deleteWmOutsourceRecptLineByRecptId(recptId);
     }
 }

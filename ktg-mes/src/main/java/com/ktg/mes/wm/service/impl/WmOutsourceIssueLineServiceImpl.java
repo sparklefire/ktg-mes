@@ -45,6 +45,16 @@ public class WmOutsourceIssueLineServiceImpl implements IWmOutsourceIssueLineSer
     }
 
     /**
+     * 根据发货单ID查询所有行信息
+     * @param issueId
+     * @return
+     */
+    @Override
+    public List<WmOutsourceIssueLine> selectWmOutsourceIssueLineByIssueId(Long issueId){
+        return wmOutsourceIssueLineMapper.selectWmOutsourceIssueLineByIssueId(issueId);
+    }
+
+    /**
      * 新增外协领料单行
      * 
      * @param wmOutsourceIssueLine 外协领料单行
@@ -92,5 +102,14 @@ public class WmOutsourceIssueLineServiceImpl implements IWmOutsourceIssueLineSer
     public int deleteWmOutsourceIssueLineByLineId(Long lineId)
     {
         return wmOutsourceIssueLineMapper.deleteWmOutsourceIssueLineByLineId(lineId);
+    }
+
+    /**
+     * 根据发料单ID删除所有行
+     * @param issueId
+     * @return
+     */
+    public int deleteWmOutsourceIssueLineByIssueId(Long issueId){
+        return wmOutsourceIssueLineMapper.deleteWmOutsourceIssueLineByIssueId(issueId);
     }
 }

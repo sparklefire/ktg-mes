@@ -73,6 +73,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectWmOutsourceRecptLineVo"/>
         where line_id = #{lineId}
     </select>
+
+    <select id="selectWmOutsourceRecptLineByRecptId" parameterType="Long" resultMap="WmOutsourceRecptLineResult">
+        <include refid="selectWmOutsourceRecptLineVo"/>
+        where recpt_id = #{recptId}
+    </select>
         
     <insert id="insertWmOutsourceRecptLine" parameterType="WmOutsourceRecptLine" useGeneratedKeys="true" keyProperty="lineId">
         insert into wm_outsource_recpt_line
@@ -181,6 +186,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <delete id="deleteWmOutsourceRecptLineByLineId" parameterType="Long">
         delete from wm_outsource_recpt_line where line_id = #{lineId}
+    </delete>
+
+    <delete id="deleteWmOutsourceRecptLineByRecptId" parameterType="Long">
+        delete from wm_outsource_recpt_line where recpt_id = #{recptId}
     </delete>
 
     <delete id="deleteWmOutsourceRecptLineByLineIds" parameterType="String">

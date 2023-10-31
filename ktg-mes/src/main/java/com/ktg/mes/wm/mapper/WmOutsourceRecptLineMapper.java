@@ -28,6 +28,13 @@ public interface WmOutsourceRecptLineMapper
     public List<WmOutsourceRecptLine> selectWmOutsourceRecptLineList(WmOutsourceRecptLine wmOutsourceRecptLine);
 
     /**
+     * 根据外协入库单ID查询所有入库单行
+     * @param recptId
+     * @return
+     */
+    public List<WmOutsourceRecptLine> selectWmOutsourceRecptLineByRecptId(Long recptId);
+
+    /**
      * 新增外协入库单行
      * 
      * @param wmOutsourceRecptLine 外协入库单行
@@ -58,4 +65,11 @@ public interface WmOutsourceRecptLineMapper
      * @return 结果
      */
     public int deleteWmOutsourceRecptLineByLineIds(Long[] lineIds);
+
+    /**
+     * 根据外协入库单头ID删除所有行
+     * @param recptId
+     * @return
+     */
+    public int deleteWmOutsourceRecptLineByRecptId(Long recptId);
 }

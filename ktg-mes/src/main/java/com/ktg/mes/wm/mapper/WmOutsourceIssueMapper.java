@@ -2,6 +2,7 @@ package com.ktg.mes.wm.mapper;
 
 import java.util.List;
 import com.ktg.mes.wm.domain.WmOutsourceIssue;
+import com.ktg.mes.wm.domain.tx.OutsourceIssueTxBean;
 
 /**
  * 外协领料单头Mapper接口
@@ -58,4 +59,6 @@ public interface WmOutsourceIssueMapper
      * @return 结果
      */
     public int deleteWmOutsourceIssueByIssueIds(Long[] issueIds);
+
+    public List<OutsourceIssueTxBean> getTxBeans(Long issueId);
 }

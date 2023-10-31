@@ -134,6 +134,43 @@ public class StorageCoreServiceImpl implements IStorageCoreService {
         }
     }
 
+    @Override
+    public void processOutsourceIssue(List<OutsourceIssueTxBean> lines) {
+        if(CollUtil.isEmpty(lines)){
+            throw new BussinessException("没有需要处理的外协发货单行");
+        }
+
+        String transactionType_out = UserConstants.TRANSACTION_TYPE_ITEM_ISSUE_OUT;
+        for(int i=0;i<lines.size();i++){
+            OutsourceIssueTxBean line = lines.get(i);
+            //构造一条库存减少的事务
+            WmTransaction transaction_out = new WmTransaction();
+            transaction_out.setTransactionType(transactionType_out);
+            BeanUtils.copyBeanProp(transaction_out,line);
+            transaction_out.setTransactionFlag(-1);//库存减少
+            transaction_out.setTransactionDate(new Date());
+            wmTransactionService.processTransaction(transaction_out);
+        }
+    }
+
+    @Override
+    public void processOutsourceRecpt(List<OutsourceRecptTxBean> lines) {
+        String transactionType = UserConstants.TRANSACTION_TYPE_OUTSOURCE_RECPT_IN;
+        if(CollUtil.isEmpty(lines)){
+            throw new BussinessException("没有需要处理的外协入库单行");
+        }
+
+        for (int i =0;i<lines.size();i++){
+            OutsourceRecptTxBean line = lines.get(i);
+            WmTransaction transaction = new WmTransaction();
+            transaction.setTransactionType(transactionType);
+            BeanUtils.copyBeanProp(transaction,line);
+            transaction.setTransactionFlag(1); //库存增加
+            transaction.setTransactionDate(new Date());
+            wmTransactionService.processTransaction(transaction);
+        }
+    }
+
 
     /**
      * 生产退料

@@ -144,6 +144,9 @@ public class UserConstants
     public static final String TRANSACTION_TYPE_ITEM_ISSUE_OUT = "ITEM_ISSUE_OUT"; //生产领用-出库事务
     public static final String TRANSACTION_TYPE_ITEM_ISSUE_IN = "ITEM_ISSUE_IN"; //生产领用-入库事务
 
+    public static final String TRANSACTION_TYPE_OUTSOURCE_ISSUE_OUT ="OUTSOURCE_ISSUE_OUT"; //外协领用-出库事务
+    public static final String TRANSACTION_TYPE_OUTSOURCE_RECPT_IN ="OUTSOURCE_RECPT_IN"; //外协入库-入库事务
+
     public static final String TRANSACTION_TYPE_ITEM_RT_ISSUE_OUT = "ITEM_RT_ISSUE_OUT"; //生产退料-出库事务
     public static final String TRANSACTION_TYPE_ITEM_RT_ISSUE_IN = "ITEM_RT_ISSUE_IN"; //生产退料-入库事务
 
