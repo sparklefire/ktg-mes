@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Api("用户的代办已办任务")
+@Api(tags = "用户的代办已办任务")
 @RestController
 @RequestMapping("/mobile/usertask")
 public class UserTaskController extends BaseController {

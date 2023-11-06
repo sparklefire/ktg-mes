@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-@Api("生产退料")
+@Api(tags = "生产退料")
 @RestController
 @RequestMapping("/mobile/wm/rtissue")
 public class WmRtIssueMobController extends BaseController {

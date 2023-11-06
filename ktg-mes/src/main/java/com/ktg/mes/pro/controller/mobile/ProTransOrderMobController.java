@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Api("流转单接口")
+@Api(tags = "流转单接口")
 @RestController
 @RequestMapping("/mobile/pro/transorder")
 public class ProTransOrderMobController extends BaseController {

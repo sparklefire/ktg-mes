@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Api("物料信息")
+@Api(tags = "物料信息")
 @RestController
 @RequestMapping("/mobile/md/item")
 public class MdItemMobController extends BaseController {

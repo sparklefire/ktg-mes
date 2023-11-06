@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Api("生产领料")
+@Api(tags = "生产领料")
 @RestController
 @RequestMapping("/mobile/wm/issueheader")
 public class WmIssueMobController extends BaseController {

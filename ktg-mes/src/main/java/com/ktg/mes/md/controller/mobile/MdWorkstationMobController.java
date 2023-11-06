@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-@Api
+@Api(tags = "工作站")
 @RestController
 @RequestMapping("/mobile/md/workstation")
 public class MdWorkstationMobController extends BaseController {

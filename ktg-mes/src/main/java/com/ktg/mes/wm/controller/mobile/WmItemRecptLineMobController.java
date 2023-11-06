@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Api("采购入库明细")
+@Api(tags = "采购入库明细")
 @RestController
 @RequestMapping("/mobile/wm/itemrecptline")
 public class WmItemRecptLineMobController extends BaseController {

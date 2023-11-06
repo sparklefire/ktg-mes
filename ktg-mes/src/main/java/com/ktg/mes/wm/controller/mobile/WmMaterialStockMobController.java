@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Api("库存现有量查询")
+@Api(tags = "库存现有量查询")
 @RestController
 @RequestMapping("/mobile/wm/wmstock")
 public class WmMaterialStockMobController extends BaseController {

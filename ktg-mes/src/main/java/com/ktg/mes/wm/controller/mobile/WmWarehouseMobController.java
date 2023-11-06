@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Api("仓库存储位置信息")
+@Api(tags = "仓库存储位置信息")
 @RestController
 @RequestMapping("/mobile/wm/warehouse")
 public class WmWarehouseMobController extends BaseController {

@@ -25,7 +25,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Api
+@Api(tags = "工作站生产任务")
 @RestController
 @RequestMapping("/mobile/pro/protask")
 public class ProTaskMobController extends BaseController {

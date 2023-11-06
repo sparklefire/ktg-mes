@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Api("采购入库")
+@Api(tags = "采购入库")
 @RestController
 @RequestMapping("/mobile/wm/itemrecpt")
 public class WmItemRecptMobController extends BaseController {

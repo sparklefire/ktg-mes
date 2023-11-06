@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Api("退回供应商行信息")
+@Api(tags = "退回供应商行信息")
 @RestController
 @RequestMapping("/mobile/wm/rtvendorline")
 public class WmRtVendorLineMobController extends BaseController {

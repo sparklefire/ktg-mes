@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author SK
  * @since 2018/6/13
  */
-@Api("用户信息")
+@Api(tags = "用户信息")
 @RestController
 @RequestMapping("/mobile/user")
 public class UserController {

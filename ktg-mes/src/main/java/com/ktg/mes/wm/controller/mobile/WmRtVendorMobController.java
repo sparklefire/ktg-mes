@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Api("退回供应商")
+@Api(tags = "退回供应商")
 @RestController
 @RequestMapping("/mobile/wm/rtvendor")
 public class WmRtVendorMobController extends BaseController {

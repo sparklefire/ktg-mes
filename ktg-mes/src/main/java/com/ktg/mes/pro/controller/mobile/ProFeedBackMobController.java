@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Api("生产报工")
+@Api(tags = "生产报工")
 @RestController
 @RequestMapping("/mobile/pro/feedback")
 public class ProFeedBackMobController extends BaseController {
