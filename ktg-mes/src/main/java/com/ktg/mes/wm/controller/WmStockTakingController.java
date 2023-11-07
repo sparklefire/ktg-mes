@@ -46,7 +46,7 @@ public class WmStockTakingController extends BaseController {
     /**
      * 查询库存盘点记录列表
      */
-    @PreAuthorize("@ss.hasPermi('wm:stocktaking:list')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:stocktaking:list')")
     @GetMapping("/list")
     public TableDataInfo list(WmStockTaking wmStockTaking)
     {
@@ -58,7 +58,7 @@ public class WmStockTakingController extends BaseController {
     /**
      * 获取库存盘点记录详细信息
      */
-    @PreAuthorize("@ss.hasPermi('wm:stocktaking:query')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:stocktaking:query')")
     @GetMapping(value = "/{takingId}")
     public AjaxResult getInfo(@PathVariable("takingId") Long takingId)
     {
@@ -68,7 +68,7 @@ public class WmStockTakingController extends BaseController {
     /**
      * 新增库存盘点记录
      */
-    @PreAuthorize("@ss.hasPermi('wm:stocktaking:add')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:stocktaking:add')")
     @Log(title = "库存盘点记录", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody WmStockTaking wmStockTaking)
@@ -95,7 +95,7 @@ public class WmStockTakingController extends BaseController {
     /**
      * 修改库存盘点记录
      */
-    @PreAuthorize("@ss.hasPermi('wm:stocktaking:edit')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:stocktaking:edit')")
     @Log(title = "库存盘点记录", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody WmStockTaking wmStockTaking)
@@ -111,7 +111,7 @@ public class WmStockTakingController extends BaseController {
     /**
      * 删除库存盘点记录
      */
-    @PreAuthorize("@ss.hasPermi('wm:stocktaking:remove')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:stocktaking:remove')")
     @Log(title = "库存盘点记录", businessType = BusinessType.DELETE)
     @DeleteMapping("/{takingIds}")
     public AjaxResult remove(@PathVariable Long[] takingIds)

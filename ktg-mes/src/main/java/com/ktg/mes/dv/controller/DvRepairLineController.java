@@ -37,7 +37,7 @@ public class DvRepairLineController extends BaseController
     /**
      * 查询设备维修单行列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:dv:repairline:list')")
+    @PreAuthorize("@ss.hasPermi('mes:dv:repair:list')")
     @GetMapping("/list")
     public TableDataInfo list(DvRepairLine dvRepairLine)
     {
@@ -49,7 +49,7 @@ public class DvRepairLineController extends BaseController
     /**
      * 导出设备维修单行列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:dv:repairline:export')")
+    @PreAuthorize("@ss.hasPermi('mes:dv:repair:export')")
     @Log(title = "设备维修单行", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, DvRepairLine dvRepairLine)
@@ -62,7 +62,7 @@ public class DvRepairLineController extends BaseController
     /**
      * 获取设备维修单行详细信息
      */
-    @PreAuthorize("@ss.hasPermi('mes:dv:repairline:query')")
+    @PreAuthorize("@ss.hasPermi('mes:dv:repair:query')")
     @GetMapping(value = "/{lineId}")
     public AjaxResult getInfo(@PathVariable("lineId") Long lineId)
     {
@@ -72,7 +72,7 @@ public class DvRepairLineController extends BaseController
     /**
      * 新增设备维修单行
      */
-    @PreAuthorize("@ss.hasPermi('mes:dv:repairline:add')")
+    @PreAuthorize("@ss.hasPermi('mes:dv:repair:add')")
     @Log(title = "设备维修单行", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody DvRepairLine dvRepairLine)
@@ -83,7 +83,7 @@ public class DvRepairLineController extends BaseController
     /**
      * 修改设备维修单行
      */
-    @PreAuthorize("@ss.hasPermi('mes:dv:repairline:edit')")
+    @PreAuthorize("@ss.hasPermi('mes:dv:repair:edit')")
     @Log(title = "设备维修单行", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody DvRepairLine dvRepairLine)
@@ -94,7 +94,7 @@ public class DvRepairLineController extends BaseController
     /**
      * 删除设备维修单行
      */
-    @PreAuthorize("@ss.hasPermi('mes:dv:repairline:remove')")
+    @PreAuthorize("@ss.hasPermi('mes:dv:repair:remove')")
     @Log(title = "设备维修单行", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{lineIds}")
     public AjaxResult remove(@PathVariable Long[] lineIds)

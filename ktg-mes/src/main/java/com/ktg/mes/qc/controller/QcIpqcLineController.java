@@ -37,7 +37,7 @@ public class QcIpqcLineController extends BaseController
     /**
      * 查询过程检验单行列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:qc:ipqcline:list')")
+    @PreAuthorize("@ss.hasPermi('mes:qc:ipqc:list')")
     @GetMapping("/list")
     public TableDataInfo list(QcIpqcLine qcIpqcLine)
     {
@@ -49,7 +49,7 @@ public class QcIpqcLineController extends BaseController
     /**
      * 导出过程检验单行列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:qc:ipqcline:export')")
+    @PreAuthorize("@ss.hasPermi('mes:qc:ipqc:export')")
     @Log(title = "过程检验单行", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, QcIpqcLine qcIpqcLine)
@@ -62,7 +62,7 @@ public class QcIpqcLineController extends BaseController
     /**
      * 获取过程检验单行详细信息
      */
-    @PreAuthorize("@ss.hasPermi('mes:qc:ipqcline:query')")
+    @PreAuthorize("@ss.hasPermi('mes:qc:ipqc:query')")
     @GetMapping(value = "/{lineId}")
     public AjaxResult getInfo(@PathVariable("lineId") Long lineId)
     {
@@ -72,7 +72,7 @@ public class QcIpqcLineController extends BaseController
     /**
      * 新增过程检验单行
      */
-    @PreAuthorize("@ss.hasPermi('mes:qc:ipqcline:add')")
+    @PreAuthorize("@ss.hasPermi('mes:qc:ipqc:add')")
     @Log(title = "过程检验单行", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody QcIpqcLine qcIpqcLine)
@@ -83,7 +83,7 @@ public class QcIpqcLineController extends BaseController
     /**
      * 修改过程检验单行
      */
-    @PreAuthorize("@ss.hasPermi('mes:qc:ipqcline:edit')")
+    @PreAuthorize("@ss.hasPermi('mes:qc:ipqc:edit')")
     @Log(title = "过程检验单行", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody QcIpqcLine qcIpqcLine)
@@ -94,7 +94,7 @@ public class QcIpqcLineController extends BaseController
     /**
      * 删除过程检验单行
      */
-    @PreAuthorize("@ss.hasPermi('mes:qc:ipqcline:remove')")
+    @PreAuthorize("@ss.hasPermi('mes:qc:ipqc:remove')")
     @Log(title = "过程检验单行", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{lineIds}")
     public AjaxResult remove(@PathVariable Long[] lineIds)

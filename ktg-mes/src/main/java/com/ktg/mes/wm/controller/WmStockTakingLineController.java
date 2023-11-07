@@ -24,7 +24,7 @@ public class WmStockTakingLineController extends BaseController {
     /**
      * 查询库存盘点明细列表
      */
-    @PreAuthorize("@ss.hasPermi('wm:stocktakingline:list')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:stocktaking:list')")
     @GetMapping("/list")
     public TableDataInfo list(WmStockTakingLine wmStockTakingLine)
     {
@@ -36,7 +36,7 @@ public class WmStockTakingLineController extends BaseController {
     /**
      * 导出库存盘点明细列表
      */
-    @PreAuthorize("@ss.hasPermi('wm:stocktakingline:export')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:stocktaking:export')")
     @Log(title = "库存盘点明细", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, WmStockTakingLine wmStockTakingLine)
@@ -49,7 +49,7 @@ public class WmStockTakingLineController extends BaseController {
     /**
      * 获取库存盘点明细详细信息
      */
-    @PreAuthorize("@ss.hasPermi('wm:stocktakingline:query')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:stocktaking:query')")
     @GetMapping(value = "/{lineId}")
     public AjaxResult getInfo(@PathVariable("lineId") Long lineId)
     {

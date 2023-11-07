@@ -1,4 +1,4 @@
-package com.ktg.mes.qc.controller;
+package com.ktg.mes.qc.controller.mobile;
 
 import com.ktg.common.core.domain.AjaxResult;
 import com.ktg.common.utils.StringUtils;

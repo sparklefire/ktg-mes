@@ -23,7 +23,7 @@ public class QcPendingInspectController extends BaseController {
     /**
      * 获取待检验任务
      */
-    @PreAuthorize("@ss.hasPermi('mes:qc:oqcline:list')")
+    @PreAuthorize("@ss.hasPermi('mes:qc:pending:list')")
     @GetMapping("/list")
     public TableDataInfo list(QcPendingInspect qcPendingInspect)
     {

@@ -37,7 +37,7 @@ public class QcIqcLineController extends BaseController
     /**
      * 查询来料检验单行列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:qc:iqcline:list')")
+    @PreAuthorize("@ss.hasPermi('mes:qc:iqc:list')")
     @GetMapping("/list")
     public TableDataInfo list(QcIqcLine qcIqcLine)
     {
@@ -49,7 +49,7 @@ public class QcIqcLineController extends BaseController
     /**
      * 导出来料检验单行列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:qc:iqcline:export')")
+    @PreAuthorize("@ss.hasPermi('mes:qc:iqc:export')")
     @Log(title = "来料检验单行", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, QcIqcLine qcIqcLine)
@@ -62,7 +62,7 @@ public class QcIqcLineController extends BaseController
     /**
      * 获取来料检验单行详细信息
      */
-    @PreAuthorize("@ss.hasPermi('mes:qc:iqcline:query')")
+    @PreAuthorize("@ss.hasPermi('mes:qc:iqc:query')")
     @GetMapping(value = "/{lineId}")
     public AjaxResult getInfo(@PathVariable("lineId") Long lineId)
     {
@@ -72,7 +72,7 @@ public class QcIqcLineController extends BaseController
     /**
      * 新增来料检验单行
      */
-    @PreAuthorize("@ss.hasPermi('mes:qc:iqcline:add')")
+    @PreAuthorize("@ss.hasPermi('mes:qc:iqc:add')")
     @Log(title = "来料检验单行", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody QcIqcLine qcIqcLine)
@@ -83,7 +83,7 @@ public class QcIqcLineController extends BaseController
     /**
      * 修改来料检验单行
      */
-    @PreAuthorize("@ss.hasPermi('mes:qc:iqcline:edit')")
+    @PreAuthorize("@ss.hasPermi('mes:qc:iqc:edit')")
     @Log(title = "来料检验单行", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody QcIqcLine qcIqcLine)
@@ -94,7 +94,7 @@ public class QcIqcLineController extends BaseController
     /**
      * 删除来料检验单行
      */
-    @PreAuthorize("@ss.hasPermi('mes:qc:iqcline:remove')")
+    @PreAuthorize("@ss.hasPermi('mes:qc:iqc:remove')")
     @Log(title = "来料检验单行", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{lineIds}")
     public AjaxResult remove(@PathVariable Long[] lineIds)

@@ -39,7 +39,7 @@ public class QcTemplateProductController extends BaseController
     /**
      * 查询检测模板-产品列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:qc:templateproduct:list')")
+    @PreAuthorize("@ss.hasPermi('mes:qc:qctemplate:list')")
     @GetMapping("/list")
     public TableDataInfo list(QcTemplateProduct qcTemplateProduct)
     {
@@ -51,7 +51,7 @@ public class QcTemplateProductController extends BaseController
     /**
      * 导出检测模板-产品列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:qc:templateproduct:export')")
+    @PreAuthorize("@ss.hasPermi('mes:qc:qctemplate:export')")
     @Log(title = "检测模板-产品", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, QcTemplateProduct qcTemplateProduct)
@@ -64,7 +64,7 @@ public class QcTemplateProductController extends BaseController
     /**
      * 获取检测模板-产品详细信息
      */
-    @PreAuthorize("@ss.hasPermi('mes:qc:templateproduct:query')")
+    @PreAuthorize("@ss.hasPermi('mes:qc:qctemplate:query')")
     @GetMapping(value = "/{recordId}")
     public AjaxResult getInfo(@PathVariable("recordId") Long recordId)
     {
@@ -74,7 +74,7 @@ public class QcTemplateProductController extends BaseController
     /**
      * 新增检测模板-产品
      */
-    @PreAuthorize("@ss.hasPermi('mes:qc:templateproduct:add')")
+    @PreAuthorize("@ss.hasPermi('mes:qc:qctemplate:add')")
     @Log(title = "检测模板-产品", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody QcTemplateProduct qcTemplateProduct)
@@ -88,7 +88,7 @@ public class QcTemplateProductController extends BaseController
     /**
      * 修改检测模板-产品
      */
-    @PreAuthorize("@ss.hasPermi('mes:qc:templateproduct:edit')")
+    @PreAuthorize("@ss.hasPermi('mes:qc:qctemplate:edit')")
     @Log(title = "检测模板-产品", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody QcTemplateProduct qcTemplateProduct)
@@ -102,7 +102,7 @@ public class QcTemplateProductController extends BaseController
     /**
      * 删除检测模板-产品
      */
-    @PreAuthorize("@ss.hasPermi('mes:qc:templateproduct:remove')")
+    @PreAuthorize("@ss.hasPermi('mes:qc:qctemplate:remove')")
     @Log(title = "检测模板-产品", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{recordIds}")
     public AjaxResult remove(@PathVariable Long[] recordIds)
