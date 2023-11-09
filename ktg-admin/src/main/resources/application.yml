@@ -83,7 +83,9 @@ spring:
         max-active: 8
         # #连接池最大阻塞等待时间（使用负值表示没有限制）
         max-wait: -1ms
-
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 # token配置
 token:
     # 令牌自定义标识
