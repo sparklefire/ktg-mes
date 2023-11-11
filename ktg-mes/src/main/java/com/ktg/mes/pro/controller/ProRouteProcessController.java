@@ -52,7 +52,7 @@ public class ProRouteProcessController extends BaseController
     /**
      * 查询工艺组成列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:pro:routeprocess:list')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:proroute:list')")
     @GetMapping("/list")
     public TableDataInfo list(ProRouteProcess proRouteProcess)
     {
@@ -66,7 +66,7 @@ public class ProRouteProcessController extends BaseController
      * 查询指定产品的工艺组成
      * @return
      */
-    @PreAuthorize("@ss.hasPermi('mes:pro:routeproduct:list')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:proroute:list')")
     @GetMapping("/listProductProcess/{productId}")
     public AjaxResult listProductProcess(@PathVariable("productId") Long productId){
         ProRouteProduct proRouteProduct = new ProRouteProduct();
@@ -86,7 +86,7 @@ public class ProRouteProcessController extends BaseController
     /**
      * 导出工艺组成列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:pro:routeprocess:export')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:proroute:export')")
     @Log(title = "工艺组成", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, ProRouteProcess proRouteProcess)
@@ -99,7 +99,7 @@ public class ProRouteProcessController extends BaseController
     /**
      * 获取工艺组成详细信息
      */
-    @PreAuthorize("@ss.hasPermi('mes:pro:routeprocess:query')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:proroute:query')")
     @GetMapping(value = "/{recordId}")
     public AjaxResult getInfo(@PathVariable("recordId") Long recordId)
     {
@@ -109,7 +109,7 @@ public class ProRouteProcessController extends BaseController
     /**
      * 新增工艺组成
      */
-    @PreAuthorize("@ss.hasPermi('mes:pro:routeprocess:add')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:proroute:add')")
     @Log(title = "工艺组成", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody ProRouteProcess proRouteProcess)
@@ -153,7 +153,7 @@ public class ProRouteProcessController extends BaseController
     /**
      * 修改工艺组成
      */
-    @PreAuthorize("@ss.hasPermi('mes:pro:routeprocess:edit')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:proroute:edit')")
     @Log(title = "工艺组成", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody ProRouteProcess proRouteProcess)
@@ -197,7 +197,7 @@ public class ProRouteProcessController extends BaseController
     /**
      * 删除工艺组成
      */
-    @PreAuthorize("@ss.hasPermi('mes:pro:routeprocess:remove')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:proroute:remove')")
     @Log(title = "工艺组成", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{recordIds}")
     public AjaxResult remove(@PathVariable Long[] recordIds)

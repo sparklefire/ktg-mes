@@ -89,7 +89,8 @@ public class WmRtVendorMobController extends BaseController {
         }
 
         wmRtVendor.setCreateBy(getUsername());
-        return toAjax(wmRtVendorService.insertWmRtVendor(wmRtVendor));
+        wmRtVendorService.insertWmRtVendor(wmRtVendor);
+        return AjaxResult.success(wmRtVendor);
     }
 
     /**

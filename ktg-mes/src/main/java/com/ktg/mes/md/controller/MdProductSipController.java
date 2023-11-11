@@ -37,7 +37,7 @@ public class MdProductSipController extends BaseController
     /**
      * 查询产品SIP列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:md:sip:list')")
+    @PreAuthorize("@ss.hasPermi('mes:md:mditem:list')")
     @GetMapping("/list")
     public TableDataInfo list(MdProductSip mdProductSip)
     {
@@ -49,7 +49,7 @@ public class MdProductSipController extends BaseController
     /**
      * 导出产品SIP列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:md:sip:export')")
+    @PreAuthorize("@ss.hasPermi('mes:md:mditem:export')")
     @Log(title = "产品SIP", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, MdProductSip mdProductSip)
@@ -62,7 +62,7 @@ public class MdProductSipController extends BaseController
     /**
      * 获取产品SIP详细信息
      */
-    @PreAuthorize("@ss.hasPermi('mes:md:sip:query')")
+    @PreAuthorize("@ss.hasPermi('mes:md:mditem:query')")
     @GetMapping(value = "/{sipId}")
     public AjaxResult getInfo(@PathVariable("sipId") Long sipId)
     {
@@ -72,7 +72,7 @@ public class MdProductSipController extends BaseController
     /**
      * 新增产品SIP
      */
-    @PreAuthorize("@ss.hasPermi('mes:md:sip:add')")
+    @PreAuthorize("@ss.hasPermi('mes:md:mditem:add')")
     @Log(title = "产品SIP", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody MdProductSip mdProductSip)
@@ -83,7 +83,7 @@ public class MdProductSipController extends BaseController
     /**
      * 修改产品SIP
      */
-    @PreAuthorize("@ss.hasPermi('mes:md:sip:edit')")
+    @PreAuthorize("@ss.hasPermi('mes:md:mditem:edit')")
     @Log(title = "产品SIP", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody MdProductSip mdProductSip)
@@ -94,7 +94,7 @@ public class MdProductSipController extends BaseController
     /**
      * 删除产品SIP
      */
-    @PreAuthorize("@ss.hasPermi('mes:md:sip:remove')")
+    @PreAuthorize("@ss.hasPermi('mes:md:mditem:remove')")
     @Log(title = "产品SIP", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{sipIds}")
     public AjaxResult remove(@PathVariable Long[] sipIds)

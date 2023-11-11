@@ -41,7 +41,7 @@ public class ProTaskIssueController extends BaseController
     /**
      * 查询生产任务投料列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:pro:taskissue:list')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:protask:list')")
     @GetMapping("/list")
     public TableDataInfo list(ProTaskIssue proTaskIssue)
     {
@@ -53,7 +53,7 @@ public class ProTaskIssueController extends BaseController
     /**
      * 导出生产任务投料列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:pro:taskissue:export')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:protask:export')")
     @Log(title = "生产任务投料", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, ProTaskIssue proTaskIssue)
@@ -66,7 +66,7 @@ public class ProTaskIssueController extends BaseController
     /**
      * 获取生产任务投料详细信息
      */
-    @PreAuthorize("@ss.hasPermi('mes:pro:taskissue:query')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:protask:query')")
     @GetMapping(value = "/{recordId}")
     public AjaxResult getInfo(@PathVariable("recordId") Long recordId)
     {
@@ -76,7 +76,7 @@ public class ProTaskIssueController extends BaseController
     /**
      * 新增生产任务投料
      */
-    @PreAuthorize("@ss.hasPermi('mes:pro:taskissue:add')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:protask:add')")
     @Log(title = "生产任务投料", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody ProTaskIssue proTaskIssue)
@@ -87,7 +87,7 @@ public class ProTaskIssueController extends BaseController
     /**
      * 修改生产任务投料
      */
-    @PreAuthorize("@ss.hasPermi('mes:pro:taskissue:edit')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:protask:edit')")
     @Log(title = "生产任务投料", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody ProTaskIssue proTaskIssue)
@@ -98,7 +98,7 @@ public class ProTaskIssueController extends BaseController
     /**
      * 删除生产任务投料
      */
-    @PreAuthorize("@ss.hasPermi('mes:pro:taskissue:remove')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:protask:remove')")
     @Log(title = "生产任务投料", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{recordIds}")
     public AjaxResult remove(@PathVariable Long[] recordIds)

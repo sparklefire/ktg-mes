@@ -46,4 +46,19 @@ public class WmMaterialStockMobController extends BaseController {
     {
         return AjaxResult.success(wmMaterialStockService.selectWmMaterialStockByMaterialStockId(materialStockId));
     }
+
+    /**
+     * 查询库存记录列表
+     */
+    @ApiOperation("查询库存现有量")
+    @PreAuthorize("@ss.hasPermi('mes:wm:wmstock:list')")
+    @GetMapping("/query")
+    public TableDataInfo query(WmMaterialStock wmMaterialStock)
+    {
+        startPage();
+        List<WmMaterialStock> list = wmMaterialStockService.queryWmMaterialStockList(wmMaterialStock);
+        return getDataTable(list);
+    }
+
+
 }

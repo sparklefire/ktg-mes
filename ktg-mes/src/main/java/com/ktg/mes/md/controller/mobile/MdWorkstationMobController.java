@@ -1,4 +1,4 @@
-package com.ktg.mes.md.controller;
+package com.ktg.mes.md.controller.mobile;
 
 import cn.hutool.core.collection.CollectionUtil;
 import com.ktg.common.constant.UserConstants;

@@ -46,7 +46,7 @@ public class ProRouteProductController extends BaseController
     /**
      * 查询产品制程列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:pro:routeproduct:list')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:proroute:list')")
     @GetMapping("/list")
     public TableDataInfo list(ProRouteProduct proRouteProduct)
     {
@@ -59,7 +59,7 @@ public class ProRouteProductController extends BaseController
     /**
      * 导出产品制程列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:pro:routeproduct:export')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:proroute:export')")
     @Log(title = "产品制程", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, ProRouteProduct proRouteProduct)
@@ -72,7 +72,7 @@ public class ProRouteProductController extends BaseController
     /**
      * 获取产品制程详细信息
      */
-    @PreAuthorize("@ss.hasPermi('mes:pro:routeproduct:query')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:proroute:query')")
     @GetMapping(value = "/{recordId}")
     public AjaxResult getInfo(@PathVariable("recordId") Long recordId)
     {
@@ -82,7 +82,7 @@ public class ProRouteProductController extends BaseController
     /**
      * 新增产品制程
      */
-    @PreAuthorize("@ss.hasPermi('mes:pro:routeproduct:add')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:proroute:add')")
     @Log(title = "产品制程", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody ProRouteProduct proRouteProduct)
@@ -96,7 +96,7 @@ public class ProRouteProductController extends BaseController
     /**
      * 修改产品制程
      */
-    @PreAuthorize("@ss.hasPermi('mes:pro:routeproduct:edit')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:proroute:edit')")
     @Log(title = "产品制程", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody ProRouteProduct proRouteProduct)
@@ -110,7 +110,7 @@ public class ProRouteProductController extends BaseController
     /**
      * 更改产品的生产路线
      */
-    @PreAuthorize("@ss.hasPermi('mes:pro:routeproduct:edit')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:proroute:edit')")
     @Log(title = "产品制程", businessType = BusinessType.UPDATE)
     @PutMapping("/move")
     public AjaxResult move(@RequestBody ProRouteProduct proRouteProduct){
@@ -131,7 +131,7 @@ public class ProRouteProductController extends BaseController
     /**
      * 删除产品制程
      */
-    @PreAuthorize("@ss.hasPermi('mes:pro:routeproduct:remove')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:proroute:remove')")
     @Log(title = "产品制程", businessType = BusinessType.DELETE)
     @Transactional
 	@DeleteMapping("/{recordIds}")

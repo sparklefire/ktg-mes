@@ -37,7 +37,7 @@ public class MdProductSopController extends BaseController
     /**
      * 查询产品SOP列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:md:sop:list')")
+    @PreAuthorize("@ss.hasPermi('mes:md:mditem:list')")
     @GetMapping("/list")
     public TableDataInfo list(MdProductSop mdProdutSop)
     {
@@ -49,7 +49,7 @@ public class MdProductSopController extends BaseController
     /**
      * 导出产品SOP列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:md:sop:export')")
+    @PreAuthorize("@ss.hasPermi('mes:md:mditem:export')")
     @Log(title = "产品SOP", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, MdProductSop mdProdutSop)
@@ -62,7 +62,7 @@ public class MdProductSopController extends BaseController
     /**
      * 获取产品SOP详细信息
      */
-    @PreAuthorize("@ss.hasPermi('mes:md:sop:query')")
+    @PreAuthorize("@ss.hasPermi('mes:md:mditem:query')")
     @GetMapping(value = "/{sopId}")
     public AjaxResult getInfo(@PathVariable("sopId") Long sopId)
     {
@@ -72,7 +72,7 @@ public class MdProductSopController extends BaseController
     /**
      * 新增产品SOP
      */
-    @PreAuthorize("@ss.hasPermi('mes:md:sop:add')")
+    @PreAuthorize("@ss.hasPermi('mes:md:mditem:add')")
     @Log(title = "产品SOP", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody MdProductSop mdProdutSop)
@@ -83,7 +83,7 @@ public class MdProductSopController extends BaseController
     /**
      * 修改产品SOP
      */
-    @PreAuthorize("@ss.hasPermi('mes:md:sop:edit')")
+    @PreAuthorize("@ss.hasPermi('mes:md:mditem:edit')")
     @Log(title = "产品SOP", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody MdProductSop mdProdutSop)
@@ -94,7 +94,7 @@ public class MdProductSopController extends BaseController
     /**
      * 删除产品SOP
      */
-    @PreAuthorize("@ss.hasPermi('mes:md:sop:remove')")
+    @PreAuthorize("@ss.hasPermi('mes:md:mditem:remove')")
     @Log(title = "产品SOP", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{sopIds}")
     public AjaxResult remove(@PathVariable Long[] sopIds)

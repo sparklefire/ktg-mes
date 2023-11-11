@@ -23,7 +23,7 @@ public class MdProductSOPMobController extends BaseController {
      * 查询产品SOP列表
      */
     @ApiOperation("查询产品SOP信息")
-    @PreAuthorize("@ss.hasPermi('mes:md:sop:list')")
+    @PreAuthorize("@ss.hasPermi('mes:md:mditem:list')")
     @GetMapping("/list")
     public AjaxResult list(MdProductSop mdProdutSop)
     {

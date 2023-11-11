@@ -1,4 +1,4 @@
-package com.ktg.mes.pro.controller;
+package com.ktg.mes.pro.controller.mobile;
 
 import com.ktg.common.annotation.Log;
 import com.ktg.common.core.controller.BaseController;

@@ -39,7 +39,7 @@ public class ProRouteProductBomController extends BaseController
     /**
      * 查询产品制程物料BOM列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:pro:routeproductbom:list')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:proroute:list')")
     @GetMapping("/list")
     public TableDataInfo list(ProRouteProductBom proRouteProductBom)
     {
@@ -51,7 +51,7 @@ public class ProRouteProductBomController extends BaseController
     /**
      * 导出产品制程物料BOM列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:pro:routeproductbom:export')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:proroute:export')")
     @Log(title = "产品制程物料BOM", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, ProRouteProductBom proRouteProductBom)
@@ -64,7 +64,7 @@ public class ProRouteProductBomController extends BaseController
     /**
      * 获取产品制程物料BOM详细信息
      */
-    @PreAuthorize("@ss.hasPermi('mes:pro:routeproductbom:query')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:proroute:query')")
     @GetMapping(value = "/{recordId}")
     public AjaxResult getInfo(@PathVariable("recordId") Long recordId)
     {
@@ -74,7 +74,7 @@ public class ProRouteProductBomController extends BaseController
     /**
      * 新增产品制程物料BOM
      */
-    @PreAuthorize("@ss.hasPermi('mes:pro:routeproductbom:add')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:proroute:add')")
     @Log(title = "产品制程物料BOM", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody ProRouteProductBom proRouteProductBom)
@@ -88,7 +88,7 @@ public class ProRouteProductBomController extends BaseController
     /**
      * 修改产品制程物料BOM
      */
-    @PreAuthorize("@ss.hasPermi('mes:pro:routeproductbom:edit')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:proroute:edit')")
     @Log(title = "产品制程物料BOM", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody ProRouteProductBom proRouteProductBom)
@@ -102,7 +102,7 @@ public class ProRouteProductBomController extends BaseController
     /**
      * 删除产品制程物料BOM
      */
-    @PreAuthorize("@ss.hasPermi('mes:pro:routeproductbom:remove')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:proroute:remove')")
     @Log(title = "产品制程物料BOM", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{recordIds}")
     public AjaxResult remove(@PathVariable Long[] recordIds)

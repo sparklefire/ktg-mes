@@ -39,7 +39,7 @@ public class MdProductBomController extends BaseController
     /**
      * 查询产品BOM关系列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:md:bom:list')")
+    @PreAuthorize("@ss.hasPermi('mes:md:mditem:list')")
     @GetMapping("/list")
     public TableDataInfo list(MdProductBom mdProductBom)
     {
@@ -51,7 +51,7 @@ public class MdProductBomController extends BaseController
     /**
      * 导出产品BOM关系列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:md:bom:export')")
+    @PreAuthorize("@ss.hasPermi('mes:md:mditem:export')")
     @Log(title = "产品BOM关系", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, MdProductBom mdProductBom)
@@ -64,7 +64,7 @@ public class MdProductBomController extends BaseController
     /**
      * 获取产品BOM关系详细信息
      */
-    @PreAuthorize("@ss.hasPermi('mes:md:bom:query')")
+    @PreAuthorize("@ss.hasPermi('mes:md:mditem:query')")
     @GetMapping(value = "/{bomId}")
     public AjaxResult getInfo(@PathVariable("bomId") Long bomId)
     {
@@ -74,7 +74,7 @@ public class MdProductBomController extends BaseController
     /**
      * 新增产品BOM关系
      */
-    @PreAuthorize("@ss.hasPermi('mes:md:bom:add')")
+    @PreAuthorize("@ss.hasPermi('mes:md:mditem:add')")
     @Log(title = "产品BOM关系", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody MdProductBom mdProductBom)
@@ -89,7 +89,7 @@ public class MdProductBomController extends BaseController
     /**
      * 修改产品BOM关系
      */
-    @PreAuthorize("@ss.hasPermi('mes:md:bom:edit')")
+    @PreAuthorize("@ss.hasPermi('mes:md:mditem:edit')")
     @Log(title = "产品BOM关系", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody MdProductBom mdProductBom)
@@ -100,7 +100,7 @@ public class MdProductBomController extends BaseController
     /**
      * 删除产品BOM关系
      */
-    @PreAuthorize("@ss.hasPermi('mes:md:bom:remove')")
+    @PreAuthorize("@ss.hasPermi('mes:md:mditem:remove')")
     @Log(title = "产品BOM关系", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{bomIds}")
     public AjaxResult remove(@PathVariable Long[] bomIds)
