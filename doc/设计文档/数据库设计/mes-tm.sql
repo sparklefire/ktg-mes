@@ -29,7 +29,7 @@ create table tm_tool_type (
 drop table if exists tm_tool;
 create table tm_tool (
   tool_id                     bigint(20)      not null auto_increment    comment '工装夹具ID',
-  tool_code                   varchar(64)     not null                   comment '工装夹具编码',
+  tool_code                   varchar(64)                                comment '工装夹具编码',
   tool_name                   varchar(255)    not null                   comment '工装夹具名称',
   brand                       varchar(255)                               comment '品牌',
   spec                        varchar(255)                               comment '型号',
