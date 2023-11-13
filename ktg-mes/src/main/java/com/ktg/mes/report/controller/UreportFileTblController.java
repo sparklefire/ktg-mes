@@ -31,7 +31,7 @@ public class UreportFileTblController extends BaseController
     /**
      * 查询报表管理列表
      */
-    @PreAuthorize("@ss.hasPermi('ureport:list')")
+    @PreAuthorize("@ss.hasPermi('mes:report:list')")
     @GetMapping("/list")
     public TableDataInfo list(UreportFileTbl ureportFileTbl)
     {
@@ -43,7 +43,7 @@ public class UreportFileTblController extends BaseController
     /**
      * 导出报表管理列表
      */
-    @PreAuthorize("@ss.hasPermi('ureport:export')")
+    @PreAuthorize("@ss.hasPermi('mes:report:export')")
     @Log(title = "报表管理", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, UreportFileTbl ureportFileTbl)
@@ -56,7 +56,7 @@ public class UreportFileTblController extends BaseController
     /**
      * 获取报表管理详细信息
      */
-    @PreAuthorize("@ss.hasPermi('ureport:query')")
+    @PreAuthorize("@ss.hasPermi('mes:report:query')")
     @GetMapping(value = "/{id}")
     public AjaxResult getInfo(@PathVariable("id") Long id)
     {
@@ -66,7 +66,7 @@ public class UreportFileTblController extends BaseController
     /**
      * 新增报表管理
      */
-    @PreAuthorize("@ss.hasPermi('ureport:add')")
+    @PreAuthorize("@ss.hasPermi('mes:report:add')")
     @Log(title = "报表管理", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody UreportFileTbl ureportFileTbl)
@@ -77,7 +77,7 @@ public class UreportFileTblController extends BaseController
     /**
      * 修改报表管理
      */
-    @PreAuthorize("@ss.hasPermi('ureport:edit')")
+    @PreAuthorize("@ss.hasPermi('mes:report:edit')")
     @Log(title = "报表管理", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody UreportFileTbl ureportFileTbl)
@@ -88,7 +88,7 @@ public class UreportFileTblController extends BaseController
     /**
      * 删除报表管理
      */
-    @PreAuthorize("@ss.hasPermi('ureport:remove')")
+    @PreAuthorize("@ss.hasPermi('mes:report:remove')")
     @Log(title = "报表管理", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids)
