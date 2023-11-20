@@ -52,7 +52,6 @@ public class ProProcessController extends BaseController
      * 查询所有可用工序的清单
      * @return
      */
-    @PreAuthorize("@ss.hasPermi('mes:pro:process:list')")
     @GetMapping("/listAll")
     public AjaxResult listAll(){
         ProProcess process = new ProProcess();

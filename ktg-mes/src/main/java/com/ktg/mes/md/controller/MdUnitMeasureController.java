@@ -39,7 +39,6 @@ public class MdUnitMeasureController extends BaseController
         return getDataTable(list);
     }
 
-    @PreAuthorize("@ss.hasPermi('mes:md:unitmeasure:list')")
     @GetMapping("/listprimary")
     public AjaxResult listPrimary(){
         MdUnitMeasure mdUnitMeasure = new MdUnitMeasure();

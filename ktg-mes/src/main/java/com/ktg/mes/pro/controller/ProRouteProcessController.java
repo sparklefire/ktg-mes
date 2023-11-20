@@ -65,7 +65,6 @@ public class ProRouteProcessController extends BaseController
      * 查询指定产品的工艺组成
      * @return
      */
-    @PreAuthorize("@ss.hasPermi('mes:pro:proroute:list')")
     @GetMapping("/listProductProcess/{productId}")
     public AjaxResult listProductProcess(@PathVariable("productId") Long productId){
         ProRouteProduct proRouteProduct = new ProRouteProduct();

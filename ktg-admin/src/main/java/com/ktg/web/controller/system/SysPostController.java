@@ -38,7 +38,6 @@ public class SysPostController extends BaseController
     /**
      * 获取岗位列表
      */
-    @PreAuthorize("@ss.hasPermi('system:post:list')")
     @GetMapping("/list")
     public TableDataInfo list(SysPost post)
     {
@@ -51,7 +50,6 @@ public class SysPostController extends BaseController
      * 查询所有有效岗位信息以List方式返回
      * @return
      */
-    @PreAuthorize("@ss.hasPermi('system:post:list')")
     @GetMapping("/listAll")
     public AjaxResult listAll(){
         SysPost post = new SysPost();

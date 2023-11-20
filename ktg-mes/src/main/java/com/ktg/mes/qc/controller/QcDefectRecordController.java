@@ -87,7 +87,6 @@ public class QcDefectRecordController extends BaseController
     /**
      * 获取检验单缺陷记录详细信息
      */
-    @PreAuthorize("@ss.hasPermi('mes:qc:defectrecord:query')")
     @GetMapping(value = "/{recordId}")
     public AjaxResult getInfo(@PathVariable("recordId") Long recordId)
     {
@@ -97,7 +96,6 @@ public class QcDefectRecordController extends BaseController
     /**
      * 新增检验单缺陷记录
      */
-    @PreAuthorize("@ss.hasPermi('mes:qc:defectrecord:add')")
     @Log(title = "检验单缺陷记录", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody QcDefectRecord qcDefectRecord)
@@ -116,7 +114,6 @@ public class QcDefectRecordController extends BaseController
     /**
      * 修改来料检验单缺陷记录
      */
-    @PreAuthorize("@ss.hasPermi('mes:qc:defectrecord:edit')")
     @Log(title = "检验单缺陷记录", businessType = BusinessType.UPDATE)
     @Transactional
     @PutMapping
@@ -170,7 +167,6 @@ public class QcDefectRecordController extends BaseController
     /**
      * 删除检验单缺陷记录
      */
-    @PreAuthorize("@ss.hasPermi('mes:qc:defectrecord:remove')")
     @Log(title = "检验单缺陷记录", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{recordIds}")
     public AjaxResult remove(@PathVariable Long[] recordIds)

@@ -38,7 +38,6 @@ public class SysDeptController extends BaseController
     /**
      * 获取部门列表
      */
-    @PreAuthorize("@ss.hasPermi('system:dept:list')")
     @GetMapping("/list")
     public AjaxResult list(SysDept dept)
     {
@@ -49,7 +48,6 @@ public class SysDeptController extends BaseController
     /**
      * 查询部门列表（排除节点）
      */
-    @PreAuthorize("@ss.hasPermi('system:dept:list')")
     @GetMapping("/list/exclude/{deptId}")
     public AjaxResult excludeChild(@PathVariable(value = "deptId", required = false) Long deptId)
     {

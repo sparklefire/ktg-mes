@@ -89,7 +89,6 @@ public class ProWorkorderController extends BaseController
     /**
      * 获取生产工单详细信息
      */
-    @PreAuthorize("@ss.hasPermi('mes:pro:workorder:query')")
     @GetMapping(value = "/{workorderId}")
     public AjaxResult getInfo(@PathVariable("workorderId") Long workorderId)
     {
@@ -251,7 +250,7 @@ public class ProWorkorderController extends BaseController
      * @param workorderId
      * @return
      */
-    @PreAuthorize("@ss.hasPermi('mes:wm:rtissue:edit')")
+    @PreAuthorize("@ss.hasPermi('mes:pro:workorder:edit')")
     @Log(title = "生产工单", businessType = BusinessType.UPDATE)
     @Transactional
     @PutMapping("/{workorderId}")
