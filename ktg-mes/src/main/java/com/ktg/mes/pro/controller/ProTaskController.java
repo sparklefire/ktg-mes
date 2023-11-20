@@ -59,7 +59,6 @@ public class ProTaskController extends BaseController
     /**
      * 查询生产任务列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:pro:protask:list')")
     @GetMapping("/list")
     public TableDataInfo list(ProTask proTask)
     {

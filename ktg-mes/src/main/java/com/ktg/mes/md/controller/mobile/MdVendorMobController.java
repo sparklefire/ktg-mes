@@ -26,7 +26,6 @@ public class MdVendorMobController extends BaseController {
      * 查询供应商列表
      */
     @ApiOperation("查询供应商清单（分页）")
-    @PreAuthorize("@ss.hasPermi('mes:md:vendor:list')")
     @GetMapping("/list")
     public TableDataInfo list(MdVendor mdVendor)
     {

@@ -44,7 +44,6 @@ public class MdWorkstationToolController extends BaseController
     /**
      * 查询工装夹具资源列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:md:workstation:list')")
     @GetMapping("/list")
     public TableDataInfo list(MdWorkstationTool mdWorkstationTool)
     {

@@ -92,7 +92,6 @@ public class ProFeedBackMobController extends BaseController {
      * 查询生产报工记录列表
      */
     @ApiOperation("查询报工单清单-全部")
-    @PreAuthorize("@ss.hasPermi('mes:pro:feedback:list')")
     @GetMapping("/list")
     public TableDataInfo list(ProFeedback proFeedback)
     {
@@ -104,7 +103,6 @@ public class ProFeedBackMobController extends BaseController {
      * 查询生产报工记录列表
      */
     @ApiOperation("查询报工单清单-未审批通过的")
-    @PreAuthorize("@ss.hasPermi('mes:pro:feedback:list')")
     @GetMapping("/listUnApproved")
     public TableDataInfo listUnApproved(ProFeedback proFeedback)
     {
@@ -123,7 +121,6 @@ public class ProFeedBackMobController extends BaseController {
      * 查询生产报工记录列表
      */
     @ApiOperation("查询报工单清单-已审批通过的")
-    @PreAuthorize("@ss.hasPermi('mes:pro:feedback:list')")
     @GetMapping("/listApproved")
     public TableDataInfo listApproved(ProFeedback proFeedback)
     {

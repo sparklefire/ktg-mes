@@ -28,7 +28,6 @@ public class MdItemMobController extends BaseController {
      * @return
      */
     @ApiOperation("查询物料清单（分页）")
-    @PreAuthorize("@ss.hasPermi('mes:md:mditem:list')")
     @GetMapping("/list")
     public TableDataInfo list(MdItem mdItem){
         startPage();

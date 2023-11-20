@@ -46,7 +46,6 @@ public class ProRouteProductController extends BaseController
     /**
      * 查询产品制程列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:pro:proroute:list')")
     @GetMapping("/list")
     public TableDataInfo list(ProRouteProduct proRouteProduct)
     {

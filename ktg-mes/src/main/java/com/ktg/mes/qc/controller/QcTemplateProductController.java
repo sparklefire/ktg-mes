@@ -39,7 +39,6 @@ public class QcTemplateProductController extends BaseController
     /**
      * 查询检测模板-产品列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:qc:qctemplate:list')")
     @GetMapping("/list")
     public TableDataInfo list(QcTemplateProduct qcTemplateProduct)
     {

@@ -38,7 +38,6 @@ public class MdItemController extends BaseController {
      * @param mdItem
      * @return
      */
-    @PreAuthorize("@ss.hasPermi('mes:md:mditem:list')")
     @GetMapping("/list")
     public TableDataInfo list(MdItem mdItem){
         startPage();

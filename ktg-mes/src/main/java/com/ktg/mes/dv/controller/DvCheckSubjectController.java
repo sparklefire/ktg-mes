@@ -39,7 +39,6 @@ public class DvCheckSubjectController extends BaseController
     /**
      * 查询点检项目列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:dv:checkplan:list')")
     @GetMapping("/list")
     public TableDataInfo list(DvCheckSubject dvCheckSubject)
     {

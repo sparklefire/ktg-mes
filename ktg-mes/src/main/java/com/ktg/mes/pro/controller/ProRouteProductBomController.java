@@ -39,7 +39,6 @@ public class ProRouteProductBomController extends BaseController
     /**
      * 查询产品制程物料BOM列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:pro:proroute:list')")
     @GetMapping("/list")
     public TableDataInfo list(ProRouteProductBom proRouteProductBom)
     {

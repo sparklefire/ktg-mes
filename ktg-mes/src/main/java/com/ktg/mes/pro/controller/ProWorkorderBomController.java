@@ -37,7 +37,6 @@ public class ProWorkorderBomController extends BaseController
     /**
      * 查询生产工单BOM组成列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:pro:workorder:list')")
     @GetMapping("/list")
     public TableDataInfo list(ProWorkorderBom proWorkorderBom)
     {

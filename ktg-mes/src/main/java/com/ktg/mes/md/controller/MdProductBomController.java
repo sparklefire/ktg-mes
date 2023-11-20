@@ -39,7 +39,6 @@ public class MdProductBomController extends BaseController
     /**
      * 查询产品BOM关系列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:md:mditem:list')")
     @GetMapping("/list")
     public TableDataInfo list(MdProductBom mdProductBom)
     {

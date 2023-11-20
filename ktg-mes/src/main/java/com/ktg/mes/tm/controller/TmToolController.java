@@ -44,7 +44,6 @@ public class TmToolController extends BaseController
     /**
      * 查询工装夹具清单列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:tm:tool:list')")
     @GetMapping("/list")
     public TableDataInfo list(TmTool tmTool)
     {

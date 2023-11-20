@@ -34,7 +34,6 @@ public class WmSnMobController extends BaseController {
     /**
      * 查询SN码列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:wm:sn:list')")
     @GetMapping("/list")
     public TableDataInfo list(WmSn wmSn)
     {
@@ -46,7 +45,6 @@ public class WmSnMobController extends BaseController {
     /**
      * 查询SN码列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:wm:sn:list')")
     @GetMapping("/listSn")
     public TableDataInfo listSn(WmSn wmSn)
     {

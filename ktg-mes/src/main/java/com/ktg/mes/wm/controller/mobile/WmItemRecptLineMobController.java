@@ -44,7 +44,7 @@ public class WmItemRecptLineMobController extends BaseController {
      * 查询物料入库单行列表
      */
     @ApiOperation("查询采购入库单明细信息接口")
-    @PreAuthorize("@ss.hasPermi('mes:wm:itemrecptline:list')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:itemrecpt:list')")
     @GetMapping("/list")
     public TableDataInfo list(WmItemRecptLine wmItemRecptLine)
     {
@@ -57,7 +57,7 @@ public class WmItemRecptLineMobController extends BaseController {
      * 获取物料入库单行详细信息
      */
     @ApiOperation("查看采购入库单明细信息接口")
-    @PreAuthorize("@ss.hasPermi('mes:wm:itemrecptline:query')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:itemrecpt:query')")
     @GetMapping(value = "/{lineId}")
     public AjaxResult getInfo(@PathVariable("lineId") Long lineId)
     {
@@ -68,7 +68,7 @@ public class WmItemRecptLineMobController extends BaseController {
      * 新增物料入库单行
      */
     @ApiOperation("新增采购入库单明细信息接口")
-    @PreAuthorize("@ss.hasPermi('mes:wm:itemrecptline:add')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:itemrecpt:add')")
     @Log(title = "物料入库单行", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody WmItemRecptLine wmItemRecptLine)
@@ -114,7 +114,7 @@ public class WmItemRecptLineMobController extends BaseController {
      * 修改物料入库单行
      */
     @ApiOperation("修改采购入库单明细信息接口")
-    @PreAuthorize("@ss.hasPermi('mes:wm:itemrecptline:edit')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:itemrecpt:edit')")
     @Log(title = "物料入库单行", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody WmItemRecptLine wmItemRecptLine)
@@ -159,7 +159,7 @@ public class WmItemRecptLineMobController extends BaseController {
      * 删除物料入库单行
      */
     @ApiOperation("删除采购入库单明细信息接口")
-    @PreAuthorize("@ss.hasPermi('mes:wm:itemrecptline:remove')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:itemrecpt:remove')")
     @Log(title = "物料入库单行", businessType = BusinessType.DELETE)
     @DeleteMapping("/{lineIds}")
     public AjaxResult remove(@PathVariable Long[] lineIds)

@@ -39,7 +39,6 @@ public class DvSubjectController extends BaseController
     /**
      * 查询设备点检保养项目列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:dv:dvsubject:list')")
     @GetMapping("/list")
     public TableDataInfo list(DvSubject dvSubject)
     {

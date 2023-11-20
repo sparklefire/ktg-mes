@@ -41,7 +41,7 @@ public class WmTransferLineMobController extends BaseController {
      * 查询转移单行列表
      */
     @ApiOperation("查询转移调拨单明细清单接口")
-    @PreAuthorize("@ss.hasPermi('mes:wm:transferline:list')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:transfer:list')")
     @GetMapping("/list")
     public TableDataInfo list(WmTransferLine wmTransferLine)
     {
@@ -55,7 +55,7 @@ public class WmTransferLineMobController extends BaseController {
      * 获取转移单行详细信息
      */
     @ApiOperation("获取转移调拨单明细详情接口")
-    @PreAuthorize("@ss.hasPermi('mes:wm:transferline:query')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:transfer:query')")
     @GetMapping(value = "/{lineId}")
     public AjaxResult getInfo(@PathVariable("lineId") Long lineId)
     {
@@ -66,7 +66,7 @@ public class WmTransferLineMobController extends BaseController {
      * 新增转移单行
      */
     @ApiOperation("新增转移调拨单明细信息接口")
-    @PreAuthorize("@ss.hasPermi('mes:wm:transferline:add')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:transfer:add')")
     @Log(title = "转移单行", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody WmTransferLine wmTransferLine)
@@ -126,7 +126,7 @@ public class WmTransferLineMobController extends BaseController {
      * 修改转移单行
      */
     @ApiOperation("编辑转移调拨单明细信息接口")
-    @PreAuthorize("@ss.hasPermi('mes:wm:transferline:edit')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:transfer:edit')")
     @Log(title = "转移单行", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody WmTransferLine wmTransferLine)
@@ -184,7 +184,7 @@ public class WmTransferLineMobController extends BaseController {
      * 删除转移单行
      */
     @ApiOperation("删除转移调拨单明细信息接口")
-    @PreAuthorize("@ss.hasPermi('mes:wm:transferline:remove')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:transfer:remove')")
     @Log(title = "转移单行", businessType = BusinessType.DELETE)
     @DeleteMapping("/{lineIds}")
     public AjaxResult remove(@PathVariable Long[] lineIds)

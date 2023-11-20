@@ -39,7 +39,6 @@ public class QcIndexController extends BaseController
     /**
      * 查询检测项列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:qc:qcindex:list')")
     @GetMapping("/list")
     public TableDataInfo list(QcIndex qcIndex)
     {

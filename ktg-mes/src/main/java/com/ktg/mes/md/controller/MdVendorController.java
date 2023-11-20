@@ -43,7 +43,6 @@ public class MdVendorController extends BaseController
     /**
      * 查询供应商列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:md:vendor:list')")
     @GetMapping("/list")
     public TableDataInfo list(MdVendor mdVendor)
     {

@@ -43,7 +43,6 @@ public class WmStorageAreaController extends BaseController
     /**
      * 查询库位设置列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:wm:area:list')")
     @GetMapping("/list")
     public TableDataInfo list(WmStorageArea wmStorageArea)
     {

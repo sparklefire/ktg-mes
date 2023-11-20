@@ -44,7 +44,6 @@ public class CalShiftController extends BaseController
     /**
      * 查询计划班次列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:cal:calplan:list')")
     @GetMapping("/list")
     public TableDataInfo list(CalShift calShift)
     {

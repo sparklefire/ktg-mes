@@ -47,7 +47,6 @@ public class DvMachineryTypeController extends BaseController
     /**
      * 查询设备类型列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:dv:machinerytype:list')")
     @GetMapping("/list")
     public AjaxResult list(DvMachineryType dvMachineryType)
     {

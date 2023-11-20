@@ -30,7 +30,6 @@ public class ItemTypeController extends BaseController {
      * @param itemType
      * @return
      */
-    @PreAuthorize("@ss.hasPermi('mes:md:itemtype:list')")
     @GetMapping("/list")
     public AjaxResult list(ItemType itemType){
         List<ItemType> list =iItemTypeService.selectItemTypeList(itemType);
@@ -42,7 +41,6 @@ public class ItemTypeController extends BaseController {
      * @param itemTypeId
      * @return
      */
-    @PreAuthorize("@ss.hasPermi('mes:md:itemtype:list')")
     @GetMapping("/list/exclude/{itemTypeId}")
     public AjaxResult excludeChild(@PathVariable(value = "itemTypeId",required = false)Long itemTypeId){
         List<ItemType> list = iItemTypeService.selectItemTypeList(new ItemType());

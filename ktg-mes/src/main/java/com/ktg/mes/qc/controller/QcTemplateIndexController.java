@@ -43,7 +43,6 @@ public class QcTemplateIndexController extends BaseController
     /**
      * 查询检测模板-检测项列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:qc:qctemplate:list')")
     @GetMapping("/list")
     public TableDataInfo list(QcTemplateIndex qcTemplateIndex)
     {

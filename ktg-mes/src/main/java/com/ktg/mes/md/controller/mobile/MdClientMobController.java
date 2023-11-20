@@ -25,7 +25,6 @@ public class MdClientMobController extends BaseController {
      * 查询客户列表
      */
     @ApiOperation("查询客户清单（分页）")
-    @PreAuthorize("@ss.hasPermi('mes:md:client:list')")
     @GetMapping("/list")
     public TableDataInfo list(MdClient mdClient)
     {

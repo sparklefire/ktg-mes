@@ -29,7 +29,7 @@ public class WmStockTakingResultMobController extends BaseController {
      * 查询库存盘点结果列表
      */
     @ApiOperation("查询库存盘点结果列表接口")
-    @PreAuthorize("@ss.hasPermi('wm:stocktakingresult:list')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:stocktaking:list')")
     @GetMapping("/list")
     public TableDataInfo list(WmStockTakingResult wmStockTakingResult)
     {
@@ -43,7 +43,7 @@ public class WmStockTakingResultMobController extends BaseController {
      * 获取库存盘点结果详细信息
      */
     @ApiOperation("查询库存盘点结果详情接口")
-    @PreAuthorize("@ss.hasPermi('wm:stocktakingresult:query')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:stocktaking:query')")
     @GetMapping(value = "/{resultId}")
     public AjaxResult getInfo(@PathVariable("resultId") Long resultId)
     {
@@ -54,7 +54,7 @@ public class WmStockTakingResultMobController extends BaseController {
      * 新增库存盘点结果
      */
     @ApiOperation("新增库存盘点结果接口")
-    @PreAuthorize("@ss.hasPermi('wm:stocktakingresult:add')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:stocktaking:add')")
     @Log(title = "库存盘点结果", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody WmStockTakingResult wmStockTakingResult)
@@ -66,7 +66,7 @@ public class WmStockTakingResultMobController extends BaseController {
      * 修改库存盘点结果
      */
     @ApiOperation("修改库存盘点结果接口")
-    @PreAuthorize("@ss.hasPermi('wm:stocktakingresult:edit')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:stocktaking:edit')")
     @Log(title = "库存盘点结果", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody WmStockTakingResult wmStockTakingResult)
@@ -78,7 +78,7 @@ public class WmStockTakingResultMobController extends BaseController {
      * 删除库存盘点结果
      */
     @ApiOperation("删除库存盘点结果接口")
-    @PreAuthorize("@ss.hasPermi('wm:stocktakingresult:remove')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:stocktaking:remove')")
     @Log(title = "库存盘点结果", businessType = BusinessType.DELETE)
     @DeleteMapping("/{resultIds}")
     public AjaxResult remove(@PathVariable Long[] resultIds)

@@ -45,7 +45,6 @@ public class WmPackageController extends BaseController
     /**
      * 查询装箱单列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:wm:package:list')")
     @GetMapping("/list")
     public TableDataInfo list(WmPackage wmPackage)
     {

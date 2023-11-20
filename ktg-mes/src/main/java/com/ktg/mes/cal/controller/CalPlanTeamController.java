@@ -39,7 +39,6 @@ public class CalPlanTeamController extends BaseController
     /**
      * 查询计划班组列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:cal:calplan:list')")
     @GetMapping("/list")
     public TableDataInfo list(CalPlanTeam calPlanTeam)
     {

@@ -43,7 +43,6 @@ public class QcDefectController extends BaseController
     /**
      * 查询常见缺陷列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:qc:qcdefect:list')")
     @GetMapping("/list")
     public TableDataInfo list(QcDefect qcDefect)
     {

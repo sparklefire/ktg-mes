@@ -52,7 +52,6 @@ public class WmWarehouseController extends BaseController
     /**
      * 查询仓库设置列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:wm:warehouse:list')")
     @GetMapping("/list")
     public TableDataInfo list(WmWarehouse wmWarehouse)
     {

@@ -37,7 +37,6 @@ public class ProProcessContentController extends BaseController
     /**
      * 查询生产工序内容列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:pro:process:list')")
     @GetMapping("/list")
     public TableDataInfo list(ProProcessContent proProcessContent)
     {

@@ -25,7 +25,7 @@ public class WmRtVendorLineMobController extends BaseController {
     /**
      * 查询供应商退货行列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:wm:rtvendorline:list')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:rtvendor:list')")
     @GetMapping("/list")
     public TableDataInfo list(WmRtVendorLine wmRtVendorLine)
     {
@@ -37,7 +37,7 @@ public class WmRtVendorLineMobController extends BaseController {
     /**
      * 获取供应商退货行详细信息
      */
-    @PreAuthorize("@ss.hasPermi('mes:wm:rtvendorline:query')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:rtvendor:query')")
     @GetMapping(value = "/{lineId}")
     public AjaxResult getInfo(@PathVariable("lineId") Long lineId)
     {
@@ -47,7 +47,7 @@ public class WmRtVendorLineMobController extends BaseController {
     /**
      * 新增供应商退货行
      */
-    @PreAuthorize("@ss.hasPermi('mes:wm:rtvendorline:add')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:rtvendor:add')")
     @Log(title = "供应商退货行", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody WmRtVendorLine wmRtVendorLine)
@@ -59,7 +59,7 @@ public class WmRtVendorLineMobController extends BaseController {
     /**
      * 修改供应商退货行
      */
-    @PreAuthorize("@ss.hasPermi('mes:wm:rtvendorline:edit')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:rtvendor:edit')")
     @Log(title = "供应商退货行", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody WmRtVendorLine wmRtVendorLine)
@@ -70,7 +70,7 @@ public class WmRtVendorLineMobController extends BaseController {
     /**
      * 删除供应商退货行
      */
-    @PreAuthorize("@ss.hasPermi('mes:wm:rtvendorline:remove')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:rtvendor:remove')")
     @Log(title = "供应商退货行", businessType = BusinessType.DELETE)
     @DeleteMapping("/{lineIds}")
     public AjaxResult remove(@PathVariable Long[] lineIds)

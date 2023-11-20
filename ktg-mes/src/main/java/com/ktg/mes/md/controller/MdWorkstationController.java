@@ -78,7 +78,6 @@ public class MdWorkstationController extends BaseController
     /**
      * 查询工作站列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:md:workstation:list')")
     @GetMapping("/list")
     public TableDataInfo list(MdWorkstation mdWorkstation)
     {

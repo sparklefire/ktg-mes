@@ -43,7 +43,6 @@ public class DvMachineryController extends BaseController
     /**
      * 查询设备列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:dv:machinery:list')")
     @GetMapping("/list")
     public TableDataInfo list(DvMachinery dvMachinery)
     {

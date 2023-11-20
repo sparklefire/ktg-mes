@@ -39,7 +39,6 @@ public class TmToolTypeController extends BaseController
     /**
      * 查询工装夹具类型列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:tm:tooltype:list')")
     @GetMapping("/list")
     public TableDataInfo list(TmToolType tmToolType)
     {
@@ -48,7 +47,6 @@ public class TmToolTypeController extends BaseController
         return getDataTable(list);
     }
 
-    @PreAuthorize("@ss.hasPermi('mes:tm:tooltype:list')")
     @GetMapping("/listAll")
     public AjaxResult listAll(){
         TmToolType tmToolType = new TmToolType();

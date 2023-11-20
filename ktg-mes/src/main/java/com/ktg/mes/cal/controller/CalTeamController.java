@@ -43,7 +43,6 @@ public class CalTeamController extends BaseController
     /**
      * 查询班组列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:cal:team:list')")
     @GetMapping("/list")
     public TableDataInfo list(CalTeam calTeam)
     {
@@ -55,7 +54,6 @@ public class CalTeamController extends BaseController
     /**
      * 查询所有班组列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:cal:team:list')")
     @GetMapping("/listAll")
     public AjaxResult listAll(){
         CalTeam  calTeam= new CalTeam();

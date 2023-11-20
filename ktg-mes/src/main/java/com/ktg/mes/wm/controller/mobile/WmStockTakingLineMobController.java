@@ -42,7 +42,7 @@ public class WmStockTakingLineMobController extends BaseController
      * 查询库存盘点明细列表
      */
     @ApiOperation("查询库存盘点明细列表接口")
-    @PreAuthorize("@ss.hasPermi('wm:stocktakingline:list')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:stocktaking:list')")
     @GetMapping("/list")
     public TableDataInfo list(WmStockTakingLine wmStockTakingLine)
     {
@@ -56,7 +56,7 @@ public class WmStockTakingLineMobController extends BaseController
      * 获取库存盘点明细详细信息
      */
     @ApiOperation("查询库存盘点明细信息接口")
-    @PreAuthorize("@ss.hasPermi('wm:stocktakingline:query')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:stocktaking:query')")
     @GetMapping(value = "/{lineId}")
     public AjaxResult getInfo(@PathVariable("lineId") Long lineId)
     {
@@ -67,7 +67,7 @@ public class WmStockTakingLineMobController extends BaseController
      * 新增库存盘点明细
      */
     @ApiOperation("新增库存盘点明细接口")
-    @PreAuthorize("@ss.hasPermi('wm:stocktakingline:add')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:stocktaking:add')")
     @Log(title = "库存盘点明细", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody WmStockTakingLine wmStockTakingLine)
@@ -79,7 +79,7 @@ public class WmStockTakingLineMobController extends BaseController
      * 修改库存盘点明细
      */
     @ApiOperation("编辑库存盘点明细接口")
-    @PreAuthorize("@ss.hasPermi('wm:stocktakingline:edit')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:stocktakingline:edit')")
     @Log(title = "库存盘点明细", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody WmStockTakingLine wmStockTakingLine)
@@ -91,7 +91,7 @@ public class WmStockTakingLineMobController extends BaseController
      * 删除库存盘点明细
      */
     @ApiOperation("删除库存盘点明细接口")
-    @PreAuthorize("@ss.hasPermi('wm:stocktakingline:remove')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:stocktakingline:remove')")
     @Log(title = "库存盘点明细", businessType = BusinessType.DELETE)
     @DeleteMapping("/{lineIds}")
     public AjaxResult remove(@PathVariable Long[] lineIds)

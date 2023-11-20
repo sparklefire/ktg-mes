@@ -37,7 +37,6 @@ public class WmMaterialStockController extends BaseController
     /**
      * 查询库存记录列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:wm:wmstock:list')")
     @GetMapping("/list")
     public TableDataInfo list(WmMaterialStock wmMaterialStock)
     {

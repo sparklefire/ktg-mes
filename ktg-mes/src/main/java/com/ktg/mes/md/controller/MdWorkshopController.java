@@ -39,7 +39,6 @@ public class MdWorkshopController extends BaseController
     /**
      * 查询车间列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:md:workshop:list')")
     @GetMapping("/list")
     public TableDataInfo list(MdWorkshop mdWorkshop)
     {
@@ -52,7 +51,6 @@ public class MdWorkshopController extends BaseController
      * 获取所有可用车间
      * @return
      */
-    @PreAuthorize("@ss.hasPermi('mes:md:workshop:list')")
     @GetMapping("/listAll")
     public AjaxResult listAll(){
         MdWorkshop mdWorkshop = new MdWorkshop();

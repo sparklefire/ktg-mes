@@ -37,7 +37,6 @@ public class ProTransConsumeController extends BaseController
     /**
      * 查询物料消耗记录列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:pro:transconsume:list')")
     @GetMapping("/list")
     public TableDataInfo list(ProTransConsume proTransConsume)
     {

@@ -36,7 +36,6 @@ public class WmWarehouseMobController extends BaseController {
      * 查询库存盘点记录列表
      */
     @ApiOperation("查询仓库列表接口")
-    @PreAuthorize("@ss.hasPermi('wm:stocktaking:list')")
     @GetMapping("/list")
     public TableDataInfo list(WmWarehouse warehouse)
     {

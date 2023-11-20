@@ -28,7 +28,7 @@ public class WmPackageLineMobController extends BaseController {
      * 查询装箱明细列表
      */
     @ApiOperation("查询装箱单明细信息列表接口")
-    @PreAuthorize("@ss.hasPermi('mes:wm:packageline:list')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:package:list')")
     @GetMapping("/list")
     public TableDataInfo list(WmPackageLine wmPackageLine)
     {
@@ -42,7 +42,7 @@ public class WmPackageLineMobController extends BaseController {
      * 获取装箱明细详细信息
      */
     @ApiOperation("获取装箱单明细信息接口")
-    @PreAuthorize("@ss.hasPermi('mes:wm:packageline:query')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:package:query')")
     @GetMapping(value = "/{lineId}")
     public AjaxResult getInfo(@PathVariable("lineId") Long lineId)
     {
@@ -53,7 +53,7 @@ public class WmPackageLineMobController extends BaseController {
      * 新增装箱明细
      */
     @ApiOperation("新增装箱单明细信息接口")
-    @PreAuthorize("@ss.hasPermi('mes:wm:packageline:add')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:package:add')")
     @Log(title = "装箱明细", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody WmPackageLine wmPackageLine)
@@ -65,7 +65,7 @@ public class WmPackageLineMobController extends BaseController {
      * 修改装箱明细
      */
     @ApiOperation("修改装箱单明细信息接口")
-    @PreAuthorize("@ss.hasPermi('mes:wm:packageline:edit')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:package:edit')")
     @Log(title = "装箱明细", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody WmPackageLine wmPackageLine)
@@ -77,7 +77,7 @@ public class WmPackageLineMobController extends BaseController {
      * 删除装箱明细
      */
     @ApiOperation("删除装箱单明细")
-    @PreAuthorize("@ss.hasPermi('mes:wm:packageline:remove')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:package:remove')")
     @Log(title = "装箱明细", businessType = BusinessType.DELETE)
     @DeleteMapping("/{lineIds}")
     public AjaxResult remove(@PathVariable Long[] lineIds)

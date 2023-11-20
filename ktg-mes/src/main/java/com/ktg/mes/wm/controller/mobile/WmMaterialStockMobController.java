@@ -27,7 +27,6 @@ public class WmMaterialStockMobController extends BaseController {
      * 查询库存记录列表
      */
     @ApiOperation("查询库存现有量")
-    @PreAuthorize("@ss.hasPermi('mes:wm:wmstock:list')")
     @GetMapping("/list")
     public TableDataInfo list(WmMaterialStock wmMaterialStock)
     {

@@ -79,7 +79,6 @@ public class ProTaskIssueMobController extends BaseController {
      * 查询当前工作站、当前任务可用的的领料清单
      * 如果某个领料单是领出到当前工作站或者当前任务的，则可以查询到
      */
-    @PreAuthorize("@ss.hasPermi('mes:pro:taskissue:list')")
     @GetMapping("/getReserveIssueList")
     public AjaxResult getReserveIssueList(ProTaskIssue proTaskIssue){
         WmIssueHeader param = new WmIssueHeader();

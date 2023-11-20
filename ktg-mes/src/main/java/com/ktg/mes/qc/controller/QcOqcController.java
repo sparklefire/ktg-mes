@@ -61,7 +61,6 @@ public class QcOqcController extends BaseController
     /**
      * 查询出货检验单列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:qc:oqc:list')")
     @GetMapping("/list")
     public TableDataInfo list(QcOqc qcOqc)
     {

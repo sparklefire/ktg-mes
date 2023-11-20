@@ -65,7 +65,6 @@ public class ProWorkorderController extends BaseController
     /**
      * 查询生产工单列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:pro:workorder:list')")
     @GetMapping("/list")
     public TableDataInfo list(ProWorkorder proWorkorder)
     {

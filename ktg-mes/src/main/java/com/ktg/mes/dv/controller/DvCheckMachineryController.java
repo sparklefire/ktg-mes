@@ -39,7 +39,6 @@ public class DvCheckMachineryController extends BaseController
     /**
      * 查询点检设备列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:dv:checkplan:list')")
     @GetMapping("/list")
     public TableDataInfo list(DvCheckMachinery dvCheckMachinery)
     {

@@ -43,7 +43,6 @@ public class ProTransOrderController extends BaseController
     /**
      * 查询流转单列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:pro:transorder:list')")
     @GetMapping("/list")
     public TableDataInfo list(ProTransOrder proTransOrder)
     {

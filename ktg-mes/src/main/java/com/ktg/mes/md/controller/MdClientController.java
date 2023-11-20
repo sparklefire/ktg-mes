@@ -43,7 +43,6 @@ public class MdClientController extends BaseController
     /**
      * 查询客户列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:md:client:list')")
     @GetMapping("/list")
     public TableDataInfo list(MdClient mdClient)
     {

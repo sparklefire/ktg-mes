@@ -39,7 +39,6 @@ public class CalTeamMemberController extends BaseController
     /**
      * 查询班组成员列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:cal:team:list')")
     @GetMapping("/list")
     public TableDataInfo list(CalTeamMember calTeamMember)
     {

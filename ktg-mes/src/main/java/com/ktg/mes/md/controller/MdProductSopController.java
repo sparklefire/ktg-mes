@@ -37,7 +37,6 @@ public class MdProductSopController extends BaseController
     /**
      * 查询产品SOP列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:md:mditem:list')")
     @GetMapping("/list")
     public TableDataInfo list(MdProductSop mdProdutSop)
     {

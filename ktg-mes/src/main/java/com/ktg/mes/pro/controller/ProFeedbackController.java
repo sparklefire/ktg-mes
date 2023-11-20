@@ -80,7 +80,6 @@ public class ProFeedbackController extends BaseController
     /**
      * 查询生产报工记录列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:pro:feedback:list')")
     @GetMapping("/list")
     public TableDataInfo list(ProFeedback proFeedback)
     {

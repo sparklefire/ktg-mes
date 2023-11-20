@@ -43,7 +43,7 @@ public class WmProductRectpLineMobController extends BaseController {
      * 查询产品入库记录行列表
      */
     @ApiOperation("查询产品入库单明细清单接口")
-    @PreAuthorize("@ss.hasPermi('mes:wm:productrecptline:list')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:productrecpt:list')")
     @GetMapping("/list")
     public TableDataInfo list(WmProductRecptLine wmProductRecptLine)
     {
@@ -57,7 +57,7 @@ public class WmProductRectpLineMobController extends BaseController {
      * 获取产品入库记录行详细信息
      */
     @ApiOperation("获取产品入库明细详情")
-    @PreAuthorize("@ss.hasPermi('mes:wm:productrecptline:query')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:productrecpt:query')")
     @GetMapping(value = "/{lineId}")
     public AjaxResult getInfo(@PathVariable("lineId") Long lineId)
     {
@@ -68,7 +68,7 @@ public class WmProductRectpLineMobController extends BaseController {
      * 新增产品入库记录行
      */
     @ApiOperation("新增产品入库明细记录")
-    @PreAuthorize("@ss.hasPermi('mes:wm:productrecptline:add')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:productrecpt:add')")
     @Log(title = "产品入库记录行", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody WmProductRecptLine wmProductRecptLine)
@@ -97,7 +97,7 @@ public class WmProductRectpLineMobController extends BaseController {
      * 修改产品入库记录行
      */
     @ApiOperation("编辑产品入库明细记录")
-    @PreAuthorize("@ss.hasPermi('mes:wm:productrecptline:edit')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:productrecpt:edit')")
     @Log(title = "产品入库记录行", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody WmProductRecptLine wmProductRecptLine)
@@ -124,7 +124,7 @@ public class WmProductRectpLineMobController extends BaseController {
      * 删除产品入库记录行
      */
     @ApiOperation("删除产品入库明细记录")
-    @PreAuthorize("@ss.hasPermi('mes:wm:productrecptline:remove')")
+    @PreAuthorize("@ss.hasPermi('mes:wm:productrecpt:remove')")
     @Log(title = "产品入库记录行", businessType = BusinessType.DELETE)
     @DeleteMapping("/{lineIds}")
     public AjaxResult remove(@PathVariable Long[] lineIds)

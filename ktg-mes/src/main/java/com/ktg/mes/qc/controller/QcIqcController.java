@@ -63,7 +63,6 @@ public class QcIqcController extends BaseController
     /**
      * 查询来料检验单列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:qc:iqc:list')")
     @GetMapping("/list")
     public TableDataInfo list(QcIqc qcIqc)
     {

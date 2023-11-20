@@ -31,7 +31,6 @@ public class MdUnitMeasureController extends BaseController
     /**
      * 查询单位列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:md:unitmeasure:list')")
     @GetMapping("/list")
     public TableDataInfo list(MdUnitMeasure mdUnitMeasure)
     {

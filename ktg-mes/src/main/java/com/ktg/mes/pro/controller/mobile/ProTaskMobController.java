@@ -59,7 +59,6 @@ public class ProTaskMobController extends BaseController {
      * 查询工作站的生产任务
      */
     @ApiOperation("查询状态未完成的生产任务接口")
-    @PreAuthorize("@ss.hasPermi('mes:pro:protask:list')")
     @GetMapping("/getTaskList")
     public TableDataInfo list(ProTask proTask)
     {

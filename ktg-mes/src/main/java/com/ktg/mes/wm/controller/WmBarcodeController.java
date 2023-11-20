@@ -32,7 +32,6 @@ public class WmBarcodeController extends BaseController
     /**
      * 查询条码清单列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:wm:barcode:list')")
     @GetMapping("/list")
     public TableDataInfo list(WmBarcode wmBarcode)
     {

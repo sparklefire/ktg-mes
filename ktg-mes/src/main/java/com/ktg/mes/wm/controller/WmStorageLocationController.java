@@ -48,7 +48,6 @@ public class WmStorageLocationController extends BaseController
     /**
      * 查询库区设置列表
      */
-    @PreAuthorize("@ss.hasPermi('mes:wm:location:list')")
     @GetMapping("/list")
     public TableDataInfo list(WmStorageLocation wmStorageLocation)
     {
