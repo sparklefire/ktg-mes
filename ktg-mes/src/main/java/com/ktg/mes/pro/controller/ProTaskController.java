@@ -233,20 +233,37 @@ public class ProTaskController extends BaseController
     @PutMapping
     public AjaxResult edit(@RequestBody ProTask proTask)
     {
+        ProTask theTask = proTaskService.selectProTaskByTaskId(proTask.getTaskId());
+
         if(proTask.getQuantity().compareTo(BigDecimal.ZERO) !=1){
             return AjaxResult.error("排产数量必须大于0！");
         }
 
         if(!StringUtils.isNotNull(proTask.getWorkstationId())){
-            return AjaxResult.error("请选择工作站！");
+            proTask.setWorkstationId(theTask.getWorkstationId());
+        }
+
+        if(!StringUtils.isNotNull(proTask.getWorkorderId())){
+            proTask.setWorkorderId(theTask.getWorkorderId());
+        }
+
+        if(!StringUtils.isNotNull(proTask.getProcessId())){
+            proTask.setProcessId(theTask.getProcessId());
+        }
+
+        if(!StringUtils.isNotNull(proTask.getRouteId())){
+            proTask.setRouteId(theTask.getRouteId());
         }
 
         if(proTask.getDuration()<=0){
-            return AjaxResult.error("生产时长必须大于0！");
+            proTask.setDuration(theTask.getDuration());
         }
 
         //生产工单
         ProWorkorder order = proWorkorderService.selectProWorkorderByWorkorderId(proTask.getWorkorderId());
+        if(!StringUtils.isNotNull(order)){
+            return AjaxResult.error("生产工单不存在!");
+        }
         proTask.setWorkorderCode(order.getWorkorderCode());
         proTask.setWorkorderName(order.getWorkorderName());
         proTask.setItemId(order.getProductId());

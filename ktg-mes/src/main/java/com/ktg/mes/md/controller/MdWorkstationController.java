@@ -179,10 +179,16 @@ public class MdWorkstationController extends BaseController
             return AjaxResult.error("工作站名称已存在！");
         }
         ProProcess process = proProcessService.selectProProcessByProcessId(mdWorkstation.getProcessId());
+        if(!StringUtils.isNotNull(process)){
+            return AjaxResult.error("工序不存在！");
+        }
         mdWorkstation.setProcessCode(process.getProcessCode());
         mdWorkstation.setProcessName(process.getProcessName());
 
         MdWorkshop workshop = mdWorkshopService.selectMdWorkshopByWorkshopId(mdWorkstation.getWorkshopId());
+        if(!StringUtils.isNotNull(workshop)){
+            return AjaxResult.error("车间不存在！");
+        }
         mdWorkstation.setWorkshopCode(workshop.getWorkshopCode());
         mdWorkstation.setWorkshopName(workshop.getWorkshopName());
 
