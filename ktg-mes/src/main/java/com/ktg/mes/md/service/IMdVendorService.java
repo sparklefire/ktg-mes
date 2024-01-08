@@ -32,6 +32,16 @@ public interface IMdVendorService
     public String checkVendorNickUnique(MdVendor mdVendor);
 
     /**
+     * 导入供应商信息
+     * @param vendorList
+     * @param isUpdateSupport
+     * @param operName
+     * @return
+     */
+    public String importVendor(List<MdVendor> vendorList, Boolean isUpdateSupport, String operName);
+
+
+    /**
      * 新增供应商
      * 
      * @param mdVendor 供应商
