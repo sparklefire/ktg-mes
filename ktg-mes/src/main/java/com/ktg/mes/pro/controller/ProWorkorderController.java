@@ -2,6 +2,7 @@ package com.ktg.mes.pro.controller;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
@@ -70,6 +71,19 @@ public class ProWorkorderController extends BaseController
     {
         startPage();
         List<ProWorkorder> list = proWorkorderService.selectProWorkorderList(proWorkorder);
+        return getDataTable(list);
+    }
+
+    @GetMapping("/listWithTaskJson")
+    public TableDataInfo listWithTaskJson(ProWorkorder proWorkorder){
+        startPage();
+        List<ProWorkorder> list = proWorkorderService.selectProWorkorderList(proWorkorder);
+        Iterator<ProWorkorder> iterator = list.iterator();
+        while (iterator.hasNext()){
+            ProWorkorder workorder = iterator.next();
+            List<ProTask> tasks = proTaskService.selectProTaskProcessViewByWorkorder(workorder.getWorkorderId());
+            workorder.setTasks(tasks);
+        }
         return getDataTable(list);
     }
 

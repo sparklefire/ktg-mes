@@ -2,6 +2,8 @@ package com.ktg.mes.pro.domain;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -131,6 +133,8 @@ public class ProWorkorder extends TreeEntity
 
     /** 预留字段4 */
     private Long attr4;
+
+    private List<ProTask> tasks;
 
     public void setWorkorderId(Long workorderId) 
     {
@@ -388,6 +392,14 @@ public class ProWorkorder extends TreeEntity
 
     public void setFinishDate(Date finishDate) {
         this.finishDate = finishDate;
+    }
+
+    public List<ProTask> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<ProTask> tasks) {
+        this.tasks = tasks;
     }
 
     @Override

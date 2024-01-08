@@ -27,6 +27,14 @@ public interface IProTaskService
      */
     public List<ProTask> selectProTaskList(ProTask proTask);
 
+
+    /**
+     * 查询某个工单的各个工序生产进度
+     * @param workorderId
+     * @return
+     */
+    public List<ProTask> selectProTaskProcessViewByWorkorder(Long workorderId);
+
     /**
      * 新增生产任务
      * 

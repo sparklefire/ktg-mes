@@ -9,12 +9,11 @@ import cn.hutool.core.collection.CollUtil;
 import com.ktg.common.constant.UserConstants;
 import com.ktg.common.utils.StringUtils;
 import com.ktg.mes.pro.domain.*;
-import com.ktg.mes.pro.service.IProProcessService;
-import com.ktg.mes.pro.service.IProRouteService;
-import com.ktg.mes.pro.service.IProWorkorderService;
+import com.ktg.mes.pro.service.*;
 import com.ktg.system.strategy.AutoCodeUtil;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -27,7 +26,6 @@ import com.ktg.common.annotation.Log;
 import com.ktg.common.core.controller.BaseController;
 import com.ktg.common.core.domain.AjaxResult;
 import com.ktg.common.enums.BusinessType;
-import com.ktg.mes.pro.service.IProTaskService;
 import com.ktg.common.utils.poi.ExcelUtil;
 import com.ktg.common.core.page.TableDataInfo;
 
@@ -46,6 +44,9 @@ public class ProTaskController extends BaseController
 
     @Autowired
     private IProWorkorderService proWorkorderService;
+
+    @Autowired
+    private IProRouteProductService proRouteProductService;
 
     @Autowired
     private IProProcessService proProcessService;
@@ -159,6 +160,33 @@ public class ProTaskController extends BaseController
         ganttTask.setData(ganttData);
         ganttTask.setLinks(ganttLinks);
         return AjaxResult.success(ganttTask);
+    }
+
+
+    /**
+     * 按照最新的模式只展示工序级别的生产进度
+     * @return
+     */
+    @GetMapping("/listTaskListByWorkorder")
+    public AjaxResult getWorkorderProcessTypeTaskList(ProWorkorder proWorkorder){
+        if(!StringUtils.isNotNull(proWorkorder.getWorkorderId())){
+            return AjaxResult.error("请选择具体的生产工单!");
+        }
+
+        ProWorkorder workorder = proWorkorderService.selectProWorkorderByWorkorderId(proWorkorder.getWorkorderId());
+        if(StringUtils.isNotNull(workorder)){
+            //检查当前的产品是否配置了对应的工艺路线
+            ProRouteProduct param = new ProRouteProduct();
+            param.setItemId(workorder.getProductId());
+            List<ProRouteProduct> routes = proRouteProductService.selectProRouteProductList(param);
+            if(CollectionUtils.isEmpty(routes)){
+                return AjaxResult.error("当前工单生产的产品，未配置对应的生产工艺流程！");
+            }
+        }
+
+        //根据生产工单查询每个工序的生产情况
+        List<ProTask> tasks = proTaskService.selectProTaskProcessViewByWorkorder(proWorkorder.getWorkorderId());
+        return AjaxResult.success(tasks);
     }
 
 

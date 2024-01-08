@@ -45,6 +45,16 @@ public class ProTaskServiceImpl implements IProTaskService
     }
 
     /**
+     * 查询某个工单的各个工序生产进度
+     * @param workorderId
+     * @return
+     */
+    @Override
+    public List<ProTask> selectProTaskProcessViewByWorkorder(Long workorderId) {
+        return proTaskMapper.selectProTaskProcessViewByWorkorder(workorderId);
+    }
+
+    /**
      * 新增生产任务
      * 
      * @param proTask 生产任务

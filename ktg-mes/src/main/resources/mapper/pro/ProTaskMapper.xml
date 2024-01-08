@@ -116,7 +116,51 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectProTaskVo"/>
         where task_id = #{taskId}
     </select>
-        
+
+    <select id="selectProTaskProcessViewByWorkorder" parameterType="Long" resultMap="ProTaskResult">
+        select a.process_id,a.process_code,a.process_name,IFNULL(b.quantity,0) as quantity,IFNULL(b.quantity_produced,0) as quantity_produced,IFNULL(b.quantity_quanlify,0) as quantity_quanlify,IFNULL(b.quantity_unquanlify,0) as quantity_unquanlify
+        from (
+                 select t.*
+                 from pro_workorder pw
+                          left join (
+                     SELECT
+                         prp.item_id,
+                         psp.process_id,
+                         psp.process_code,
+                         psp.process_name,
+                         psp.order_num
+                     FROM
+                         pro_route_product prp
+                             LEFT JOIN pro_route_process psp
+                                       ON prp.route_id = psp.route_id
+                 ) t
+                                    on pw.product_id = t.item_id
+                 where pw.workorder_id = #{workorderId}
+             )a
+                 left join
+             (
+                 SELECT
+                     pt.item_id,
+                     pt.process_id,
+                     pt.process_code,
+                     pt.process_name,
+                     sum( pt.quantity ) AS quantity,
+                     sum( pt.quantity_produced ) AS quantity_produced,
+                     sum( pt.quantity_quanlify ) AS quantity_quanlify,
+                     sum( pt.quantity_unquanlify ) AS quantity_unquanlify
+                 FROM
+                     pro_task pt
+                 WHERE
+                     pt.workorder_id = #{workorderId}
+                 GROUP BY
+                     pt.item_id,
+                     pt.process_id,
+                     pt.process_code,
+                     pt.process_name
+             )b
+             on a.item_id = b.item_id and a.process_id = b.process_id
+    </select>
+
     <insert id="insertProTask" parameterType="ProTask" useGeneratedKeys="true" keyProperty="taskId">
         insert into pro_task
         <trim prefix="(" suffix=")" suffixOverrides=",">
