@@ -1,12 +1,13 @@
 package com.ktg.mes.dv.service.impl;
 
-import java.util.List;
 import com.ktg.common.utils.DateUtils;
+import com.ktg.mes.dv.domain.DvMachinery;
+import com.ktg.mes.dv.mapper.DvMachineryMapper;
+import com.ktg.mes.dv.service.IDvMachineryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.ktg.mes.dv.mapper.DvMachineryMapper;
-import com.ktg.mes.dv.domain.DvMachinery;
-import com.ktg.mes.dv.service.IDvMachineryService;
+
+import java.util.List;
 
 /**
  * 设备Service业务层处理
@@ -93,4 +94,39 @@ public class DvMachineryServiceImpl implements IDvMachineryService
     {
         return dvMachineryMapper.deleteDvMachineryByMachineryId(machineryId);
     }
+
+    /**
+     * 依据上传的文件更新或插入设备信息
+     */
+    @Override
+    public String importMachinery(List<DvMachinery> machineryList, Boolean isUpdateSupport, String operName) {
+        if (machineryList == null || machineryList.isEmpty()) {
+            return "导入数据为空";
+        }
+        int successCount = 0;
+        int failureCount = 0;
+        for (DvMachinery machinery : machineryList) {
+            // 去除空格
+            String machineryCode = machinery.getMachineryCode().trim();
+            DvMachinery existing = dvMachineryMapper.selectByMachineryCode(machineryCode);
+            if (existing != null) {
+                if (isUpdateSupport) {
+                    // 更新数据
+                    machinery.setMachineryId(existing.getMachineryId()); // 确保使用现有 ID 进行更新
+                    dvMachineryMapper.updateDvMachinery(machinery);
+                    successCount++;
+                } else {
+                    // 不更新数据
+                    failureCount++;
+                }
+            } else {
+                // 新增数据
+                dvMachineryMapper.insertDvMachinery(machinery);
+                successCount++;
+            }
+        }
+        return String.format("操作用户：%s，导入完成，成功 %d 条，失败 %d 条。", operName, successCount, failureCount);
+    }
+
+
 }

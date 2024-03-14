@@ -1,9 +1,9 @@
 package com.ktg.mes.dv.domain;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ktg.common.annotation.Excel;
 import com.ktg.common.core.domain.BaseEntity;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * 设备对象 dv_machinery
@@ -19,11 +19,11 @@ public class DvMachinery extends BaseEntity
     private Long machineryId;
 
     /** 设备类型编码 */
-    @Excel(name = "设备类型编码")
+    @Excel(name = "设备编码")
     private String machineryCode;
 
     /** 设备类型名称 */
-    @Excel(name = "设备类型名称")
+    @Excel(name = "设备名称")
     private String machineryName;
 
     /** 品牌 */
