@@ -1,7 +1,8 @@
 package com.ktg.mes.dv.mapper;
 
-import java.util.List;
 import com.ktg.mes.dv.domain.DvMachinery;
+
+import java.util.List;
 
 /**
  * 设备Mapper接口
@@ -20,6 +21,14 @@ public interface DvMachineryMapper
     public DvMachinery selectDvMachineryByMachineryId(Long machineryId);
 
     /**
+     * 依据设备编码查询设备
+     *
+     *  @param machineryCode 设备编码
+     *  @return 设备
+     */
+    public DvMachinery selectByMachineryCode( String machineryCode);
+
+     /**
      * 查询设备列表
      * 
      * @param dvMachinery 设备
@@ -58,4 +67,5 @@ public interface DvMachineryMapper
      * @return 结果
      */
     public int deleteDvMachineryByMachineryIds(Long[] machineryIds);
+
 }
