@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ktg.print.mapper.PrintTemplateMapper">
+    
+    <resultMap type="PrintTemplate" id="PrintTemplateResult">
+        <result property="templateId"    column="template_id"    />
+        <result property="templateCode"    column="template_code"    />
+        <result property="templateName"    column="template_name"    />
+        <result property="templateType"    column="template_type"    />
+        <result property="templateJson"    column="template_json"    />
+        <result property="paperType"    column="paper_type"    />
+        <result property="templateWidth"    column="template_width"    />
+        <result property="templateHeight"    column="template_height"    />
+        <result property="isDefault"    column="is_default"    />
+        <result property="enableFlag"    column="enable_flag"    />
+        <result property="remark"    column="remark"    />
+        <result property="attr1"    column="attr1"    />
+        <result property="attr2"    column="attr2"    />
+        <result property="attr3"    column="attr3"    />
+        <result property="attr4"    column="attr4"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="templatePic"    column="template_pic"    />
+    </resultMap>
+
+    <sql id="selectPrintTemplateVo">
+        select template_id, template_code, template_name, template_type, template_json, paper_type, template_width, template_height, is_default, enable_flag, remark, attr1, attr2, attr3, attr4, create_by, create_time, update_by, update_time, template_pic from print_template
+    </sql>
+
+    <select id="selectPrintTemplateList" parameterType="PrintTemplate" resultMap="PrintTemplateResult">
+        <include refid="selectPrintTemplateVo"/>
+        <where>  
+            <if test="templateCode != null  and templateCode != ''"> and template_code = #{templateCode}</if>
+            <if test="templateName != null  and templateName != ''"> and template_name like concat('%', #{templateName}, '%')</if>
+            <if test="templateType != null  and templateType != ''"> and template_type = #{templateType}</if>
+            <if test="templateJson != null  and templateJson != ''"> and template_json = #{templateJson}</if>
+            <if test="paperType != null  and paperType != ''"> and paper_type = #{paperType}</if>
+            <if test="isDefault != null  and isDefault != ''"> and is_default = #{isDefault}</if>
+            <if test="enableFlag != null  and enableFlag != ''"> and enable_flag = #{enableFlag}</if>
+            <if test="templatePic != null  and templatePic != ''"> and template_pic = #{templatePic}</if>
+        </where>
+    </select>
+    
+    <select id="selectPrintTemplateByTemplateId" parameterType="Long" resultMap="PrintTemplateResult">
+        <include refid="selectPrintTemplateVo"/>
+        where template_id = #{templateId}
+    </select>
+        
+    <insert id="insertPrintTemplate" parameterType="PrintTemplate" useGeneratedKeys="true" keyProperty="templateId">
+        insert into print_template
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="templateCode != null and templateCode != ''">template_code,</if>
+            <if test="templateName != null">template_name,</if>
+            <if test="templateType != null and templateType != ''">template_type,</if>
+            <if test="templateJson != null">template_json,</if>
+            <if test="paperType != null">paper_type,</if>
+            <if test="templateWidth != null">template_width,</if>
+            <if test="templateHeight != null">template_height,</if>
+            <if test="isDefault != null">is_default,</if>
+            <if test="enableFlag != null">enable_flag,</if>
+            <if test="remark != null">remark,</if>
+            <if test="attr1 != null">attr1,</if>
+            <if test="attr2 != null">attr2,</if>
+            <if test="attr3 != null">attr3,</if>
+            <if test="attr4 != null">attr4,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="templatePic != null">template_pic,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="templateCode != null and templateCode != ''">#{templateCode},</if>
+            <if test="templateName != null">#{templateName},</if>
+            <if test="templateType != null and templateType != ''">#{templateType},</if>
+            <if test="templateJson != null">#{templateJson},</if>
+            <if test="paperType != null">#{paperType},</if>
+            <if test="templateWidth != null">#{templateWidth},</if>
+            <if test="templateHeight != null">#{templateHeight},</if>
+            <if test="isDefault != null">#{isDefault},</if>
+            <if test="enableFlag != null">#{enableFlag},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="attr1 != null">#{attr1},</if>
+            <if test="attr2 != null">#{attr2},</if>
+            <if test="attr3 != null">#{attr3},</if>
+            <if test="attr4 != null">#{attr4},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="templatePic != null">#{templatePic},</if>
+         </trim>
+    </insert>
+
+    <update id="updatePrintTemplate" parameterType="PrintTemplate">
+        update print_template
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="templateCode != null and templateCode != ''">template_code = #{templateCode},</if>
+            <if test="templateName != null">template_name = #{templateName},</if>
+            <if test="templateType != null and templateType != ''">template_type = #{templateType},</if>
+            <if test="templateJson != null">template_json = #{templateJson},</if>
+            <if test="paperType != null">paper_type = #{paperType},</if>
+            <if test="templateWidth != null">template_width = #{templateWidth},</if>
+            <if test="templateHeight != null">template_height = #{templateHeight},</if>
+            <if test="isDefault != null">is_default = #{isDefault},</if>
+            <if test="enableFlag != null">enable_flag = #{enableFlag},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="attr1 != null">attr1 = #{attr1},</if>
+            <if test="attr2 != null">attr2 = #{attr2},</if>
+            <if test="attr3 != null">attr3 = #{attr3},</if>
+            <if test="attr4 != null">attr4 = #{attr4},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="templatePic != null">template_pic = #{templatePic},</if>
+        </trim>
+        where template_id = #{templateId}
+    </update>
+
+    <delete id="deletePrintTemplateByTemplateId" parameterType="Long">
+        delete from print_template where template_id = #{templateId}
+    </delete>
+
+    <delete id="deletePrintTemplateByTemplateIds" parameterType="String">
+        delete from print_template where template_id in 
+        <foreach item="templateId" collection="array" open="(" separator="," close=")">
+            #{templateId}
+        </foreach>
+    </delete>
+</mapper>

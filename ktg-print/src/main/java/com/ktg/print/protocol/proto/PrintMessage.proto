@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package com.ktg.print.protocol;
+
+option java_package = "com.ktg.print.protocol";
+
+option java_outer_classname = "PrintMessageProto";
+
+message IQCPrintMessage {
+    string sampleCode = 1;
+    string qcObject = 2;
+    string sampleTime = 3;
+    string batchCode = 4;
+}
+
+message PQCPrintMessage {
+    string sampleCode = 1;
+    string qcObject = 2;
+    string sampleTime = 3;
+    string sampleLocation = 4;
+}
+
+message OQCPrintMessage {
+    string sampleCode = 1;
+    string qcObject = 2;
+    string sampleTime = 3;
+    string batchCode = 4;
+    string packageType = 5;
+}
+
+//客户端信息
+message PrintClientInfoMessage {
+    string ip = 1;
+    string location = 2;
+    string sid = 3;
+}
