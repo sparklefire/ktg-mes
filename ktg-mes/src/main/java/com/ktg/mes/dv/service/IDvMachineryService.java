@@ -1,7 +1,8 @@
 package com.ktg.mes.dv.service;
 
-import java.util.List;
 import com.ktg.mes.dv.domain.DvMachinery;
+
+import java.util.List;
 
 /**
  * 设备Service接口
@@ -58,4 +59,15 @@ public interface IDvMachineryService
      * @return 结果
      */
     public int deleteDvMachineryByMachineryId(Long machineryId);
+
+    /**
+     * 依据上传的文件，批量导入或更新设备信息
+     *
+     * @param machineryList 设备信息列表
+     * @param isUpdateSupport 是否更新支持，如果已存在，则进行更新数据
+     * @param operName 操作用户
+     * @return 结果
+     */
+     public String importMachinery(List<DvMachinery> machineryList, Boolean isUpdateSupport, String operName);
+
 }
